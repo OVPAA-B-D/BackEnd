@@ -7,7 +7,8 @@
 
  
   <div class="flex font-roboto  pt-16  min-h-screen  ">
-   <div class="w-22 static   flex  flex-col items-center py-5  space-y-2  bg-blue-150  ">
+    
+     <div class="w-22 static   flex  flex-col items-center py-5  space-y-2  bg-blue-150  ">
       <div class="w-24 flex items-center border-4 border-white justify-center  bg-yellow-150 cursor-pointer mt-10 h-24 rounded-full">
             <span class="material-icons cursor-poi text-white text-4xl">
                 add_photo_alternate
@@ -27,18 +28,24 @@
           <div class=" flex cursor-pointer w-91 items-center gap-4 bg-yellow-150 space-x-1 shadow-3xl pl-4 py-3 " > 
             <i class="fas fa-network-wired"></i>
             Accreditation Management</div>
+         <div class=" cursor-pointer flex items-center gap-4 pl-4">
+            <img src="/icons/icon8.svg">
+            <h1>Public Folder</h1>
+          </div>
       </div>
         
       <div class="relative w-full flex-grow">
+      <router-link to="/">
       <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
         <span class="material-icons transform rotate-180 ">
         logout
       </span>
         <h1 class="cursor-pointer  uppercase">Log out</h1>
       </div>
+      </router-link>
       </div>
     </div>
-    <div class="flex flex-col flex-nowrap  w-full">
+    <div class="flex flex-col flex-nowrap   w-full">
       <div class="w-full relative shadow-lg -z-1 bg-gradient-to-r from-white to-blue-150  pl-4 pt-7">
         <div class="flex items-center justify-between pr-5">
         <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">Information Technology</a></h1>
@@ -53,9 +60,9 @@
            <img class="w-7.5 h-7.5" src="/icons/icon3.svg">
         </div>
       </div>
-      <div class="  flex-col h-full pt-10 p-5 space-y-3">
-        <div class=" flex justify-between items-center">
-            <div class="flex space-x-2">
+      <div class="  flex-col h-full pt-10 px-4  space-y-3">
+        <div class=" flex justify-between  items-center">
+            <div class="flex space-x-2 ">
                 
           <button class=" bg-blue-500  space-x-2
           flex justify-evenly items-center text-white px-3 text-center">
@@ -69,30 +76,33 @@
           flex justify-evenly items-center text-white px-3 text-center">
             <p class="material-icons  text-sm ">delete</p> <p class="text-sm">Delete</p>
           </button>
+
             </div>
-          <div class="space-x-2  font-normal text-xl flex justify-between items-center h-9 pl-0.5 pr-2 text-white bg-blue-150 ">
+          <div class="space-x-2  font-normal text-xl flex justify-center items-center p-0.5  pr-2 text-white bg-blue-150 ">
             <input type="text" placeholder="Search" class="
             placeholder-blue-150
              pl-3 text-sm text-gray-150 h-8  focus:outline-none" />
-            <span class="material-icons">
+            <span class="material-icons cursor-pointer">
               search
             </span>
           </div>
         </div>
-          <div class="flex-wrap rounded-lg p-0.6 bg-gradient-to-r from-blue-150 to-yellow-150 ">
-            <div class=" bg-white gap-y-2 flex flex-col justify-items-start    h-96  p-4 ">
+          <div class="flex flex-row h-99  bg-gradient-to-b from-blue-150 to-yellow-150 rounded-xl  p-0.6 ">
+            <div class=" bg-white rounded-xl   gap-y-2 flex flex-col justify-items-start  flex-grow  h-full  p-4 ">
                <div class=" flex space-x-2 items-center">
-                   <div class="w-4-h-4">
+                   <div class=" cursor-pointer w-4 h-4">
                    <img src="/icons/icon1.svg">
                    </div>
-                   <h1 class="text-blue-150 text-lg">Infomation Technology</h1>
+                   <h1 class="text-blue-150 text-lg cursor-pointer">
+                       <router-link to="/home_admin"> <a class="hover:underline">Infomation Technology</a></router-link >
+                   </h1>
                </div>
-                <div class="flex flex-wrap gap-x-4">
+                <div class=" flex-row flex flex-wrap pl-7">
                   
-                     <div v-for="folderx in folderLevel" :key="folderx.id">
-                  <div class="w-10">
+                     <div v-for="folderx in folderArea" :key="folderx.id" class="text-center justify-center items-center">
+                  <div class=" flex justify-center w-28 mt-10 hover:border-2 mr-2 border-yellow-150 cursor-pointer">
                       
-                  <img src="/icons/icon4.svg"/>
+                  <router-link to="/program_area"> <img src="/icons/icon4.svg"/></router-link>
                 
                   </div>
                     <h1>{{folderx.floder_name}}</h1>
@@ -101,10 +111,12 @@
                 
              
           </div>
-          </div>
-         
+          </div> 
       </div>
     </div>
+    
+          <!----->
+
   </div>
 </template>
 <style scoped>
@@ -116,7 +128,10 @@
 export default {
   data(){
     return{
-     folderLevel:[ 
+        show_add_accre:false,
+        confirm_accre:false,
+        
+     folderArea:[ 
      {
        id:1,
        floder_name:'Level 1'
@@ -136,12 +151,6 @@ export default {
        id:4,
        floder_name:'Level 4'
      },
-     
-     {
-       id:5,
-       floder_name:'Level 5'
-     },
-    
      
      ]
     }

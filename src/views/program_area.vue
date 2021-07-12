@@ -1,5 +1,5 @@
 <template>
-   <nav class=" py-4 shadow-lg  bg-white fixed w-full">
+   <nav  class=" py-4 shadow-lg  bg-white fixed w-full">
     <div class="w-80">
     <img class="w-full  h-full" src="BUlogo.png">
     </div>
@@ -28,18 +28,25 @@
           <div class=" flex cursor-pointer w-91 items-center gap-4 bg-yellow-150 space-x-1 shadow-3xl pl-4 py-3 " > 
             <i class="fas fa-network-wired"></i>
             Accreditation Management</div>
+         <div class=" cursor-pointer flex items-center gap-4 pl-4">
+            <img src="/icons/icon8.svg">
+            <h1>Public Folder</h1>
+          </div>
       </div>
         
       <div class="relative w-full flex-grow">
+      <router-link to="/">
       <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
         <span class="material-icons transform rotate-180 ">
         logout
       </span>
         <h1 class="cursor-pointer  uppercase">Log out</h1>
       </div>
+      </router-link>
       </div>
     </div>
     <div class="flex flex-col flex-nowrap  w-full">
+      
       <div class="w-full relative shadow-lg -z-1 bg-gradient-to-r from-white to-blue-150  pl-4 pt-7">
         <div class="flex items-center justify-between pr-5">
         <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">Information Technology</a></h1>
@@ -54,7 +61,7 @@
            <img class="w-7.5 h-7.5" src="/icons/icon3.svg">
         </div>
       </div>
-      <div class="  flex-col h-full pt-10 px-10 space-y-3">
+      <div class="  flex-col h-full pt-10 px-4  space-y-3">
         <div class=" flex justify-between  items-center">
             <div class="flex space-x-2 ">
                 
@@ -88,9 +95,10 @@
             </span>
           </div>
         </div>
-          <div class="flex flex-row h-99  bg-gradient-to-b from-blue-150 to-yellow-150 rounded-xl  p-0.6 ">
-            <div class=" bg-white rounded-l-xl gap-y-2 flex flex-col justify-items-start  w-2/3  h-full  p-4 ">
-               <div class=" flex space-x-2 items-center">
+          <div class="flex flex-row h-99   rounded-xl bg-white p-1 ">
+            <div class="overflow-auto bg-gradient-to-b from-blue-150 to-yellow-150 rounded-l-xl gap-y-2 flex flex-col justify-items-start  w-2/3 py-0.6 pl-0.6 h-full">
+               <div class="bg-white w-full rounded-l-xl pl-4 h-full">
+               <div class=" flex sticky top-0 mt-4 space-x-2 items-center">
                    <div class=" cursor-pointer w-4-h-4">
                    <img src="/icons/icon1.svg">
                    </div>
@@ -99,37 +107,39 @@
                    
                     <router-link to="/program_level"><a class="font-bold hover:underline">Level 1</a></router-link></h1>
                </div>
-                <div class=" flex-row flex flex-wrap pl-7">
-                  
-                     <div v-for="folderx in folderArea" :key="folderx.id" class="text-center justify-center items-center">
+                <div class=" items-center flex-row flex flex-wrap pl-7">
+                     <div v-for="folderx in folderArea" :key="folderx.id" class=" text-center justify-center items-center">
                   <div class=" flex justify-center w-28 mt-10 hover:border-2 mr-2 border-yellow-150 cursor-pointer">
                       
-                  <img src="/icons/icon4.svg"/>
+               <router-link to="/program_parameter">  <img :src="folderx.folder_icon"></router-link>
                 
                   </div>
                     <h1>{{folderx.floder_name}}</h1>
                     </div>
                 </div>
                 
+               </div>
              
           </div>
-          <div class="  flex-grow float-right bg-white ">
-              <div class=" h-full pl-1 rounded-l-2xl  flex-grow bg-gradient-to-b from-blue-150 to-yellow-150">
-                  <div class=" flex flex-col flex-grow rounded-2xl pt-3 bg-gray-50 h-full">
-                        <div class="px-4 flex justify-between"> 
-                        <div class=" pb-0.6 bg-gradient-to-r w-36 from-blue-150 to-yellow-150">
-                           <div class="bg-gray-50 flex justify-center pb-2">
+          <div class=" flex w-1/3 h-full rounded-xl bg-white ">
+              <div class=" h-full   flex p-1 rounded-xl flex-grow bg-gradient-to-b from-blue-150 to-yellow-150">
+                  <div class="  overflow-auto pb-3 flex flex-col flex-grow rounded-2xl w-full bg-gray-100 h-full">
+                        <div class="px-4 pt-2 sticky top-0 flex bg-gray-100 justify-between"> 
+                        <div @click="isActive_function('btn1')" :class="{active: activeBtn === 0 }" class="select-none cursor-pointer flex  w-36 bg-gradient-to-r  from-blue-150 to-yellow-150 ">
+                           <div @click="change_component('details')" class="bg-gray-100 flex   justify-center w-full  h-full">
                                <h1 class="text-xl text-blue-150 font-bold cursor-pointer">Details</h1>
                             </div> 
                         </div>
-                        <div class=" pb-0.6 w-36 ">
-                           <div class="bg-gray-50 flex justify-center pb-2">
+                        <div  @click=" isActive_function('btn2')" :class="{active: activeBtn === 'btn2' }"  class=" flex select-none cursor-pointer  w-36 bg-gradient-to-r  from-blue-150 to-yellow-150 ">
+                           <div @click="change_component('comments')" class="bg-gray-100 flex  w-full h-full justify-center ">
                                <h1 class="text-xl text-blue-150 font-bold">Comments</h1>
                             </div> 
                         </div>
                         </div>
-                        <div class=" border-2 border-black flex h-full m-5">
-
+                         <div class="  flex-col items-center  rounded-xl flex h-full m-5">
+                           
+                           <component :is="component"/>
+                           
                         </div>
                   </div>
               </div>
@@ -197,16 +207,25 @@
   </div>
 </template>
 <style scoped>
-
+.active{
+  padding-bottom:3px;
+}
 </style>
 <script>
 // @ is an alias to /src
-
+import Details from "./details.vue"
+import Comments from "./comments.vue"
 export default {
+  components:{
+    Details,
+    Comments
+  },
   data(){
     return{
+        component:"Details",
         show_add_accre:false,
         confirm_accre:false,
+        activeBtn:0,
         Accreditor:[
             {
                 id:1,
@@ -252,51 +271,85 @@ export default {
      folderArea:[ 
      {
        id:1,
-       floder_name:'Area 1'
+       floder_name:'PPP',
+        folder_icon:'/icons/icon4a.svg',
      },
-     
-     {
+      {
        id:2,
-       floder_name:'Area 2'
+       floder_name:'Area 1',
+        folder_icon:'/icons/icon4.svg',
      },
      
      {
        id:3,
-       floder_name:'Area 3'
+       floder_name:'Area 2',
+       folder_icon:'/icons/icon4.svg',
      },
      
      {
        id:4,
-       floder_name:'Area 4'
+       floder_name:'Area 3',
+       folder_icon:'/icons/icon4.svg',
      },
      
      {
        id:5,
-       floder_name:'Area 5'
+       floder_name:'Area 4',
+       folder_icon:'/icons/icon4.svg',
      },
-    {
+     
+     {
        id:6,
-       floder_name:'Area 6'
+       floder_name:'Area 5',
+       folder_icon:'/icons/icon4.svg',
      },
     {
        id:7,
-       floder_name:'Area 7'
+       floder_name:'Area 6',
+       folder_icon:'/icons/icon4.svg',
+     },
+    {
+       id:8,
+       floder_name:'Area 7',
+       folder_icon:'/icons/icon4.svg',
      }, 
      {
-       id:8,
-       floder_name:'Area 8'
-     },
-     {
        id:9,
-       floder_name:'Area 9'
+       floder_name:'Area 8',
+       folder_icon:'/icons/icon4.svg',
      },
      {
        id:10,
-       floder_name:'Area 10'
+       floder_name:'Area 9',
+       folder_icon:'/icons/icon4.svg',
      },
+      {
+       id:11,
+       floder_name:'Area 10',
+       folder_icon:'/icons/icon4.svg',
+     },
+     
      ]
     }
 
+  },
+  methods:{
+      change_component(e){
+          if(e=='details'){
+            this.component='Details'
+          }
+          else{
+            this.component='Comments'
+          }
+      },
+       isActive_function(el){
+       if(el=='btn1'){
+      this.activeBtn= 0;
+      }
+      else {
+        this.activeBtn= el;
+        }
+      },
   }
 }
 </script>

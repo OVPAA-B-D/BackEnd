@@ -31,19 +31,21 @@
         <span class="material-icons text-blue-150">
           vpn_key
           </span>
-        <input placeholder="Place enter your Email" type="email" class=" shadow-lg
+        <input placeholder="Place enter your Email" :type="type_pass" class=" shadow-lg
          placeholder-blue-150 h-10 px-3 italic text-sm w-full rounded-lg focus:outline-none"/> 
-         <img :src='icon6' class="cursor-pointer"/>
+         <img @click="visible()" :src='icon6' class="cursor-pointer fill-current text-blue-150"/>
       </div>
         </div>
        
       </div>
+      <router-link to="/home_admin">
       <button class=" flex justify-center font-semibold  space-x-2 py-5 rounded-lg items-center h-8 w-32 text-white bg-gradient-to-r from-indigo-700 to-blue-150">
        <h1> Login</h1>
         <span class="material-icons">
         logout
         </span>
       </button>
+      </router-link>
       <div class=" flex flex-col justify-center items-center text-sm text-yellow-150">
         <h1>Forgot password and doesn’t have an account?</h1>
         <h1>Please contact the admin</h1>
@@ -61,9 +63,24 @@
 export default {
   data(){
     return{
+     n:0,
+     type_pass:'password',
      icon6:'/icons/icon6.svg',
     }
-
-  }
+  },
+  methods:{
+    visible(){
+      if(this.n==0){
+        this.n=1
+        this.icon6='/icons/icon7.svg'
+        this.type_pass="text"
+      }
+      else{
+        this.n=0
+        this.icon6='/icons/icon6.svg'
+        this.type_pass="password"
+      }
+    }    
+  } 
 }
 </script>
