@@ -18,20 +18,23 @@
       <h1  class="uppercase text-white text-lg font-bold">Michael Cinco</h1>
       <h1 class="text-sm text-white">(Admin)</h1>
       </div>
-      <div class=" text-white space-y-2 pt-24 flex-grow ">
-          <div class=" cursor-pointer flex items-center gap-4 pl-4">
+ <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
+          <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 ">
             <span class="material-icons">
             dashboard
             </span>
             Dashboard
           </div>
           <div class=" flex cursor-pointer w-91 items-center gap-4 bg-yellow-150 space-x-1 shadow-3xl pl-4 py-3 " > 
-            <i class="fas fa-network-wired"></i>
-            Accreditation Management</div>
-         <div class=" cursor-pointer flex items-center gap-4 pl-4">
-            <img src="/icons/icon8.svg">
+             <i class="fas fa-network-wired"></i>
+            Accreditation Management
+        </div> 
+        <router-link to="/public_folder">
+       <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 " > 
+             <img src="/icons/icon8.svg">
             <h1>Public Folder</h1>
           </div>
+        </router-link>
       </div>
         
       <div class="relative w-full flex-grow">
@@ -46,7 +49,6 @@
       </div>
     </div>
     <div class="flex flex-col flex-nowrap  w-full">
-      
       <div class="w-full relative shadow-lg -z-1 bg-gradient-to-r from-white to-blue-150  pl-4 pt-7">
         <div class="flex items-center justify-between pr-5">
         <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">Information Technology</a></h1>
