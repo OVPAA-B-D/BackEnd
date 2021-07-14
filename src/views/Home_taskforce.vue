@@ -89,7 +89,7 @@
 
 <!--Add Member-->
            <div v-if=" show_add_accre" class="fixed  flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-             <div class="w-602 h-423 pb-6  bg-white p-3 shadow-3xl rounded-3xl">
+             <div class="w-1/2 h-423 pb-6  bg-white p-3 shadow-3xl rounded-3xl">
                     <div class=" h-full ">
                         <div class="flex justify-end p-3">
                             <button @click="show_add_accre=!show_add_accre" class="text-red-150 text-xl">
@@ -99,7 +99,9 @@
                         <div class="flex-col   h-minpx-4">
                             <h1 class="text-yellow-150 text-2xl font-normal pb-2"> &ensp;Adding Member</h1>
                             <div class=" px-3  space-y-3 flex-grow">
-                                <input type="text" placeholder="Full Name" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-full border-2 border-blue-150 rounded-lg focus:outline-none"/>
+                                <input type="text" placeholder="First Name" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-1/3 border-2 border-blue-150 rounded-lg focus:outline-none"/>
+                                <input type="text" placeholder="Middle Name" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-1/3 border-2 border-blue-150 rounded-lg focus:outline-none"/>
+                                <input type="text" placeholder="Last Name" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-1/3 border-2 border-blue-150 rounded-lg focus:outline-none"/>
                                 <input type="text" placeholder="Email" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-full border-2 border-blue-150 rounded-lg focus:outline-none"/>
                                  <select  class=" bg-white text-blue-150 px-3 italic shadow-lg w-full rounded-lg h-12 focus:outline-none cursor-pointer border-2 border-blue-150 bg-white-150">
                                       <option selected disabled class="mt-1"> Select a role for member</option>
