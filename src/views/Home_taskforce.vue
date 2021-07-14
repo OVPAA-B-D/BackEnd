@@ -59,23 +59,12 @@
 <!--  -->
       <div class="  flex-col h-full pt-10 px-4  space-y-3">
         <div class=" flex justify-between  items-center">
-            <div class="flex space-x-2 ">
-                
-              <button  @click=" show_add_accre=!show_add_accre" class=" bg-blue-500  space-x-2
+            <div class="flex space-x-2 ">  
+              <button @click=" show_add_accre=!show_add_accre" class=" bg-blue-500  space-x-2
               flex justify-evenly items-center text-white px-3 text-center">
                 <p class="material-icons  text-lg ">add_circle_outline</p> <p>Add Member</p>
               </button>
-              
-
-
-
-              <!-- <button @click=" show_add_accre=!show_add_accre" class=" text-blue-150   space-x-2 border-2 border-blue-150 rounded-full
-              flex justify-center items-center bg-white px-3 text-center">
-                <p class="material-icons  text-sm ">add_circle_outline</p> <p class="text-sm">Add Accreditor</p>
-              </button> -->
-           
-           
-            </div>
+             </div>
 
           <div class="space-x-2  font-normal text-xl flex justify-center items-center p-0.5  pr-2 text-white bg-blue-150 ">
             <input type="text" placeholder="Search" class="
@@ -98,9 +87,9 @@
       </div>
     </div>
 
-     <!--Add Member-->
+<!--Add Member-->
            <div v-if=" show_add_accre" class="fixed  flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-             <div class="w-97 h-97 pb-6  bg-white p-3 shadow-3xl rounded-3xl">
+             <div class="w-602 h-423 pb-6  bg-white p-3 shadow-3xl rounded-3xl">
                     <div class=" h-full ">
                         <div class="flex justify-end p-3">
                             <button @click="show_add_accre=!show_add_accre" class="text-red-150 text-xl">
@@ -108,12 +97,12 @@
                             </button>
                         </div>
                         <div class="flex-col   h-minpx-4">
-                            <h1 class="text-yellow-150 text-2xl font-normal pb-2"> Adding Member</h1>
+                            <h1 class="text-yellow-150 text-2xl font-normal pb-2"> &ensp;Adding Member</h1>
                             <div class=" px-3  space-y-3 flex-grow">
-                                <input type="text" placeholder="Email" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-full border-2 border-blue-150 rounded-lg focus:outline-none"/>
                                 <input type="text" placeholder="Full Name" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-full border-2 border-blue-150 rounded-lg focus:outline-none"/>
-                                   <select  class=" text-blue-150 px-3 italic shadow-lg w-full rounded-lg h-12 focus:outline-none cursor-pointer border-2 border-blue-150">
-                                      <option selected disabled class="mt-1"> Role</option>
+                                <input type="text" placeholder="Email" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-full border-2 border-blue-150 rounded-lg focus:outline-none"/>
+                                 <select  class=" bg-white text-blue-150 px-3 italic shadow-lg w-full rounded-lg h-12 focus:outline-none cursor-pointer border-2 border-blue-150 bg-white-150">
+                                      <option selected disabled class="mt-1"> Select a role for member</option>
                                  </select>
                                  <div class="flex flex-grow justify-end">
                                      <button @click="confirm_accre=!confirm_accre" class="rounded-lg shadow-lg bg-blue-500  space-x-2 flex justify-evenly items-center text-white px-3 text-center">
@@ -122,24 +111,6 @@
                                  </div>
                             </div>
                         </div>
-                        <div class="px-7 mt-4 h-60 space-y-2 overflow-auto w-full">
-                            <h1 class="font-bold sticky text-blue-150 pb-3 text-2xl ">Members</h1>
-                           
-                                 <div v-for="accreditorx in Accreditor" :key="accreditorx" class="">
-                                    <div class=" flex mb-5 justify-between border-b-2 border-yellow-150">
-                                        <h1 class=" text-blue-150 text-2xl">{{accreditorx.accreditor_name}}</h1>
-                                        <div class=" text-xl flex items-center">
-                                            <h1 class="text-yellow-150">{{accreditorx.role}}</h1>
-                                            <span class="material-icons">
-                                                more_horiz
-                                            </span>
-                                        </div>
-                                </div>
-                            </div>
-                            
-                           
-                        </div>
-
                     </div>
              </div>
              <!--Confimation-->
@@ -148,46 +119,28 @@
                 <h1 class=" text-xl text-blue-150">Are you sure to perform this action?</h1>
                 <div class="flex w-full text-lg justify-center gap-x-4">
                   <button @click="confirm_accre=!confirm_accre" class="text-white  bg-blue-250 py-1 rounded-lg px-4">Confirm</button>
-                  <button @click="confirm_accre=!confirm_accre" class=" text-blue-250 border-2 px-4 rounded-lg py-1 border-blue-250">Confirm</button>
+                  <button @click="confirm_accre=!confirm_accre" class=" text-blue-250 border-2 px-4 rounded-lg py-1 border-blue-250">Cancel</button>
                 </div>
              </div>
              </div>
-
-    </div>
-
-
-
-
+          </div>
+          <!----->
 
   </div>
 </template>
 <style scoped>
-
+.active{
+  padding-bottom:3px;
+}
 </style>
 <script>
 // @ is an alias to /src
-
 export default {
   data(){
     return{
-     n:0,
-     type_pass:'password',
-     icon6:'/icons/icon6.svg',
+        show_add_accre:false,
+        confirm_accre:false,
     }
   },
-  methods:{
-    visible(){
-      if(this.n==0){
-        this.n=1
-        this.icon6='/icons/icon7.svg'
-        this.type_pass="text"
-      }
-      else{
-        this.n=0
-        this.icon6='/icons/icon6.svg'
-        this.type_pass="password"
-      }
-    }    
-  } 
 }
 </script>
