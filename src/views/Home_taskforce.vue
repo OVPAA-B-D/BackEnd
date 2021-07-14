@@ -27,7 +27,7 @@
             <h1>Public Folder</h1>
           </div>
           <div class=" flex cursor-pointer w-91 items-center gap-4 bg-yellow-150 space-x-1 shadow-3xl pl-4 py-3 " > 
-            <img src="/icons/icon6.svg">
+            <img src="/icons/icon20.svg">
             Task Force Members
           </div>
       </div>
