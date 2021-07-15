@@ -78,8 +78,59 @@
 
 
           <div class=" flex  flex-wrap rounded-lg p-0.6 bg-gradient-to-r from-blue-150 to-yellow-150  h-99">
-            <div class=" flex flex-col w-full rounded-lg bg-white justify-center h-full  p-4 ">
+            <div class=" flex flex-col w-full rounded-lg bg-white  h-full  p-4 table-responsive">
               <!-- TO ADD: TABLE HERE -->
+
+              <table class="table">
+                <thead class="text-yellow-150 font-normal text-2xl">
+                  <tr class="row">
+                    <th scope="col"><p class="material-icons float-left"><button><img src="/icons/icon5.svg"></button></p> Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Contact No.</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="text-blue-150 font-normal text-xl">
+                  <tr class="row">
+                    <td>
+                      <input type="checkbox" id="" name="taskforce1" value="">
+                      <label for="taskforce1">&ensp;Jill Smith</label>
+                    </td>
+                    <td>jill.smith@bicol-u.edu.ph</td>
+                    <td>09123456789</td>
+                    <td>Co-Chairman</td>
+                    <td>
+                        <button class="sideBside bg-green-150 space-x-2 flex justify-evenly items-center text-white px-3 text-center">
+                          <p class="material-icons text-sm ">edit</p> <p  class="text-sm">Edit</p>
+                        </button>
+                        <button class="sideBside bg-red-150 space-x-2 flex items-center text-white px-3 text-center">
+                          <p class="material-icons text-sm ">delete</p> <p class="text-sm">Delete</p>
+                        </button>
+                    </td>
+                  </tr>
+                  <tr class="row">
+                    <td>
+                      <input type="checkbox" id="" name="taskforce1" value="">
+                      <label for="taskforce1">&ensp;Eve Jackson</label>
+                    </td>
+                    <td>eve.jackson@bicol-u.edu.ph</td>
+                    <td>09123456798</td>
+                    <td>Chairman</td>
+                    <td>
+                      <button class="sideBside bg-green-150 space-x-2 flex justify-evenly items-center text-white px-3 text-center">
+                          <p class="material-icons text-sm ">edit</p> <p  class="text-sm">Edit</p>
+                        </button>
+                        <button class="sideBside bg-red-150 space-x-2 flex items-center text-white px-3 text-center">
+                          <p class="material-icons text-sm ">delete</p> <p class="text-sm">Delete</p>
+                        </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+
             </div>
           </div>
 
@@ -99,9 +150,9 @@
                         <div class="flex-col   h-minpx-4">
                             <h1 class="text-yellow-150 text-2xl font-normal pb-2"> &ensp;Adding Member</h1>
                             <div class=" px-3  space-y-3 flex-grow">
-                                <input type="text" placeholder="First Name" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-1/3 border-2 border-blue-150 rounded-lg focus:outline-none"/>
-                                <input type="text" placeholder="Middle Name" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-1/3 border-2 border-blue-150 rounded-lg focus:outline-none"/>
-                                <input type="text" placeholder="Last Name" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-1/3 border-2 border-blue-150 rounded-lg focus:outline-none"/>
+                                <input type="text" placeholder="First Name" class="inline italic shadow-lg placeholder-blue-150 h-12 px-3 border-2 border-blue-150 rounded-lg focus:outline-none"/>
+                                <input type="text" placeholder="Middle Name" class="inline italic shadow-lg placeholder-blue-150 h-12 px-3 border-2 border-blue-150 rounded-lg focus:outline-none"/>
+                                <input type="text" placeholder="Last Name" class="inline  italic shadow-lg placeholder-blue-150 h-12 px-3 border-2 border-blue-150 rounded-lg focus:outline-none"/>
                                 <input type="text" placeholder="Email" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-full border-2 border-blue-150 rounded-lg focus:outline-none"/>
                                  <select  class=" bg-white text-blue-150 px-3 italic shadow-lg w-full rounded-lg h-12 focus:outline-none cursor-pointer border-2 border-blue-150 bg-white-150">
                                       <option selected disabled class="mt-1"> Select a role for member</option>
@@ -134,6 +185,18 @@
 .active{
   padding-bottom:3px;
 }
+.row{
+  border-bottom:1px solid blue;
+}
+.inline {
+  width: 32.2%;
+  display:inline-block;
+  margin-right:10.355px;
+}
+.sideBside{
+  display:inline-block;
+  margin-right:5px;
+}
 </style>
 <script>
 // @ is an alias to /src
@@ -143,6 +206,6 @@ export default {
         show_add_accre:false,
         confirm_accre:false,
     }
-  },
+  }
 }
 </script>
