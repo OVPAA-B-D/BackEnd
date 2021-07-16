@@ -38,7 +38,7 @@
         </div>
        
       </div>
-      <router-link to="/home_admin">
+      <router-link to="/home_accreditor">
       <button class=" flex justify-center font-semibold  space-x-2 py-5 rounded-lg items-center h-8 w-32 text-white bg-gradient-to-r from-indigo-700 to-blue-150">
        <h1> Login</h1>
         <span class="material-icons">

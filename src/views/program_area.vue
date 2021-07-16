@@ -64,7 +64,7 @@
            <img class="w-7.5 h-7.5" src="/icons/icon3.svg">
         </div>
       </div>
-      <div class="  flex-col h-full pt-10 px-4  space-y-3">
+      <div class="  flex-col h-full pt-10 px-4  space-y-7">
         <div class=" flex justify-between  items-center">
             <div class="flex space-x-2 ">
                 
@@ -98,8 +98,8 @@
             </span>
           </div>
         </div>
-          <div class="flex flex-row h-99   rounded-xl bg-white p-1 ">
-            <div class="overflow-auto bg-gradient-to-b from-blue-150 to-yellow-150 rounded-l-xl gap-y-2 flex flex-col justify-items-start  w-2/3 py-0.6 pl-0.6 h-full">
+   <div class="flex flex-row h-99   rounded-xl bg-white p-1 ">
+            <div class="overflow-auto bg-gradient-to-b from-blue       -150 to-yellow-150 rounded-l-xl gap-y-2 flex flex-col justify-items-start  w-2/3 py-0.6 pl-0.6 h-full">
                <div class="bg-white w-full rounded-l-xl pl-4 h-full">
                <div class=" flex sticky top-0 mt-4 space-x-2 items-center">
                    <div class=" cursor-pointer w-4-h-4">

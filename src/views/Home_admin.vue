@@ -29,7 +29,7 @@
              <i class="fas fa-network-wired"></i>
             Accreditation Management
         </div> 
-        <router-link to="/public_folder">
+        <router-link to="/home_accreditor">
        <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 " > 
              <img src="/icons/icon8.svg">
             <h1>Public Folder</h1>
@@ -46,7 +46,7 @@
         <h1 class="cursor-pointer  uppercase">Log out</h1>
       </div>
       </router-link>
-      </div>
+      </div> 
     </div>
     <div class="flex flex-col  w-full">
       <div class="w-full  pl-4  pt-7 bg-default bg-cover"  >  

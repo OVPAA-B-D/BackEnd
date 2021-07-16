@@ -3,7 +3,10 @@ import Home from '../views/Home.vue'
 import ProgramLevel from '../views/programLevel.vue'
 import Home_admin from '../views/Home_admin.vue'
 import Home_taskforce from '../views/Home_taskforce.vue'
+import Home_accreditor from '../views/Home_accreditor.vue'
 import Program_area from '../views/program_area.vue'
+import Program_parameter from '../views/program_parameter.vue'
+import Public_folder from '../views/public_folder.vue'
 const routes = [
   {
     path: '/',
@@ -30,6 +33,26 @@ const routes = [
     name: 'Home Taskforce',
     component: Home_taskforce
   },
+
+
+  {
+    path: '/program_parameter',
+    name: 'Program parameter',
+    component: Program_parameter
+  },
+
+  {
+    path: '/public_folder',
+    name: 'Public folder',
+    component: Public_folder
+  },
+
+  {
+    path: '/home_accreditor',
+    name: 'Home accreditor',
+    component: Home_accreditor
+  },
+
   {
     path: '/about',
     name: 'About',
