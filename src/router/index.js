@@ -7,7 +7,7 @@ import Home_accreditor from '../views/Home_accreditor.vue'
 import Dashboard from '../views/dashboard_admin.vue'
 import Program_area from '../views/program_area.vue'
 import Program_parameter from '../views/program_parameter.vue'
-import Public_folder from '../views/public_folder.vue'
+import Public_folder_admin from '../views/public_folder_admin.vue'
 import Office_admin from '../views/office_admin.vue'
 const routes = [
   {
@@ -55,7 +55,7 @@ const routes = [
   {
     path: '/public_folder',
     name: 'Public folder',
-    component: Public_folder
+    component: Public_folder_admin
   },
 
   {
