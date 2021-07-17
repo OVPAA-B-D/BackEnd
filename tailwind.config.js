@@ -14,12 +14,10 @@ module.exports = {
     },
     extend: {
       backgroundImage: theme => ({
-        'default': "url('/img/img2.png')",
-        
+        'dropdown':"url('/icons/icon19.svg')",
        }),
        boxShadow:{
         '3xl':'0px 4px 4px rgba(0, 0, 0, 0.25)',
-
        },
        zIndex:{
         '-1':'-1',
@@ -48,8 +46,8 @@ module.exports = {
           150:'#6C63FF',
         }
       },
-     
       width:{
+        
         '19':'14.188rem',
         '31':'63.688rem',
         '18':'2.27rem',
@@ -61,12 +59,16 @@ module.exports = {
         '81': '350px',
         '73':'19rem',
         '74':'319px',
+        '75':'364px',
         '21':'22.313rem',
         '22':'21.938rem',
         '23':'34.75rem',
         '25':'300px',
-        '82':'1062px'
-      },
+        '82':'1062px',
+        '83':'847px',
+        '84':'500px',
+        '1/2s':'49%'
+        },
       height:{
         '99':'36.313rem',
         '97':'39.125rem',
@@ -80,8 +82,11 @@ module.exports = {
         '23':'213px',
         '63':'284px',
         '25':'123px',
-        '11':'79px',
-        '83':'433px'
+        '26':'191px',
+        '11':'61px',
+        '83':'433px',
+        '84':'320px',
+        '85':'450px',
       },
       fontSize: {
         'tiny':'0.563rem'
