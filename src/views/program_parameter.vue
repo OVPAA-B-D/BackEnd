@@ -18,13 +18,15 @@
       <h1  class="uppercase text-white text-lg font-bold">Michael Cinco</h1>
       <h1 class="text-sm text-white">(Admin)</h1>
       </div>
- <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
+        <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
+          <router-link to="/dashboard">
           <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 ">
             <span class="material-icons">
             dashboard
             </span>
             Dashboard
           </div>
+          </router-link>
           <div class=" flex cursor-pointer w-91 items-center gap-4 bg-yellow-150 space-x-1 shadow-3xl pl-4 py-3 " > 
              <i class="fas fa-network-wired"></i>
             Accreditation Management
@@ -49,16 +51,27 @@
       </div>
     </div>
     <div class="flex flex-col flex-nowrap  w-full">
-      <div class="w-full relative shadow-lg -z-1 bg-gradient-to-r from-white to-blue-150  pl-4 pt-7">
+      <div class="w-full cursor-default h-72 relative shadow-lg pl-4 pt-7">
+        <img src="img/img3.jpg" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
         <div class="flex items-center justify-between pr-5">
         <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">Information Technology</a></h1>
- 
         </div>
-      <div class="mt-24 pb-3 cursor-wait">
-        <h1 class="text-yellow-150 text-4xl">Level 1 Accreditation</h1>
-        <h3 class="text-blue-150 text-5xl">Information Technology</h3>
+      <div class="pb-3">
+        <h1 class="text-yellow-150 text-xl">Level 1 Accreditation</h1>
+        <h3 class="text-blue-150 text-4xl">Information Technology</h3>
+        <h1 class="text-lg text-blue-150">Chairman in charge</h1>
+       <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon16.svg"><h1>Johann Abad</h1>
+        </span>
+        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon17.svg"><h1>0902105050</h1>
+        </span>
+         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon18.svg"><h1>johann@gmail.com</h1>
+        </span>
+        <h1></h1>
       </div>
-        <div class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly rounded-t-full right-10 bg-white w-37 ">
+        <div class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly  rounded-tl-2xl rounded-tr-2xl  right-10 bg-white w-37 ">
           <img class="w-7.5 h-7.5" src="/icons/icon2.svg">
            <img class="w-7.5 h-7.5" src="/icons/icon3.svg">
         </div>
@@ -100,15 +113,19 @@
                  </div>
                 <div class=" items-start w-full flex-col flex flex-wrap pl-7">
                    <div v-for="parameterx in Parameter" :key="parameterx.id" class="w-full">
-                     <div class="flex items-end space-x-3">
+                     <div class="flex  items-baseline space-x-3">
                       <h1 class=" text-2xl text-blue-150 font-bold">Parameter {{parameterx.parameter_name}}</h1>
+                      <img src="/icons/icon19a.svg"/>
                      <h1 v-if="parameterx.status=='Completed'" class="text-green-400">{{parameterx.status}}</h1>
                      <h1 v-else-if="parameterx.status=='Incomplete'" class="text-yellow-150">{{parameterx.status}}</h1>
                      <h1 v-else class="text-red-700">{{parameterx.status}}</h1>
                     </div>
                     <div v-for="benchx in parameterx.benchmarks" :key="benchx.benchmark_name">
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
+                          <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark {{benchx.benchmark_name}}</h1>
+                            <img src="/icons/icon19a.svg"/>
+                          </span>
                             <div class="  flex space-x-3 mb-0.5">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
                               <img src="/icons/icon10.svg" class="w-5 h-5"/>
@@ -339,7 +356,8 @@ export default {
        benchmarks:[
            {benchmark_name:'A1'},
            {benchmark_name:'A2'},
-           {benchmark_name:'A3'}
+           {benchmark_name:'A3'},
+            {benchmark_name:'A3'}
        ]
      },
       {

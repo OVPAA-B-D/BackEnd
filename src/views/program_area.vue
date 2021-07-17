@@ -1,11 +1,9 @@
 <template>
-   <nav  class=" py-4 shadow-lg  bg-white fixed w-full">
+   <nav  class=" py-4 shadow-lg  bg-white fixed w-full z-10">
     <div class="w-80">
     <img class="w-full  h-full" src="BUlogo.png">
     </div>
   </nav>
-
- 
   <div class="flex font-roboto  pt-16  min-h-screen  ">
     
      <div class="w-22 static   flex  flex-col items-center py-5  space-y-2  bg-blue-150  ">
@@ -19,12 +17,14 @@
       <h1 class="text-sm text-white">(Admin)</h1>
       </div>
      <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
+          <router-link to="/dashboard">
           <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 ">
             <span class="material-icons">
             dashboard
             </span>
             Dashboard
           </div>
+          </router-link>
           <div class=" flex cursor-pointer w-91 items-center gap-4 bg-yellow-150 space-x-1 shadow-3xl pl-4 py-3 " > 
              <i class="fas fa-network-wired"></i>
             Accreditation Management
@@ -49,22 +49,32 @@
       </div>
     </div>
     <div class="flex flex-col flex-nowrap  w-full">
-      
-      <div class="w-full relative shadow-lg -z-1 bg-gradient-to-r from-white to-blue-150  pl-4 pt-7">
+       <div class="w-full cursor-default h-72 relative shadow-lg pl-4 pt-7">
+        <img src="img/img3.jpg" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
         <div class="flex items-center justify-between pr-5">
         <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">Information Technology</a></h1>
- 
         </div>
-      <div class="mt-24 pb-3 cursor-wait">
-        <h1 class="text-yellow-150 text-4xl">Level 1 Accreditation</h1>
-        <h3 class="text-blue-150 text-5xl">Information Technology</h3>
+      <div class="pb-3">
+        <h1 class="text-yellow-150 text-xl">Level 1 Accreditation</h1>
+        <h3 class="text-blue-150 text-4xl">Information Technology</h3>
+        <h1 class="text-lg text-blue-150">Chairman in charge</h1>
+       <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon16.svg"><h1>Johann Abad</h1>
+        </span>
+        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon17.svg"><h1>0902105050</h1>
+        </span>
+         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon18.svg"><h1>johann@gmail.com</h1>
+        </span>
+        <h1></h1>
       </div>
-        <div class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly rounded-t-full right-10 bg-white w-37 ">
+        <div class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly rounded-tl-2xl rounded-tr-2xl right-10 bg-white w-37 ">
           <img class="w-7.5 h-7.5" src="/icons/icon2.svg">
            <img class="w-7.5 h-7.5" src="/icons/icon3.svg">
         </div>
       </div>
-      <div class="  flex-col h-full pt-10 px-4  space-y-7">
+      <div class="  flex-col h-full pt-10 px-4  space-y-3">
         <div class=" flex justify-between  items-center">
             <div class="flex space-x-2 ">
                 
@@ -84,10 +94,7 @@
           flex justify-center items-center bg-white px-3 text-center">
             <p class="material-icons  text-sm ">add_circle_outline</p> <p class="text-sm">Add Accreditor</p>
           </button>
-           <button class=" text-blue-150   space-x-2 border-2 border-blue-150 rounded-full
-          flex justify-center items-center bg-white px-3 text-center">
-            <p class="material-icons  text-sm ">add_circle_outline</p> <p class="text-sm">Add Taskforce</p>
-          </button>
+          
             </div>
           <div class="space-x-2  font-normal text-xl flex justify-center items-center p-0.5  pr-2 text-white bg-blue-150 ">
             <input type="text" placeholder="Search" class="
@@ -98,8 +105,8 @@
             </span>
           </div>
         </div>
-   <div class="flex flex-row h-99   rounded-xl bg-white p-1 ">
-            <div class="overflow-auto bg-gradient-to-b from-blue       -150 to-yellow-150 rounded-l-xl gap-y-2 flex flex-col justify-items-start  w-2/3 py-0.6 pl-0.6 h-full">
+          <div class="flex flex-row h-99   rounded-xl bg-white p-1 ">
+            <div class="overflow-auto bg-gradient-to-b from-blue-150 to-yellow-150 rounded-l-xl gap-y-2 flex flex-col justify-items-start  w-2/3 py-0.6 pl-0.6 h-full">
                <div class="bg-white w-full rounded-l-xl pl-4 h-full">
                <div class=" flex sticky top-0 mt-4 space-x-2 items-center">
                    <div class=" cursor-pointer w-4-h-4">
@@ -114,7 +121,7 @@
                      <div v-for="folderx in folderArea" :key="folderx.id" class=" text-center justify-center items-center">
                   <div class=" flex justify-center w-28 mt-10 hover:border-2 mr-2 border-yellow-150 cursor-pointer">
                       
-               <router-link to="/program_parameter">  <img :src="folderx.folder_icon"></router-link>
+               <router-link :to="linkto">  <img @dblclick="linkto='/program_parameter'" @click="display_details(folderx.id)" :src="folderx.folder_icon"></router-link>
                 
                   </div>
                     <h1>{{folderx.floder_name}}</h1>
@@ -151,56 +158,72 @@
       </div>
     </div>
      <!--Add Accreditor-->
-           <div v-if=" show_add_accre" class="fixed  flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-             <div class="w-97 h-97 pb-6  bg-white p-3 shadow-3xl rounded-3xl">
-                    <div class=" h-full ">
-                        <div class="flex justify-end p-3">
-                            <button @click="show_add_accre=!show_add_accre" class="text-red-150 text-xl">
-                                CLOSE 
-                            </button>
-                        </div>
-                        <div class="flex-col   h-minpx-4">
-                            <h1 class="text-yellow-150 text-2xl font-normal pb-2"> Adding Accreditor</h1>
-                            <div class=" px-3  space-y-3 flex-grow">
-                                <input type="text" placeholder="Email" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-full border-2 border-blue-150 rounded-lg focus:outline-none"/>
-                                <input type="text" placeholder="Full Name" class="italic shadow-lg placeholder-blue-150 h-12 px-3 w-full border-2 border-blue-150 rounded-lg focus:outline-none"/>
-                                   <select  class=" text-blue-150 px-3 italic shadow-lg w-full rounded-lg h-12 focus:outline-none cursor-pointer border-2 border-blue-150">
-                                      <option selected disabled class="mt-1"> Role</option>
-                                 </select>
-                                 <div class="flex flex-grow justify-end">
-                                     <button @click="confirm_accre=!confirm_accre" class="rounded-lg shadow-lg bg-blue-500  space-x-2 flex justify-evenly items-center text-white px-3 text-center">
-                                        <p class="material-icons  text-lg ">add_circle_outline</p> <p>Add</p>
-                                        </button>
-                                 </div>
-                            </div>
-                        </div>
-                        <div class="px-7 mt-4 h-60 space-y-2 overflow-auto w-full">
-                            <h1 class="font-bold sticky text-blue-150 pb-3 text-2xl ">Accreditors</h1>
-                           
-                                 <div v-for="accreditorx in Accreditor" :key="accreditorx" class="">
-                                    <div class=" flex mb-5 justify-between border-b-2 border-yellow-150">
-                                        <h1 class=" text-blue-150 text-2xl">{{accreditorx.accreditor_name}}</h1>
-                                        <div class=" text-xl flex items-center">
-                                            <h1 class="text-yellow-150">{{accreditorx.role}}</h1>
-                                            <span class="material-icons">
-                                                more_horiz
-                                            </span>
-                                        </div>
-                                </div>
-                            </div>
-                            
-                           
-                        </div>
-
-                    </div>
+           <div v-if=" show_add_accre" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
+               <div class="flex flex-col gap-y-3 w-83 bg-white p-10 shadow-3xl rounded-xl">
+                  <span class="flex items-center justify-between w-full ">
+                    <h1 class=" text-yellow-150 text-lg">Adding Task Force</h1>
+                    <h1 @click="show_add_accre=!show_add_accre" class=" cursor-pointer text-red-150 text-lg">Close</h1>
+                  </span>
+                  <div class="flex items-center gap-4 justify-between flex-wrap">
+                      <span>
+                        <h1 class="text-blue-150 text-sm">Firstname</h1>
+                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                      </span>
+                        <span>
+                        <h1 class="text-blue-150 text-sm">Email</h1>
+                        <input  type="email"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                      </span>
+                      <span>
+                        <h1 class="text-blue-150 text-sm">Middle name</h1>
+                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                      </span>
+                      <span>
+                         <select  class="fill-current italic text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
+                      <option selected disabled >Select task force role</option>
+                      </select>
+                      </span>
+                      <span>
+                        <h1 class="text-blue-150 text-sm">Last name</h1>
+                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                      </span>
+                      <span class="">
+                        <button @click="confirm_accre=!confirm_accre" class="flex items-center justify-center px-5 gap-2  w-24 h-8 text-white bg-blue-250"> 
+                    <img src="icons/icon20.svg"/>
+                    Add
+                    </button>
+                       </span>
+                  </div>
+                  <h1 class="text-lg text-blue-150 font-bold">Task Force</h1>
+                  <div class="px-4 h-28 gap-y-4  flex flex-col overflow-y-auto">
+                         <span class="flex justify-between border-b-2 border-yellow-150">
+                            <h1 class="text-lg text-blue-150 ml-3">Name</h1>
+                            <h1 class="text-lg text-yellow-150">Email</h1>
+                            <h1 class="text-lg text-yellow-150 mr-3">Role</h1>
+                        </span>
+                          <span class="flex justify-between border-b-2 border-yellow-150">
+                            <h1 class="text-lg text-blue-150 ml-3">Name</h1>
+                            <h1 class="text-lg text-yellow-150">Email</h1>
+                            <h1 class="text-lg text-yellow-150 mr-3">Role</h1>
+                        </span>
+                          <span class="flex justify-between border-b-2 border-yellow-150">
+                            <h1 class="text-lg text-blue-150 ml-3">Name</h1>
+                            <h1 class="text-lg text-yellow-150">Email</h1>
+                            <h1 class="text-lg text-yellow-150 mr-3">Role</h1>
+                        </span>
+                           <span class="flex justify-between border-b-2 border-yellow-150">
+                            <h1 class="text-lg text-blue-150 ml-3">Name</h1>
+                            <h1 class="text-lg text-yellow-150">Email</h1>
+                            <h1 class="text-lg text-yellow-150 mr-3">Role</h1>
+                        </span>
+                  </div>
              </div>
              <!--Confimation-->
              <div v-if="confirm_accre" class=" flex fixed w-screen h-full bg-white bg-opacity-25 justify-center items-center">
-              <div  class=" flex flex-col space-y-4 justify-center items-center w-97 h-19 pb-6  bg-white p-3 shadow-3xl rounded-3xl">
+              <div  class=" flex flex-col space-y-4 justify-center items-center w-96 h-52 pb-6  bg-white p-3 shadow-3xl rounded-3xl">
                 <h1 class=" text-xl text-blue-150">Are you sure to perform this action?</h1>
                 <div class="flex w-full text-lg justify-center gap-x-4">
                   <button @click="confirm_accre=!confirm_accre" class="text-white  bg-blue-250 py-1 rounded-lg px-4">Confirm</button>
-                  <button @click="confirm_accre=!confirm_accre" class=" text-blue-250 border-2 px-4 rounded-lg py-1 border-blue-250">Confirm</button>
+                  <button @click="confirm_accre=!confirm_accre" class=" text-blue-250 border-2 px-4 rounded-lg py-1 border-blue-250">Cancel</button>
                 </div>
              </div>
              </div>
@@ -226,110 +249,174 @@ export default {
   data(){
     return{
         component:"Details",
+        linkto:'',
         show_add_accre:false,
         confirm_accre:false,
         activeBtn:0,
-        Accreditor:[
-            {
-                id:1,
-                accreditor_name:'Padre D Amaso',
-                role:'External'
-            },
-            {
-                id:2,
-                accreditor_name:'Juan Dela Cruz',
-                role:'Internal'
-            },
-            {
-                id:3,
-                accreditor_name:'Joan D First',
-                role:'Internal'
-            },
-            {
-                id:3,
-                accreditor_name:'Joan D First',
-                role:'Internal'
-            },
-            {
-                id:3,
-                accreditor_name:'Joan D First',
-                role:'Internal'
-            },
-            {
-                id:3,
-                accreditor_name:'Joan D First',
-                role:'s'
-            },
-            {
-                id:3,
-                accreditor_name:'Joan D First',
-                role:'s'
-            },
-            {
-                id:3,
-                accreditor_name:'Joan D First',
-                role:'s'
-            }
-        ],
+        status:'',
+        owner:'',
+        location:'',
+        accessed:'',
+        created:'',
+        
      folderArea:[ 
      {
        id:1,
        floder_name:'PPP',
         folder_icon:'/icons/icon4a.svg',
+        details:[
+                  {
+                    status:'Pwede na',
+                    owner:'Juan Tamad',
+                    location:'/Information/Level',
+                    accessed:'Pedro Penduko',
+                    created:'Admin',
+                  }
+                ]
      },
       {
        id:2,
        floder_name:'Area 1',
         folder_icon:'/icons/icon4.svg',
+         details:[
+                  {
+                    status:'Okay na',
+                    owner:'Juan Tamad',
+                    location:'/Information/Level',
+                    accessed:'Pedro Penduko',
+                    created:'Admin',
+                  }
+                ]
      },
      
      {
        id:3,
        floder_name:'Area 2',
        folder_icon:'/icons/icon4.svg',
+        details:[
+                  {
+                    status:'100%',
+                    owner:'Juan Tamad',
+                    location:'/Information/Level',
+                    accessed:'Pedro Penduko',
+                    created:'Admin',
+                  }
+                ]
      },
      
      {
        id:4,
        floder_name:'Area 3',
        folder_icon:'/icons/icon4.svg',
+        details:[
+                  {
+                    status:'Incomplete',
+                    owner:'Juan Tamad',
+                    location:'/Information/Level',
+                    accessed:'Pedro Penduko',
+                    created:'Admin',
+                  }
+                ]
      },
      
      {
        id:5,
        floder_name:'Area 4',
        folder_icon:'/icons/icon4.svg',
+        details:[
+                  {
+                    status:'Updated',
+                    owner:'Juan Tamad',
+                    location:'/Information/Level',
+                    accessed:'Pedro Penduko',
+                    created:'Admin',
+                  }
+                ]
      },
      
      {
        id:6,
        floder_name:'Area 5',
        folder_icon:'/icons/icon4.svg',
+        details:[
+                  {
+                    status:'Ready for review',
+                    owner:'Juan Tamad',
+                    location:'/Information/Level',
+                    accessed:'Pedro Penduko',
+                    created:'Admin',
+                  }
+                ]
      },
     {
        id:7,
        floder_name:'Area 6',
        folder_icon:'/icons/icon4.svg',
+        details:[
+                  {
+                    status:'Pwede na',
+                    owner:'Juan Tamad',
+                    location:'/Information/Level',
+                    accessed:'Pedro Penduko',
+                    created:'Admin',
+                  }
+                ]
      },
     {
        id:8,
        floder_name:'Area 7',
        folder_icon:'/icons/icon4.svg',
+        details:[
+                  {
+                    status:'Pwede na',
+                    owner:'Juan Tamad',
+                    location:'/Information/Level',
+                    accessed:'Pedro Penduko',
+                    created:'Admin',
+                  }
+                ]
      }, 
      {
        id:9,
        floder_name:'Area 8',
        folder_icon:'/icons/icon4.svg',
+        details:[
+                  {
+                    status:'Pwede na',
+                    owner:'Juan Tamad',
+                    location:'/Information/Level',
+                    accessed:'Pedro Penduko',
+                    created:'Admin',
+                  }
+                ]
      },
      {
        id:10,
        floder_name:'Area 9',
        folder_icon:'/icons/icon4.svg',
+        details:[
+                  {
+                    status:'Pwede na',
+                    owner:'Juan Tamad',
+                    location:'/Information/Level',
+                    accessed:'Pedro Penduko',
+                    created:'Admin',
+                  }
+                ]
      },
       {
        id:11,
        floder_name:'Area 10',
        folder_icon:'/icons/icon4.svg',
+        details:[
+                  {
+                    status:'Pwede na',
+                    owner:'Juan Tamad',
+                    location:'/Information/Level',
+                    accessed:'Pedro Penduko',
+                    created:'Admin',
+                  }
+                ]
      },
      
      ]
@@ -337,6 +424,9 @@ export default {
 
   },
   methods:{
+    display_details(e){
+    const index=this.folderArea.findIndex(x => x.id===e)
+    },
       change_component(e){
           if(e=='details'){
             this.component='Details'

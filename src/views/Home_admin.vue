@@ -1,5 +1,5 @@
 <template>
-   <nav class=" py-4 shadow-lg  bg-white fixed w-full" style="z-index:1">
+   <nav class=" py-4 shadow-lg  bg-white fixed w-full z-10" >
     <div class="w-80">
     <img class="w-full  h-full" src="BUlogo.png">
     </div>
@@ -19,17 +19,19 @@
       <h1 class="text-sm text-white">(Admin)</h1>
       </div>
       <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
+        <router-link to="/dashboard">
           <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 ">
             <span class="material-icons">
             dashboard
             </span>
             Dashboard
           </div>
+          </router-link>
           <div class=" flex cursor-pointer w-91 items-center gap-4 bg-yellow-150 space-x-1 shadow-3xl pl-4 py-3 " > 
              <i class="fas fa-network-wired"></i>
             Accreditation Management
         </div> 
-        <router-link to="/home_accreditor">
+        <router-link to="/public_folder">
        <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 " > 
              <img src="/icons/icon8.svg">
             <h1>Public Folder</h1>
@@ -46,15 +48,20 @@
         <h1 class="cursor-pointer  uppercase">Log out</h1>
       </div>
       </router-link>
-      </div> 
+      </div>
     </div>
     <div class="flex flex-col  w-full">
-      <div class="w-full  pl-4  pt-7 bg-default bg-cover"  >  
+      <div class="w-full flex relative  flex-col h-72 pl-4 pb-3 pt-7 "  > 
+          <img :src="bg_image" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
+         
         <div class="flex items-center justify-between pr-5">
-        <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management</h1>
-        <button class="flex space-x-2 z-0  drop-shadow-2xl items-center rounded-lg py-2 px-4 text-gray-150 bg-white">
+        <h1 class="text-2xl text-blue-150 font-normal ">Accreditation Management</h1>
+        <label for="bg_images" class="cursor-pointer">
+        <span type="button" class="flex space-x-2 z-0  drop-shadow-2xl items-center rounded-lg py-2 px-4 text-gray-150 bg-white">
           Change cover
-        </button>
+        </span>
+        </label>
+         <input  @change="change_bgImage"  type="file" id="bg_images" class="hidden" />
         </div>
         <h1 class="text-5xl text-yellow-150 pt-24 pb-3 ">Accreditation Management</h1>
       </div>
@@ -79,29 +86,32 @@
           </div>
           </div>
         </div>
-          <div class=" flex  flex-wrap rounded-lg p-0.6 bg-gradient-to-r from-blue-150 to-yellow-150  h-99">
+          <div class=" flex  flex-wrap mb-10 rounded-lg p-0.6 bg-gradient-to-r from-blue-150 to-yellow-150  h-99">
             <div class=" flex flex-col w-full rounded-lg bg-white justify-center h-full  p-4 ">
               <div class="w-full flex justify-end pb-2 pr-5">
                   <img src="/icons/icon5.svg"/>
                   <h1 class="text-yellow-150" >Sort by</h1>
               </div>
-              <div class=" h-full grid grid-row-auto grid-cols-4   gap-5  overflow-auto  ">
+              <div class=" h-full flex flex-wrap justify-items-start gap-x-4  overflow-auto  ">
                  <div v-for="programx in program" :key="programx.id" class="flex justify-evenly " >
              <div class=" p-2 pt-2  w-min relative" style="z-index:2">
+               
                <div class="flex  items-center absolute top-0 right-0 ">
-                 <div class="flex justify-center items-center rounded-full border-4 border-white h-10 w-10 cursor-pointer bg-green-150">
+                 <div @click="index_array(programx.id)" class="flex justify-center items-center rounded-full border-4 border-white h-10 w-10 cursor-pointer bg-green-150">
                   <label for="file_image" ><img src="/icons/icon19.svg"/></label>
-                  <input @click="change_image" type="file" id="file_image" class="hidden"/>
+                 
                </div>
+                <input @change="change_image" type="file" id="file_image" class="hidden"/>
                <div class="flex justify-center items-center  rounded-full border-4 cursor-pointer border-white h-10 w-10 bg-red-150">
                   <img src="/icons/icon11.svg"/>
                </div>
                </div>
                
                 <div class=" text-indigo-800 w-19   border-yellow-150 border-4 font-semibold rounded-lg shadow-xl  h-full bg-white bg-opacity-75">          
-                  <div class="h-32 border-b-4 border-yellow-150">
-                    <img :src="programx.imagefolder">
+                  <div class="h-32  border-b-4 border-yellow-150">
+                    <img :src="programx.imagefolder" class="object-fill w-full h-full">
                   </div>
+                 
                   <div class="px-2">
                   <h1 class="text-lg text-blue-150 font-bold ">{{programx.program_name}}</h1>
                   <h1 class="text-sm text-blue-150">{{programx.Colleges}}</h1>
@@ -142,30 +152,65 @@
                   </button>
                  </div>
                   <div class="flex gap-5 mt-5 pl-3 flex-wrap">
-                      <select  class="fill-current text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled >Campus</option>
+                      <div class="flex flex-col">
+                       <h1 class="text-blue-150 text-sm italic">Campus</h1>
+                      <select  class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
+                      <option selected disabled > Select a Campus</option>
                       </select>
-                       <select  class=" text-blue-150 w-74 pl-4 rounded-sm h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled>Colleges</option>
+                      </div>
+                     <div class="flex flex-col">
+                       <h1 class="text-blue-150 text-sm italic">College</h1>
+                      <select  class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
+                      <option selected disabled > Choose a College</option>
                       </select>
-                      <select  class=" text-blue-150 w-74 pl-4 rounded-sm h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled>Program</option>
+                      </div>
+                     <div class="flex flex-col">
+                       <h1 class="text-blue-150 text-sm italic">Program</h1>
+                      <select  class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
+                      <option selected disabled > Choose a Program</option>
                       </select>
-                      <input placeholder="Chairmain" type="text"  class="placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
-                      <input placeholder="Contact No." type="text"  class=" placeholder-blue-150 fill-current text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
-                      <input placeholder="E-mail" type="text"  class=" placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
-                       <select  class=" text-blue-150 w-74 pl-4 rounded-sm h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled>Level</option>
+                      </div>
+                      <div class="flex flex-col">
+                       <h1 class="text-blue-150 text-sm italic">Chairmain</h1>
+                      <input placeholder="Enter the chairman’s name" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                      </div>
+                     <div class="flex flex-col">
+                       <h1 class="text-blue-150 text-sm italic">Contact number</h1>
+                      <input placeholder="Chairman’s contact number" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                      </div>
+                      
+                      <div class="flex flex-col">
+                       <h1 class="text-blue-150 text-sm italic">Email</h1>
+                      <input placeholder="Chairman’s E-mail Address" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                      </div>
+                      
+                      <div class="flex flex-col">
+                       <h1 class="text-blue-150 text-sm italic">Level</h1>
+                      <select  class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
+                      <option selected disabled >Level of accreditation</option>
                       </select>
+                      </div>
                   </div>
-                  <button class=" absolute right-8 bottom-10 w-24 h-8 text-white bg-blue-250"> Add</button>
+                  <button class="flex items-center justify-center px-5 gap-2 absolute right-8 bottom-10 w-24 h-8 text-white bg-blue-250"> 
+                    <img src="icons/icon20.svg"/>
+                    Add
+                    </button>
               </div>
               
           </div>
   </div>
 </template>
 <style scoped>
-
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
 </style>
 <script>
 // @ is an alias to /src
@@ -174,9 +219,12 @@ export default {
   data(){
     return{
       show_add:false,
+      bg_image:'img/img2.png',
+      id_array:'0',
+      index:0,
       program:[
          {
-          id:2,
+          id:1,
           program_name:"Information Technology",
            address:"Legazpi City",
           Colleges:"College of Science",
@@ -199,7 +247,8 @@ export default {
           Colleges:"College of Science",
           Campus:'Main',
           Date:'July,30,2021',
-          Level:1,
+          Level:0,
+          imagefolder:'',
           chairman_incharge:[
             {
             chairman_name:'Johann Abad',
@@ -216,6 +265,7 @@ export default {
           Campus:'Main',
           Date:'July,30,2021',
           Level:1,
+          imagefolder:'',
           chairman_incharge:[
             {
             chairman_name:'Johann Abad',
@@ -226,13 +276,14 @@ export default {
         }
         ,
         {
-          id:3,
+          id:4,
           program_name:"BS Biology",
            address:"Legazpi City",
           Colleges:"College of Science",
           Campus:'Main',
           Date:'July,30,2021',
           Level:1,
+          imagefolder:'',
           chairman_incharge:[
             {
             chairman_name:'Johann Abad',
@@ -243,13 +294,14 @@ export default {
         }
         ,
         {
-          id:3,
+          id:5,
           program_name:"BS Biology",
            address:"Legazpi City",
           Colleges:"College of Science",
           Campus:'Main',
           Date:'July,30,2021',
           Level:1,
+          imagefolder:'',
           chairman_incharge:[
             {
             chairman_name:'Johann Abad',
@@ -260,13 +312,14 @@ export default {
         }
         ,
         {
-           id:3,
+           id:6,
           program_name:"BS Biology",
            address:"Legazpi City",
           Colleges:"College of Science",
           Campus:'Main',
           Date:'July,30,2021',
           Level:1,
+          imagefolder:'',
           chairman_incharge:[
             {
             chairman_name:'Johann Abad',
@@ -277,13 +330,14 @@ export default {
         }
         ,
         {
-          id:3,
+          id:7,
           program_name:"BS Biology",
            address:"Legazpi City",
           Colleges:"College of Science",
           Campus:'Main',
           Date:'July,30,2021',
           Level:1,
+          imagefolder:'',
           chairman_incharge:[
             {
             chairman_name:'Johann Abad',
@@ -294,13 +348,32 @@ export default {
         }
         ,
         {
-          id:3,
+          id:8,
           program_name:"BS Biology",
            address:"Legazpi City",
           Colleges:"College of Science",
           Campus:'Main',
           Date:'July,30,2021',
           Level:1,
+          imagefolder:'',
+          chairman_incharge:[
+            {
+            chairman_name:'Johann Abad',
+            charirman_number:'09021050501',
+            chairman_email:'johannabad@gmail.com'
+            }
+          ]
+        }
+        ,
+        {
+          id:9,
+          program_name:"BS Biology",
+           address:"Legazpi City",
+          Colleges:"College of Science",
+          Campus:'Main',
+          Date:'July,30,2021',
+          Level:1,
+          imagefolder:'',
           chairman_incharge:[
             {
             chairman_name:'Johann Abad',
@@ -314,9 +387,16 @@ export default {
 
   },
    methods:{
+     index_array(e){
+         this.index=this.program.findIndex(x => x.id===e)
+     },
        change_image(e){
         const file=e.target.files[0]
-        this.program[e].imagefolder=URL.createObjectURL(file);
+        this.program[this.index].imagefolder=URL.createObjectURL(file);
+    },
+    change_bgImage(e){
+       const file=e.target.files[0];
+        this.bg_image=URL.createObjectURL(file);
     }
     }
 }
