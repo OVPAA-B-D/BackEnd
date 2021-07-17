@@ -67,19 +67,19 @@ export default {
     return{
      n:0,
      type_pass:'password',
-     icon6:'/icons/icon6.svg',
+     icon6:'/icons/icon6_eye_close.svg',
     }
   },
   methods:{
     visible(){
       if(this.n==0){
         this.n=1
-        this.icon6='/icons/icon7.svg'
+        this.icon6='/icons/icon7_eye_open.svg'
         this.type_pass="text"
       }
       else{
         this.n=0
-        this.icon6='/icons/icon6.svg'
+        this.icon6='/icons/icon6_eye_close.svg'
         this.type_pass="password"
       }
     }    

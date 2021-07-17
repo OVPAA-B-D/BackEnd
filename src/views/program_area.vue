@@ -5,7 +5,6 @@
     </div>
   </nav>
   <div class="flex font-roboto  pt-16  min-h-screen  ">
-    
      <div class="w-22 static   flex  flex-col items-center py-5  space-y-2  bg-blue-150  ">
       <div class="w-24 flex items-center border-4 border-white justify-center  bg-yellow-150 cursor-pointer mt-10 h-24 rounded-full">
             <span class="material-icons cursor-poi text-white text-4xl">
@@ -31,7 +30,7 @@
         </div> 
         <router-link to="/public_folder">
        <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 " > 
-             <img src="/icons/icon8.svg">
+             <img src="/icons/icon8_public_folder.svg">
             <h1>Public Folder</h1>
           </div>
         </router-link>
@@ -49,7 +48,7 @@
       </div>
     </div>
     <div class="flex flex-col flex-nowrap  w-full">
-       <div class="w-full cursor-default h-72 relative shadow-lg pl-4 pt-7">
+      <div class="w-full cursor-default h-72 relative shadow-lg pl-4 pt-7">
         <img src="img/img3.jpg" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
         <div class="flex items-center justify-between pr-5">
         <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">Information Technology</a></h1>
@@ -59,19 +58,19 @@
         <h3 class="text-blue-150 text-4xl">Information Technology</h3>
         <h1 class="text-lg text-blue-150">Chairman in charge</h1>
        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon16.svg"><h1>Johann Abad</h1>
+            <img src="/icons/icon16_man.svg"><h1>Johann Abad</h1>
         </span>
         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon17.svg"><h1>0902105050</h1>
+            <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
         </span>
          <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon18.svg"><h1>johann@gmail.com</h1>
+            <img src="/icons/icon18_inbox.svg"><h1>johann@gmail.com</h1>
         </span>
         <h1></h1>
       </div>
-        <div class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly rounded-tl-2xl rounded-tr-2xl right-10 bg-white w-37 ">
-          <img class="w-7.5 h-7.5" src="/icons/icon2.svg">
-           <img class="w-7.5 h-7.5" src="/icons/icon3.svg">
+        <div class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly  rounded-tl-2xl rounded-tr-2xl  right-10 bg-white w-37 ">
+          <img class="w-7.5 h-7.5" src="/icons/icon2_comment.svg">
+           <img class="w-7.5 h-7.5" src="/icons/icon3_details.svg">
         </div>
       </div>
       <div class="  flex-col h-full pt-10 px-4  space-y-3">
@@ -110,7 +109,7 @@
                <div class="bg-white w-full rounded-l-xl pl-4 h-full">
                <div class=" flex sticky top-0 mt-4 space-x-2 items-center">
                    <div class=" cursor-pointer w-4-h-4">
-                   <img src="/icons/icon1.svg">
+                   <img src="/icons/icon1_arrow_back.svg">
                    </div>
                    <h1 class="text-blue-150 text-lg cursor-pointer">
                        <router-link to="/home_admin"> <a class="hover:underline">Infomation Technology</a></router-link > >
@@ -118,13 +117,17 @@
                     <router-link to="/program_level"><a class="font-bold hover:underline">Level 1</a></router-link></h1>
                </div>
                 <div class=" items-center flex-row flex flex-wrap pl-7">
-                     <div v-for="folderx in folderArea" :key="folderx.id" class=" text-center justify-center items-center">
+                     <div v-for="folderx in folderArea" :key="folderx.id" class=" text-sm text-blue-250   w-28 h-40  text-center justify-center items-center">
                   <div class=" flex justify-center w-28 mt-10 hover:border-2 mr-2 border-yellow-150 cursor-pointer">
                       
-               <router-link :to="linkto">  <img @dblclick="linkto='/program_parameter'" @click="display_details(folderx.id)" :src="folderx.folder_icon"></router-link>
+               <router-link :to="linkto"> 
+                  <img @dblclick="linkto='/program_parameter'" class="w-16 " @click="display_details(folderx.id)" :src="folderx.folder_icon"></router-link>
                 
                   </div>
+                  <span class="flex justify-center w-full  ">
                     <h1>{{folderx.floder_name}}</h1>
+                  </span>
+                    
                     </div>
                 </div>
                 
@@ -188,7 +191,7 @@
                       </span>
                       <span class="">
                         <button @click="confirm_accre=!confirm_accre" class="flex items-center justify-center px-5 gap-2  w-24 h-8 text-white bg-blue-250"> 
-                    <img src="icons/icon20.svg"/>
+                    <img src="icons/icon12_add.svg"/>
                     Add
                     </button>
                        </span>
@@ -262,8 +265,8 @@ export default {
      folderArea:[ 
      {
        id:1,
-       floder_name:'PPP',
-        folder_icon:'/icons/icon4a.svg',
+       floder_name:'Program Performance Profile',
+        folder_icon:'/icons/icon21.png',
         details:[
                   {
                     status:'Pwede na',
@@ -277,7 +280,7 @@ export default {
       {
        id:2,
        floder_name:'Area 1',
-        folder_icon:'/icons/icon4.svg',
+        folder_icon:'/icons/icon15.png',
          details:[
                   {
                     status:'Okay na',
@@ -291,8 +294,8 @@ export default {
      
      {
        id:3,
-       floder_name:'Area 2',
-       folder_icon:'/icons/icon4.svg',
+        floder_name:'Area 2',
+        folder_icon:'/icons/icon15.png',
         details:[
                   {
                     status:'100%',
@@ -307,7 +310,7 @@ export default {
      {
        id:4,
        floder_name:'Area 3',
-       folder_icon:'/icons/icon4.svg',
+       folder_icon:'/icons/icon15.png',
         details:[
                   {
                     status:'Incomplete',
@@ -322,7 +325,7 @@ export default {
      {
        id:5,
        floder_name:'Area 4',
-       folder_icon:'/icons/icon4.svg',
+       folder_icon:'/icons/icon15.png',
         details:[
                   {
                     status:'Updated',
@@ -337,7 +340,7 @@ export default {
      {
        id:6,
        floder_name:'Area 5',
-       folder_icon:'/icons/icon4.svg',
+       folder_icon:'/icons/icon15.png',
         details:[
                   {
                     status:'Ready for review',
@@ -351,7 +354,7 @@ export default {
     {
        id:7,
        floder_name:'Area 6',
-       folder_icon:'/icons/icon4.svg',
+       folder_icon:'/icons/icon15.png',
         details:[
                   {
                     status:'Pwede na',
@@ -365,7 +368,7 @@ export default {
     {
        id:8,
        floder_name:'Area 7',
-       folder_icon:'/icons/icon4.svg',
+       folder_icon:'/icons/icon15.png',
         details:[
                   {
                     status:'Pwede na',
@@ -379,7 +382,7 @@ export default {
      {
        id:9,
        floder_name:'Area 8',
-       folder_icon:'/icons/icon4.svg',
+       folder_icon:'/icons/icon15.png',
         details:[
                   {
                     status:'Pwede na',
@@ -393,7 +396,7 @@ export default {
      {
        id:10,
        floder_name:'Area 9',
-       folder_icon:'/icons/icon4.svg',
+       folder_icon:'/icons/icon15.png',
         details:[
                   {
                     status:'Pwede na',
@@ -407,7 +410,7 @@ export default {
       {
        id:11,
        floder_name:'Area 10',
-       folder_icon:'/icons/icon4.svg',
+       folder_icon:'/icons/icon15.png',
         details:[
                   {
                     status:'Pwede na',

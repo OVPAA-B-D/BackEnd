@@ -36,7 +36,7 @@
           
           <div class=" flex cursor-pointer w-91 items-center gap-4 bg-yellow-150 space-x-1 shadow-3xl pl-4 py-3 " > 
             
-            <img src="/icons/icon8.svg">
+            <img src="/icons/icon8_public_folder.svg">
             <h1>Public Folder</h1>
           </div>
       </div>
@@ -77,13 +77,13 @@
           <div class=" flex  flex-wrap rounded-lg p-0.6 bg-gradient-to-r from-blue-150 to-yellow-150  h-99">
             <div class=" flex flex-col w-full rounded-lg bg-white h-full  p-4 ">
               <div class="flex w-full gap-x-3 items-center bg-white sticky top-0">
-                  <img src="icons/icon1.svg" class="w-6 h-6"/>
+                  <img src="icons/icon1_arrow_back.svg" class="w-6 h-6"/>
                    <select  class=" text-blue-150 w-60 rounded-sm h-9 focus:outline-none cursor-pointer border-2 border-blue-150">
                       <option selected disabled>Filter by</option>
                   </select>
               </div>
               <div class="w-full cursor-pointer select-none flex justify-end pb-2 pr-5">
-                  <img src="/icons/icon5.svg"/>
+                  <img src="/icons/icon5_sort.svg"/>
                   <h1 class="text-yellow-150" >Sort by</h1>
               </div>
             <div class=" w-full overflow-y-auto h-full  ">
@@ -91,8 +91,8 @@
                  <div class="flex justify-between  my-3 items-center">
                    <div class="flex space-x-3  items-baseline">
                       <h1 class="text-yellow-150 text-2xl">{{officex.office_name}}</h1>
-                      <img @click="edit_office_name=!edit_office_name" src="icons/icon19a.svg"  class="cursor-pointer select-none"/>
-                      <img src="icons/icon11red.svg" class="cursor-pointer select-none"/>
+                      <img @click="edit_office_name=!edit_office_name" src="icons/icon19_rename_orange.svg"  class="cursor-pointer select-none"/>
+                      <img src="icons/icon11_delete_red.svg" class="cursor-pointer select-none"/>
                    </div>
                    <button @click="show_add_member=!show_add_member" class=" border-2 border-blue-150 text-blue-150 gap-x-1 px-1
           flex justify-evenly items-center text-center">
@@ -108,10 +108,10 @@
                          <h1>{{memberx.number}}</h1>
                          <span class="flex gap-x-1 ">
                          <button class="flex justify-center items-center bg-green-150 rounded-sm text-white w-20 h-8">
-                           <img src="icons/icon19.svg" class="w-4"/>
+                           <img src="icons/icon14_edit_image.svg" class="w-4"/>
                            <h1>Edit</h1>
                            </button>  <button @click="delete_member=!delete_member" class="flex justify-center items-center bg-red-150 rounded-sm text-white w-20 h-8">
-                           <img src="icons/icon11.svg" class="w-4"/>
+                           <img src="icons/icon11_delete.svg" class="w-4"/>
                            <h1>Delete</h1>
                            </button>
                         </span>

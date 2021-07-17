@@ -33,7 +33,7 @@
         </router-link>
           <router-link to="/public_folder"> 
           <div class="  flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 " > 
-            <img src="/icons/icon8.svg">
+            <img src="/icons/icon8_public_folder.svg">
             <h1>Public Folder</h1>
           </div>
           </router-link>
@@ -117,7 +117,7 @@
             <div class="bg-white flex flex-col gap-y-4 overflow-auto w-full pt-5 pl-5 pr-10 h-full rounded-lg">
                 <span class=" flex justify-between">
                     <h1 class="text-blue-150 text-xl">List of all Accreditors</h1>
-                    <img src="/icons/icon5a.svg"/>
+                    <img src="/icons/icon5_sort_blue.svg"/>
                 </span>
                 <span class="flex justify-start gap-x-5">
                     <h1 class="text-sm text-yellow-150">Name</h1>
@@ -132,7 +132,7 @@
             <div class="bg-white flex flex-col gap-y-4 overflow-auto w-full pt-5 pl-5 pr-10 h-full rounded-lg">
                 <span class=" flex justify-between">
                     <h1 class="text-blue-150 text-xl">List of all Task Force</h1>
-                    <img src="/icons/icon5a.svg"/>
+                    <img src="/icons/icon5_sort_blue.svg"/>
                 </span>
                 <span class="flex justify-start gap-x-5">
                     <h1 class="text-sm text-yellow-150">Name</h1>

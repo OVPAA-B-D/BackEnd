@@ -33,7 +33,7 @@
         </div> 
         <router-link to="/public_folder">
        <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 " > 
-             <img src="/icons/icon8.svg">
+             <img src="/icons/icon8_public_folder.svg">
             <h1>Public Folder</h1>
           </div>
         </router-link>
@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="flex flex-col flex-nowrap  w-full">
-      <div class="w-full cursor-default h-72 relative shadow-lg pl-4 pt-7">
+       <div class="w-full cursor-default h-72 relative shadow-lg pl-4 pt-7">
         <img src="img/img3.jpg" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
         <div class="flex items-center justify-between pr-5">
         <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">Information Technology</a></h1>
@@ -61,19 +61,19 @@
         <h3 class="text-blue-150 text-4xl">Information Technology</h3>
         <h1 class="text-lg text-blue-150">Chairman in charge</h1>
        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon16.svg"><h1>Johann Abad</h1>
+            <img src="/icons/icon16_man.svg"><h1>Johann Abad</h1>
         </span>
         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon17.svg"><h1>0902105050</h1>
+            <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
         </span>
          <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon18.svg"><h1>johann@gmail.com</h1>
+            <img src="/icons/icon18_inbox.svg"><h1>johann@gmail.com</h1>
         </span>
         <h1></h1>
       </div>
         <div class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly  rounded-tl-2xl rounded-tr-2xl  right-10 bg-white w-37 ">
-          <img class="w-7.5 h-7.5" src="/icons/icon2.svg">
-           <img class="w-7.5 h-7.5" src="/icons/icon3.svg">
+          <img class="w-7.5 h-7.5" src="/icons/icon2_comment.svg">
+           <img class="w-7.5 h-7.5" src="/icons/icon3_details.svg">
         </div>
       </div>
       <div class="  flex-col h-full pt-10 px-4  space-y-3">
@@ -103,7 +103,7 @@
                    <div class=" w-full">
                     <div class=" flex py-3 sticky top-1   w-full  bg-white  space-x-2 items-center" style="z-index:0" >
                    <div class=" cursor-pointer w-4-h-4">
-                   <img src="/icons/icon1.svg">
+                   <img src="/icons/icon1_arrow_back.svg">
                    </div>
                    <div class="flex sticky top-0 bg-white justify-start text-blue-150 text-lg cursor-pointer">
                     <router-link to="/home_admin"> <a class="hover:underline">Infomation Technology</a></router-link>>
@@ -115,7 +115,7 @@
                    <div v-for="parameterx in Parameter" :key="parameterx.id" class="w-full">
                      <div class="flex  items-baseline space-x-3">
                       <h1 class=" text-2xl text-blue-150 font-bold">Parameter {{parameterx.parameter_name}}</h1>
-                      <img src="/icons/icon19a.svg"/>
+                      <img src="/icons/icon19_rename_orange.svg"/>
                      <h1 v-if="parameterx.status=='Completed'" class="text-green-400">{{parameterx.status}}</h1>
                      <h1 v-else-if="parameterx.status=='Incomplete'" class="text-yellow-150">{{parameterx.status}}</h1>
                      <h1 v-else class="text-red-700">{{parameterx.status}}</h1>
@@ -124,17 +124,17 @@
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark {{benchx.benchmark_name}}</h1>
-                            <img src="/icons/icon19a.svg"/>
+                            <img src="/icons/icon19yellow.svg"/>
                           </span>
                             <div class="  flex space-x-3 mb-0.5">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
-                              <img src="/icons/icon10.svg" class="w-5 h-5"/>
+                              <img src="/icons/icon10_open_file.svg" class="w-5 h-5"/>
                                 open file</button>
                              <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
-                              <img src="/icons/icon9.svg" class="w-5 h-5"/>
+                              <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
                                 move row</button>
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
-                              <img src="/icons/icon11.svg" class="w-5 h-5"/>
+                              <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
                                 delete file</button>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                     </div>
                     <div class="w-full flex justify-end">
                     <button class="text-white w-20 py-2 flex space-x-1 rounded-lg  justify-center items-center  bg-blue-150 px-4 text-sm">
-                      <img src="/icons/icon12.svg" class="w-4 h-4"/>
+                      <img src="/icons/icon12_add.svg" class="w-4 h-4"/>
                       <h1>Add</h1>
                       </button>
                     </div>
@@ -235,7 +235,7 @@
                     </div>
                     <div class="w-full flex justify-end">
                     <button class="text-white w-20 py-2 flex space-x-1 rounded-lg  justify-center items-center  bg-blue-150 px-4 text-sm">
-                      <img src="/icons/icon12.svg" class="w-4 h-4"/>
+                      <img src="/icons/icon12_add.svg" class="w-4 h-4"/>
                       <h1>Add</h1>
                       </button>
                     </div>

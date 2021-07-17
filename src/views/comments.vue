@@ -25,7 +25,7 @@
       </p>
   </div>
   <div class="flex items-center flex-row space-x-2">
-  <img src="/icons/icon7.svg" class="w-4 h-4" />
+  <img src="/icons/icon7_eye_open.svg" class="w-4 h-4" />
   <h1 class="text-xs text-yellow-150">5</h1>
   </div>
   </div>
@@ -82,7 +82,7 @@
       </p>
   </div>
   <div class="flex items-center flex-row space-x-2">
-  <img src="/icons/icon7.svg" class="w-4 h-4" />
+  <img src="/icons/icon7_eye_open.svg" class="w-4 h-4" />
   <h1 class="text-xs text-yellow-150">5</h1>
   </div>
   </div>       

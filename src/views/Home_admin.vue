@@ -33,7 +33,7 @@
         </div> 
         <router-link to="/public_folder">
        <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 " > 
-             <img src="/icons/icon8.svg">
+             <img src="/icons/icon8_public_folder.svg">
             <h1>Public Folder</h1>
           </div>
         </router-link>
@@ -89,7 +89,7 @@
           <div class=" flex  flex-wrap mb-10 rounded-lg p-0.6 bg-gradient-to-r from-blue-150 to-yellow-150  h-99">
             <div class=" flex flex-col w-full rounded-lg bg-white justify-center h-full  p-4 ">
               <div class="w-full flex justify-end pb-2 pr-5">
-                  <img src="/icons/icon5.svg"/>
+                  <img src="/icons/icon5_sort.svg"/>
                   <h1 class="text-yellow-150" >Sort by</h1>
               </div>
               <div class=" h-full flex flex-wrap justify-items-start gap-x-4  overflow-auto  ">
@@ -98,12 +98,12 @@
                
                <div class="flex  items-center absolute top-0 right-0 ">
                  <div @click="index_array(programx.id)" class="flex justify-center items-center rounded-full border-4 border-white h-10 w-10 cursor-pointer bg-green-150">
-                  <label for="file_image" ><img src="/icons/icon19.svg"/></label>
+                  <label for="file_image" ><img src="/icons/icon14_edit_image.svg" class="w-4 h-4"/></label>
                  
                </div>
                 <input @change="change_image" type="file" id="file_image" class="hidden"/>
                <div class="flex justify-center items-center  rounded-full border-4 cursor-pointer border-white h-10 w-10 bg-red-150">
-                  <img src="/icons/icon11.svg"/>
+                  <img src="/icons/icon11_delete.svg"/>
                </div>
                </div>
                
@@ -120,11 +120,11 @@
                   <h1 class="-z-1 absolute bottom-3 text-tiny text-blue-150">LEVEL {{programx.Level}} Accreditation</h1>
                   <div v-for="chairmanx in programx.chairman_incharge" :key="chairmanx.chairman_name">
                     <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-                      <img src="/icons/icon16.svg"><h1>{{chairmanx.chairman_name}}</h1></span>
+                      <img src="/icons/icon16_man.svg"><h1>{{chairmanx.chairman_name}}</h1></span>
                     <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-                      <img src="/icons/icon17.svg"><h1>{{chairmanx.charirman_number}}</h1></span>
+                      <img src="/icons/icon17_contact.svg"><h1>{{chairmanx.charirman_number}}</h1></span>
                      <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-                      <img src="/icons/icon18.svg"><h1>{{chairmanx.chairman_email}}</h1></span>
+                      <img src="/icons/icon18_inbox.svg"><h1>{{chairmanx.chairman_email}}</h1></span>
                   </div>
                    <h1 class="flex-wrap text-blue-150  text-lg "> Level {{programx.Level}}<br> Accreditation</h1>
                   </div>
@@ -192,7 +192,7 @@
                       </div>
                   </div>
                   <button class="flex items-center justify-center px-5 gap-2 absolute right-8 bottom-10 w-24 h-8 text-white bg-blue-250"> 
-                    <img src="icons/icon20.svg"/>
+                    <img src="icons/icon12_add.svg"/>
                     Add
                     </button>
               </div>

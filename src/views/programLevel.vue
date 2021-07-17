@@ -4,8 +4,6 @@
     <img class="w-full  h-full" src="BUlogo.png">
     </div>
   </nav>
-
- 
   <div class="flex font-roboto  pt-16  min-h-screen  ">
     
      <div class="w-22 static   flex  flex-col items-center py-5  space-y-2  bg-blue-150  ">
@@ -34,7 +32,7 @@
         </div> 
         <router-link to="/public_folder">
        <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 " > 
-             <img src="/icons/icon8.svg">
+             <img src="/icons/icon8_public_folder.svg">
             <h1>Public Folder</h1>
           </div>
         </router-link>
@@ -62,19 +60,19 @@
         <h3 class="text-blue-150 text-4xl">Information Technology</h3>
         <h1 class="text-lg text-blue-150">Chairman in charge</h1>
        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon16.svg"><h1>Johann Abad</h1>
+            <img src="/icons/icon16_man.svg"><h1>Johann Abad</h1>
         </span>
         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon17.svg"><h1>0902105050</h1>
+            <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
         </span>
          <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon18.svg"><h1>johann@gmail.com</h1>
+            <img src="/icons/icon18_inbox.svg"><h1>johann@gmail.com</h1>
         </span>
         <h1></h1>
       </div>
         <div class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly  rounded-tl-2xl rounded-tr-2xl  right-10 bg-white w-37 ">
-          <img class="w-7.5 h-7.5" src="/icons/icon2.svg">
-           <img class="w-7.5 h-7.5" src="/icons/icon3.svg">
+          <img class="w-7.5 h-7.5" src="/icons/icon2_comment.svg">
+           <img class="w-7.5 h-7.5" src="/icons/icon3_details.svg">
         </div>
       </div>
       <div class="  flex-col h-full pt-10 px-4  space-y-3">
@@ -98,7 +96,7 @@
             <div class=" bg-white rounded-xl overflow-auto   gap-y-2 flex flex-col justify-items-start  flex-grow  h-full  p-4 ">
                <div class=" flex sticky top-0 space-x-2 items-center">
                    <div class=" cursor-pointer w-4 h-4">
-                   <img src="/icons/icon1.svg">
+                   <img src="/icons/icon1_arrow_back.svg">
                    </div>
                    
                     <h1 class="sticky top-0 text-blue-150 text-lg cursor-pointer">
