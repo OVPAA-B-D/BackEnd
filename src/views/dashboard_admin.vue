@@ -67,6 +67,7 @@
                  
                 </div>
             </div>
+            
              <div class="flex bg-gradient-to-b rounded-lg from-blue-150 to-yellow-150 h-26 2xl:w-1/2s w-full  p-0.6" >
                 <div class="w-full relative flex flex-col rounded-lg h-full p-5 bg-white">
                     <h1 class="text-blue-150 text-3xl ">Computer Science</h1>

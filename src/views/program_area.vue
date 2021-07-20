@@ -69,8 +69,8 @@
         <h1></h1>
       </div>
         <div class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly  rounded-tl-2xl rounded-tr-2xl  right-10 bg-white w-37 ">
-          <img class="w-7.5 h-7.5" src="/icons/icon2_comment.svg">
-           <img class="w-7.5 h-7.5" src="/icons/icon3_details.svg">
+          <img @click="show_details=!show_details" class="w-7.5 h-7.5" src="/icons/icon2_comment.svg">
+           <img @click="show_details=!show_details" class="w-7.5 h-7.5" src="/icons/icon3_details.svg">
         </div>
       </div>
       <div class="  flex-col h-full pt-10 px-4  space-y-3">
@@ -81,12 +81,21 @@
           flex justify-evenly items-center text-white px-3 text-center">
             <p class="material-icons  text-lg ">add_circle_outline</p> <p>Add</p>
           </button>
-          <button class=" bg-green-150  space-x-2
+          <button @click="rename_folder" v-if="btn_enable=='on'" class=" bg-green-150  space-x-2
           flex justify-evenly items-center text-white px-3 text-center">
             <p class="material-icons  text-sm ">border_color</p> <p  class="text-sm">Rename</p>
           </button>
-          <button class=" bg-red-150   space-x-2
+          <button v-else class=" bg-gray-150 cursor-not-allowed  space-x-2
           flex justify-evenly items-center text-white px-3 text-center">
+            <p class="material-icons  text-sm ">border_color</p> <p  class="text-sm">Rename</p>
+          </button>
+          
+          <button v-if="btn_enable=='on'" @click="confirmation_deletion=!confirmation_deletion" class=" bg-red-150   space-x-2
+          flex justify-evenly items-center text-white px-3 text-center">
+            <p class="material-icons  text-sm ">delete</p> <p class="text-sm">Delete</p>
+          </button>
+          <button v-else-if="btn_enable=='off'" class=" bg-gray-150   space-x-2
+          flex justify-evenly items-center cursor-not-allowed text-white px-3 text-center">
             <p class="material-icons  text-sm ">delete</p> <p class="text-sm">Delete</p>
           </button>
           <button @click=" show_add_accre=!show_add_accre" class=" text-blue-150   space-x-2 border-2 border-blue-150 rounded-full
@@ -105,38 +114,50 @@
           </div>
         </div>
           <div class="flex flex-row h-99   rounded-xl bg-white p-1 ">
-            <div class="overflow-auto bg-gradient-to-b from-blue-150 to-yellow-150 rounded-l-xl gap-y-2 flex flex-col justify-items-start  w-2/3 py-0.6 pl-0.6 h-full">
-               <div class="bg-white w-full rounded-l-xl pl-4 h-full">
-               <div class=" flex sticky top-0 mt-4 space-x-2 items-center">
-                   <div class=" cursor-pointer w-4-h-4">
+            <div class="flex overflow-auto bg-gradient-to-b from-blue-150 to-yellow-150 rounded-xl gap-y-2  justify-items-start  w-full p-0.6 h-full">
+               <div class="flex flex-grow relative flex-col bg-white w-2/3 rounded-l-xl pl-4 h-full">
+                  <button  @click="btn_enable='off',show_default()" :class="{outline: bg_btn === 0 }" class="absolute border-none w-full h-full  inset-0 "></button>
+
+               <div class=" flex sticky w-max top-0 mt-4 space-x-2 items-center">
+                   <router-link to="/program_level"> <div class=" cursor-pointer w-4-h-4">
                    <img src="/icons/icon1_arrow_back.svg">
-                   </div>
+                   </div></router-link>
                    <h1 class="text-blue-150 text-lg cursor-pointer">
                        <router-link to="/home_admin"> <a class="hover:underline">Infomation Technology</a></router-link > >
                    
-                    <router-link to="/program_level"><a class="font-bold hover:underline">Level 1</a></router-link></h1>
+                    <a class="font-bold ">Level 1</a></h1>
                </div>
-                <div class=" items-center flex-row flex flex-wrap pl-7">
-                     <div v-for="folderx in folderArea" :key="folderx.id" class=" text-sm text-blue-250   w-28 h-40  text-center justify-center items-center">
-                  <div class=" flex justify-center w-28 mt-10 hover:border-2 mr-2 border-yellow-150 cursor-pointer">
+                <div class=" items-start flex-row flex flex-wrap relative pl-7 " >
+                    <button  @click="btn_enable='off',isActive_function('btn1'),show_default()" :class="{outline: bg_btn ===0 }" class="absolute w-full h-full  inset-0 "></button>
+
+                     <div v-for="folderx in folderArea" :key="folderx.id" class=" relative  text-sm text-blue-250 z-10   w-28 h-auto  text-center justify-center items-center">
+                      <button  @click="btn_enable='off',isActive_function('btn1'),show_default()" :class="{outline: bg_btn ===0 }" class="absolute w-full h-full  inset-0 -z-1"></button>
+
+                  <div  class=" flex justify-center w-28 mt-10 hover:border-2 mr-2 border-yellow-150 cursor-pointer">
                       
                <router-link :to="linkto"> 
-                  <img @dblclick="linkto='/program_parameter'" class="w-16 " @click="display_details(folderx.id)" :src="folderx.folder_icon"></router-link>
-                
+                 <div @dblclick="linkto='/program_parameter'"
+                  @click="btn_enable='on',index_array(folderx.id),isActive_function(folderx.id),folder_id=folderx.id,rename_folder" :class="{outline: activeBtn === folderx.id }" class="w-full p-2 flex justify-center">
+                  <img   class="w-16" :src="folderx.folder_icon">
                   </div>
-                  <span class="flex justify-center w-full  ">
-                    <h1>{{folderx.floder_name}}</h1>
+              </router-link>
+                  </div>
+                  <span class="flex flex-col   justify-center w-full  ">
+                    <label :for="folderx.id"><h1 :id="folderx.id">{{folderx.floder_name}}</h1></label>
+                    <input  v-model="folderx.floder_name" :id="folderx.id+'x'"  type="text" class="hidden text-center focus:outline-none border-2 border-black h-5"/>
                   </span>
-                    
                     </div>
                 </div>
                 
                </div>
-             
-          </div>
-          <div class=" flex w-1/3 h-full rounded-xl bg-white ">
-              <div class=" h-full   flex p-1 rounded-xl flex-grow bg-gradient-to-b from-blue-150 to-yellow-150">
-                  <div class="  overflow-auto pb-3 flex flex-col flex-grow rounded-2xl w-full bg-gray-100 h-full">
+             <div v-if="show_details" class="w-1/3  h-full bg-gradient-to-b pl-0.6 rounded-l-xl from-blue-150 to-yellow-150">
+                  <div class="  overflow-auto pb-3 flex flex-col flex-grow rounded-xl w-full bg-gray-100 h-full">
+                        <div class="flex justify-between items-center p-4">
+                  <h1 class="font-bold text-yellow-150">
+                  folder name
+                  </h1>
+                <img src="icons/icon_close_x.svg" class="cursor-pointer" @click="show_details=!show_details" >
+                </div>
                         <div class="px-4 pt-2 sticky top-0 flex bg-gray-100 justify-between"> 
                         <div @click="isActive_function('btn1')" :class="{active: activeBtn === 0 }" class="select-none cursor-pointer flex  w-36 bg-gradient-to-r  from-blue-150 to-yellow-150 ">
                            <div @click="change_component('details')" class="bg-gray-100 flex   justify-center w-full  h-full">
@@ -149,9 +170,9 @@
                             </div> 
                         </div>
                         </div>
-                         <div class="  flex-col items-center  rounded-xl flex h-full m-5">
+                         <div class=" bg-white p-3  flex-col items-center  rounded-xl flex h-full m-5">
                            
-                           <component :is="component"/>
+                           <component :is="component" :listdata="folder_details"/>
                            
                         </div>
                   </div>
@@ -189,35 +210,69 @@
                         <h1 class="text-blue-150 text-sm">Last name</h1>
                         <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
                       </span>
-                      <span class="">
-                        <button @click="confirm_accre=!confirm_accre" class="flex items-center justify-center px-5 gap-2  w-24 h-8 text-white bg-blue-250"> 
-                    <img src="icons/icon12_add.svg"/>
+                      <span>
+                        <h1 class="text-blue-150 text-sm">Contact number</h1>
+                        <input  type="number"  class="italic text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                      </span>
+                      <div class="w-full flex justify-end">
+                        <button @click="confirm_accre=!confirm_accre" class="flex items-center justify-center px-5 gap-2  w-24 h-8 text-white text-sm bg-blue-250"> 
+                    <img src="icons/icon12_add.svg" class="w-4"/>
                     Add
                     </button>
-                       </span>
+                       </div>
                   </div>
                   <h1 class="text-lg text-blue-150 font-bold">Task Force</h1>
-                  <div class="px-4 h-28 gap-y-4  flex flex-col overflow-y-auto">
-                         <span class="flex justify-between border-b-2 border-yellow-150">
-                            <h1 class="text-lg text-blue-150 ml-3">Name</h1>
+                  <div class="overflow-y-auto px-4 h-28 gap-y-4 flex flex-col ">
+                       <div class=" border-b-2 border-yellow-150 flex justify-between">
+                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
+                            <h1 class="text-lg text-blue-150">Name</h1>
                             <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150 mr-3">Role</h1>
-                        </span>
-                          <span class="flex justify-between border-b-2 border-yellow-150">
-                            <h1 class="text-lg text-blue-150 ml-3">Name</h1>
+                            <h1 class="text-lg text-yellow-150">Role</h1>
+                            
+                        </div>   
+                        <div >                     
+                            <button class=" w-20  text-white border-2 bg-blue-250">Edit</button>
+                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
+                        </div>
+                        </div>
+                          
+                        
+                         <div class=" border-b-2 border-yellow-150 flex justify-between">
+                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
+                            <h1 class="text-lg text-blue-150">Name</h1>
                             <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150 mr-3">Role</h1>
-                        </span>
-                          <span class="flex justify-between border-b-2 border-yellow-150">
-                            <h1 class="text-lg text-blue-150 ml-3">Name</h1>
+                            <h1 class="text-lg text-yellow-150">Role</h1>
+                            
+                        </div>   
+                        <div >                     
+                            <button class=" w-20  text-white border-2 bg-blue-250">Edit</button>
+                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
+                        </div>
+                        </div>
+                        <div class=" border-b-2 border-yellow-150 flex justify-between">
+                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
+                            <h1 class="text-lg text-blue-150">Name</h1>
                             <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150 mr-3">Role</h1>
-                        </span>
-                           <span class="flex justify-between border-b-2 border-yellow-150">
-                            <h1 class="text-lg text-blue-150 ml-3">Name</h1>
+                            <h1 class="text-lg text-yellow-150">Role</h1>
+                            
+                        </div>   
+                        <div >                     
+                            <button class=" w-20  text-white border-2 bg-blue-250">Edit</button>
+                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
+                        </div>
+                        </div>
+                           <div class=" border-b-2 border-yellow-150 flex justify-between">
+                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
+                            <h1 class="text-lg text-blue-150">Name</h1>
                             <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150 mr-3">Role</h1>
-                        </span>
+                            <h1 class="text-lg text-yellow-150">Role</h1>
+                            
+                        </div>   
+                        <div >                     
+                            <button class=" w-20  text-white border-2 bg-blue-250">Edit</button>
+                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
+                        </div>
+                        </div>
                   </div>
              </div>
              <!--Confimation-->
@@ -232,12 +287,39 @@
              </div>
           </div>
           <!----->
+          <!--Delete-->
+           <div v-if="confirmation_deletion" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
+                 <div class="flex flex-col justify-evenly items-center gap-y-3 py-5 w-80 h-80 bg-white  shadow-3xl rounded-xl">
+                 <img src="icons/icon_warning_red.svg" class="w-16">
+                 <div class="flex flex-col text-center">
+                 <h1 class="text-red-150 text-xl">You are about to delete this member</h1>
+                 <span class="px-16">
+                 <h1 class="text-sm text-red-150 text-opacity-80">This action cannot be undone.</h1>
+                 </span>
+                 </div>
+                  <span class="flex items-center gap-x-3">
+                    <button @click="confirmation_deletion=!confirmation_deletion" class=" select-none bg-red-150 rounded-lg text-white w-28 h-10">Confirm</button>
+                    <button @click="confirmation_deletion=!confirmation_deletion" class="select-none border-2 rounded-lg border-red-150 text-red-150  w-28 h-10">Cancel</button>
+                  </span>
+                 </div>
+           </div>
+           <!----->
 
   </div>
 </template>
 <style scoped>
 .active{
   padding-bottom:3px;
+}
+.outline{
+  border:solid 1px;
+
+  border-color:#F37123 ;
+}
+
+button.outline{
+  border:solid 0px;
+
 }
 </style>
 <script>
@@ -251,175 +333,159 @@ export default {
   },
   data(){
     return{
+        confirmation_deletion:false,
+        show_details:false,
+        btn_enable:'off',
         component:"Details",
         linkto:'',
+        index:'',
+        folder_id:'',
+        prev_folder_id:'',
+        prev_name_id:'',
         show_add_accre:false,
         confirm_accre:false,
         activeBtn:0,
+        bg_btn:0,
         status:'',
         owner:'',
         location:'',
         accessed:'',
         created:'',
-        
+        folder_details:[
+          {
+            status:'To be Graded',
+            owner:'Admin',
+            location:'Level 1 Folder',
+            modified:'July 12,2021',
+            accessed:'Pedro Penduko',
+            created:'Admin',
+          }
+        ],
      folderArea:[ 
      {
        id:1,
        floder_name:'Program Performance Profile',
         folder_icon:'/icons/icon21.png',
-        details:[
-                  {
-                    status:'Pwede na',
-                    owner:'Juan Tamad',
-                    location:'/Information/Level',
-                    accessed:'Pedro Penduko',
-                    created:'Admin',
-                  }
-                ]
+        status:'Pwede na',
+        owner:'Juan Tamad',
+        modified:'July 12,2021',
+        location:'/Information/Level',
+        accessed:'Pedro Penduko',
+        created:'Admin',
      },
       {
        id:2,
        floder_name:'Area 1',
         folder_icon:'/icons/icon15.png',
-         details:[
-                  {
-                    status:'Okay na',
-                    owner:'Juan Tamad',
-                    location:'/Information/Level',
-                    accessed:'Pedro Penduko',
-                    created:'Admin',
-                  }
-                ]
+        status:'Pwede na',
+        owner:'Juan Tamad',
+        modified:'July 12,2021',
+        location:'/Information/Level',
+        accessed:'Pedro Penduko',
+        created:'Admin',
      },
      
      {
        id:3,
         floder_name:'Area 2',
         folder_icon:'/icons/icon15.png',
-        details:[
-                  {
-                    status:'100%',
-                    owner:'Juan Tamad',
-                    location:'/Information/Level',
-                    accessed:'Pedro Penduko',
-                    created:'Admin',
-                  }
-                ]
+        status:'Pwede na',
+        owner:'Juan Tamad',
+        modified:'July 12,2021',
+        location:'/Information/Level',
+        accessed:'Pedro Penduko',
+        created:'Admin',
      },
      
      {
-       id:4,
-       floder_name:'Area 3',
-       folder_icon:'/icons/icon15.png',
-        details:[
-                  {
-                    status:'Incomplete',
-                    owner:'Juan Tamad',
-                    location:'/Information/Level',
-                    accessed:'Pedro Penduko',
-                    created:'Admin',
-                  }
-                ]
+        id:4,
+        floder_name:'Area 3',
+        folder_icon:'/icons/icon15.png',
+        status:'Pwede na',
+        owner:'Juan Tamad',
+        modified:'July 12,2021',
+        location:'/Information/Level',
+        accessed:'Pedro Penduko',
+        created:'Admin',
      },
      
      {
-       id:5,
-       floder_name:'Area 4',
-       folder_icon:'/icons/icon15.png',
-        details:[
-                  {
-                    status:'Updated',
-                    owner:'Juan Tamad',
-                    location:'/Information/Level',
-                    accessed:'Pedro Penduko',
-                    created:'Admin',
-                  }
-                ]
+        id:5,
+        floder_name:'Area 4',
+        folder_icon:'/icons/icon15.png',
+        status:'Pwede na',
+        owner:'Juan Tamad',
+        modified:'July 12,2021',
+        location:'/Information/Level',
+        accessed:'Pedro Penduko',
+        created:'Admin',
      },
      
      {
-       id:6,
-       floder_name:'Area 5',
-       folder_icon:'/icons/icon15.png',
-        details:[
-                  {
-                    status:'Ready for review',
-                    owner:'Juan Tamad',
-                    location:'/Information/Level',
-                    accessed:'Pedro Penduko',
-                    created:'Admin',
-                  }
-                ]
+        id:6,
+        floder_name:'Area 5',
+        folder_icon:'/icons/icon15.png',
+        status:'Pwede na',
+        owner:'Juan Tamad',
+        modified:'July 12,2021',
+        location:'/Information/Level',
+        accessed:'Pedro Penduko',
+        created:'Admin',
      },
     {
-       id:7,
-       floder_name:'Area 6',
-       folder_icon:'/icons/icon15.png',
-        details:[
-                  {
-                    status:'Pwede na',
-                    owner:'Juan Tamad',
-                    location:'/Information/Level',
-                    accessed:'Pedro Penduko',
-                    created:'Admin',
-                  }
-                ]
+        id:7,
+        floder_name:'Area 6',
+        folder_icon:'/icons/icon15.png',
+        status:'Pwede na',
+        owner:'Juan Tamad',
+        modified:'July 12,2021',
+        location:'/Information/Level',
+        accessed:'Pedro Penduko',
+        created:'Admin',
      },
     {
-       id:8,
-       floder_name:'Area 7',
-       folder_icon:'/icons/icon15.png',
-        details:[
-                  {
-                    status:'Pwede na',
-                    owner:'Juan Tamad',
-                    location:'/Information/Level',
-                    accessed:'Pedro Penduko',
-                    created:'Admin',
-                  }
-                ]
+        id:8,
+        floder_name:'Area 7',
+        folder_icon:'/icons/icon15.png',
+        status:'Pwede na',
+        owner:'Juan Tamad',
+        modified:'July 12,2021',
+        location:'/Information/Level',
+        accessed:'Pedro Penduko',
+        created:'Admin',
      }, 
      {
-       id:9,
-       floder_name:'Area 8',
-       folder_icon:'/icons/icon15.png',
-        details:[
-                  {
-                    status:'Pwede na',
-                    owner:'Juan Tamad',
-                    location:'/Information/Level',
-                    accessed:'Pedro Penduko',
-                    created:'Admin',
-                  }
-                ]
+        id:9,
+        floder_name:'Area 8',
+        folder_icon:'/icons/icon15.png',
+        status:'Pwede na',
+        owner:'Juan Tamad',
+        modified:'July 12,2021',
+        location:'/Information/Level',
+        accessed:'Pedro Penduko',
+        created:'Admin',
      },
      {
-       id:10,
-       floder_name:'Area 9',
-       folder_icon:'/icons/icon15.png',
-        details:[
-                  {
-                    status:'Pwede na',
-                    owner:'Juan Tamad',
-                    location:'/Information/Level',
-                    accessed:'Pedro Penduko',
-                    created:'Admin',
-                  }
-                ]
+        id:10,
+        floder_name:'Area 9',
+        folder_icon:'/icons/icon15.png',
+        status:'Pwede na',
+        owner:'Juan Tamad',
+        modified:'July 12,2021',
+        location:'/Information/Level',
+        accessed:'Pedro Penduko',
+        created:'Admin',
      },
       {
-       id:11,
-       floder_name:'Area 10',
-       folder_icon:'/icons/icon15.png',
-        details:[
-                  {
-                    status:'Pwede na',
-                    owner:'Juan Tamad',
-                    location:'/Information/Level',
-                    accessed:'Pedro Penduko',
-                    created:'Admin',
-                  }
-                ]
+        id:11,
+        floder_name:'Area 10',
+        folder_icon:'/icons/icon15.png',
+        status:'Pwede na',
+        owner:'Juan Tamad',
+        location:'/Information/Level',
+        accessed:'Pedro Penduko',
+        created:'Admin',
+                 
      },
      
      ]
@@ -427,6 +493,37 @@ export default {
 
   },
   methods:{
+    show_default(){
+         let prev_f=document.getElementById(this.prev_folder_id)
+          let prev_n=document.getElementById(this.prev_name_id)
+          prev_f.style.display='block'
+          prev_n.style.display='none'
+    },
+    rename_folder(e){
+        let x=document.getElementById(this.folder_id)
+        let y=document.getElementById(this.folder_id+'x')
+        if(this.prev_folder_id==''){
+        x.style.display = "none";
+        y.style.display='block'
+        this.prev_folder_id=this.folder_id;
+        this.prev_name_id=this.folder_id+'x';
+        }
+        else{
+          let prev_f=document.getElementById(this.prev_folder_id)
+          let prev_n=document.getElementById(this.prev_name_id)
+            x.style.display = "none";
+            y.style.display='block';
+            prev_f.style.display='block';
+            prev_n.style.display='none';
+            this.prev_folder_id=this.folder_id;
+            this.prev_name_id=this.folder_id+'x';
+        }
+      
+    },
+    index_array(e){
+         this.index=this.folderArea.findIndex(x => x.id===e)
+        
+     },
     display_details(e){
     const index=this.folderArea.findIndex(x => x.id===e)
     },
