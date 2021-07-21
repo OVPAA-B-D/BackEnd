@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 class InsertController extends Controller
 {
     //
-   function ProgramTable(Request $request){
+   function Program(Request $request){
 
     $program = new ProgramModel();
     $program->programID = $request->programID;
@@ -32,18 +32,18 @@ class InsertController extends Controller
    }
 
    function Member(Request $request){
-       $member = new UserInformationModel();
-       $member->email = $request->email;
-       $member->lastName = $request->lastName;
-       $member->firstName = $request->firstName;
-       $member->middleName = $request->middleName;
-       $member->contactNumber = $request->contactNumber;
-       $member->profilePicture = $request->profilePicture;
-       $member->roleType = $request->roleType;
-       $member->roleDescription = $request->roleDescription;
+       $user = new UserInformationModel();
+       $user->email = $request->email;
+       $user->lastName = $request->lastName;
+       $user->firstName = $request->firstName;
+       $user->middleName = $request->middleName;
+       $user->contactNumber = $request->contactNumber;
+       $user->profilePicture = $request->profilePicture;
+       $user->roleType = $request->roleType;
+       $user->roleDescription = $request->roleDescription;
        
 
-       $member->save();
+       $user->save();
    }
 
    function Parameter(Request $request){
