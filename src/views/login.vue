@@ -1,4 +1,5 @@
 <template>
+  
    <nav class=" py-4 shadow-lg  bg-white fixed w-full">
     <div class="w-80">
     <img class="w-full  h-full" src="BUlogo.png">
@@ -17,6 +18,7 @@
       <h1 class="font-semibold text-blue-150 text-xl">Please log in to your account</h1>  
       </div>
       <div class="flex flex-col space-y-3">
+        
         <div>
            <h1 class="text-lg text-blue-150">Email</h1>
       <div class="flex items-center shadow-3xl px-2 w-80 border-2 border-blue-150 rounded-lg">
@@ -24,7 +26,7 @@
           email
           </span>
         <input placeholder="Place enter your Email" type="email" class=" shadow-lg
-         placeholder-blue-150 h-10 px-3 italic text-sm w-full rounded-lg focus:outline-none"/> 
+         placeholder-blue-150 h-10 px-3 italic text-sm w-full rounded-lg focus:outline-none" v-model="dataForm.email"/> 
       </div>
         </div>
         <div>
@@ -33,21 +35,21 @@
         <span class="material-icons text-blue-150">
           vpn_key
           </span>
-        <input placeholder="Place enter your Email" :type="type_pass" class=" shadow-lg
-         placeholder-blue-150 h-10 px-3 italic text-sm w-full rounded-lg focus:outline-none"/> 
+        <input placeholder="Place enter your Password" :type="type_pass" class=" shadow-lg
+         placeholder-blue-150 h-10 px-3 italic text-sm w-full rounded-lg focus:outline-none" v-model="dataForm.password"/> 
          <img @click="visible()" :src='icon6' class="cursor-pointer fill-current text-blue-150"/>
       </div>
         </div>
        
       </div>
-      <router-link to="/dashboard">
-      <button class=" flex justify-center font-semibold  space-x-2 py-5 rounded-lg items-center h-8 w-32 text-white bg-gradient-to-r from-indigo-700 to-blue-150">
+      <!-- <router-link to="/dashboard"> -->
+      <button @click="loginUser" class=" flex justify-center font-semibold  space-x-2 py-5 rounded-lg items-center h-8 w-32 text-white bg-gradient-to-r from-indigo-700 to-blue-150">
        <h1> Login</h1>
         <span class="material-icons">
         logout
         </span>
       </button>
-      </router-link>
+      <!-- </router-link> -->
       <div class=" flex flex-col justify-center items-center text-sm text-yellow-150">
         <h1>Forgot password and doesn’t have an account?</h1>
         <h1>Please contact the admin</h1>
@@ -61,13 +63,21 @@
 </style>
 <script>
 // @ is an alias to /src
-
+import axios from 'axios'
 export default {
+  
   data(){
     return{
+    
+    dataForm:{
+    request: 1,
+    email: "",
+    password: "",
+    },
      n:0,
      type_pass:'password',
      icon6:'/icons/icon6_eye_close.svg',
+     errors: null,
     }
   },
   methods:{
@@ -82,7 +92,17 @@ export default {
         this.icon6='/icons/icon6_eye_close.svg'
         this.type_pass="password"
       }
-    }    
+    },
+    loginUser: function(){
+      console.log(this.dataForm.email, this.dataForm.password, this.dataForm.request);
+      axios.post('response.php', this.dataForm).then(function(response){
+        console.log(response.data);
+        
+      })
+      .catch(function(error){
+        console.log(error);
+      })
+    },    
   } 
 }
 </script>

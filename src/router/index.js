@@ -9,6 +9,7 @@ import Program_area from '../views/program_area.vue'
 import Program_parameter from '../views/program_parameter.vue'
 import Public_folder_admin from '../views/public_folder_admin.vue'
 import Office_admin from '../views/office_admin.vue'
+
 const routes = [
   {
     path: '/',
