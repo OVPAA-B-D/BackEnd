@@ -67,7 +67,7 @@
       </div>
       <div class="  flex-col  h-full pt-10 px-4 space-y-3">
         
-        <div class=" flex justify-between  items-center">
+        <div class=" flex justify-between flex-wrap gap-y-2 flex-shrink  items-center">
           <button @click="show_add=!show_add,image_name=''" class=" bg-indigo-150  py-1 space-x-2
           flex justify-evenly items-center text-white px-3 text-center">
             <p class="material-icons  text-lg ">add_circle_outline</p> <p>Add program</p>
@@ -107,11 +107,10 @@
                  <div @click="index_array(programx.id),show_edit=!show_edit,image_name=''" class="flex justify-center items-center rounded-full border-4 border-white h-10 w-10 cursor-pointer bg-green-150">
                  <img src="/icons/icon14_edit_image.svg" class="w-4 h-4"/>
                </div>
-               <div @click="index_array(programx.id)" class="flex justify-center items-center  rounded-full border-4 cursor-pointer border-white h-10 w-10 bg-red-150">
+               <div @click="index_array(programx.id),confirmation_deletion=!confirmation_deletion" class="flex justify-center items-center  rounded-full border-4 cursor-pointer border-white h-10 w-10 bg-red-150">
                   <img src="/icons/icon11_delete.svg"/>
                </div>
                </div>
-               
                 <div class=" text-indigo-800 w-19   border-yellow-150 border-4 font-semibold rounded-lg shadow-xl  h-full bg-white bg-opacity-75">          
                   <div class="h-32  border-b-4 border-yellow-150">
                     <img :src="programx.imagefolder" class="object-fill w-full h-full">
@@ -197,7 +196,6 @@
                        <h1 class="text-blue-150 text-sm italic">Email</h1>
                       <input id="chairmans_email" placeholder="Chairman’s E-mail Address" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
                       </div>
-                      
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Level</h1>
                       <select id="level" class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
@@ -341,6 +339,18 @@
                    </span>
                  </div>
            </div>
+              <!--Delete--->
+           <div v-if="confirmation_deletion" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
+                 <div class="flex flex-col items-center text-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
+                 <h1 class="text-red-150 text-xl">Are you sure you want to perform this action?</h1>
+                  <h1 class="text-red-150">This action cannot be undone.</h1>
+                  <span class="flex items-center gap-x-3">
+                    <button @click="confirmation_deletion=!confirmation_deletion" class=" select-none bg-red-150 rounded-lg text-white w-28 h-10">Confirm</button>
+                    <button @click="confirmation_deletion=!confirmation_deletion" class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
+                  </span>
+                 </div>
+           </div>
+          <!----->
            <div v-if="update_show_success" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
                  <div class="flex flex-col text-center items-center justify-center gap-y-3 p-10 w-80 bg-white  shadow-3xl rounded-xl">
                     <img src="icons/icon_success.svg"/>
@@ -377,6 +387,7 @@ export default {
       show_add:false,
       show_edit:false,
       show_success:false,
+      confirmation_deletion:false,
       update_show_success:false,
       update_confirmation:false,
       confirmation:false,
