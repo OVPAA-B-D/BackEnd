@@ -151,15 +151,29 @@
 </style>
 <script>
 // @ is an alias to /src
-
+import axios from 'axios'
 export default {
   data(){
     return{
+        personalInfo: {
+            firstName: "",
+            lastName: "",
+            roleType: "",
+        },
     }
 
   },
    methods:{
-    
+       
+       getPersonal(){
+           axios.get("http://localhost:8000/api/getPersonal").then((res)=>{
+               this.personalInfo = res.data;
+               console.log(this.personalInfo);
+           });
+       }
+    },
+    mounted(){
+        this.getPersonal();
     }
 }
 </script>

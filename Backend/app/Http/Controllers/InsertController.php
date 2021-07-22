@@ -23,7 +23,8 @@ class InsertController extends Controller
 
     $program = new ProgramModel();
     $program->programID = $request->programID;
-    $program->campusName = $request->collegeName;
+    $program->campusName = $request->campusName;
+    $program->collegeName = $request->collegeName;
     $program->programName = $request->programName;
     $program->chairmanEmail = $request->chairmanEmail;
     $program->taskForceMemberEmail = $request -> taskForceMemberEmail;

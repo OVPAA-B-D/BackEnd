@@ -17,6 +17,8 @@ class UserAuthenticationModel extends Authenticatable
      * @var array
      */
     protected $table = 'tbl_userauthentication';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'email',
