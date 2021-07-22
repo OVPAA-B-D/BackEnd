@@ -21,49 +21,93 @@ class FetchController extends Controller
     //
    function getProgram(){
 
-    return ProgramModel :: select("*")
-                                ->get(); 
+    $program = Auth::user();
+    $data = DB::select('SELECT * FROM tbl_program');
+
+    if($data == null)
+        return response()->json([]);
+    return response()->json($data);
    }
 
    function getMember(){
-    return UserInformationModel :: select("*")
-                             ->get(); 
+
+    $member = Auth::user();
+    $data = DB::select('SELECT * FROM tbl_userinformation');
+
+    if($data == null)
+        return response()->json([]);
+    return response()->json($data);
    }
 
    function getParameter(){
 
-    return ParameterModel :: select("*")
-                                    ->get(); 
+    $parameter = Auth::user();
+    $data = DB::select('SELECT * FROM tbl_parameter');
+
+    if($data == null)
+        return response()->json([]);
+    return response()->json($data);
+    
     }
 
     function getBenchmark(){
-        return BenchmarkModel :: select("*")
-                                    ->get(); 
+        $benchmark = Auth::user();
+    $data = DB::select('SELECT * FROM tbl_benchmark');
+
+    if($data == null)
+        return response()->json([]);
+    return response()->json($data);
+       
     }
 
     function getArea(){
-        return AreaModel :: select("*")
-                                ->get(); 
+        $area = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_area');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+      
     }
 
     function getProgramLevel(){
-        return ProgramLevelModel :: select("*")
-                                          ->get(); 
+        $programLevel = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_programlevel');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+     
     }
 
     function getProgramLevelArea(){
-        return ProgramLevelAreaModel :: select("*")
-                                             ->get(); 
+        $programLevelArea = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_programlevelarea');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+      
     }
 
     function getProgramLevelBenchmark(){
-        return ProgramLevelBenchmarkModel :: select("*")
-                                                  ->get(); 
+        $programLevelBenchmark = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_programlevelbenchmark');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+      
+        
     }
 
     function getUserAuthentication(){
-        return UserAuthenticationModel :: select("*")
-                                                  ->get(); 
+        $userAuthentication = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_userauthentication');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
     }
 
 

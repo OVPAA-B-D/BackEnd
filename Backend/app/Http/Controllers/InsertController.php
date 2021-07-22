@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccreditorModel;
 use App\Models\AreaModel;
 use App\Models\BenchmarkModel;
 use App\Models\ParameterModel;
@@ -9,6 +10,7 @@ use App\Models\ProgramLevelAreaModel;
 use App\Models\ProgramLevelBenchmarkModel;
 use App\Models\ProgramLevelModel;
 use App\Models\ProgramModel;
+use App\Models\TaskForceModel;
 use App\Models\UserAuthenticationModel;
 use App\Models\UserInformationModel;
 use Illuminate\Http\Request;
@@ -41,7 +43,6 @@ class InsertController extends Controller
        $user->contactNumber = $request->contactNumber;
        $user->profilePicture = $request->profilePicture;
        $user->roleType = $request->roleType;
-       $user->roleDescription = $request->roleDescription;
        
 
        $user->save();
@@ -118,5 +119,22 @@ class InsertController extends Controller
         $userAuthentication->save();
     }
 
+    function Accreditor(Request $request){
+        $accreditor = new AccreditorModel();
+        $accreditor->programLevelAreaID = $request->programLevelAreaID;
+        $accreditor->accreditorEmail = $request->accreditorEmail;
+        $accreditor->roleDescription = $request->roleDescription;
+        $accreditor->activeStatus = $request->activeStatus;
+        $accreditor->createdDate = $request->createdDate;
+    }
+
+    function TaskForce(Request $request){
+        $taskforce = new TaskForceModel();
+        $taskforce->programID = $request->programID;
+        $taskforce->taskforceEmail = $request->taskforceEmail;
+        $taskforce->roleDescription = $request->roleDescription;
+        $taskforce->activeStatus = $request->activeStatus;
+        $taskforce->createdDate = $request->createdDate;
+    }
 
 }
