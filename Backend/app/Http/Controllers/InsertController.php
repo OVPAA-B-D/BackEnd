@@ -28,9 +28,14 @@ class InsertController extends Controller
     $program->campusName = $request->campusName;
     $program->collegeName = $request->collegeName;
     $program->programName = $request->programName;
+<<<<<<< HEAD
     $program->chairmanEmail = $request->chairmanEmail;
     $program->taskForceMemberEmail = $request -> taskForceMemberEmail;
 
+=======
+    $program->coverImage = $request->coverImage;
+   
+>>>>>>> 0e825f2 (Adding Program)
     $program->save();
    }
 
@@ -116,6 +121,7 @@ class InsertController extends Controller
         $userAuthentication->email = $request->email;
         $userAuthentication->password = $request->password;
 
+<<<<<<< HEAD
        
 
         $userAuthentication->save();
@@ -127,6 +133,9 @@ class InsertController extends Controller
         $response = ["user"=>$userAuthentication, "token"=>$token];
 
         return response()->json($response,201);
+=======
+        $userAuthentication->save();
+>>>>>>> 0e825f2 (Adding Program)
     }
 
     function Accreditor(Request $request){

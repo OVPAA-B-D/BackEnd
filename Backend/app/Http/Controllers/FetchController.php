@@ -15,14 +15,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Gate;
+=======
+>>>>>>> 0e825f2 (Adding Program)
 
 class FetchController extends Controller
 {
     //
    function getProgram(){
 
+<<<<<<< HEAD
     $program = Gate::user();
+=======
+    $program = Auth::user();
+>>>>>>> 0e825f2 (Adding Program)
     $data = DB::select('SELECT * FROM tbl_program');
 
     if($data == null)
@@ -32,7 +39,11 @@ class FetchController extends Controller
 
    function getMember(){
 
+<<<<<<< HEAD
     $member = Gate::authorize('show');
+=======
+    $member = Auth::user();
+>>>>>>> 0e825f2 (Adding Program)
     $data = DB::select('SELECT * FROM tbl_userinformation');
 
     if($data == null)
@@ -42,7 +53,11 @@ class FetchController extends Controller
 
    function getParameter(){
 
+<<<<<<< HEAD
     $parameter = Gate::user();
+=======
+    $parameter = Auth::user();
+>>>>>>> 0e825f2 (Adding Program)
     $data = DB::select('SELECT * FROM tbl_parameter');
 
     if($data == null)
@@ -52,7 +67,11 @@ class FetchController extends Controller
     }
 
     function getBenchmark(){
+<<<<<<< HEAD
         $benchmark = Gate::user();
+=======
+        $benchmark = Auth::user();
+>>>>>>> 0e825f2 (Adding Program)
     $data = DB::select('SELECT * FROM tbl_benchmark');
 
     if($data == null)
@@ -62,7 +81,11 @@ class FetchController extends Controller
     }
 
     function getArea(){
+<<<<<<< HEAD
         $area = Gate::user();
+=======
+        $area = Auth::user();
+>>>>>>> 0e825f2 (Adding Program)
         $data = DB::select('SELECT * FROM tbl_area');
     
         if($data == null)
@@ -72,7 +95,11 @@ class FetchController extends Controller
     }
 
     function getProgramLevel(){
+<<<<<<< HEAD
         $programLevel = Gate::user();
+=======
+        $programLevel = Auth::user();
+>>>>>>> 0e825f2 (Adding Program)
         $data = DB::select('SELECT * FROM tbl_programlevel');
     
         if($data == null)
@@ -82,7 +109,11 @@ class FetchController extends Controller
     }
 
     function getProgramLevelArea(){
+<<<<<<< HEAD
         $programLevelArea = Gate::user();
+=======
+        $programLevelArea = Auth::user();
+>>>>>>> 0e825f2 (Adding Program)
         $data = DB::select('SELECT * FROM tbl_programlevelarea');
     
         if($data == null)

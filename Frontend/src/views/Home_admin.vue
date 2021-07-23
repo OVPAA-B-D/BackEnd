@@ -185,16 +185,28 @@
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Chairmain</h1>
+<<<<<<< HEAD
                       <input id="chairmans_name" placeholder="Enter the chairman’s name" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Contact number</h1>
                       <input     id="chairmans_number" placeholder="Chairman’s contact number" type="number"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+=======
+                      <input v-model="addProgram.chairmanName" placeholder="Enter the chairman’s name" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                      </div>
+                     <div class="flex flex-col">
+                       <h1 class="text-blue-150 text-sm italic">Contact number</h1>
+                      <input v-model="addProgram.chairmanContactNumber" placeholder="Chairman’s contact number" type="number"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+>>>>>>> 0e825f2 (Adding Program)
                       </div>
                       
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Email</h1>
+<<<<<<< HEAD
                       <input id="chairmans_email" placeholder="Chairman’s E-mail Address" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+=======
+                      <input v-model="addProgram.chairmanEmail" placeholder="Chairman’s E-mail Address" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+>>>>>>> 0e825f2 (Adding Program)
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Level</h1>
@@ -210,7 +222,11 @@
                   <div class="flex absolute items-center bottom-8 right-8 gap-x-2">
                     <div class="flex overflow-hidden w-32   items-end  h-8 border-b-2 border-blue-250">
                       <h1 class="text-yellow-150">File: </h1>
+<<<<<<< HEAD
                        <h1 class="text-blue-150">{{image_name}}</h1>
+=======
+                       <h1 class="text-blue-150">{{imageName}}</h1>
+>>>>>>> 0e825f2 (Adding Program)
                     </div>
                    <label for="program_image"><span  class="flex items-center select-none cursor-pointer  justify-center  gap-2 border-2 border-blue-150  w-32 h-8 text-blue-250  "> 
                     <img src="icons/icon_change_cover.svg"/>
@@ -226,6 +242,7 @@
               </div>
               
           </div>
+<<<<<<< HEAD
           <!--Edit Folder-->
                 
           <div v-if="show_edit" class="fixed  flex justify-center bg-gray-200 z-10 h-max w-screen   bg-opacity-50 overflow-y-auto items-center  inset-0">
@@ -309,6 +326,9 @@
               </div>  
           </div>
           <!----->
+=======
+         
+>>>>>>> 0e825f2 (Adding Program)
           <!---Confirmation-->
             <div v-if="confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
                  <div class="flex flex-col items-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
@@ -376,6 +396,10 @@
 }
 </style>
 <script>
+<<<<<<< HEAD
+=======
+import api from '../api';
+>>>>>>> 0e825f2 (Adding Program)
 // @ is an alias to /src
 
 export default {
@@ -391,13 +415,17 @@ export default {
       update_show_success:false,
       update_confirmation:false,
       confirmation:false,
+<<<<<<< HEAD
       image_name:'',
+=======
+>>>>>>> 0e825f2 (Adding Program)
       bg_image:'img/img2.png',
       program_image:'img/default_cover_image.jpg',
       id_array:'0',
       idn:0,
       index:0,
       filtered_program:[],
+<<<<<<< HEAD
       program:[
          {
           id:"",
@@ -413,10 +441,26 @@ export default {
           chairman_email:''
         },
       ]
+=======
+      imageName:"",
+     
+      addProgram:{
+          programID:"1",
+          programName:"",
+          collegeName:"",
+          campusName:"",
+          level:"",
+          chairmanName:"",
+          chairmanContactNumber:"",
+          chairmanEmail:"",
+          coverImage:"",
+      }
+>>>>>>> 0e825f2 (Adding Program)
     }
   },
    methods:{
      add_program(){
+<<<<<<< HEAD
        this.idn=this.idn+1
        let n=this.idn
 
@@ -452,6 +496,26 @@ export default {
           this.program[this.index].chairman_number=document.getElementById("edit_chairmans_number").value,
           this.program[this.index].chairman_email=document.getElementById("edit_chairmans_email").value
 
+=======
+       
+       
+            this.addProgram.programName = document.getElementById("selected_program").value;
+            this.addProgram.collegeName=document.getElementById("selected_college").value;
+            this.addProgram.campusName=document.getElementById("selected_campus").value;
+            this.addProgram.level= document.getElementById("level").value;
+            //this.addProgram.imageFile= this.imageName;
+        
+        //this.program.push(new_program)
+        //this.program_image='img/default_cover_image.jpg'
+          api
+              .post("api/Program", this.addProgram)
+              .then((res) => {
+          
+              })
+              .catch((errors) => {
+          this.errors = errors.response;
+             });
+>>>>>>> 0e825f2 (Adding Program)
       },
      index_array(e){
          this.index=this.program.findIndex(x => x.id===e)

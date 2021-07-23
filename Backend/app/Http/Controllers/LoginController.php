@@ -25,10 +25,16 @@ class LoginController extends Controller
             return response()->json(['invalid' => 'The provided credentials are incorrect.'],422);
         }
         else{
+<<<<<<< HEAD
             $token = $user->createToken('myapptoken')->plainTextToken;
 
             $response = ["user"=>$user, "token"=>$token];
            
+=======
+            $response = array(
+                'message' => 'Login Succesfully'
+            );
+>>>>>>> 0e825f2 (Adding Program)
         return $response;
         }
     }

@@ -1,14 +1,18 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\InsertController;
 use App\Http\Controllers\FetchController;
 use App\Http\Controllers\UpdateController;
 use Illuminate\Http\Request;
+=======
+>>>>>>> 0e825f2 (Adding Program)
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
+<<<<<<< HEAD
 | API Routes
 |--------------------------------------------------------------------------
 |
@@ -63,3 +67,17 @@ Route::get('getProgramLevel', [FetchController::class, 'getProgramLevel']);
 Route::get('getProgramLevelArea', [FetchController::class, 'getProgramLevelArea']);
 Route::get('getProgramLevelBenchmark', [FetchController::class, 'getProgramLevelBenchmark']);
 Route::get('getUserAuthentication', [FetchController::class, 'getUserAuthentication']);
+=======
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+>>>>>>> 0e825f2 (Adding Program)

@@ -6,6 +6,7 @@ const api = axios.create({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
     },
+<<<<<<< HEAD
     xsrfCookieName: 'XSRF-TOKEN',
     xsrfHeaderName: 'X-XSRF-TOKEN',
     withCredentials: true
@@ -19,4 +20,8 @@ api.interceptors.request.use(function (config) {
 });
 
 
+=======
+});
+
+>>>>>>> 0e825f2 (Adding Program)
 export default api 
