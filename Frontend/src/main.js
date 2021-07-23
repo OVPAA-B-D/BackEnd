@@ -7,6 +7,7 @@ import './assets/CSS/style.css'
 
 
 
-createApp(App).use(router).use(VueAxios,axios).mount('#app')
+const app = createApp(App).use(router).use(VueAxios,axios).mount('#app')
 
+export default app
 

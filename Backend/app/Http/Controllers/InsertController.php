@@ -11,7 +11,7 @@ use App\Models\ProgramLevelBenchmarkModel;
 use App\Models\ProgramLevelModel;
 use App\Models\ProgramModel;
 use App\Models\TaskForceModel;
-use App\Models\UserAuthenticationModel;
+use App\Models\User;
 use App\Models\UserInformationModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +46,20 @@ class InsertController extends Controller
        
 
        $user->save();
+
+       $userAuthentication = new User();
+       $userAuthentication->email = $request->email;
+       $userAuthentication->password = $request->password;
+
+       $userAuthentication->save();
+
+       Auth::login($userAuthentication);
+
+       $token = $userAuthentication->createToken('myapptoken')->plainTextToken;
+
+       $response = ["user"=>$userAuthentication, "token"=>$token];
+
+       return response()->json($response,201);
    }
 
    function Parameter(Request $request){
@@ -112,21 +126,21 @@ class InsertController extends Controller
     }
 
     function UserAuthentication(Request $request){
-        $userAuthentication = new UserAuthenticationModel();
-        $userAuthentication->email = $request->email;
-        $userAuthentication->password = $request->password;
+        // $userAuthentication = new User();
+        // $userAuthentication->email = $request->email;
+        // $userAuthentication->password = $request->password;
 
        
 
-        $userAuthentication->save();
+        // $userAuthentication->save();
 
-        Auth::login($userAuthentication);
+        // Auth::login($userAuthentication);
 
-        $token = $userAuthentication->createToken('myapptoken')->plainTextToken;
+        // $token = $userAuthentication->createToken('myapptoken')->plainTextToken;
 
-        $response = ["user"=>$userAuthentication, "token"=>$token];
+        // $response = ["user"=>$userAuthentication, "token"=>$token];
 
-        return response()->json($response,201);
+        // return response()->json($response,201);
     }
 
     function Accreditor(Request $request){

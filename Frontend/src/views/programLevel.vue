@@ -472,9 +472,9 @@
                 cursor-pointer
                 border-2 border-blue-150
               "
-              v-model="taskForceMember.middleName"
+              v-model="taskForceMember.selectedroleType"
             >
-              <option selected disabled>Select task force role</option>
+              <option value ="roleType" selected disabled>Select task force role</option>
               <option>Admin</option>
               <option>Task Force</option>
               <option>Accreditor</option>
@@ -631,7 +631,7 @@
           </div>
           <span class="flex items-center gap-x-3">
             <button
-              @click="confirmation = !confirmation"
+              @click="addTaskForceMember() "
               class="select-none bg-blue-250 rounded-lg text-white w-28 h-10"
             >
               Confirm
@@ -749,13 +749,21 @@ export default {
       index: "",
       items: ["first"],
 
+      selectedroleType: '',
+  
+      userAuth:{
+        email: "",
+        password: "123456",
+
+      },
+    
       taskForceMember: {
         firstName: "",
         middleName: "",
         lastName: "",
         email: "",
         roleType: "",
-        password: "123456",
+        
       },
 
       folder_details: [
@@ -836,29 +844,19 @@ export default {
   },
   methods: {
     addTaskForceMember() {
-      this.taskForceMember.roleType =
-        document.getElementById("roleType").options[
-          document.getElementById("roleType").selectedIndex
-        ].text;
+     // this.taskForceMember.roleType = this.selectedroleType;
 
+      console.log(this.taskForceMember);
       api
-        .post("/api/User", this.taskForceMember)
-        .them((res) => {
+        .post("/api/Member", this.taskForceMember)
+        .then((res) => {
           console.log(res);
-
-          api
-            .post("api/UserAuthentication", this.dataForm)
-            .then((res) => {
-             
-              console.log(res);
-            })
-            .catch((errors) => {
-              this.errors = errors.response;
-            });
         })
         .catch((errors) => {
           this.errors = errors.res;
         });
+
+         
     },
 
     index_array(e) {

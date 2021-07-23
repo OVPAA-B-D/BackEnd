@@ -8,15 +8,15 @@ const api = axios.create({
     },
     xsrfCookieName: 'XSRF-TOKEN',
     xsrfHeaderName: 'X-XSRF-TOKEN',
-    withCredentials: true
+    withCredentials: false
 });
 
-api.interceptors.request.use(function (config) {
-    const token = sessionStorage.getItem("Authorization")
-    config.headers.Authorization = `Bearer ` + token;
-    console.log('apiiiiiiiii token', token)
-    return config;
-});
+// api.interceptors.request.use(function (config) {
+//     const token = sessionStorage.getItem("Authorization")
+//     config.headers.Authorization = `Bearer ` + token;
+//     console.log('apiiiiiiiii token', token)
+//     return config;
+// });
 
 
 export default api 
