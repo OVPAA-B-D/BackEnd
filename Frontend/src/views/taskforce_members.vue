@@ -61,12 +61,22 @@
 
   <!-- TASK FORCE ADDING PAGE -->
     <div class="flex flex-col  w-full">
-      <div class="w-full  pl-4  pt-7 bg-default bg-cover"  >  
+
+      <div class="w-full  cursor-default h-72 relative shadow-lg px-4 pt-7">
+        <img :src="bg_image" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
+        <div class="flex items-center justify-between ">
+        <h1 class="text-2xl text-blue-150 font-normal ">Task Force Members/<a class="font-bold">Information Technology</a></h1>
+         <input   @change="change_bgImage"  type="file" id="bg_images" class="hidden" />
+        </div>
+      <h1 class="absolute bottom-4 text-yellow-150 text-5xl">Task Force Members</h1>
+      </div>
+
+      <!-- <div class="w-full  pl-4  pt-7 bg-default bg-cover"  >  
         <div class="flex items-center justify-between pr-5">
         <h1 class="text-2xl text-blue-150 font-normal">Task Force Members/<a class="font-bold">Information Technology</a></h1>
         </div>
         <h1 class="text-5xl text-yellow-150 pt-24 pb-3 ">Task Force Members</h1>
-      </div>
+      </div> -->
 
 <!--  -->
       <div class="  flex-col h-full pt-10 px-4  space-y-3">
@@ -215,8 +225,15 @@
 export default {
   data(){
     return{
-        show_add_accre:false,
-        confirm_accre:false,
+      bg_image:'img/bg_plain.svg',
+      show_add_accre:false,
+      confirm_accre:false,
+    }
+  },
+  methods:{
+      change_bgImage(e){
+       const file=e.target.files[0];
+        this.bg_image=URL.createObjectURL(file);
     }
   }
 }

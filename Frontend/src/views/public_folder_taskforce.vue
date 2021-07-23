@@ -58,30 +58,34 @@
       </div>
     <!-- END OF MENU -->
 
-    <div class="flex flex-col  w-full">
-      <div class="w-full  pl-4  pt-7 bg-default bg-cover"  >  
-        <div class="flex items-center justify-between pr-5">
-        <h1 class="text-2xl text-blue-150 font-normal">Public Folder</h1>
+<div class="flex flex-col  w-full">
+     <div class="w-full  cursor-default h-72 relative shadow-lg px-4 pt-7">
+        <img :src="bg_image" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
+        <div class="flex items-center justify-between ">
+        <h1 class="text-2xl text-blue-150 font-normal ">Public Folder</h1>
+         <input   @change="change_bgImage"  type="file" id="bg_images" class="hidden" />
         </div>
-        <h1 class="text-5xl text-yellow-150 pt-24 pb-3 ">Public Folder</h1>
+      <h1 class="absolute bottom-4 text-yellow-150 text-5xl">Public Folder</h1>
       </div>
       <div class="  flex-col  h-full pt-10 px-4 space-y-3">
-        <!-- TO FIX: Align SEARCH to right -->
+        
         <div class=" flex justify-between  items-center">
-          <div class="space-x-2  font-normal text-xl flex justify-center items-center p-0.5  pr-2 text-white bg-blue-150 ">
+          <div class="flex gap-x-2  items-center">
+            <!-- keep empty -->
+          </div>
+          <div class="space-x-2 cursor-pointer  font-normal text-xl flex justify-between items-center h-9 pl-0.5 pr-2 text-white bg-blue-150 ">
             <input type="text" placeholder="Search" class="
-            placeholder-blue-150
+            placeholder-blue-150 pb-1
              pl-3 text-sm text-gray-150 h-8  focus:outline-none" />
-            <span class="material-icons cursor-pointer">
+            <span class="material-icons">
               search
             </span>
           </div>
         </div>
-
           <div class=" flex  flex-wrap rounded-lg p-0.6 bg-gradient-to-r from-blue-150 to-yellow-150  h-99">
             <div class=" flex flex-col w-full rounded-lg bg-white h-full  p-4 ">
               <div class="w-full flex justify-end pb-2 pr-5">
-                  <img src="/icons/icon5.svg"/>
+                  <img src="/icons/icon5_sort.svg"/>
                   <h1 class="text-yellow-150" >Sort by</h1>
               </div>
             <div class=" w-full overflow-y-auto h-full ">
@@ -100,6 +104,7 @@
             </div>
           </div>
           </div>
+          
       </div>
     </div>
   </div>
@@ -113,6 +118,7 @@
 export default {
   data(){
     return{
+      bg_image:'img/bg_plain.svg',
       show_add:false,
         file:[
             {   id:1,
@@ -120,17 +126,24 @@ export default {
                 file_name:'Public Folder'
             },
              {   id:2,
-                file_image:'/icons/icon13.svg',
+                file_image:'/icons/icon13_pdf.svg',
                 file_name:'Public File'
             },
              {   id:3,
-                file_image:'/icons/icon13.svg',
+                file_image:'/icons/icon13_pdf.svg',
                 file_name:'Public File'
             },
                
         ]
     }
 
+  },
+  methods:{
+      change_bgImage(e){
+       const file=e.target.files[0];
+        this.bg_image=URL.createObjectURL(file);
+    }
   }
+   
 }
 </script>
