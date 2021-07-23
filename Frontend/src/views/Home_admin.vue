@@ -185,28 +185,16 @@
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Chairmain</h1>
-<<<<<<< HEAD
-                      <input id="chairmans_name" placeholder="Enter the chairman’s name" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
-                      </div>
-                     <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">Contact number</h1>
-                      <input     id="chairmans_number" placeholder="Chairman’s contact number" type="number"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
-=======
                       <input v-model="addProgram.chairmanName" placeholder="Enter the chairman’s name" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Contact number</h1>
                       <input v-model="addProgram.chairmanContactNumber" placeholder="Chairman’s contact number" type="number"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
->>>>>>> 0e825f2 (Adding Program)
                       </div>
                       
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Email</h1>
-<<<<<<< HEAD
-                      <input id="chairmans_email" placeholder="Chairman’s E-mail Address" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
-=======
                       <input v-model="addProgram.chairmanEmail" placeholder="Chairman’s E-mail Address" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
->>>>>>> 0e825f2 (Adding Program)
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Level</h1>
@@ -222,11 +210,7 @@
                   <div class="flex absolute items-center bottom-8 right-8 gap-x-2">
                     <div class="flex overflow-hidden w-32   items-end  h-8 border-b-2 border-blue-250">
                       <h1 class="text-yellow-150">File: </h1>
-<<<<<<< HEAD
-                       <h1 class="text-blue-150">{{image_name}}</h1>
-=======
                        <h1 class="text-blue-150">{{imageName}}</h1>
->>>>>>> 0e825f2 (Adding Program)
                     </div>
                    <label for="program_image"><span  class="flex items-center select-none cursor-pointer  justify-center  gap-2 border-2 border-blue-150  w-32 h-8 text-blue-250  "> 
                     <img src="icons/icon_change_cover.svg"/>
@@ -242,93 +226,7 @@
               </div>
               
           </div>
-<<<<<<< HEAD
-          <!--Edit Folder-->
-                
-          <div v-if="show_edit" class="fixed  flex justify-center bg-gray-200 z-10 h-max w-screen   bg-opacity-50 overflow-y-auto items-center  inset-0">
-              <div class="relative rounded-lg flex flex-col shadow-2xl px-3 pb-8 pt-3 bg-white w-82 h-min">
-                 <div class="flex justify-between pr-8">
-                  <h1 class="text-xl text-yellow-150">Edit Program</h1>
-                  <button @click="show_edit=!show_edit" class=" text-red-500 text-lg ">
-                    Close
-                  </button>
-                 </div>
-                  <div class="flex gap-5 mt-5 pl-3 flex-wrap">
-                      <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">Campus</h1>
-                      <select id="edit_selected_campus" class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled :value="program[index].Campus">Select a Campus</option>
-                      <option value="Main">Main Campus</option>
-                      <option value="East">East Campus</option>
-                      <option value="Daraga">Daraga Campus</option>
-                      <option value="Tabaco">Tabaco Campus</option>
-                      <option value="Guinobatan">Guinobatan Campus</option>
-                      <option value="Polangui">Polangui Campus</option>
-                      <option value="Gubat">Gubat Campus</option>
-                      </select>
-                      </div>
-                     <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">College</h1>
-                      <select  id="edit_selected_college" class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled :value="program[index].Colleges">Choose a College</option>
-                      <option  >College of Science</option>
-                      <option  >College of Medicine</option>
-                      </select>
-                      </div>
-                     <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">Program</h1>
-                      <select id="edit_selected_program"  class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled :value="program[index].program_name"> Choose a Program</option>
-                      <option>Computer Science</option>
-                       <option>Biology</option>
-                      </select>
-                      </div>
-                      <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">Chairmain</h1>
-                      <input id="edit_chairmans_name" :value="program[index].chairman_name" placeholder="Enter the chairman’s name" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
-                      </div>
-                     <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">Contact number</h1>
-                      <input :value="program[index].chairman_number"  id="edit_chairmans_number" placeholder="Chairman’s contact number" type="number"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
-                      </div>
-                      
-                      <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">Email</h1>
-                      <input :value="program[index].chairman_email" id="edit_chairmans_email" placeholder="Chairman’s E-mail Address" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
-                      </div>
-                      <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">Level</h1>
-                      <select id="edit_level" class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled :value="program[index].Level">Level of accreditation</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      </select>
-                      </div>
-                  </div>
-                  <div class="flex absolute  bottom-8 right-8 gap-x-2">
-                    <div class="flex overflow-hidden w-32   items-end  h-8 border-b-2 border-blue-250">
-                      <h1 class="text-yellow-150">File: </h1>
-                       <h1 class="text-blue-150">{{image_name}}</h1>
-                    </div>
-                   <label for="program_image"><span  class="flex items-center select-none cursor-pointer  justify-center  gap-2 border-2 border-blue-150  w-36 h-8 text-blue-250  "> 
-                    <img src="icons/icon_change_cover.svg"/>
-                    Change Cover
-                  </span>
-                   </label>
-                  <button @click="update_confirmation=!update_confirmation" class="flex items-center justify-center px-5 gap-2 w-36 h-8 text-white bg-blue-250"> 
-                    <img src="icons/icon12_add.svg"/>
-                    Update
-                  </button>
-                  <input type="file" class="hidden" id="program_image" @change="change_image"/>
-                  </div>
-              </div>  
-          </div>
-          <!----->
-=======
          
->>>>>>> 0e825f2 (Adding Program)
           <!---Confirmation-->
             <div v-if="confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
                  <div class="flex flex-col items-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
@@ -396,10 +294,7 @@
 }
 </style>
 <script>
-<<<<<<< HEAD
-=======
 import api from '../api';
->>>>>>> 0e825f2 (Adding Program)
 // @ is an alias to /src
 
 export default {
@@ -415,33 +310,12 @@ export default {
       update_show_success:false,
       update_confirmation:false,
       confirmation:false,
-<<<<<<< HEAD
-      image_name:'',
-=======
->>>>>>> 0e825f2 (Adding Program)
       bg_image:'img/img2.png',
       program_image:'img/default_cover_image.jpg',
       id_array:'0',
       idn:0,
       index:0,
       filtered_program:[],
-<<<<<<< HEAD
-      program:[
-         {
-          id:"",
-          program_name:"",
-           address:"",
-          Colleges:"",
-          Campus:'',
-          Date:'',
-          Level:1,
-          imagefolder:'img/default_cover_image.jpg',
-          chairman_name:'',
-          chairman_number:'',
-          chairman_email:''
-        },
-      ]
-=======
       imageName:"",
      
       addProgram:{
@@ -455,48 +329,10 @@ export default {
           chairmanEmail:"",
           coverImage:"",
       }
->>>>>>> 0e825f2 (Adding Program)
     }
   },
    methods:{
      add_program(){
-<<<<<<< HEAD
-       this.idn=this.idn+1
-       let n=this.idn
-
-       this.program.program_name =  document.getElementById("selectedProgramName").options[document.getElementById("selectedProgramName").selectedIndex].text;
-      let new_program=
-        {
-            'id':n,
-            'program_name':document.getElementById("selected_program").value,
-            'address':"Legazpi City",
-            'Colleges':document.getElementById("selected_college").value,
-            'Campus':document.getElementById("selected_campus").value,
-            'Date':'July,30,2021',
-            'Level':document.getElementById("level").value,
-            'imagefolder':this.program_image,
-            'chairman_name':document.getElementById("chairmans_name").value,
-            'chairman_number':document.getElementById("chairmans_number").value,
-            'chairman_email':document.getElementById("chairmans_email").value,
-        }
-        this.program.push(new_program)
-        this.program_image='img/default_cover_image.jpg'
-
-      },
-      update(){
-          this.program[this.index].id=this.index
-          this.program[this.index].program_name=document.getElementById("edit_selected_program").value,
-          this.program[this.index].address="Legazpi City",
-          this.program[this.index].Colleges=document.getElementById("edit_selected_college").value,
-          this.program[this.index].Campus=document.getElementById("edit_selected_campus").value,
-          this.program[this.index].Date='July,30,2021',
-          this.program[this.index].Level=document.getElementById("edit_level").value,
-          this.program[this.index].imagefolder=this.program_image,
-          this.program[this.index].chairman_name=document.getElementById("edit_chairmans_name").value,
-          this.program[this.index].chairman_number=document.getElementById("edit_chairmans_number").value,
-          this.program[this.index].chairman_email=document.getElementById("edit_chairmans_email").value
-
-=======
        
        
             this.addProgram.programName = document.getElementById("selected_program").value;
@@ -515,7 +351,6 @@ export default {
               .catch((errors) => {
           this.errors = errors.response;
              });
->>>>>>> 0e825f2 (Adding Program)
       },
      index_array(e){
          this.index=this.program.findIndex(x => x.id===e)

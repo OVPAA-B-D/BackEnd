@@ -152,10 +152,7 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios'
-<<<<<<< HEAD
 import api from "../api";
-=======
->>>>>>> 0e825f2 (Adding Program)
 export default {
   data(){
     return{
@@ -170,11 +167,7 @@ export default {
    methods:{
        
        getPersonal(){
-<<<<<<< HEAD
            api.get("/api/getPersonal").then((res)=>{
-=======
-           axios.get("http://localhost:8000/api/getPersonal").then((res)=>{
->>>>>>> 0e825f2 (Adding Program)
                this.personalInfo = res.data;
                console.log(this.personalInfo);
            });
