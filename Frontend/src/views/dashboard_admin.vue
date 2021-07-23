@@ -152,6 +152,7 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios'
+import api from "../api";
 export default {
   data(){
     return{
@@ -166,7 +167,7 @@ export default {
    methods:{
        
        getPersonal(){
-           axios.get("http://localhost:8000/api/getPersonal").then((res)=>{
+           api.get("/api/getPersonal").then((res)=>{
                this.personalInfo = res.data;
                console.log(this.personalInfo);
            });

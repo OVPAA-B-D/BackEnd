@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => ['auth:api']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
    
 
     Route::post("/updateArea", [updateController::class, 'updateArea']);
@@ -32,22 +32,16 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post("/userInformation", [updateController::class, 'userInformation']);
 
 
-    Route::get('getPersonal', [FetchController::class, 'getMember']);
-    Route::get('getProgram', [FetchController::class, 'getProgram']);
-    Route::get('getParameter', [FetchController::class, 'getParameter']);
-    Route::get('getBenchmark', [FetchController::class, 'getBenchmark']);
-    Route::get('getArea', [FetchController::class, 'getArea']);
-    Route::get('getProgramLevel', [FetchController::class, 'getProgramLevel']);
-    Route::get('getProgramLevelArea', [FetchController::class, 'getProgramLevelArea']);
-    Route::get('getProgramLevelBenchmark', [FetchController::class, 'getProgramLevelBenchmark']);
-    Route::get('getUserAuthentication', [FetchController::class, 'getUserAuthentication']);
+   
 
 });
 
-
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::middleware('auth:sanctum')->get('/authenticated', function () {
+    return true;
 });
 
 Route::post('Login', [LoginController::class, 'Login'])->name('Login');
@@ -59,3 +53,13 @@ Route::post('ProgramLevel', [InsertController::class, 'ProgramLevel']);
 Route::post('ProgramLevelArea', [InsertController::class, 'ProgramLevelArea']);
 Route::post('ProgramLevelBenchmark', [InsertController::class, 'ProgramLevelBenchmark']);
 Route::post('UserAuthentication', [InsertController::class, 'UserAuthentication']);
+
+Route::get('getPersonal', [FetchController::class, 'getMember']);
+Route::get('getProgram', [FetchController::class, 'getProgram']);
+Route::get('getParameter', [FetchController::class, 'getParameter']);
+Route::get('getBenchmark', [FetchController::class, 'getBenchmark']);
+Route::get('getArea', [FetchController::class, 'getArea']);
+Route::get('getProgramLevel', [FetchController::class, 'getProgramLevel']);
+Route::get('getProgramLevelArea', [FetchController::class, 'getProgramLevelArea']);
+Route::get('getProgramLevelBenchmark', [FetchController::class, 'getProgramLevelBenchmark']);
+Route::get('getUserAuthentication', [FetchController::class, 'getUserAuthentication']);

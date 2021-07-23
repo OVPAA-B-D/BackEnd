@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c048234ecbff2d10c359c52d28beac03ce3aa68e',
+        'reference' => '74829411dda3106e6f9eed18d50062299c1a8c8b',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -400,7 +400,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c048234ecbff2d10c359c52d28beac03ce3aa68e',
+            'reference' => '74829411dda3106e6f9eed18d50062299c1a8c8b',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -411,6 +411,15 @@
             'aliases' => array(),
             'reference' => '51ecfe0f048f8f8e6c5617e02a1f67ca22817c98',
             'dev_requirement' => true,
+        ),
+        'laravel/sanctum' => array(
+            'pretty_version' => 'v2.11.2',
+            'version' => '2.11.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/sanctum',
+            'aliases' => array(),
+            'reference' => 'b21e65cbe13896946986cb0868180cd69e1bd5d3',
+            'dev_requirement' => false,
         ),
         'laravel/tinker' => array(
             'pretty_version' => 'v2.6.1',
