@@ -116,7 +116,17 @@ class InsertController extends Controller
         $userAuthentication->email = $request->email;
         $userAuthentication->password = $request->password;
 
+       
+
         $userAuthentication->save();
+
+        Auth::login($userAuthentication);
+
+        $token = $userAuthentication->createToken('myapptoken')->plainTextToken;
+
+        $response = ["user"=>$userAuthentication, "token"=>$token];
+
+        return response()->json($response,201);
     }
 
     function Accreditor(Request $request){

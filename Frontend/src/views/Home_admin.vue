@@ -400,17 +400,17 @@ export default {
       filtered_program:[],
       program:[
          {
-          id:0,
-          program_name:"Information Technology",
-           address:"Legazpi City",
-          Colleges:"College of Science",
-          Campus:'Main',
-          Date:'July,30,2021',
+          id:"",
+          program_name:"",
+           address:"",
+          Colleges:"",
+          Campus:'',
+          Date:'',
           Level:1,
           imagefolder:'img/default_cover_image.jpg',
-          chairman_name:'Johann Abad',
-          chairman_number:'09021050501',
-          chairman_email:'johannabad@gmail.com'
+          chairman_name:'',
+          chairman_number:'',
+          chairman_email:''
         },
       ]
     }
@@ -419,6 +419,8 @@ export default {
      add_program(){
        this.idn=this.idn+1
        let n=this.idn
+
+       this.program.program_name =  document.getElementById("selectedProgramName").options[document.getElementById("selectedProgramName").selectedIndex].text;
       let new_program=
         {
             'id':n,
