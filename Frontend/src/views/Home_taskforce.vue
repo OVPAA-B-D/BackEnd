@@ -107,7 +107,7 @@
                    </div>
                    
                     <h1 class="sticky top-0 text-blue-150 text-lg cursor-pointer">
-                       <router-link to="/home_admin"> <a class="hover:underline">Infomation Technology</a></router-link >
+                       <router-link to="/home_taskforce"> <a class="hover:underline">Infomation Technology</a></router-link >
                    </h1>
                 
                   
@@ -119,7 +119,7 @@
                       
                   <router-link :to="link_to">
                     <div @click="isActive_function(folderx.id)" :class="{active: activeBtn === folderx.id }" class="p-2 w-full" >
-                       <img @dblclick="link_to='/program_area'" @click="index_array(folderx.id),detailing()"
+                       <img @dblclick="link_to='/program_area_taskforce'" @click="index_array(folderx.id),detailing()"
                          :src="folderx.folder_image" class="w-16"/>
                     </div>
                     </router-link>
