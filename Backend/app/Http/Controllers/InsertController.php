@@ -28,9 +28,8 @@ class InsertController extends Controller
     $program->campusName = $request->campusName;
     $program->collegeName = $request->collegeName;
     $program->programName = $request->programName;
-    $program->chairmanEmail = $request->chairmanEmail;
-    $program->taskForceMemberEmail = $request -> taskForceMemberEmail;
-
+    $program->coverImage = $request->coverImage;
+   
     $program->save();
    }
 
@@ -125,23 +124,6 @@ class InsertController extends Controller
         $programLevelBenchmark->save();
     }
 
-    function UserAuthentication(Request $request){
-        // $userAuthentication = new User();
-        // $userAuthentication->email = $request->email;
-        // $userAuthentication->password = $request->password;
-
-       
-
-        // $userAuthentication->save();
-
-        // Auth::login($userAuthentication);
-
-        // $token = $userAuthentication->createToken('myapptoken')->plainTextToken;
-
-        // $response = ["user"=>$userAuthentication, "token"=>$token];
-
-        // return response()->json($response,201);
-    }
 
     function Accreditor(Request $request){
         $accreditor = new AccreditorModel();

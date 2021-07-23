@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "9a3fc7e6ae250e7135da3e043941710c",
+=======
+    "content-hash": "7759431e303e2d722a264a8a991a9e84",
+>>>>>>> 0e825f2 (Adding Program)
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1030,6 +1034,7 @@
             "time": "2021-07-20T14:38:36+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "laravel/sanctum",
             "version": "v2.11.2",
             "source": {
@@ -1094,6 +1099,8 @@
             "time": "2021-06-15T15:56:21+00:00"
         },
         {
+=======
+>>>>>>> 0e825f2 (Adding Program)
             "name": "laravel/tinker",
             "version": "v2.6.1",
             "source": {

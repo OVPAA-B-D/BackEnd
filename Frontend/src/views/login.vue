@@ -195,7 +195,11 @@ export default {
           
           this.$router.push({ path: "dashboard" });
            console.log(res);
+<<<<<<< HEAD
          
+=======
+            
+>>>>>>> 0e825f2 (Adding Program)
         })
         .catch((errors) => {
           this.errors = errors.response;
