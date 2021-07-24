@@ -23,19 +23,11 @@ class ProgramModel extends Authenticatable
         'campusName',
         'collegeName',
         'programName',
-<<<<<<< HEAD
-        'chairmanEmail',
-        'taskForceMemberEmail',
-=======
         'coverImage',
->>>>>>> 0e825f2 (Adding Program)
         'createdDate'
 
     ];
 
-<<<<<<< HEAD
-=======
     public $timestamps = false;
 
->>>>>>> 0e825f2 (Adding Program)
 }

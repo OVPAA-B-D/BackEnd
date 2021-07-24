@@ -31,6 +31,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post("/userAuthentication", [updateController::class, 'userAuthentication']);
     Route::post("/userInformation", [updateController::class, 'userInformation']);
 
+});
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::middleware('auth:sanctum')->get('/authenticated', function () {
+    return true;
+});
+
+Route::post('Login', [LoginController::class, 'Login'])->name('Login');
+
     Route::post('Program', [InsertController::class, 'Program']);
     Route::post('Member', [InsertController::class, 'Member']);
     Route::post('Parameter', [InsertController::class, 'Parameter']);
@@ -49,14 +61,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('getProgramLevelArea', [FetchController::class, 'getProgramLevelArea']);
     Route::get('getProgramLevelBenchmark', [FetchController::class, 'getProgramLevelBenchmark']);
     Route::get('getUserAuthentication', [FetchController::class, 'getUserAuthentication']);
-});
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::middleware('auth:sanctum')->get('/authenticated', function () {
-    return true;
-});
-
-Route::post('Login', [LoginController::class, 'Login'])->name('Login');
