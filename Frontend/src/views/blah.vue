@@ -781,63 +781,15 @@ export default {
       ],
       folderArea: [
         {
-          id: 1,
-          folder_image: "/icons/icon21.png",
-          folder_name: "Preliminary Survey Visit",
-          status: "Incomplete",
-          owner: "Lucy Heartfelia",
-          modified: "July 2, 2021",
-          location: "/Information/Level",
-          accessed: "Nutsu Dragneel",
-          created: "Admin",
-        },
-
-        {
-          id: 2,
-          folder_image: "/icons/icon15.png",
-          folder_name: "Level 1",
-          status: "Completed",
-          owner: "Monkey D. Luffy",
-          modified: "July 3,2021",
-          location: "/Information/Level",
-          accessed: "Gol D. Roger",
-          created: "Admin",
-        },
-
-        {
-          id: 3,
-          folder_image: "/icons/icon15.png",
-          folder_name: "Level 2",
-          status: "Completed",
-          owner: "Eren Yeager",
-          modified: "July 3,2021",
-          location: "/Information/Level",
-          accessed: "Founding Titan",
-          created: "Admin",
-        },
-
-        {
-          id: 4,
-          folder_image: "/icons/icon15.png",
-          folder_name: "Level 3",
-          status: "Completed",
-          owner: "Juan Tamad",
-          modified: "July 3,2021",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
-
-        {
-          id: 5,
-          folder_image: "/icons/icon15.png",
-          folder_name: "Level 4",
-          status: "Incomplete",
-          owner: "Cardo Dalisay",
-          modified: "July 3,2021",
-          location: "/Information/Level",
-          accessed: "Coco A. Martin",
-          created: "Admin",
+        //   id: 1,
+        //   folder_image: "/icons/icon21.png",
+        //   folder_name: "Preliminary Survey Visit",
+        //   status: "Incomplete",
+        //   owner: "Lucy Heartfelia",
+        //   modified: "July 2, 2021",
+        //   location: "/Information/Level",
+        //   accessed: "Nutsu Dragneel",
+        //   created: "Admin",
         },
       ],
     };
@@ -876,18 +828,17 @@ export default {
       this.activeBtn = el;
     },
     fetchLevels() {
+      // console.log("Mounted"); sanity check
       api
-        .get("api/getProgramLevel")
-        .then((response) => {
+        .get("api/getProgramLevel", this.folderArea)
+        .then((res) => {
           // this.$router.get({ path: "api" });
-          this.folderArea = response.data;
-          
-          console.log(response.data);
+          this.folderArea = res.data;
+          // console.log(res.data);
           // return this.data;
         })
         .catch((errors) => {
           this.errors = errors.response;
-          console.log("Errror");
         });
     },
   },
