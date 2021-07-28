@@ -27,7 +27,7 @@ class TaskForceModel extends Authenticatable
         'createdDate',
     ];
 
-    public function getUserInfo(){
-        return $this->hasOne(UserInformationModel::class, 'email', 'taskforceEmail');
-    }
+    // public function getUserInfo(){
+    //     return $this->hasOne(UserInformationModel::class, 'email', 'taskforceEmail');
+    // }
 }
