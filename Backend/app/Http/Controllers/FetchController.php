@@ -143,5 +143,4 @@ class FetchController extends Controller
         // echo $data;
         return response()->json($data);
     }
-
 }
