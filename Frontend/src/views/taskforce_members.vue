@@ -121,7 +121,7 @@
                   >
                     <td>
                       <input type="checkbox" id="" name="taskforce1" value="">
-                      <label for="taskforce1">&ensp;{{ member.name}}</label>
+                      <label for="taskforce1">&ensp;{{ member.firstName}} {{member.lastName}}</label>
                     </td>
                     <td>{{member.taskforceEmail}}</td>
                     <td>{{member.contactNumber}}</td>

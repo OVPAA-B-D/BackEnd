@@ -135,12 +135,13 @@ class FetchController extends Controller
 
     function getTaskForce(){
         $userAuthentication = Auth::user();
-        $data = DB::select('SELECT * FROM tbl_taskforce');
+        $data = DB::select('SELECT * FROM (tbl_taskforce INNER JOIN tbl_userinformation ON tbl_taskforce.taskforceEmail = tbl_userinformation.email)');
     
+        // $data = TaskForceModel::with('getUserInfo');
         if($data == null)
             return response()->json([]);
+        // echo $data;
         return response()->json($data);
     }
-
 
 }
