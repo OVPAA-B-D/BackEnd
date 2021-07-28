@@ -880,7 +880,7 @@ export default {
         .get("api/getProgramLevel")
         .then((response) => {
           // this.$router.get({ path: "api" });
-          this.folderArea = response.data;
+          // this.folderArea = response.data;
           
           console.log(response.data);
           // return this.data;
