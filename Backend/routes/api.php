@@ -61,3 +61,4 @@ Route::post('Login', [LoginController::class, 'Login'])->name('Login');
     Route::get('getProgramLevelArea', [FetchController::class, 'getProgramLevelArea']);
     Route::get('getProgramLevelBenchmark', [FetchController::class, 'getProgramLevelBenchmark']);
     Route::get('getUserAuthentication', [FetchController::class, 'getUserAuthentication']);
+    Route::get('getTaskForce', [FetchController::class, 'getTaskForce']);

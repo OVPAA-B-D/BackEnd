@@ -11,6 +11,7 @@ use App\Models\ProgramLevelModel;
 use App\Models\ProgramModel;
 use App\Models\UserAuthenticationModel;
 use App\Models\UserInformationModel;
+use App\Models\TaskForceModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
@@ -126,6 +127,15 @@ class FetchController extends Controller
     function getUserAuthentication(){
         $userAuthentication = Auth::user();
         $data = DB::select('SELECT * FROM tbl_userauthentication');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+    }
+
+    function getTaskForce(){
+        $userAuthentication = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_taskforce');
     
         if($data == null)
             return response()->json([]);
