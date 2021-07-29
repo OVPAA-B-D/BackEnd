@@ -446,7 +446,11 @@
                         :class="{ outline: activeBtn === folderx.id }"
                         class="w-full p-2 flex justify-center"
                       >
-                        <img class="w-16" src="/icons/icon15.png" />
+                        <img
+                          v-if="folderx.foldr_icon = "
+                          class="w-16"
+                          src="/icons/icon15.png"
+                        />
                       </div>
                     </router-link>
                   </div>
