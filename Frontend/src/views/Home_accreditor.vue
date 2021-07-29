@@ -50,13 +50,15 @@
       <div class="mt-10 pb-0 cursor-wait">
         <h1 class="text-yellow-150 text-5xl">Information Technology</h1>
         <h5 class="text-blue-150 text-3xl">Chairman in charge</h5>
-         
-   <h5 class="text-yellow-150 text-2xl">Johann Abad</h5>
+          </span>
+        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
+        </span>
+         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon18_inbox.svg"><h1>johannAbad@gmail.com</h1>
+        </span>
          
   
-          <h5 class="text-yellow-150 text-2xl">0912345678</h5>
-     <h5 class="text-yellow-150 text-2xl">johannaabad@gmail.com</h5>
-
 
 
 
