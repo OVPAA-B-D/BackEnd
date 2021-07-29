@@ -446,18 +446,18 @@
                         :class="{ outline: activeBtn === folderx.id }"
                         class="w-full p-2 flex justify-center"
                       >
-                        <img class="w-16" :src="folderx.folder_icon" />
+                        <img class="w-16" src="/icons/icon15.png" />
                       </div>
                     </router-link>
                   </div>
                   <span class="flex flex-col justify-center w-full">
                     <label :for="folderx.id"
                       ><h1 :id="folderx.id">
-                        {{ folderx.floder_name }}
+                        {{ folderx.areaLabel }}
                       </h1></label
                     >
                     <input
-                      v-model="folderx.floder_name"
+                      v-model="folderx.areaLabel"
                       :id="folderx.id + 'x'"
                       type="text"
                       class="
@@ -940,6 +940,7 @@ button.outline {
 // @ is an alias to /src
 import Details from "./details.vue";
 import Comments from "./comments.vue";
+import api from "../api";
 export default {
   components: {
     Details,
@@ -976,130 +977,28 @@ export default {
         },
       ],
       folderArea: [
-        {
-          id: 1,
-          floder_name: "Program Performance Profile",
-          folder_icon: "/icons/icon21.png",
-          status: "Pwede na",
-          owner: "Juan Tamad",
-          modified: "July 12,2021",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
-        {
-          id: 2,
-          floder_name: "Area 1",
-          folder_icon: "/icons/icon15.png",
-          status: "Pwede na",
-          owner: "Juan Tamad",
-          modified: "July 12,2021",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
-
-        {
-          id: 3,
-          floder_name: "Area 2",
-          folder_icon: "/icons/icon15.png",
-          status: "Pwede na",
-          owner: "Juan Tamad",
-          modified: "July 12,2021",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
-
-        {
-          id: 4,
-          floder_name: "Area 3",
-          folder_icon: "/icons/icon15.png",
-          status: "Pwede na",
-          owner: "Juan Tamad",
-          modified: "July 12,2021",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
-
-        {
-          id: 5,
-          floder_name: "Area 4",
-          folder_icon: "/icons/icon15.png",
-          status: "Pwede na",
-          owner: "Juan Tamad",
-          modified: "July 12,2021",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
-
-        {
-          id: 6,
-          floder_name: "Area 5",
-          folder_icon: "/icons/icon15.png",
-          status: "Pwede na",
-          owner: "Juan Tamad",
-          modified: "July 12,2021",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
-        {
-          id: 7,
-          floder_name: "Area 6",
-          folder_icon: "/icons/icon15.png",
-          status: "Pwede na",
-          owner: "Juan Tamad",
-          modified: "July 12,2021",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
-        {
-          id: 8,
-          floder_name: "Area 7",
-          folder_icon: "/icons/icon15.png",
-          status: "Pwede na",
-          owner: "Juan Tamad",
-          modified: "July 12,2021",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
-        {
-          id: 9,
-          floder_name: "Area 8",
-          folder_icon: "/icons/icon15.png",
-          status: "Pwede na",
-          owner: "Juan Tamad",
-          modified: "July 12,2021",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
-        {
-          id: 10,
-          floder_name: "Area 9",
-          folder_icon: "/icons/icon15.png",
-          status: "Pwede na",
-          owner: "Juan Tamad",
-          modified: "July 12,2021",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
-        {
-          id: 11,
-          floder_name: "Area 10",
-          folder_icon: "/icons/icon15.png",
-          status: "Pwede na",
-          owner: "Juan Tamad",
-          location: "/Information/Level",
-          accessed: "Pedro Penduko",
-          created: "Admin",
-        },
+        // {
+        //   id: 1,
+        //   areaLabel: "Program Performance Profile",
+        //   folder_icon: "/icons/icon21.png",
+        //   status: "Pwede na",
+        //   owner: "Juan Tamad",
+        //   modified: "July 12,2021",
+        //   location: "/Information/Level",
+        //   accessed: "Pedro Penduko",
+        //   created: "Admin",
+        // },
+        // {
+        //   id: 2,
+        //   areaLabel: "Area 1",
+        //   folder_icon: "/icons/icon15.png",
+        //   status: "Pwede na",
+        //   owner: "Juan Tamad",
+        //   modified: "July 12,2021",
+        //   location: "/Information/Level",
+        //   accessed: "Pedro Penduko",
+        //   created: "Admin",
+        // },
       ],
     };
   },
@@ -1149,6 +1048,20 @@ export default {
         this.activeBtn = el;
       }
     },
+    fetchAreas() {
+      api
+        .get("api/getArea")
+        .then((response) => {
+          this.folderArea = response.data;
+          // console.log(response.data);
+        })
+        .catch((errors) => {
+          console.log(errors.response);
+        });
+    },
+  },
+  mounted() {
+    this.fetchAreas();
   },
 };
 </script>
