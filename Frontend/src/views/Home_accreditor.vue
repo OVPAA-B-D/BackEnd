@@ -50,7 +50,7 @@
       <div class="mt-10 pb-0 cursor-wait">
         <h1 class="text-yellow-150 text-5xl">Information Technology</h1>
         <h5 class="text-blue-150 text-3xl">Chairman in charge</h5>
-          </span>
+          <!-- </span> -->
         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
             <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
         </span>
