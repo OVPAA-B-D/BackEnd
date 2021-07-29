@@ -102,9 +102,13 @@
         <div class="mt-10 pb-4 cursor-wait">
           <h1 class="text-yellow-150 text-4xl">Information Technology</h1>
           <h3 class="text-blue-150 text-2xl">Chairman In Charge</h3>
-          <h3 class="text-yellow-150 text-1xl">Johanna Abad</h3>
-          <h3 class="text-yellow-150 text-1xl">098765432</h3>
-          <h3 class="text-yellow-150 text-1xl">Johanna_abad@gmail.com</h3>
+            </span>
+        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
+        </span>
+         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon18_inbox.svg"><h1>johannAbad@gmail.com</h1>
+        </span>
         </div>
         <div
           class="
@@ -251,6 +255,8 @@
                         </h1>
                         <div class="flex space-x-3 mb-0.5">
                           <div></div>
+                          
+                             <router-link to="/viewfiles_accreditor">
                           <button
                             class="
                               text-white
@@ -261,11 +267,13 @@
                               py-1
                               px-2
                               bg-blue-150
+                              cursor-pointer
                             "
                           >
                             <img src="/icons/icon10.svg" class="w-15 h-6" />
                             open file
-                          </button>
+                          </button> 
+                          </router-link>
                         </div>
                       </div>
                     </div>
