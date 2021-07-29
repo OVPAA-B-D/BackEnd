@@ -13,6 +13,7 @@ import Public_folder_admin from '../views/public_folder_admin.vue'
 import Public_folder_taskforce from '../views/public_folder_taskforce.vue'
 import Taskforce_members from '../views/taskforce_members.vue'
 import Office_admin from '../views/office_admin.vue'
+import View_files_taskforce from '../views/view_files_taskforce.vue'
 
 
 const routes = [
@@ -30,6 +31,11 @@ const routes = [
     path: '/program_area_taskforce',
     name: 'Program Area Taskforce',
     component: Program_area_taskforce
+  },
+  {
+    path: '/view_files_taskforce',
+    name: 'View Files Taskforce',
+    component: View_files_taskforce
   },
   {
     path: '/program_area',
