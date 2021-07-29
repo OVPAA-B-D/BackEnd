@@ -447,7 +447,6 @@
                         class="w-full p-2 flex justify-center"
                       >
                         <img
-                          v-if="folderx.foldr_icon = "
                           class="w-16"
                           src="/icons/icon15.png"
                         />
