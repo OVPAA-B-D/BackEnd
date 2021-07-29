@@ -284,7 +284,7 @@
                 class="text-center justify-center items-center"
               >
                 <div 
-                  v-if='folderx.id == levelXX.level && levelXX.levelStatus == "Pass"'
+                  v-if='folderx.id == levelXX.level && (levelXX.levelStatus == "Pass" || folderx.status == "Pass")'
                   class="
                     flex flex-col
                     items-center
