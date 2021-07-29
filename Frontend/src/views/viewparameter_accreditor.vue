@@ -102,7 +102,9 @@
         <div class="mt-10 pb-4 cursor-wait">
           <h1 class="text-yellow-150 text-4xl">Information Technology</h1>
           <h3 class="text-blue-150 text-2xl">Chairman In Charge</h3>
-            </span>
+          <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon16_man.svg"><h1>Johann Abad</h1>
+           </span>
         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
             <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
         </span>
