@@ -8,7 +8,7 @@ const api = axios.create({
     },
     xsrfCookieName: 'XSRF-TOKEN',
     xsrfHeaderName: 'X-XSRF-TOKEN',
-    withCredentials: true
+    withCredentials: false
 });
 
 api.interceptors.request.use(function (config) {

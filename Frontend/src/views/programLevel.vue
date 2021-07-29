@@ -112,29 +112,27 @@
                       
                   <router-link :to="link_to">
                     <div @click="isActive_function(folderx.id)" :class="{active: activeBtn === folderx.id }" class="p-2 w-full" >
-                       <img @dblclick="link_to='/program_area'" @click="index_array(folderx.id),detailing()"
-                         :src="folderx.folder_image" class="w-16"/>
+                       <img @dblclick="link_to='/program_area',perform()" @click="index_array(folderx.id),detailing()"
+                         :src="folder_icon" class="w-16"/>
                     </div>
                     </router-link>
-                   <h1 class="text-blue-150">{{folderx.folder_name}}</h1>
+                   <h1 class="text-blue-150">{{folderx.level}}</h1>
                   </div>
                     
                     </div>
                 </div>
-                
-             
           </div>
             <div v-if="show_details" class="w-1/3  h-full bg-gradient-to-b pl-0.6 rounded-l-xl from-blue-150 to-yellow-150">
               <div class="bg-gray-100 h-full flex flex-col w-full rounded-xl">
                 <div class="flex justify-between items-center p-4">
                   <h1 class="font-bold text-yellow-150">
-                  {{folder_details[0].folder_name}}
+                  {{folder_details[0].level}}
                   </h1>
                 <img src="icons/icon_close_x.svg" class="cursor-pointer" @click="show_details=!show_details" >
                 </div>
                 <div class="flex justify-center h-24 items-center">
                 <div class="w-16 ">
-                  <img :src="folder_details[0].folder_image" class="w-full"/>
+                  <img :src="folder_icon" class="w-full"/>
                 </div>
                 </div>
                 <div class=" flex  justify-center w-full h-10 rounded-tr-xl bg-gradient-to-r  from-blue-150 to-yellow-150">
@@ -292,12 +290,15 @@
 <script>
 // @ is an alias to /src
 import Details from './details.vue'
+import api from '../api'
 export default {
   components:{
 Details,
   },
   data(){
     return{
+      levels: [],
+
         show_details:false,
         show_add_Taskforce:false,
         confirmation:false,  
@@ -320,79 +321,34 @@ Details,
             created:'',
           }
         ],
-     folderArea:[ 
-     {
-        id:1,
-        folder_image:'/icons/icon21.png',
-        folder_name:'Preliminary Survey Visit',
-        status:'Incomplete',
-        owner:'Lucy Heartfelia',
-        modified:'July 2, 2021',
-        location:'/Information/Level',
-        accessed:'Nutsu Dragneel',
-        created:'Admin',
-     },
-     
-     {
-       id:2,
-       folder_image:'/icons/icon15.png',
-       folder_name:'Level 1',
-        status:'Completed',
-        owner:'Monkey D. Luffy',
-        modified:'July 3,2021',
-        location:'/Information/Level',
-        accessed:'Gol D. Roger',
-        created:'Admin',
-     },
-     
-     {
-       id:3,
-       folder_image:'/icons/icon15.png',
-       folder_name:'Level 2',
-        status:'Completed',
-        owner:'Eren Yeager',
-        modified:'July 3,2021',
-        location:'/Information/Level',
-        accessed:'Founding Titan',
-        created:'Admin',
-     },
-     
-     {
-       id:4,
-       folder_image:'/icons/icon15.png',
-       folder_name:'Level 3',
-        status:'Completed',
-        owner:'Juan Tamad',
-        modified:'July 3,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     },
-      
-     {
-       id:5,
-       folder_image:'/icons/icon15.png',
-       folder_name:'Level 4',
-        status:'Incomplete',
-        owner:'Cardo Dalisay',
-        modified:'July 3,2021',
-        location:'/Information/Level',
-        accessed:'Coco A. Martin',
-        created:'Admin',
-                 
-     },
-     
-     ]
+     folderArea:[],
+     sendID: '',
+     folder_icon:'/icons/icon15.png'
     }
   },
   methods:{
+    fetchlevels(){
+        console.log("levels");
+      api.get('api/getProgramLevel').then(response => {
+        // get body data
+        this.folderArea= response.data;
+        console.log('levels' ,this.folderArea);
+        return this.folderArea;
+    })
+    },
+    perform(){
+              localStorage.setItem("levelID", JSON.stringify(this.folderArea[this.index].programLevelID));
+              console.log(this.folderArea[this.index].programLevelID);
+              // localStorage.setItem("code", res.data.code);
+              // this.$router.push({ name: "verifyemail" });
+    },
      index_array(e){
          this.index=this.folderArea.findIndex(x => x.id===e)
      },
      detailing(){ 
-       this.folder_details[0].folder_name=this.folderArea[this.index].folder_name
+       this.folder_details[0].folder_name=this.folderArea[this.index].level
        this.folder_details[0].folder_image=this.folderArea[this.index].folder_image
-       this.folder_details[0].status=this.folderArea[this.index].status
+       this.folder_details[0].status=this.folderArea[this.index].levelStatus
        this.folder_details[0].owner=this.folderArea[this.index].owner
        this.folder_details[0].modified=this.folderArea[this.index].modified
        this.folder_details[0].location=this.folderArea[this.index].location
@@ -402,6 +358,10 @@ Details,
       isActive_function(el){
         this.activeBtn= el;
     }
+  },
+  created(){
+    this.fetchlevels();
+    // this.fetchbenchmarks();
   }
 }
 </script>

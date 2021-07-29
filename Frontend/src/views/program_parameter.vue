@@ -110,11 +110,12 @@
                     <a class="font-bold cursor-default">Area 1</a>
                     </div>
                  </div>
-                <div class=" items-start w-full flex-col flex flex-wrap pl-7">
+                 <!-- Parameters -->
+                <div class=" items-start w-full flex-col flex flex-wrap pl-7" v-for="parameter in parameters" v-bind:key="parameter.parameterID">
                    <div  class="w-full">
                      <div class="flex flex-shrink items-center p-2 justify-between">
                        <span class="flex items-baseline gap-x-3">
-                        <h1 id="parameterLabel" class=" text-2xl text-blue-150 font-bold">Parameter A</h1>
+                        <h1 id="parameterLabel" class=" text-2xl text-blue-150 font-bold">{{parameter.parameterID}}: {{parameter.parameterLabel}} </h1>
                         <input type="text" class="focus:outline-none border-2 border-black text-blue-150 pl-3 hidden" id="parameterName" value="Parameter name"/>
                         <img  @click="show_input('parameterLabel','parameterName')" src="/icons/icon19_rename_orange.svg" class="cursor-pointer"/>
                         <img @click="confirmation_deletion=!confirmation_deletion" src="/icons/icon11_delete_red.svg" class="cursor-pointer" />
@@ -124,10 +125,10 @@
                         <img src="icons/icon12_add_blue.svg" class="w-4 "/>
                         <h1 class="text-blue-150">Add Bechmark</h1></button>
                     </div>
-                    <div class="mr-4">
-                        <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
+                    <div class="mr-4" v-for="benchmark in benchmarks" v-bind:key="benchmark.benchmarkID">
+                        <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center"  v-if="benchmark.parameterID===parameter.parameterID">
                           <span class="flex items-baseline">
-                            <h1 id="bench1" class="text-xl text-yellow-150">Benchmark A1</h1>
+                            <h1 id="bench1" class="text-xl text-yellow-150">{{benchmark.benchmarkID}}: {{benchmark.benchmarkLabel}}</h1>
                             <input type="text" class="focus:outline-none border-2 border-black text-yellow-150 pl-3 hidden"
                              id="bench1_input" value="Benchmark A1"/>
                             <img  src="/icons/icon19yellow.svg" class="cursor-pointer" @click="show_input('bench1','bench1_input')"/>
@@ -145,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mr-4">
+                    <!-- <div class="mr-4">
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark A2</h1>
@@ -163,8 +164,8 @@
                                 delete file</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="mr-4">
+                    </div> -->
+                    <!-- <div class="mr-4">
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark A3</h1>
@@ -182,12 +183,10 @@
                                 delete file</button>
                             </div>
                         </div>
-                    </div>
-                    
-
+                    </div> -->
                    </div>
                 </div>
-                 <div class=" items-start w-full flex-col flex flex-wrap pl-7">
+                 <!-- <div class=" items-start w-full flex-col flex flex-wrap pl-7">
                    <div  class="w-full ">
                      <div class="flex items-center p-2 justify-between">
                        <span class="flex items-baseline gap-x-3">
@@ -258,8 +257,8 @@
                         </div>
                     </div>
                    </div>
-                </div>
-                 <div class=" items-start w-full flex-col flex flex-wrap pl-7">
+                </div> -->
+                 <!-- <div class=" items-start w-full flex-col flex flex-wrap pl-7">
                    <div  class="w-full">
                    <div class="flex items-center p-2 justify-between">
                        <span class="flex items-baseline gap-x-3">
@@ -330,7 +329,7 @@
                         </div>
                     </div>
                    </div>
-                </div>
+                </div> -->
               </div>
         
                </div>
@@ -494,7 +493,7 @@
 import Details from "./details.vue"
 import Comments from "./comments.vue"
 import draggable from 'vuedraggable'
-
+import api from '../api'
 export default {
   components:{
     Details,
@@ -505,6 +504,8 @@ export default {
   data(){
     return{
       drag:false,
+      parameters: [],
+      benchmarks: [],
         component:"Details",
         show_add_parameter:false,
         show_add_benchmark:false,
@@ -624,6 +625,44 @@ export default {
 
   },
   methods:{
+    fetchparameters(){
+    let temp = [];
+        console.log("parameters");
+      api.get('api/getParameter').then(response => {
+        // get body data
+        // this.parameters= response.data;
+        temp= response.data;
+        temp.forEach((value, index) => {
+        if(value.areaID === JSON.parse(localStorage.getItem('areaID'))){
+          return this.parameters.push(value)
+        }
+        });
+        // console.log('parameters' ,this.parameters);
+        // return this.parameters;
+    });
+    },
+    // fetchareas(){
+    // let temp = [];
+    //   api.get('api/getProgramLevelArea').then(response => {
+    //     // get body data
+    //     temp= response.data;
+    //     temp.forEach((value, index) => {
+    //     if(value.programLevelID === JSON.parse(localStorage.getItem('levelID'))){
+    //       return this.folderArea.push(value)
+    //     }
+    //     });
+    // })
+    // },
+
+    fetchbenchmarks(){
+        console.log("benchmarks");
+      api.get('api/getBenchmark').then(response => {
+        // get body data
+        this.benchmarks= response.data;
+        console.log('benchmarks' ,this.benchmarks);
+        return this.benchmarks;
+    });
+    },
       show_input(id1,id2){
         let x=document.getElementById(id1)
         let y=document.getElementById(id2)
@@ -655,6 +694,10 @@ export default {
         this.activeBtn= el;
         }
       },
+  },
+  created(){
+    this.fetchparameters();
+    this.fetchbenchmarks();
   }
 }
 </script>

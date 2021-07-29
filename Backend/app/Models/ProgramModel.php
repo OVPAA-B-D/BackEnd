@@ -17,6 +17,7 @@ class ProgramModel extends Authenticatable
      * @var array
      */
     protected $table = 'tbl_program';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'programID',

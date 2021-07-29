@@ -22,7 +22,7 @@ class FetchController extends Controller
     //
    function getProgram(){
 
-    $program = Gate::user();
+    $program = Auth::user();
     $data = DB::select('SELECT * FROM tbl_program');
 
     if($data == null)
@@ -32,7 +32,7 @@ class FetchController extends Controller
 
    function getMember(){
 
-    $member = Gate::authorize('show');
+    $member = Auth::authorize('show');
     $data = DB::select('SELECT * FROM tbl_userinformation');
 
     if($data == null)
@@ -42,7 +42,7 @@ class FetchController extends Controller
 
    function getParameter(){
 
-    $parameter = Gate::user();
+    $parameter = Auth::user();
     $data = DB::select('SELECT * FROM tbl_parameter');
 
     if($data == null)
@@ -52,7 +52,7 @@ class FetchController extends Controller
     }
 
     function getBenchmark(){
-        $benchmark = Gate::user();
+        $benchmark = Auth::user();
     $data = DB::select('SELECT * FROM tbl_benchmark');
 
     if($data == null)
@@ -62,7 +62,7 @@ class FetchController extends Controller
     }
 
     function getArea(){
-        $area = Gate::user();
+        $area = Auth::user();
         $data = DB::select('SELECT * FROM tbl_area');
     
         if($data == null)
@@ -72,7 +72,7 @@ class FetchController extends Controller
     }
 
     function getProgramLevel(){
-        $programLevel = Gate::user();
+        $programLevel = Auth::user();
         $data = DB::select('SELECT * FROM tbl_programlevel');
     
         if($data == null)
@@ -82,7 +82,7 @@ class FetchController extends Controller
     }
 
     function getProgramLevelArea(){
-        $programLevelArea = Gate::user();
+        $programLevelArea = Auth::user();
         $data = DB::select('SELECT * FROM tbl_programlevelarea');
     
         if($data == null)

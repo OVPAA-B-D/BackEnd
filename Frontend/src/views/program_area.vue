@@ -133,19 +133,18 @@
                      <div v-for="folderx in folderArea" :key="folderx.id" class=" relative  text-sm text-blue-250 z-10   w-28 h-auto  text-center justify-center items-center">
                       <button  @click="btn_enable='off',isActive_function('btn1'),show_default()" :class="{outline: bg_btn ===0 }" class="absolute w-full h-full  inset-0 -z-1"></button>
 
-                  <div  class=" flex justify-center w-28 mt-10 hover:border-2 mr-2 border-yellow-150 cursor-pointer">
-                      
-               <router-link :to="linkto"> 
-                 <div @dblclick="linkto='/program_parameter'"
-                  @click="btn_enable='on',index_array(folderx.id),isActive_function(folderx.id),folder_id=folderx.id,rename_folder" :class="{outline: activeBtn === folderx.id }" class="w-full p-2 flex justify-center">
-                  <img   class="w-16" :src="folderx.folder_icon">
-                  </div>
-              </router-link>
-                  </div>
-                  <span class="flex flex-col   justify-center w-full  ">
-                    <label :for="folderx.id"><h1 :id="folderx.id">{{folderx.floder_name}}</h1></label>
-                    <input  v-model="folderx.floder_name" :id="folderx.id+'x'"  type="text" class="hidden text-center focus:outline-none border-2 border-black h-5"/>
-                  </span>
+                      <div  class=" flex justify-center w-28 mt-10 hover:border-2 mr-2 border-yellow-150 cursor-pointer">
+                        <router-link :to="linkto" > 
+                          <div @dblclick="linkto='/program_parameter',perform()"
+                            @click="btn_enable='on',index_array(folderx.id),isActive_function(folderx.id),folder_id=folderx.id,rename_folder,detailing()" :class="{outline: activeBtn === folderx.id }" class="w-full p-2 flex justify-center">
+                            <img   class="w-16" :src="folder_icon">
+                            </div>
+                        </router-link>
+                      </div>
+                      <span class="flex flex-col   justify-center w-full  ">
+                        <label :for="folderx.id"><h1 :id="folderx.id">{{folderx.programLevelAreaID}}</h1></label>
+                        <input  v-model="folderx.programLevelAreaID" :id="folderx.id+'x'"  type="text" class="hidden text-center focus:outline-none border-2 border-black h-5"/>
+                      </span>
                     </div>
                 </div>
                 
@@ -326,13 +325,17 @@ button.outline{
 // @ is an alias to /src
 import Details from "./details.vue"
 import Comments from "./comments.vue"
+import api from "../api"
+// import det from "../programLevel.vue"
 export default {
+  props: ['btnText'],
   components:{
     Details,
     Comments
   },
   data(){
     return{
+      levels: [],
         confirmation_deletion:false,
         show_details:false,
         btn_enable:'off',
@@ -353,6 +356,7 @@ export default {
         created:'',
         folder_details:[
           {
+            id: 'ID',
             status:'To be Graded',
             owner:'Admin',
             location:'Level 1 Folder',
@@ -361,143 +365,35 @@ export default {
             created:'Admin',
           }
         ],
-     folderArea:[ 
-     {
-       id:1,
-       floder_name:'Program Performance Profile',
-        folder_icon:'/icons/icon21.png',
-        status:'Pwede na',
-        owner:'Juan Tamad',
-        modified:'July 12,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     },
-      {
-       id:2,
-       floder_name:'Area 1',
-        folder_icon:'/icons/icon15.png',
-        status:'Pwede na',
-        owner:'Juan Tamad',
-        modified:'July 12,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     },
-     
-     {
-       id:3,
-        floder_name:'Area 2',
-        folder_icon:'/icons/icon15.png',
-        status:'Pwede na',
-        owner:'Juan Tamad',
-        modified:'July 12,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     },
-     
-     {
-        id:4,
-        floder_name:'Area 3',
-        folder_icon:'/icons/icon15.png',
-        status:'Pwede na',
-        owner:'Juan Tamad',
-        modified:'July 12,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     },
-     
-     {
-        id:5,
-        floder_name:'Area 4',
-        folder_icon:'/icons/icon15.png',
-        status:'Pwede na',
-        owner:'Juan Tamad',
-        modified:'July 12,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     },
-     
-     {
-        id:6,
-        floder_name:'Area 5',
-        folder_icon:'/icons/icon15.png',
-        status:'Pwede na',
-        owner:'Juan Tamad',
-        modified:'July 12,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     },
-    {
-        id:7,
-        floder_name:'Area 6',
-        folder_icon:'/icons/icon15.png',
-        status:'Pwede na',
-        owner:'Juan Tamad',
-        modified:'July 12,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     },
-    {
-        id:8,
-        floder_name:'Area 7',
-        folder_icon:'/icons/icon15.png',
-        status:'Pwede na',
-        owner:'Juan Tamad',
-        modified:'July 12,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     }, 
-     {
-        id:9,
-        floder_name:'Area 8',
-        folder_icon:'/icons/icon15.png',
-        status:'Pwede na',
-        owner:'Juan Tamad',
-        modified:'July 12,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     },
-     {
-        id:10,
-        floder_name:'Area 9',
-        folder_icon:'/icons/icon15.png',
-        status:'Pwede na',
-        owner:'Juan Tamad',
-        modified:'July 12,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     },
-      {
-        id:11,
-        floder_name:'Area 10',
-        folder_icon:'/icons/icon15.png',
-        status:'Pwede na',
-        owner:'Juan Tamad',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-                 
-     },
-     
-     ]
+     folderArea:[],
+     folder_icon:'/icons/icon15.png'
     }
 
   },
   methods:{
+    fetchareas(){
+    let temp = [];
+      api.get('api/getProgramLevelArea').then(response => {
+        // get body data
+        temp= response.data;
+        temp.forEach((value, index) => {
+        if(value.programLevelID === JSON.parse(localStorage.getItem('levelID'))){
+          return this.folderArea.push(value)
+        }
+        });
+    })
+    },
+    perform(){
+              localStorage.setItem("areaID", JSON.stringify(this.folderArea[this.index].areaID));
+              console.log(this.folderArea[this.index].programLevelID);
+              // localStorage.setItem("code", res.data.code);
+              // this.$router.push({ name: "verifyemail" });
+    },
     show_default(){
          let prev_f=document.getElementById(this.prev_folder_id)
           let prev_n=document.getElementById(this.prev_name_id)
-          prev_f.style.display='block'
-          prev_n.style.display='none'
+          // prev_f.style.display='block'
+          // prev_n.style.display='none'
     },
     rename_folder(e){
         let x=document.getElementById(this.folder_id)
@@ -517,12 +413,25 @@ export default {
             prev_n.style.display='none';
             this.prev_folder_id=this.folder_id;
             this.prev_name_id=this.folder_id+'x';
+
+            api.post('/api/getProgramLevelArea', prev_n).then(()=>{
+                console.log("Success")
+            })
         }
       
     },
     index_array(e){
          this.index=this.folderArea.findIndex(x => x.id===e)
-        
+     },
+     detailing(){ 
+       this.folder_details[0].folder_name=this.folderArea[this.index].level
+       this.folder_details[0].folder_image=this.folderArea[this.index].programLevelAreaID 
+       this.folder_details[0].status=this.folderArea[this.index].programLevelAreaID
+       this.folder_details[0].owner=this.folderArea[this.index].owner
+       this.folder_details[0].modified=this.folderArea[this.index].modified
+       this.folder_details[0].location=this.folderArea[this.index].location
+       this.folder_details[0].accessed=this.folderArea[this.index].accessed
+       this.folder_details[0].created=this.folderArea[this.index].created
      },
     display_details(e){
     const index=this.folderArea.findIndex(x => x.id===e)
@@ -543,6 +452,11 @@ export default {
         this.activeBtn= el;
         }
       },
+  },
+  created(){
+    this.fetchareas();
+    // console.log("sana magana", this.sendID);
+    // this.fetchbenchmarks();
   }
 }
 </script>
