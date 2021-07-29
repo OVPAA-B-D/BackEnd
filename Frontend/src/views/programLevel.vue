@@ -274,13 +274,17 @@
                 >
               </h1>
             </div>
-            <div class="flex-row flex flex-wrap pl-7">
+            <div 
+              v-for="folderx in folderArea"
+              :key="folderx.id"
+              class="flex-row flex flex-wrap pl-7">
               <div
-                v-for="folderx in folderArea"
-                :key="folderx.id"
+                v-for="levelXX in levelX"
+                :key="levelXX.level"
                 class="text-center justify-center items-center"
               >
-                <div
+                <div 
+                  v-if='folderx.id == levelXX.level && levelXX.levelStatus == "Pass"'
                   class="
                     flex flex-col
                     items-center
@@ -779,12 +783,15 @@ export default {
           created: "",
         },
       ],
+      levelX: [{
+
+      }],
       folderArea: [
         {
           id: 1,
           folder_image: "/icons/icon21.png",
           folder_name: "Preliminary Survey Visit",
-          status: "Incomplete",
+          status: "Pass",
           owner: "Lucy Heartfelia",
           modified: "July 2, 2021",
           location: "/Information/Level",
@@ -796,7 +803,7 @@ export default {
           id: 2,
           folder_image: "/icons/icon15.png",
           folder_name: "Level 1",
-          status: "Completed",
+          status: "",
           owner: "Monkey D. Luffy",
           modified: "July 3,2021",
           location: "/Information/Level",
@@ -808,7 +815,7 @@ export default {
           id: 3,
           folder_image: "/icons/icon15.png",
           folder_name: "Level 2",
-          status: "Completed",
+          status: "",
           owner: "Eren Yeager",
           modified: "July 3,2021",
           location: "/Information/Level",
@@ -820,7 +827,7 @@ export default {
           id: 4,
           folder_image: "/icons/icon15.png",
           folder_name: "Level 3",
-          status: "Completed",
+          status: "",
           owner: "Juan Tamad",
           modified: "July 3,2021",
           location: "/Information/Level",
@@ -832,7 +839,7 @@ export default {
           id: 5,
           folder_image: "/icons/icon15.png",
           folder_name: "Level 4",
-          status: "Incomplete",
+          status: "",
           owner: "Cardo Dalisay",
           modified: "July 3,2021",
           location: "/Information/Level",
@@ -881,13 +888,13 @@ export default {
         .then((response) => {
           // this.$router.get({ path: "api" });
           // this.folderArea = response.data;
-          
-          console.log(response.data);
+          this.levelX = response.data
+          // console.log(response.data);
+          console.log(this.levelX);
           // return this.data;
         })
         .catch((errors) => {
           this.errors = errors.response;
-          console.log("Errror");
         });
     },
   },
