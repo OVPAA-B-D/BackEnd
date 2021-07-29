@@ -14,6 +14,9 @@ import Public_folder_taskforce from '../views/public_folder_taskforce.vue'
 import Taskforce_members from '../views/taskforce_members.vue'
 import Office_admin from '../views/office_admin.vue'
 import View_files_taskforce from '../views/view_files_taskforce.vue'
+import Viewparameter_accreditor from '../views/viewparameter_accreditor.vue'
+import Viewfiles_accreditor from '../views/viewfiles_accreditor.vue'
+
 
 
 const routes = [
@@ -97,6 +100,18 @@ const routes = [
     component: Taskforce_members
   },
 
+  
+  {
+    path: '/viewparameter_accreditor',
+    name: 'Viewparameter accreditor',
+    component: Viewparameter_accreditor
+  },
+  
+   {
+    path: '/viewfiles_accreditor',
+    name: 'Viewfiles accreditor',
+    component: Viewfiles_accreditor
+  },
   {
     path: '/about',
     name: 'About',
