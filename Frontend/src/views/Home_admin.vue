@@ -319,7 +319,7 @@ export default {
       imageName:"",
      
       addProgram:{
-          programID:"1",
+          programID:"",
           programName:"",
           collegeName:"",
           campusName:"",
@@ -333,20 +333,18 @@ export default {
   },
    methods:{
      add_program(){
-       
-       
             this.addProgram.programName = document.getElementById("selected_program").value;
             this.addProgram.collegeName=document.getElementById("selected_college").value;
             this.addProgram.campusName=document.getElementById("selected_campus").value;
             this.addProgram.level= document.getElementById("level").value;
-            //this.addProgram.imageFile= this.imageName;
+        //this.addProgram.imageFile= this.imageName;
         
         //this.program.push(new_program)
         //this.program_image='img/default_cover_image.jpg'
           api
-              .post("api/Program", this.addProgram)
-              .then((res) => {
-          
+              .post("/api/Program", this.addProgram)
+              .then((response) => {
+               this.addProgram=response.data;
               })
               .catch((errors) => {
           this.errors = errors.response;
@@ -377,7 +375,21 @@ export default {
     change_bgImage(e){
        const file=e.target.files[0];
         this.bg_image=URL.createObjectURL(file);
-    }
-    }
+    },
+    getdetails(){       
+        api
+        .get("api/getProgram")
+        .then((response) => {
+          this.filtered_program=response.data
+          console.log(response.data);
+        })
+       .catch((errors) => {
+          this.errors = errors.response;
+        });
+      },
+  },
+   mounted(){
+        this.getdetails();
+   }
 }
 </script>
