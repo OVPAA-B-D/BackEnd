@@ -144,9 +144,11 @@
                             <img src="/icons/icon19yellow.svg"/>
                           </span>
                             <div class="  flex space-x-3 mb-0.5">
+                            <router-link to="/viewfiles_taskforce">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
                               <img src="/icons/icon10_open_file.svg" class="w-5 h-5"/>
                                 open file</button>
+                              </router-link>
                              <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
                               <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
                                 move row</button>
