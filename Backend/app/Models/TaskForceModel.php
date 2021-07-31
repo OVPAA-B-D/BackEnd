@@ -25,5 +25,6 @@ class TaskForceModel extends Authenticatable
         'activeStatus',
         'createdDate',
     ];
+    public $timestamps = false;
 
 }

@@ -111,5 +111,34 @@ class FetchController extends Controller
         return response()->json($data);
     }
 
+    function getTaskforce(){
+        $taskforce = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_taskforce');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+    }
+
+    function getTaskForceChairman(){
+        $taskforce = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_taskforce WHERE roleDescription = "Chairman"');
+        
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+    }
+    
+    function getLevelUnlocked(){
+        $programLevel = Auth::user();
+
+        $data = DB::select('SELECT * FROM tbl_programlevel WHERE levelStatus = "unlocked"');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+
+    }
+
 
 }

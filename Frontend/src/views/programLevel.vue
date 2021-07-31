@@ -161,24 +161,27 @@
                   <div class="flex items-center gap-4 justify-between flex-wrap">
                       <span>
                         <h1 class="text-blue-150 text-sm">Firstname</h1>
-                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"  v-model="taskForceMember.firstName"/>
                       </span>
                         <span>
                         <h1 class="text-blue-150 text-sm">Email</h1>
-                        <input  type="email"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                        <input  type="email"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150" v-model="taskForceMember.email"/>
                       </span>
                       <span>
                         <h1 class="text-blue-150 text-sm">Middle name</h1>
-                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150" v-model="taskForceMember.middleName"/>
                       </span>
                       <span>
-                         <select  class="fill-current italic text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
+                         <select  class="fill-current italic text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150" v-model="taskForceMember.roleType">
                       <option selected disabled >Select task force role</option>
+                      <option>Admin</option>
+                      <option>Task Force</option>
+                      <option>Accreditor</option>
                       </select>
                       </span>
                       <span>
                         <h1 class="text-blue-150 text-sm">Last name</h1>
-                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150" v-model="taskForceMember.lastName"/>
                       </span>
                       <span class="">
                         <button @click="confirmation=!confirmation" class="flex items-center justify-center px-5 gap-2  w-24 h-8 text-white bg-blue-250"> 
@@ -253,7 +256,7 @@
                  </span>
                  </div>
                   <span class="flex items-center gap-x-3">
-                    <button @click="confirmation=!confirmation" class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
+                    <button  @click="addTaskForceMember() " class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
                     <button @click="confirmation=!confirmation" class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
                   </span>
                  </div>
@@ -321,12 +324,48 @@ Details,
             created:'',
           }
         ],
+
+        taskForceMember: {
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        email: "",
+        roleType: "",
+      },
+
      folderArea:[],
      sendID: '',
      folder_icon:'/icons/icon15.png'
     }
   },
   methods:{
+
+     addTaskForceMember() {
+     // this.taskForceMember.roleType = this.selectedroleType;
+
+      console.log(this.taskForceMember);
+
+      api
+        .post("/api/Member", this.taskForceMember)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((errors) => {
+          this.errors = errors.res;
+        });
+
+        api
+        .post("/api/UserAuthentication", this.taskForceMember)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((errors) => {
+          this.errors = errors.res;
+        });
+     
+         
+    },
+    
     fetchlevels(){
         console.log("levels");
       api.get('api/getProgramLevel').then(response => {

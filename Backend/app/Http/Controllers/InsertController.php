@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\password;
 use App\Models\AccreditorModel;
 use App\Models\AreaModel;
 use App\Models\BenchmarkModel;
@@ -14,6 +16,7 @@ use App\Models\TaskForceModel;
 use App\Models\UserAuthenticationModel;
 use App\Models\UserInformationModel;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -35,19 +38,20 @@ class InsertController extends Controller
    }
 
    function Member(Request $request){
-       $user = new UserInformationModel();
-       $user->email = $request->email;
-       $user->lastName = $request->lastName;
-       $user->firstName = $request->firstName;
-       $user->middleName = $request->middleName;
-       $user->contactNumber = $request->contactNumber;
-       $user->profilePicture = $request->profilePicture;
-       $user->roleType = $request->roleType;
-       
+    $user = new UserInformationModel();
+    $user->email = $request->email;
+    $user->lastName = $request->lastName;
+    $user->firstName = $request->firstName;
+    $user->middleName = $request->middleName;
+    $user->contactNumber = $request->contactNumber;
+    $user->profilePicture = $request->profilePicture;
+    $user->roleType = $request->roleType;
+    
+    $user->save();
 
-       $user->save();
-   }
-
+   
+}
+   
    function Parameter(Request $request){
 
     $parameter = new ParameterModel();
@@ -112,11 +116,37 @@ class InsertController extends Controller
     }
 
     function UserAuthentication(Request $request){
-        $userAuthentication = new UserAuthenticationModel();
+        $userAuthentication = new User();
         $userAuthentication->email = $request->email;
-        $userAuthentication->password = $request->password;
-
+    
+        $code = mt_rand(100000, 999999);
+        $data = [
+            'name' => $request->firstName,
+            'verification_code' => $code
+        ];
+    
+        //return response()->json(trim($request->email));
+        $email = trim($request->email);
+        $password = Hash::make($code);
+        $userAuthentication->password = $password;
         $userAuthentication->save();
+        
+        $returnValue = ['code' => $code];
+                Mail::to($email)->send(new password($data));
+                $returnValue = ['code' => $code, 'email'=>'email'];
+        
+    
+        return json_encode($returnValue);
+    
+        
+    
+        // Auth::login($userAuthentication);
+    
+        // $token = $userAuthentication->createToken('myapptoken')->plainTextToken;
+    
+        // $response = ["user"=>$userAuthentication, "token"=>$token];
+    
+        // return response()->json($response,201);
     }
 
     function Accreditor(Request $request){
@@ -126,6 +156,7 @@ class InsertController extends Controller
         $accreditor->roleDescription = $request->roleDescription;
         $accreditor->activeStatus = $request->activeStatus;
         $accreditor->createdDate = $request->createdDate;
+        $accreditor->save();
     }
 
     function TaskForce(Request $request){
@@ -133,8 +164,7 @@ class InsertController extends Controller
         $taskforce->programID = $request->programID;
         $taskforce->taskforceEmail = $request->taskforceEmail;
         $taskforce->roleDescription = $request->roleDescription;
-        $taskforce->activeStatus = $request->activeStatus;
-        $taskforce->createdDate = $request->createdDate;
+        $taskforce->save();
     }
 
 }

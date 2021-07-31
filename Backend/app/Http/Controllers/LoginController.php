@@ -7,7 +7,7 @@ use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -21,7 +21,7 @@ class LoginController extends Controller
         Auth::attempt($request->only('email','password'));
         $user = User::where('email',$request['email'])->first();
 
-        if(!$user || !($request['password'] == $user->password)){
+        if(!$user || !Hash::check($request['password'], $user->password)){
             return response()->json(['invalid' => 'The provided credentials are incorrect.'],422);
         }
         else{

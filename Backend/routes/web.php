@@ -46,7 +46,7 @@ Route::middleware('auth:sanctum')->get('/authenticated', function () {
 
 Route::post('Login', [LoginController::class, 'Login'])->name('Login');
 Route::post('Program', [InsertController::class, 'Program']);
-Route::post('User', [InsertController::class, 'User']);
+Route::post('Member', [InsertController::class, 'Member']);
 Route::post('Parameter', [InsertController::class, 'Parameter']);
 Route::post('Area', [InsertController::class, 'Area']);
 Route::post('ProgramLevel', [InsertController::class, 'ProgramLevel']);

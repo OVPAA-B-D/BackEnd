@@ -30,5 +30,6 @@ class UserInformationModel extends Authenticatable
         'createdDate'
 
     ];
+    public $timestamps = false;
 
 }
