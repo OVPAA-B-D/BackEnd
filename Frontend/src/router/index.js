@@ -13,6 +13,9 @@ import Public_folder_admin from '../views/public_folder_admin.vue'
 import Public_folder_taskforce from '../views/public_folder_taskforce.vue'
 import Taskforce_members from '../views/taskforce_members.vue'
 import Office_admin from '../views/office_admin.vue'
+import Viewparameter_accreditor from '../views/viewparameter_accreditor.vue'
+import Viewfiles_accreditor from '../views/viewfiles_accreditor.vue'
+import Admin_ppp from '../views/admin_ppp.vue'
 
 
 const routes = [
@@ -84,12 +87,30 @@ const routes = [
     name: 'Home accreditor',
     component: Home_accreditor
   },
+  {
+    path: '/admin_program_performance_profile',
+    name: 'Survey List',
+    component: Admin_ppp
+  },
 
   {
     path: '/taskforce_members',
     name: 'Taskforce Members',
     component: Taskforce_members
   },
+  
+   {
+    path: '/viewparameter_accreditor',
+    name: 'Viewparameter accreditor',
+    component: Viewparameter_accreditor
+  },
+  
+  {
+    path: '/viewfiles_accreditor',
+    name: 'Viewfiles accreditor',
+    component: Viewfiles_accreditor
+  },
+
 
   {
     path: '/about',

@@ -95,10 +95,10 @@
           </div>
         </div>
           <div class="flex flex-row h-99 w-fullrounded-xl  p-1 ">
-            <div class="bg-gradient-to-b from-blue-150 to-yellow-150 rounded-xl gap-y-2 flex  justify-items-start  w-full p-0.6 h-full">
-               <div class="bg-white  h-full overflow-auto  w-2/3 flex flex-grow flex-wrap rounded-l-xl pl-4">
+            <div class="bg-gradient-to-b from-blue-150 to-yellow-150 rounded-md gap-y-2 flex  justify-items-start  w-full p-0.5 h-full">
+               <div class="bg-white  h-full overflow-auto  w-2/3 flex flex-grow flex-wrap rounded-md pl-4">
              <div class=" w-full">
-                    <div class=" flex py-3 sticky top-1   w-full  bg-white  space-x-2 items-center" style="z-index:0" >
+                    <div class=" flex py-3 sticky top-1   w-full  bg-white  space-x-2 items-center" style="z-index:1" >
                    <div class=" cursor-pointer w-4-h-4">
                    <router-link to="/program_area">
                    <img src="/icons/icon1_arrow_back.svg">
@@ -106,125 +106,140 @@
                    </div>
                    <div class="flex sticky top-0 bg-white justify-start gap-x-2 text-blue-150 text-lg">
                     <router-link to="/home_admin"> <a class="hover:underline cursor-pointer">Infomation Technology</a></router-link>>
-                    <router-link to="/program_level"><a class=" hover:underline">Level 1</a></router-link>>
+                    <router-link to="/program_area"><a class=" hover:underline">Level 1</a></router-link>>
                     <a class="font-bold cursor-default">Area 1</a>
                     </div>
                  </div>
-                 <!-- Parameters -->
                 <div class=" items-start w-full flex-col flex flex-wrap pl-7" v-for="parameter in parameters" v-bind:key="parameter.parameterID">
-                   <div  class="w-full">
-                     <div class="flex flex-shrink items-center p-2 justify-between">
+                   <div  class="w-full flex flex-col gap-y-3 pr-4">
+                     <div class="flex flex-shrink items-center py-2 justify-between">
                        <span class="flex items-baseline gap-x-3">
-                        <h1 id="parameterLabel" class=" text-2xl text-blue-150 font-bold">{{parameter.parameterID}}: {{parameter.parameterLabel}} </h1>
-                        <input type="text" class="focus:outline-none border-2 border-black text-blue-150 pl-3 hidden" id="parameterName" value="Parameter name"/>
-                        <img  @click="show_input('parameterLabel','parameterName')" src="/icons/icon19_rename_orange.svg" class="cursor-pointer"/>
-                        <img @click="confirmation_deletion=!confirmation_deletion" src="/icons/icon11_delete_red.svg" class="cursor-pointer" />
+                        <h1 id="parameterLabel" class=" text-2xl text-blue-150 font-bold">{{parameter.parameterID}}: {{parameter.parameterLabel}}</h1>
+                        <input type="text" class="focus:outline-none border-2 border-blue-150 text-blue-150 pl-3 hidden" id="parameterName" value="Parameter name"/>
+                        <img v-if="param_edit" @click="param_edit=!param_edit,show_input('parameterLabel','parameterName')" src="/icons/icon19_rename_orange.svg" class="cursor-pointer"/>
+                        <button v-else @click="param_edit=!param_edit,show_input('parameterLabel','parameterName')"
+                         class=" w-5 text-center
+                          material-icons justify-center  opacity-75 flex  rounded-full
+                           bg-green-150 text-white cursor-pointer text-sm hover:opacity-100 " >
+                           download_done
+                        </button>
+                        <img @click="confirmation_deletion=!confirmation_deletion,text_modal='delete this Parameter'" src="/icons/icon11_delete_red.svg" class="cursor-pointer" />
                         <h1  class="text-green-150">Completed</h1>
                       </span>
-                      <button @click="show_add_benchmark=!show_add_benchmark" class="border-2 flex  px-2   items-center mr-4 border-blue-150 "> 
+                      <button @click="show_add_benchmark=!show_add_benchmark" class="border-2 flex  px-2 
+                        items-center  border-blue-150 "> 
                         <img src="icons/icon12_add_blue.svg" class="w-4 "/>
                         <h1 class="text-blue-150">Add Bechmark</h1></button>
                     </div>
-                    <div class="mr-4" v-for="benchmark in benchmarks" v-bind:key="benchmark.benchmarkID">
-                        <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center"  v-if="benchmark.parameterID===parameter.parameterID">
+                    <div v-for="benchmark in benchmarks" v-bind:key="benchmark.benchmarkID">
+                        <div class=" pl-4 w-full flex gap-x-1 flex-row justify-between items-center " v-if="benchmark.parameterID===parameter.parameterID">
                           <span class="flex items-baseline">
                             <h1 id="bench1" class="text-xl text-yellow-150">{{benchmark.benchmarkID}}: {{benchmark.benchmarkLabel}}</h1>
-                            <input type="text" class="focus:outline-none border-2 border-black text-yellow-150 pl-3 hidden"
+                            <input type="text" class="focus:outline-none border-2 border-yellow-150 text-yellow-150 pl-3 hidden"
                              id="bench1_input" value="Benchmark A1"/>
-                            <img  src="/icons/icon19yellow.svg" class="cursor-pointer" @click="show_input('bench1','bench1_input')"/>
+                            <img v-if="bench_edit" src="/icons/icon19yellow.svg" class="cursor-pointer" @click="bench_edit=!bench_edit,show_input('bench1','bench1_input')"/>
+                          <button v-else  @click="bench_edit=!bench_edit,show_input('bench1','bench1_input')"
+                        class=" w-5 text-center ml-2
+                          material-icons justify-center  opacity-75 flex  rounded-full
+                           bg-green-150 text-white cursor-pointer text-sm hover:opacity-100 " >
+                           download_done
+                        </button>
                           </span>
-                            <div class="  flex space-x-3 mb-0.5">
+                            <div class="  flex gap-x-1 mb-0.5">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
                               <img src="/icons/icon10_open_file.svg" class="w-5 h-5"/>
                                 open file</button>
                              <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
                               <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
                                 move row</button>
-                             <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
+                             <button @click="confirmation_deletion=!confirmation_deletion,text_modal='delete this Benchmark'" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
                               <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
                                 delete file</button>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="mr-4">
+                    <div >
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark A2</h1>
                             <img src="/icons/icon19yellow.svg"/>
                           </span>
-                            <div class="  flex space-x-3 mb-0.5">
+                            <div class="  flex gap-x-1 mb-0.5">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
                               <img src="/icons/icon10_open_file.svg" class="w-5 h-5"/>
                                 open file</button>
                              <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
                               <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
                                 move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
+                              <button @click="confirmation_deletion=!confirmation_deletion,text_modal='delete this Benchmark'" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
                               <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
                                 delete file</button>
                             </div>
                         </div>
-                    </div> -->
-                    <!-- <div class="mr-4">
+                    </div>
+                    <div >
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark A3</h1>
                             <img src="/icons/icon19yellow.svg"/>
                           </span>
-                            <div class="  flex space-x-3 mb-0.5">
+                            <div class="  flex gap-x-1 mb-0.5">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
                               <img src="/icons/icon10_open_file.svg" class="w-5 h-5"/>
                                 open file</button>
                              <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
                               <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
                                 move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
+                              <button @click="confirmation_deletion=!confirmation_deletion,text_modal='delete this Benchmark'" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
                               <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
                                 delete file</button>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
+                    
+
                    </div>
                 </div>
-                 <!-- <div class=" items-start w-full flex-col flex flex-wrap pl-7">
-                   <div  class="w-full ">
-                     <div class="flex items-center p-2 justify-between">
+                 <div class=" items-start w-full flex-col flex flex-wrap pl-7">
+                   <div  class="w-full flex flex-col gap-y-3 pr-4">
+                     <div class="flex items-center py-2 justify-between">
                        <span class="flex items-baseline gap-x-3">
                         <h1 class=" text-2xl text-blue-150 font-bold">Parameter B</h1>
                         <img src="/icons/icon19_rename_orange.svg"/>
                         <img src="/icons/icon11_delete_red.svg" />
                         <h1  class="text-green-250">Incomplete</h1>
                       </span>
-                     <button @click="show_add_benchmark=!show_add_benchmark" class="border-2 flex  px-2   items-center mr-4 border-blue-150 "> 
+                     <button @click="show_add_benchmark=!show_add_benchmark" class="border-2 flex  px-2   
+                     items-center border-blue-150 "> 
                         <img src="icons/icon12_add_blue.svg" class="w-4"/>
                         <h1 class="text-blue-150">Add Bechmark</h1></button>
                     </div>
-                    <div class="mr-4">
+                    <div >
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark B1</h1>
                             <img src="/icons/icon19yellow.svg"/>
                           </span>
-                            <div class="  flex space-x-3 mb-0.5">
+                            <div class="  flex gap-x-1 mb-0.5">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
                               <img src="/icons/icon10_open_file.svg" class="w-5 h-5"/>
                                 open file</button>
                              <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
                               <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
                                 move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
+                              <button @click="confirmation_deletion=!confirmation_deletion,text_modal='delete this Benchmark'" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
                               <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
                                 delete file</button>
                             </div>
                         </div>
                     </div>
-                    <div class="mr-4">
+                    <div >
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark B2</h1>
                             <img src="/icons/icon19yellow.svg"/>
                           </span>
-                            <div class="  flex space-x-3 mb-0.5">
+                            <div class="  flex gap-x-1 mb-0.5">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-gray-150 ">
                               <img src="/icons/icon_empty_folder.svg" class="w-5 h-5"/>
                                 open file</button>
@@ -237,105 +252,106 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mr-4">
+                    <div>
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark B3</h1>
                             <img src="/icons/icon19yellow.svg"/>
                           </span>
-                            <div class="  flex space-x-3 mb-0.5">
+                            <div class="  flex gap-x-1 mb-0.5">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-gray-150 ">
                               <img src="/icons/icon_empty_folder.svg" class="w-5 h-5"/>
                                 open file</button>
                              <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
                               <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
                                 move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
+                              <button @click="confirmation_deletion=!confirmation_deletion,text_modal='delete this Benchmark'" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
                               <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
                                 delete file</button>
                             </div>
                         </div>
                     </div>
                    </div>
-                </div> -->
-                 <!-- <div class=" items-start w-full flex-col flex flex-wrap pl-7">
-                   <div  class="w-full">
-                   <div class="flex items-center p-2 justify-between">
+                </div>
+                 <div class=" items-start w-full flex-col flex flex-wrap pl-7">
+                   <div  class="w-full flex flex-col pr-4 gap-y-3">
+                   <div class="flex items-center py-2 justify-between">
                        <span class="flex items-baseline gap-x-3">
                         <h1 class=" text-2xl text-blue-150 font-bold">Parameter C</h1>
                         <img src="/icons/icon19_rename_orange.svg"/>
                          <img src="/icons/icon11_delete_red.svg" />
                         <h1  class="text-red-150">No File Found</h1>
                       </span>
-                      <button @click="show_add_benchmark=!show_add_benchmark" class="border-2 flex  px-2   items-center mr-4 border-blue-150 "> 
+                      <button @click="show_add_benchmark=!show_add_benchmark" class="border-2 flex
+                        px-2   items-center border-blue-150 "> 
                         <img src="icons/icon12_add_blue.svg" class="w-4"/>
                         <h1 class="text-blue-150">Add Bechmark</h1></button>
                     </div>
-                    <div class="mr-4">
+                    <div >
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark C1</h1>
                             <img src="/icons/icon19yellow.svg"/>
                           </span>
-                            <div class="  flex space-x-3 mb-0.5">
+                            <div class="  flex gap-x-1 mb-0.5">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-gray-150 ">
                               <img src="/icons/icon_empty_folder.svg" class="w-5 h-5"/>
                                 open file</button>
                              <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
                               <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
                                 move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
+                              <button @click="confirmation_deletion=!confirmation_deletion,text_modal='delete this Benchmark'" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
                               <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
                                 delete file</button>
                             </div>
                         </div>
                     </div>
-                    <div class="mr-4">
+                    <div >
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark C2</h1>
                             <img src="/icons/icon19yellow.svg"/>
                           </span>
-                            <div class="  flex space-x-3 mb-0.5">
+                            <div class="  flex gap-x-1 mb-0.5">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-gray-150 ">
                               <img src="/icons/icon_empty_folder.svg" class="w-5 h-5"/>
                                 open file</button>
                              <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
                               <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
                                 move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
+                              <button @click="confirmation_deletion=!confirmation_deletion,text_modal='delete this Benchmark'" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
                               <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
                                 delete file</button>
                             </div>
                         </div>
                     </div>
-                    <div class="mr-4">
+                    <div>
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">Benchmark C3</h1>
                             <img src="/icons/icon19yellow.svg"/>
                           </span>
-                            <div class="  flex space-x-3 mb-0.5">
+                            <div class="  flex gap-x-1 mb-0.5">
                               <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-gray-150 ">
                               <img src="/icons/icon_empty_folder.svg" class="w-5 h-5"/>
                                 open file</button>
                              <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
                               <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
                                 move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
+                              <button @click="confirmation_deletion=!confirmation_deletion,text_modal='delete this Benchmark'" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
                               <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
                                 delete file</button>
                             </div>
                         </div>
                     </div>
                    </div>
-                </div> -->
+                </div>
               </div>
         
                </div>
              <div v-if="show_details" class=" flex w-1/3 h-full rounded-xl bg-white ">
-              <div class=" h-full   flex pl-0.6 rounded-xl flex-grow bg-gradient-to-b from-blue-150 to-yellow-150">
-                  <div class="  overflow-auto pb-3 flex flex-col flex-grow rounded-2xl w-full bg-gray-100 h-full">
+              <div class=" h-full   flex pl-0.5 rounded-md flex-grow bg-gradient-to-b from-blue-150 to-yellow-150">
+                  <div class="  overflow-auto pb-3 flex flex-col flex-grow rounded-md w-full bg-gray-100 h-full">
                         <div class="flex justify-between items-center p-4">
                   <h1 class="font-bold text-yellow-150">
                   Parameter
@@ -369,27 +385,31 @@
     </div>
      <!--Add Parameter-->
            <div v-if=" show_add_parameter" class="fixed z-10  flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-             <div class="w-97 flex flex-col bg-white p-5 gap-y-3 shadow-3xl rounded-3xl">
-                    <div class=" flex justify-between items-center">
-                          <h1 class="font-bold text-lg text-yellow-150">Add Parameter</h1>
-                            <button @click="show_add_parameter=!show_add_parameter" class="text-red-150 text-lg">
+             <div class="w-97 flex flex-col bg-white pb-3 gap-y-3 shadow-3xl rounded-3xl">
+                    <div class="flex justify-between rounded-t-2xl px-4 shadow-3xl items-center h-12  bg-gradient-to-r from-blue-150 via-gray-300  to-yellow-150">
+                          <h1 class="text-lg text-white">Add Parameter</h1>
+                            <button @click="show_add_parameter=!show_add_parameter" class="text-white text-lg">
                                 CLOSE 
                             </button>
                     </div>
-                    <div class="flex space-x-7 justify-start items-center">
-                      <div>
+                    <div class="flex px-4 space-x-7 justify-start items-center">
+                      <div >
                         <h1 class="text-blue-150">Parameter</h1>
-                        <div class="w-full h-12 flex rounded-lg justify-center items-center border-blue-150 border-2">
+                        <div class="p-0.5 bg-gradient-to-b from-blue-150 to-yellow-150 rounded-md">
+                        <div class="w-full bg-white h-12 flex rounded-md justify-center items-center ">
                           <h1 class="text-2xl text-blue-150">E</h1>
+                        </div>
                         </div>
                       </div>
                       <div class="w-full">
                       <h1 class="text-blue-150">Label</h1>
-                     <input placeholder="Parameter Description" type="text" class=" pl-3 placeholder-blue-150 rounded-lg w-full text-blue-150 h-12 focus:outline-none border-2 border-blue-150"/>
+                      <div class="p-0.5 bg-gradient-to-b from-blue-150 to-yellow-150 rounded-md">
+                     <input placeholder="Parameter Description" type="text" class=" pl-3 placeholder-blue-150 rounded-md w-full text-blue-150 h-12 focus:outline-none "/>
+                      </div>
                       </div>
                     </div>
-                    <div class="w-full flex justify-end">
-                    <button class="text-white w-20 py-2 flex space-x-1 rounded-lg  justify-center items-center  bg-blue-150 px-4 text-sm">
+                    <div class="w-full px-4 flex justify-end">
+                    <button @click="confirmation=!confirmation,text_modal='add a new Parameter'"  class="text-white w-20 py-2 flex space-x-1 rounded-lg  justify-center items-center  bg-blue-150 px-4 text-sm">
                       <img src="/icons/icon12_add.svg" class="w-4 h-4"/>
                       <h1>Add</h1>
                       </button>
@@ -401,23 +421,25 @@
        
           <!---Add Benchmark--->
             <div v-if=" show_add_benchmark" class="fixed z-10  flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-             <div class="w-97 flex flex-col bg-white p-5 gap-y-3 shadow-3xl rounded-3xl">
-                    <div class=" flex justify-between items-center">
-                          <h1 class="font-bold text-lg text-yellow-150">Add Benchmark</h1>
-                            <button @click="show_add_benchmark=!show_add_benchmark" class="text-red-150 text-lg">
+             <div class="w-97 flex flex-col bg-white pb-3  gap-y-3 shadow-3xl rounded-3xl">
+                    <div class="flex justify-between rounded-t-2xl px-4 shadow-3xl items-center h-12  bg-gradient-to-r from-blue-150 via-gray-300  to-yellow-150">
+                          <h1 class=" text-lg text-white">Add Benchmark</h1>
+                            <button @click="show_add_benchmark=!show_add_benchmark" class="text-white text-lg">
                                 CLOSE 
                             </button>
                     </div>
-                    <div class="flex flex-col gap-y-3 justify-start items-center">
+                    <div class="flex px-4 flex-col gap-y-3 justify-start items-center">
                       
                        <div class="w-full">
                         <h1 class="text-blue-150 ">Label</h1>
-                      <input placeholder="Description of  new benchmark" type="text" class="placeholder-blue-150 border-2 w-full border-blue-150 focus:outline-none text-blue-150 px-2 h-12">
-                         
+                        <div class="bg-gradient-to-b from-blue-150 to-yellow-150 p-0.5 rounded-md ">
+                      <input placeholder="Description of  new benchmark" type="text" class="placeholder-blue-150
+                       w-full rounded-md focus:outline-none text-blue-150 px-2 h-12">
+                         </div>
                       </div>
                     </div>
-                    <div class="w-full flex justify-end">
-                    <button @click="confirmation=!confirmation" class="text-white w-20 py-2 flex space-x-1 rounded-lg  justify-center items-center  bg-blue-150 px-4 text-sm">
+                    <div class="w-full px-4 flex justify-end">
+                    <button @click="confirmation=!confirmation,text_modal='add a new Benchmark'" class="text-white w-20 py-2 flex space-x-1 rounded-lg  justify-center items-center  bg-blue-150 px-4 text-sm">
                       <img src="/icons/icon12_add.svg" class="w-4 h-4"/>
                       <h1>Add</h1>
                       </button>
@@ -430,14 +452,14 @@
           <!---->
           <!--Edit Row-->
              <div v-if=" show_add_edit_row" class="fixed z-10  flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-             <div class="drag w-97 h-72 flex flex-col relative bg-white p-5 gap-y-3 shadow-3xl rounded-3xl">
-                    <div class=" flex justify-between items-center">
-                          <h1 class="font-bold text-lg text-yellow-150">Edit Row</h1>
-                            <button @click="show_add_edit_row=!show_add_edit_row" class="text-red-150 text-lg">
+             <div class="drag w-97 h-72 flex flex-col relative bg-white pb-5 gap-y-3 shadow-3xl rounded-3xl">
+                    <div class=" flex justify-between rounded-t-2xl px-4 shadow-3xl items-center h-12  bg-gradient-to-r from-blue-150 via-gray-300  to-yellow-150">
+                          <h1 class=" text-lg text-white">Edit Row</h1>
+                            <button @click="show_add_edit_row=!show_add_edit_row" class="text-white text-lg">
                                 CLOSE 
                             </button>
                     </div>
-                    <h1 class="text-blue-250 font-bold text-lg">Parameter name</h1>
+                    <h1 class="text-blue-250 ml-4 font-bold text-lg">Parameter name</h1>
                     <div class="flex flex-col gap-y-3 justify-start items-center">
                     <div class="flex h-full overflow-auto w-full items-center gap-x-2">                           
                        <draggable 
@@ -445,39 +467,59 @@
                           group="people" 
                           @start="drag=true" 
                           @end="drag=false" 
-                          item-key="id" class=" w-full flex flex-col justify-center gap-y-1">
+                          item-key="id" class=" w-full containerDiv cursor-grab flex flex-col justify-center gap-y-1">
                           <template #item="{element}" class="">
-                          <div class="flex cursor-move text-yellow-150 border-b-2 border-yellow-150 justify-center items-center text-lg h-10 w-ful ">
+                          <div class=" flex text-yellow-150 border-b-2 border-yellow-150 justify-center items-center text-lg h-10 w-ful ">
                             <h1>{{element.name}}</h1>
                             </div>
                           </template>
                           </draggable>
                     </div>                       
                     </div>
-                   
+                   <button @click="confirmation=!confirmation,text_modal='update this field'" class="w-20 rounded-md  bg-blue-150 text-white absolute right-4 bottom-5">update</button>
              </div>
           </div>
           <!---->
           <!----confirmation-->
            <div v-if="confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-                 <div class="flex flex-col items-center text-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
-                 <h1 class="text-blue-150 text-xl">Are you sure you want to perform this action?</h1>
-                  <span class="flex items-center gap-x-3">
-                    <button @click="confirmation=!confirmation" class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
-                    <button @click="confirmation=!confirmation" class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
-                  </span>
+                  <div class=" flex flex-col justify-start relative
+                  gap-y-3  w-23 h-60 bg-white  shadow-3xl rounded-xl">
+                  <div class="bg-blue-150 rounded-t-xl h-10 w-full"></div>
+                  <div class="flex w-full  gap-x-3 pl-10  mt-3 items-center">
+                      <img class="w-16" src="icons/icon_confirmation_blue.svg"/>
+                    <div class="flex flex-col">
+                      <h1 class="text-xl font-bold text-blue-150">You are about to {{text_modal}}</h1>
+                      <h1 class="text-blue-150 ">After your confirmation, you can still make changes to the information.</h1>
+                    </div>
+                  </div>
+                  <div class="flex justify-end absolute right-10 bottom-10">
+                    <div class="flex gap-x-1">
+                      <button @click="confirmation=!confirmation" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
+                      <button @click="confirmation=!confirmation" class="px-1 rounded-md text-blue-150 bg-white border-2 border-blue-150">Cancel</button>
+                    </div>
+                  </div>
                  </div>
            </div>
           <!---->
           <!--Delete--->
            <div v-if="confirmation_deletion" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-                 <div class="flex flex-col items-center text-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
-                 <h1 class="text-red-150 text-xl">Are you sure you want to perform this action?</h1>
-                  <h1 class="text-red-150">This action cannot be undone.</h1>
-                  <span class="flex items-center gap-x-3">
-                    <button @click="confirmation_deletion=!confirmation_deletion" class=" select-none bg-red-150 rounded-lg text-white w-28 h-10">Confirm</button>
-                    <button @click="confirmation_deletion=!confirmation_deletion" class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
-                  </span>
+                <div class=" flex flex-col justify-start relative
+                  gap-y-3  w-23 h-60 bg-white  shadow-3xl rounded-xl">
+                  <div class="bg-red-150 rounded-t-xl h-10 w-full"></div>
+                  <div class="flex w-full  gap-x-3 pl-10  mt-3 items-center">
+                      <img class="w-16" src="icons/icon_warning_red.svg"/>
+                    <div class="flex flex-col">
+                      <h1 class="text-xl font-bold text-red-150">Delete Warning</h1>
+                      <h1 class="text-red-150 text-lg">You are about to {{text_modal}}.</h1>
+                      <h1 class="text-red-150 text-lg">This process cannot be undone.</h1>
+                    </div>
+                  </div>
+                  <div class="flex justify-end absolute right-10 bottom-10">
+                    <div class="flex gap-x-1">
+                      <button @click="confirmation_deletion=!confirmation_deletion" class="px-1 rounded-md w-16 border-2 border-red-150  text-white bg-red-150">Confirm</button>
+                      <button @click="confirmation_deletion=!confirmation_deletion" class="px-1 rounded-md w-16 text-red-150 bg-white border-2 border-red-150">Cancel</button>
+                    </div>
+                  </div>
                  </div>
            </div>
           <!----->

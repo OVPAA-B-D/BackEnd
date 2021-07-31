@@ -51,11 +51,15 @@
         <h1 class="text-yellow-150 text-5xl">Information Technology</h1>
         <h5 class="text-blue-150 text-3xl">Chairman in charge</h5>
          
-   <h5 class="text-yellow-150 text-2xl">Johann Abad</h5>
-         
-  
-          <h5 class="text-yellow-150 text-2xl">0912345678</h5>
-     <h5 class="text-yellow-150 text-2xl">johannaabad@gmail.com</h5>
+   <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon16_man.svg"><h1>Johann Abad</h1>
+        </span>
+        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
+        </span>
+         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon18_inbox.svg"><h1>johannAbad@gmail.com</h1>
+        </span>
 
 
 
@@ -76,14 +80,7 @@
          
          
             </div>
-          <div class="space-x-2  font-normal text-xl flex justify-center items-center p-0.5  pr-2 text-white bg-blue-150 ">
-            <input type="text" placeholder="Search" class="
-            placeholder-blue-150
-             pl-3 text-sm text-gray-150 h-8  focus:outline-none" />
-            <span class="material-icons cursor-pointer">
-              search
-            </span>
-          </div>
+        
         </div>
           <div class="flex flex-row h-99   rounded-xl bg-white p-1 ">
             <div class="overflow-auto bg-gradient-to-b from-blue-150 to-yellow-150 rounded-l-xl gap-y-2 flex flex-col justify-items-start  w-2/3 py-0.6 pl-0.6 h-full">

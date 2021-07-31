@@ -47,10 +47,15 @@
       <div class="mt-10 pb-4 cursor-wait">
         <h1 class="text-yellow-150 text-4xl">Information Technology </h1>
         <h3 class="text-blue-150 text-2xl">Chairman In Charge</h3>
-        <h3 class="text-yellow-150 text-1xl">Johanna Abad</h3>
-        <h3 class="text-yellow-150 text-1xl">098765432</h3>
-        <h3 class="text-yellow-150 text-1xl">Johanna_abad@gmail.com</h3>
-
+          <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon16_man.svg"><h1>Johann Abad</h1>
+        </span>
+        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
+        </span>
+         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+            <img src="/icons/icon18_inbox.svg"><h1>johannAbad@gmail.com</h1>
+        </span>
        
 
 
@@ -155,6 +160,7 @@
     
          
           <!---->
+          
 
   </div>
 </template>
@@ -166,11 +172,11 @@
 <script>
 // @ is an alias to /src
 import Details from "./details.vue"
-import Comments from "./comments.vue"
+//import Comments from "./addcomments_accreditor.vue"
 export default {
   components:{
     Details,
-    Comments
+    //Comments
   },
   data(){
     return{

@@ -32,7 +32,7 @@ class FetchController extends Controller
 
    function getMember(){
 
-    $member = Auth::authorize('show');
+    $member = Auth::user();
     $data = DB::select('SELECT * FROM tbl_userinformation');
 
     if($data == null)
