@@ -150,16 +150,15 @@
                         <div class="bg-gradient-to-b from-blue-150 to-yellow-150 rounded-xl gap-y-2 flex  justify-items-start  w-full p-0.6 h-full">
                           <div class="bg-white  h-full overflow-auto  w-2/3 flex flex-grow flex-wrap rounded-l-xl pl-4">
                             <div class=" w-full ">
-                              <div v-for="pdf in pdfArray" :key="pdf.id" class="">
+                             <div v-for="file in files" :key="file.name" class="">
                              
                               <!--  -->
                               <div class=" flex text-yellow-150 justify-left items-center text-lg h-10 w-full ">
                                 <input type="checkbox" id="" name="taskforce1" value="" class="inline">
                                 <button @click="confirmation_deletion=!confirmation_deletion" class="rounded-sm py-1 px-2 inline">
                                 <img src="/icons/icon-del.svg" class="w-5 h-5"/></button>
-                                <img src="icons/icon13.svg" class="w-4 inline"/>
-                                <a class="inline">&ensp;{{pdf.name}}</a>
-                            
+                                <img src="icons/icon13.svg" class="w-4 inline"/>{{file.name}}
+                          
                              </div>
                             </div>
                           </div>
@@ -311,7 +310,7 @@ export default {
             }
         ],
      Parameter:[],
-     pdfArray:[],
+      files:null,
      
     }
   },
@@ -339,8 +338,9 @@ export default {
           }
       },
       add_files(e){
-        const file=e.target.files[0];
-        this.pdfArray=URL.createObjectURL(file);
+        this.files=e.target.files;
+        this.files=URL.createObjectURL(files);
+
        },
       isActive_function(el){
        if(el=='btn1'){
