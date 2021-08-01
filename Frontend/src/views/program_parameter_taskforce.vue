@@ -87,11 +87,6 @@
       <div class="flex  flex-col h-full pt-10 px-4  space-y-3">
         <div class=" flex justify-between  items-center">
             <div class="flex space-x-2 ">
-          <button @click=" show_add_parameter=!show_add_parameter" class=" text-blue-150   space-x-2 border-2 border-blue-150 rounded-full
-          flex justify-center items-center bg-white py-1 px-3 text-center">
-            <p class="material-icons  text-sm ">add_circle_outline</p> <p class="text-sm">Add Parameter</p>
-          </button>
-
             </div>
           <div class="space-x-2  font-normal text-xl flex justify-center items-center p-0.5  pr-2 text-white bg-blue-150 ">
             <input type="text" placeholder="Search" class="
@@ -125,14 +120,9 @@
                      <div class="flex flex-shrink items-center p-2 justify-between">
                        <span class="flex items-baseline gap-x-3">
                         <h1 id="parameterLabel" class=" text-2xl text-blue-150 font-bold">{{parameterx.parameterLabel}}</h1>
-                        <input type="text" class="focus:outline-none border-2 border-black text-blue-150 pl-3 hidden" id="parameterName" value="Parameter name"/>
-                        <img  @click="show_input('parameterLabel','parameterName')" src="/icons/icon19_rename_orange.svg" class="cursor-pointer"/>
-                        <img @click="confirmation_deletion=!confirmation_deletion" src="/icons/icon11_delete_red.svg" class="cursor-pointer" />
+                       
                         <h1  class="text-green-150">Completed</h1>
                       </span>
-                      <button @click="show_add_benchmark=!show_add_benchmark" class="border-2 flex  px-2   items-center mr-4 border-blue-150 "> 
-                        <img src="icons/icon12_add_blue.svg" class="w-4 "/>
-                        <h1 class="text-blue-150">Add Bechmark</h1></button>
                     </div>
                    <div v-for="benchmarkx in myArray"
                     :key="benchmarkx.id">
@@ -141,30 +131,48 @@
                         <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
                           <span class="flex items-baseline">
                             <h1 class="text-xl text-yellow-150">{{benchmarkx.benchmarkLabel}}</h1>
-                            <img src="/icons/icon19yellow.svg"/>
+                          
                           </span>
                             <div class="  flex space-x-3 mb-0.5">
-                            <router-link to="/viewfiles_taskforce">
-                              <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
-                              <img src="/icons/icon10_open_file.svg" class="w-5 h-5"/>
-                                open file</button>
-                              </router-link>
+                            <label for="add_file" class="cursor-pointer"><span type="button" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
+                             <img src="/icons/upload.svg" class="w-5 h-5"/>
+                              Upload
+                              </span>
+                             </label>
+                             <input  @change="add_files"  type="file" id="add_file" class="hidden" />
                              <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
-                              <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
-                                move row</button>
+                              Submit<img src="/icons/submit.svg" class="w-5 h-5"/></button>
                               <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
-                              <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
-                                delete file</button>
+                              Unsubmit <img src="/icons/unsubmit.svg" class="w-5 h-5"/></button>
                             </div>
                         </div>
+                        <br>
+                        <div class="bg-gradient-to-b from-blue-150 to-yellow-150 rounded-xl gap-y-2 flex  justify-items-start  w-full p-0.6 h-full">
+                          <div class="bg-white  h-full overflow-auto  w-2/3 flex flex-grow flex-wrap rounded-l-xl pl-4">
+                            <div class=" w-full ">
+                              <div v-for="pdf in pdfArray" :key="pdf.id" class="">
+                             
+                              <!--  -->
+                              <div class=" flex text-yellow-150 justify-left items-center text-lg h-10 w-full ">
+                                <input type="checkbox" id="" name="taskforce1" value="" class="inline">
+                                <button @click="confirmation_deletion=!confirmation_deletion" class="rounded-sm py-1 px-2 inline">
+                                <img src="/icons/icon-del.svg" class="w-5 h-5"/></button>
+                                <img src="icons/icon13.svg" class="w-4 inline"/>
+                                <a class="inline">&ensp;{{pdf.name}}</a>
+                            
+                             </div>
+                            </div>
+                          </div>
+                        </div>
+                       </div>  
                      </div>
                    </div>
-                </div>              
-              </div>
-            </div>
+                 </div>              
+               </div>
+             </div>
            </div>
           </div>
-
+        <br>
              <div v-if="show_details" class=" flex w-1/3 h-full rounded-xl bg-white ">
               <div class=" h-full   flex pl-0.6 rounded-xl flex-grow bg-gradient-to-b from-blue-150 to-yellow-150">
                   <div class="  overflow-auto pb-3 flex flex-col flex-grow rounded-2xl w-full bg-gray-100 h-full">
@@ -185,120 +193,21 @@
                                <h1 class="text-xl text-blue-150 font-bold">Comments</h1>
                             </div> 
                         </div>
-                        </div>
-                         <div class=" p-3 bg-white flex-col items-center  rounded-xl flex flex-grow m-5">
+                      </div>
+                    <div class=" p-3 bg-white flex-col items-center  rounded-xl flex flex-grow m-5">
                            
                            <component :is="component" :listdata="folder_details"/>
                            
-                        </div>
-                  </div>
+                   </div>
+                </div>
               </div>
+             </div>
           </div>
-          </div>
-          </div> 
+        </div> 
       </div>
     </div>
-     <!--Add Parameter-->
-           <div v-if=" show_add_parameter" class="fixed z-10  flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-             <div class="w-97 flex flex-col bg-white p-5 gap-y-3 shadow-3xl rounded-3xl">
-                    <div class=" flex justify-between items-center">
-                          <h1 class="font-bold text-lg text-yellow-150">Add Parameter</h1>
-                            <button @click="show_add_parameter=!show_add_parameter" class="text-red-150 text-lg">
-                                CLOSE 
-                            </button>
-                    </div>
-                    <div class="flex space-x-7 justify-start items-center">
-                      <div>
-                        <h1 class="text-blue-150">Parameter</h1>
-                        <div class="w-full h-12 flex rounded-lg justify-center items-center border-blue-150 border-2">
-                          <h1 class="text-2xl text-blue-150">E</h1>
-                        </div>
-                      </div>
-                      <div class="w-full">
-                      <h1 class="text-blue-150">Label</h1>
-                     <input placeholder="Parameter Description" type="text" class=" pl-3 placeholder-blue-150 rounded-lg w-full text-blue-150 h-12 focus:outline-none border-2 border-blue-150"/>
-                      </div>
-                    </div>
-                    <div class="w-full flex justify-end">
-                    <button class="text-white w-20 py-2 flex space-x-1 rounded-lg  justify-center items-center  bg-blue-150 px-4 text-sm">
-                      <img src="/icons/icon12_add.svg" class="w-4 h-4"/>
-                      <h1>Add</h1>
-                      </button>
-                    </div>
-             </div>
-          
-            
-          </div>
+    
        
-          <!---Add Benchmark--->
-            <div v-if=" show_add_benchmark" class="fixed z-10  flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-             <div class="w-97 flex flex-col bg-white p-5 gap-y-3 shadow-3xl rounded-3xl">
-                    <div class=" flex justify-between items-center">
-                          <h1 class="font-bold text-lg text-yellow-150">Add Benchmark</h1>
-                            <button @click="show_add_benchmark=!show_add_benchmark" class="text-red-150 text-lg">
-                                CLOSE 
-                            </button>
-                    </div>
-                    <div class="flex flex-col gap-y-3 justify-start items-center">
-                      
-                       <div class="w-full">
-                        <h1 class="text-blue-150 ">Label</h1>
-                      <input placeholder="Description of  new benchmark" type="text" class="placeholder-blue-150 border-2 w-full border-blue-150 focus:outline-none text-blue-150 px-2 h-12">
-                         
-                      </div>
-                    </div>
-                    <div class="w-full flex justify-end">
-                    <button @click="confirmation=!confirmation" class="text-white w-20 py-2 flex space-x-1 rounded-lg  justify-center items-center  bg-blue-150 px-4 text-sm">
-                      <img src="/icons/icon12_add.svg" class="w-4 h-4"/>
-                      <h1>Add</h1>
-                      </button>
-                    </div>
-             </div>
-          
-            
-          </div>
-
-          <!---->
-          <!--Edit Row-->
-             <div v-if=" show_add_edit_row" class="fixed z-10  flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-             <div class="drag w-97 h-72 flex flex-col relative bg-white p-5 gap-y-3 shadow-3xl rounded-3xl">
-                    <div class=" flex justify-between items-center">
-                          <h1 class="font-bold text-lg text-yellow-150">Edit Row</h1>
-                            <button @click="show_add_edit_row=!show_add_edit_row" class="text-red-150 text-lg">
-                                CLOSE 
-                            </button>
-                    </div>
-                    <h1 class="text-blue-250 font-bold text-lg">Parameter name</h1>
-                    <div class="flex flex-col gap-y-3 justify-start items-center">
-                    <div class="flex h-full overflow-auto w-full items-center gap-x-2">                           
-                       <draggable 
-                          v-model="myArray" 
-                          group="people" 
-                          @start="drag=true" 
-                          @end="drag=false" 
-                          item-key="id" class=" w-full flex flex-col justify-center gap-y-1">
-                          <template #item="{element}" class="">
-                          <div class="flex cursor-move text-yellow-150 border-b-2 border-yellow-150 justify-center items-center text-lg h-10 w-ful ">
-                            <h1>{{element.name}}</h1>
-                            </div>
-                          </template>
-                          </draggable>
-                    </div>                       
-                    </div>
-                   
-             </div>
-          </div>
-          <!---->
-          <!----confirmation-->
-           <div v-if="confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-                 <div class="flex flex-col items-center text-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
-                 <h1 class="text-blue-150 text-xl">Are you sure you want to perform this action?</h1>
-                  <span class="flex items-center gap-x-3">
-                    <button @click="confirmation=!confirmation" class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
-                    <button @click="confirmation=!confirmation" class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
-                  </span>
-                 </div>
-           </div>
           <!---->
           <!--Delete--->
            <div v-if="confirmation_deletion" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
@@ -325,7 +234,6 @@ import Details from "./details.vue"
 import Comments from "./comments.vue"
 import draggable from 'vuedraggable'
 import api from '../api'
-
 export default {
   components:{
     Details,
@@ -346,6 +254,8 @@ export default {
         myArray:[],
         activeBtn:0,
         bg_button:0,
+      
+        
           folder_details:[
           {
          id:'',
@@ -358,7 +268,6 @@ export default {
         created:'',
           }
         ],
-
         Accreditor:[
             {
                 id:1,
@@ -402,8 +311,9 @@ export default {
             }
         ],
      Parameter:[],
+     pdfArray:[],
+     
     }
-
   },
   methods:{
       show_input(id1,id2){
@@ -419,7 +329,6 @@ export default {
         } else {
         y.style.display = "block";
         }
-
       },
       change_component(e){
           if(e=='details'){
@@ -429,7 +338,11 @@ export default {
             this.component='Comments'
           }
       },
-       isActive_function(el){
+      add_files(e){
+        const file=e.target.files[0];
+        this.pdfArray=URL.createObjectURL(file);
+       },
+      isActive_function(el){
        if(el=='btn1'){
       this.activeBtn= 0;
       }
@@ -438,11 +351,9 @@ export default {
         }
       },
       fetchParameters(){
-
       api
         .get("api/getParameter")
         .then(response => {
-
           this.Parameter= response.data;
           console.log(response.data);
         }) 
@@ -461,6 +372,16 @@ export default {
           console.log(errors.response);
         });
     },
+
+    //uploadFile(){
+        //api.post("api/ProgramLevelBenchmark", this.pdfArray)
+        //.then((response)=>{
+          //this.pdfArray=response.data;
+          //console.log(response.data);
+       // }).catch(errors => {
+         // console.log(errors.response);
+        //});
+    //},
   },
   mounted(){
     this.fetchParameters(); 
