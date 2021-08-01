@@ -450,12 +450,15 @@
                               >
                                 <div class="w-full">
                                   <div
-                                    v-for="file in Files"
-                                    :key="file.id"
+                                    v-for="file_row in Files"
+                                    :key="file_row.id"
                                     class=""
                                   >
                                     <!--  -->
                                     <div
+                                      v-if="benchmark_row.parameterID ==
+                            parameter_row.parameterID && benchmark_row.benchmarkID ==
+                            file_row.benchmarkID"
                                       class="
                                         flex
                                         text-yellow-150
@@ -488,7 +491,7 @@
                                       <img
                                         src="icons/icon13.svg"
                                         class="w-4 inline"
-                                      />{{ file.file }}
+                                      />{{ file_row.file }}
                                     </div>
                                   </div>
                                 </div>
