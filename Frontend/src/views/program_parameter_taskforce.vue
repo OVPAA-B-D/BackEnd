@@ -451,7 +451,7 @@
                                 <div class="w-full">
                                   <div
                                     v-for="file in Files"
-                                    :key="file.name"
+                                    :key="file.id"
                                     class=""
                                   >
                                     <!--  -->
@@ -488,7 +488,7 @@
                                       <img
                                         src="icons/icon13.svg"
                                         class="w-4 inline"
-                                      />{{ file.name }}
+                                      />{{ file.file }}
                                     </div>
                                   </div>
                                 </div>
