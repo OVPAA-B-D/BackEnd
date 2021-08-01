@@ -323,10 +323,10 @@
                       </span>
                     </div>
                     <div
-                      v-for="benchmark_row in benchmark_out"
+                      v-for="benchmark_row in Benchmark"
                       :key="benchmark_row.id"
                     >
-                      <div v-if="benchmark_out != NULL">
+                      <div v-if="Benchmark != NULL">
                         <div
                           v-if="
                             benchmark_row.parameterID ==
@@ -450,7 +450,7 @@
                               >
                                 <div class="w-full">
                                   <div
-                                    v-for="file in files"
+                                    v-for="file in Files"
                                     :key="file.name"
                                     class=""
                                   >
@@ -706,9 +706,10 @@ export default {
       show_details: false,
       confirmation_deletion: false,
       confirmation: false,
-      benchmark_out: [],
       activeBtn: 0,
       bg_button: 0,
+      
+      Benchmark: [],
 
       folder_details: [
         {
@@ -766,11 +767,7 @@ export default {
         },
       ],
       Parameter: [],
-      files: [
-        {
-          file: "",
-        },
-      ],
+      Files: [],
     };
   },
   methods: {
@@ -823,13 +820,25 @@ export default {
       api
         .get("api/getBenchmark")
         .then((response) => {
-          this.benchmark_out = response.data;
+          this.Benchmark = response.data;
           console.log(response.data);
         })
         .catch((errors) => {
           console.log(errors.response);
         });
     },
+    fetchFiles() {
+      api
+        .get("api/getProgramLevelBenchmark")
+        .then((response) => {
+          this.Files = response.data;
+          console.log(response.data);
+        })
+        .catch((errors) => {
+          console.log(errors.response);
+        });
+    },
+    
 
     uploadFile() {
       console.log("Uploaded");
@@ -845,6 +854,7 @@ export default {
   mounted() {
     this.fetchParameters();
     this.fetchBenchmark();
+    this.fetchFiles();
   },
 };
 </script>
