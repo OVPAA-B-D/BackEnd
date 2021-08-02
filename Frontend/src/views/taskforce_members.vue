@@ -71,6 +71,13 @@
       <h1 class="absolute bottom-4 text-yellow-150 text-5xl">Task Force Members</h1>
       </div>
 
+      <!-- <div class="w-full  pl-4  pt-7 bg-default bg-cover"  >  
+        <div class="flex items-center justify-between pr-5">
+        <h1 class="text-2xl text-blue-150 font-normal">Task Force Members/<a class="font-bold">Information Technology</a></h1>
+        </div>
+        <h1 class="text-5xl text-yellow-150 pt-24 pb-3 ">Task Force Members</h1>
+      </div> -->
+
 <!--  -->
       <div class="  flex-col h-full pt-10 px-4  space-y-3">
         <div class=" flex justify-between  items-center">
@@ -137,16 +144,12 @@
                     <td>09123456789</td>
                     <td>Co-Chairman</td>
                     <td>
-                      <!-- Action Buttons -->
-                        <div class="  flex space-x-3 mb-0.5">
-                          <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150">
-                            <p class="material-icons text-sm ">edit</p> <p  class="text-sm">Edit</p>
-                          </button>
-                          <button @click=" confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150">
-                            <p class="material-icons text-sm ">delete</p> <p class="text-sm">Delete</p>
-                          </button>
-                        </div>
-                      <!-- End of Action Buttons -->
+                        <button class="bg-green-150 space-x-2 flex items-center text-white px-3 text-center">
+                          <p class="material-icons text-sm ">edit</p> <p  class="text-sm">Edit</p>
+                        </button>
+                        <button class="bg-red-150 space-x-2 flex items-center text-white px-3 text-center">
+                          <p class="material-icons text-sm ">delete</p> <p class="text-sm">Delete</p>
+                        </button>
                     </td>
                   </tr>
                   <tr class="row">
@@ -158,17 +161,12 @@
                     <td>09123456798</td>
                     <td>Chairman</td>
                     <td>
-                      <!-- Action Buttons -->
-                        <div class="  flex space-x-3 mb-0.5">
-                          <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150">
-                            <p class="material-icons text-sm ">edit</p> <p  class="text-sm">Edit</p>
-                          </button>
-                          <button @click=" confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150">
-                            <p class="material-icons text-sm ">delete</p> <p class="text-sm">Delete</p>
-                          </button>
-                          
-                        </div>
-                      <!-- End of Action Buttons -->
+                      <button class="bg-green-150 space-x-2 flex sideBside justify-evenly items-center text-white px-3 text-center">
+                          <p class="material-icons text-sm ">edit</p> <p  class="text-sm">Edit</p>
+                        </button>
+                        <button class="bg-red-150 space-x-2 flex sideBside items-center text-white px-3 text-center">
+                          <p class="material-icons text-sm ">delete</p> <p class="text-sm">Delete</p>
+                        </button>
                     </td>
                   </tr> -->
                 </tbody>
@@ -203,7 +201,7 @@
                                       <option selected disabled class="mt-1"> Select a role for member</option>
                                  </select>
                                  <div class="flex flex-grow justify-end">
-                                     <button @click=" confirmation=!confirmation" class="rounded-lg shadow-lg bg-blue-500  space-x-2 flex justify-evenly items-center text-white px-3 text-center">
+                                     <button @click="confirm_accre=!confirm_accre" class="rounded-lg shadow-lg bg-blue-500  space-x-2 flex justify-evenly items-center text-white px-3 text-center">
                                         <p class="material-icons  text-lg ">add_circle_outline</p> <p>Add</p>
                                         </button>
                                  </div>
@@ -211,40 +209,18 @@
                         </div>
                     </div>
              </div>
-<!--Confimation-->
-              <div v-if=" confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-                  <div class="flex flex-col justify-evenly items-center gap-y-3 py-5 w-80 h-80 bg-white  shadow-3xl rounded-xl">
-                  <img src="icons/icon_confirmation.svg" class="w-16">
-                  <div class="flex flex-col text-center">
-                  <h1 class="text-blue-250 text-xl">You are about to add a Task Force</h1>
-                  <span class="px-16">
-                  <h1 class="text-sm text-blue-250 text-opacity-80">After your confirmation, you can still make changes to the information.</h1>
-                  </span>
-                  </div>
-                    <span class="flex items-center gap-x-3">
-                      <button @click="confirmation=!confirmation" class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
-                      <button @click="confirmation=!confirmation" class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
-                    </span>
-                  </div>
-            </div>
-<!--Delete-->
-            <div v-if=" confirmation_deletion" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-                  <div class="flex flex-col justify-evenly items-center gap-y-3 py-5 w-80 h-80 bg-white  shadow-3xl rounded-xl">
-                  <img src="icons/icon_warning_red.svg" class="w-16">
-                  <div class="flex flex-col text-center">
-                  <h1 class="text-red-150 text-xl">You are about to delete this member</h1>
-                  <span class="px-16">
-                  <h1 class="text-sm text-red-150 text-opacity-80">This action cannot be undone.</h1>
-                  </span>
-                  </div>
-                    <span class="flex items-center gap-x-3">
-                      <button @click="confirmation_deletion=!confirmation_deletion" class=" select-none bg-red-150 rounded-lg text-white w-28 h-10">Confirm</button>
-                      <button @click="confirmation_deletion=!confirmation_deletion" class="select-none border-2 rounded-lg border-red-150 text-red-150  w-28 h-10">Cancel</button>
-                    </span>
-                  </div>
-            </div>
-            <!----->
-    </div>
+             <!--Confimation-->
+             <div v-if="confirm_accre" class=" flex fixed w-screen h-full bg-white bg-opacity-25 justify-center items-center">
+              <div  class=" flex flex-col space-y-4 justify-center items-center w-97 h-19 pb-6  bg-white p-3 shadow-3xl rounded-3xl">
+                <h1 class=" text-xl text-blue-150">Are you sure to perform this action?</h1>
+                <div class="flex w-full text-lg justify-center gap-x-4">
+                  <button @click="confirm_accre=!confirm_accre" class="text-white  bg-blue-250 py-1 rounded-lg px-4">Confirm</button>
+                  <button @click="confirm_accre=!confirm_accre" class=" text-blue-250 border-2 px-4 rounded-lg py-1 border-blue-250">Cancel</button>
+                </div>
+             </div>
+             </div>
+          </div>
+          <!----->
   </div>
 </template>
 <style scoped>

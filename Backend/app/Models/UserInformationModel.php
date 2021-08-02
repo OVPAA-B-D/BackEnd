@@ -31,6 +31,4 @@ class UserInformationModel extends Authenticatable
     ];
     public $timestamps = false;
 
-    public $timestamps = false;
-
 }

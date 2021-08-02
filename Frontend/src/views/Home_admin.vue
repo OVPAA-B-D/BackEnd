@@ -593,6 +593,14 @@ export default {
           this.errors = errors.response;
              });
 
+             api.post("api/UserAuthentication", this.addProgram)
+             .then((response)=>{
+
+             })
+             .catch((errors) => {
+               this.erros = errors.response;
+             });
+
 
             const Levels =["Preliminary Survey Visit", "Level 1", "Level 2", "Level 3", "Level 4"];
             var i= 0;

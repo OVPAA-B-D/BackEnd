@@ -29,6 +29,5 @@ class ProgramModel extends Authenticatable
 
     ];
 
-    public $timestamps = false;
 
 }
