@@ -60,7 +60,8 @@
          <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
             <img src="/icons/icon18_inbox.svg"><h1>johannAbad@gmail.com</h1>
         </span>
-
+         
+  
 
 
 

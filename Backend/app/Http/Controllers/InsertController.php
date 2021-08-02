@@ -13,10 +13,10 @@ use App\Models\ProgramLevelBenchmarkModel;
 use App\Models\ProgramLevelModel;
 use App\Models\ProgramModel;
 use App\Models\TaskForceModel;
-use App\Models\UserAuthenticationModel;
+use App\Models\User;
 use App\Models\UserInformationModel;
 use Illuminate\Http\Request;
-use App\Models\User;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -31,9 +31,8 @@ class InsertController extends Controller
     $program->campusName = $request->campusName;
     $program->collegeName = $request->collegeName;
     $program->programName = $request->programName;
-    $program->chairmanEmail = $request->chairmanEmail;
-    $program->taskForceMemberEmail = $request -> taskForceMemberEmail;
-
+    $program->coverImage = $request->coverImage;
+   
     $program->save();
    }
 

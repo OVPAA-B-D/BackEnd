@@ -192,7 +192,10 @@ export default {
       api
         .post("api/Login", this.dataForm)
         .then((res) => {
-          
+          sessionStorage.setItem("isLoggedIn", true);
+            sessionStorage.setItem("sessionCookieNotify", true)
+            sessionStorage.setItem("Authorization", res.data.token)
+            console.log('api token in login',sessionStorage.getItem("Authorization"))
           this.$router.push({ path: "dashboard" });
            console.log(res);
          

@@ -1,57 +1,128 @@
 <template>
-   <nav  class=" py-4 shadow-lg  bg-white fixed w-full z-10">
+  <nav class="py-4 shadow-lg bg-white fixed w-full z-10">
     <div class="w-80">
-    <img class="w-full  h-full" src="BUlogo.png">
+      <img class="w-full h-full" src="BUlogo.png" />
     </div>
   </nav>
-  <div class="flex font-roboto  pt-16  min-h-screen  ">
-     <div class="w-22 static   flex  flex-col items-center py-5  space-y-2  bg-blue-150  ">
-      <div class="w-24 flex items-center border-4 border-white justify-center  bg-yellow-150 cursor-pointer mt-10 h-24 rounded-full">
-            <span class="material-icons cursor-poi text-white text-4xl">
-                add_photo_alternate
-            </span>
+  <div class="flex font-roboto pt-16 min-h-screen">
+    <div
+      class="w-22 static flex flex-col items-center py-5 space-y-2 bg-blue-150"
+    >
+      <div
+        class="
+          w-24
+          flex
+          items-center
+          border-4 border-white
+          justify-center
+          bg-yellow-150
+          cursor-pointer
+          mt-10
+          h-24
+          rounded-full
+        "
+      >
+        <span class="material-icons cursor-poi text-white text-4xl">
+          add_photo_alternate
+        </span>
       </div>
       <div class="flex flex-col items-center">
-      <h1  class="uppercase text-white text-lg font-bold">Michael Cinco</h1>
-      <h1 class="text-sm text-white">(Admin)</h1>
+        <h1 class="uppercase text-white text-lg font-bold">Michael Cinco</h1>
+        <h1 class="text-sm text-white">(Admin)</h1>
       </div>
-     <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
-          <router-link to="/dashboard">
-          <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 ">
-            <span class="material-icons">
-            dashboard
-            </span>
+      <div class="text-white gap-y-3 pt-24 flex flex-col flex-grow">
+        <router-link to="/dashboard">
+          <div
+            class="
+              flex
+              cursor-pointer
+              w-91
+              items-center
+              gap-4
+              space-x-1
+              pl-4
+              py-3
+            "
+          >
+            <span class="material-icons"> dashboard </span>
             Dashboard
           </div>
-          </router-link>
-          <div class=" flex cursor-pointer w-91 items-center gap-4 bg-yellow-150 space-x-1 shadow-3xl pl-4 py-3 " > 
-             <i class="fas fa-network-wired"></i>
-            Accreditation Management
-        </div> 
+        </router-link>
+        <div
+          class="
+            flex
+            cursor-pointer
+            w-91
+            items-center
+            gap-4
+            bg-yellow-150
+            space-x-1
+            shadow-3xl
+            pl-4
+            py-3
+          "
+        >
+          <i class="fas fa-network-wired"></i>
+          Accreditation Management
+        </div>
         <router-link to="/public_folder">
-       <div class=" flex cursor-pointer w-91 items-center gap-4  space-x-1  pl-4 py-3 " > 
-             <img src="/icons/icon8_public_folder.svg">
+          <div
+            class="
+              flex
+              cursor-pointer
+              w-91
+              items-center
+              gap-4
+              space-x-1
+              pl-4
+              py-3
+            "
+          >
+            <img src="/icons/icon8_public_folder.svg" />
             <h1>Public Folder</h1>
           </div>
         </router-link>
       </div>
-        
+
       <div class="relative w-full flex-grow">
-      <router-link to="/">
-      <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
-        <span class="material-icons transform rotate-180 ">
-        logout
-      </span>
-        <h1 class="cursor-pointer  uppercase">Log out</h1>
-      </div>
-      </router-link>
+        <router-link to="/">
+          <div
+            class="
+              w-2/3
+              absolute
+              bottom-8
+              drop-shadow-2xl
+              text-white
+              flex
+              items-center
+              space-x-2
+              pl-4
+              float-left
+              bg-yellow-150
+              self-start
+              rounded-r-full
+              py-3
+              text-center
+            "
+          >
+            <span class="material-icons transform rotate-180"> logout </span>
+            <h1 class="cursor-pointer uppercase">Log out</h1>
+          </div>
+        </router-link>
       </div>
     </div>
-    <div class="flex flex-col flex-nowrap  w-full">
+    <div class="flex flex-col flex-nowrap w-full">
       <div class="w-full cursor-default h-72 relative shadow-lg pl-4 pt-7">
-        <img src="img/img3.jpg" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
+        <img
+          src="img/img3.jpg"
+          class="object-cover absolute top-0 left-0 w-full h-full -z-1"
+        />
         <div class="flex items-center justify-between pr-5">
-        <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">Information Technology</a></h1>
+          <h1 class="text-2xl text-blue-150 font-normal">
+            Accreditation Management/<a class="font-bold"
+              >Information Technology</a
+            >
+          </h1>
         </div>
       <div class="pb-3">
         <h1 class="text-yellow-150 text-xl">Level 1 Accreditation</h1>
@@ -169,27 +240,80 @@
                   </h1>
                 <img src="icons/icon_close_x.svg" class="cursor-pointer" @click="show_details=!show_details" >
                 </div>
-                        <div class="px-4 pt-2 sticky top-0 flex bg-gray-100 justify-between"> 
-                        <div @click="isActive_function('btn1')" :class="{active: activeBtn === 0 }" class="select-none cursor-pointer flex  w-36 bg-gradient-to-r  from-blue-150 to-yellow-150 ">
-                           <div @click="change_component('details')" class="bg-gray-100 flex   justify-center w-full  h-full">
-                               <h1 class="text-xl text-blue-150 font-bold cursor-pointer">Details</h1>
-                            </div> 
-                        </div>
-                        <div  @click=" isActive_function('btn2')" :class="{active: activeBtn === 'btn2' }"  class=" flex select-none cursor-pointer  w-36 bg-gradient-to-r  from-blue-150 to-yellow-150 ">
-                           <div @click="change_component('comments')" class="bg-gray-100 flex  w-full h-full justify-center ">
-                               <h1 class="text-xl text-blue-150 font-bold">Comments</h1>
-                            </div> 
-                        </div>
-                        </div>
-                         <div class=" bg-white p-3  flex-col items-center  rounded-xl flex h-full m-5">
-                           
-                           <component :is="component" :listdata="folder_details"/>
-                           
-                        </div>
+                <div
+                  class="
+                    px-4
+                    pt-2
+                    sticky
+                    top-0
+                    flex
+                    bg-gray-100
+                    justify-between
+                  "
+                >
+                  <div
+                    @click="isActive_function('btn1')"
+                    :class="{ active: activeBtn === 0 }"
+                    class="
+                      select-none
+                      cursor-pointer
+                      flex
+                      w-36
+                      bg-gradient-to-r
+                      from-blue-150
+                      to-yellow-150
+                    "
+                  >
+                    <div
+                      @click="change_component('details')"
+                      class="bg-gray-100 flex justify-center w-full h-full"
+                    >
+                      <h1
+                        class="text-xl text-blue-150 font-bold cursor-pointer"
+                      >
+                        Details
+                      </h1>
+                    </div>
                   </div>
+                  <div
+                    @click="isActive_function('btn2')"
+                    :class="{ active: activeBtn === 'btn2' }"
+                    class="
+                      flex
+                      select-none
+                      cursor-pointer
+                      w-36
+                      bg-gradient-to-r
+                      from-blue-150
+                      to-yellow-150
+                    "
+                  >
+                    <div
+                      @click="change_component('comments')"
+                      class="bg-gray-100 flex w-full h-full justify-center"
+                    >
+                      <h1 class="text-xl text-blue-150 font-bold">Comments</h1>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="
+                    bg-white
+                    p-3
+                    flex-col
+                    items-center
+                    rounded-xl
+                    flex
+                    h-full
+                    m-5
+                  "
+                >
+                  <component :is="component" :listdata="folder_details" />
+                </div>
               </div>
+            </div>
           </div>
-          </div> 
+        </div>
       </div>
     </div>
      <!--Add Accreditor-->
@@ -375,21 +499,191 @@
            <!----->
            <!----->
 
+          <div class="border-b-2 border-yellow-150 flex justify-between">
+            <div class="flex justify-between gap-x-10 w-3/4 pr-10">
+              <h1 class="text-lg text-blue-150">Name</h1>
+              <h1 class="text-lg text-yellow-150">Email</h1>
+              <h1 class="text-lg text-yellow-150">Role</h1>
+            </div>
+            <div>
+              <button class="w-20 text-white border-2 bg-blue-250">Edit</button>
+              <button
+                @click="confirmation_deletion = !confirmation_deletion"
+                class="w-20 text-white border-2 bg-red-150"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+          <div class="border-b-2 border-yellow-150 flex justify-between">
+            <div class="flex justify-between gap-x-10 w-3/4 pr-10">
+              <h1 class="text-lg text-blue-150">Name</h1>
+              <h1 class="text-lg text-yellow-150">Email</h1>
+              <h1 class="text-lg text-yellow-150">Role</h1>
+            </div>
+            <div>
+              <button class="w-20 text-white border-2 bg-blue-250">Edit</button>
+              <button
+                @click="confirmation_deletion = !confirmation_deletion"
+                class="w-20 text-white border-2 bg-red-150"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+          <div class="border-b-2 border-yellow-150 flex justify-between">
+            <div class="flex justify-between gap-x-10 w-3/4 pr-10">
+              <h1 class="text-lg text-blue-150">Name</h1>
+              <h1 class="text-lg text-yellow-150">Email</h1>
+              <h1 class="text-lg text-yellow-150">Role</h1>
+            </div>
+            <div>
+              <button class="w-20 text-white border-2 bg-blue-250">Edit</button>
+              <button
+                @click="confirmation_deletion = !confirmation_deletion"
+                class="w-20 text-white border-2 bg-red-150"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Confimation-->
+      <div
+        v-if="confirm_accre"
+        class="
+          flex
+          fixed
+          w-screen
+          h-full
+          bg-white bg-opacity-25
+          justify-center
+          items-center
+        "
+      >
+        <div
+          class="
+            flex flex-col
+            space-y-4
+            justify-center
+            items-center
+            w-96
+            h-52
+            pb-6
+            bg-white
+            p-3
+            shadow-3xl
+            rounded-3xl
+          "
+        >
+          <h1 class="text-xl text-blue-150">
+            Are you sure to perform this action?
+          </h1>
+          <div class="flex w-full text-lg justify-center gap-x-4">
+            <button
+              @click="confirm_accre = !confirm_accre"
+              class="text-white bg-blue-250 py-1 rounded-lg px-4"
+            >
+              Confirm
+            </button>
+            <button
+              @click="confirm_accre = !confirm_accre"
+              class="
+                text-blue-250
+                border-2
+                px-4
+                rounded-lg
+                py-1
+                border-blue-250
+              "
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!----->
+    <!--Delete-->
+    <div
+      v-if="confirmation_deletion"
+      class="
+        fixed
+        z-30
+        flex
+        justify-center
+        bg-gray-200
+        w-screen
+        bg-opacity-50
+        items-center
+        inset-0
+      "
+    >
+      <div
+        class="
+          flex flex-col
+          justify-evenly
+          items-center
+          gap-y-3
+          py-5
+          w-80
+          h-80
+          bg-white
+          shadow-3xl
+          rounded-xl
+        "
+      >
+        <img src="icons/icon_warning_red.svg" class="w-16" />
+        <div class="flex flex-col text-center">
+          <h1 class="text-red-150 text-xl">
+            You are about to delete this member
+          </h1>
+          <span class="px-16">
+            <h1 class="text-sm text-red-150 text-opacity-80">
+              This action cannot be undone.
+            </h1>
+          </span>
+        </div>
+        <span class="flex items-center gap-x-3">
+          <button
+            @click="confirmation_deletion = !confirmation_deletion"
+            class="select-none bg-red-150 rounded-lg text-white w-28 h-10"
+          >
+            Confirm
+          </button>
+          <button
+            @click="confirmation_deletion = !confirmation_deletion"
+            class="
+              select-none
+              border-2
+              rounded-lg
+              border-red-150
+              text-red-150
+              w-28
+              h-10
+            "
+          >
+            Cancel
+          </button>
+        </span>
+      </div>
+    </div>
+    <!----->
   </div>
 </template>
 <style scoped>
-.active{
-  padding-bottom:3px;
+.active {
+  padding-bottom: 3px;
 }
-.outline{
-  border:solid 1px;
+.outline {
+  border: solid 1px;
 
-  border-color:#F37123 ;
+  border-color: #f37123;
 }
 
-button.outline{
-  border:solid 0px;
-
+button.outline {
+  border: solid 0px;
 }
 </style>
 <script>
@@ -402,7 +696,7 @@ export default {
   props: ['btnText'],
   components:{
     Details,
-    Comments
+    Comments,
   },
   data(){
     return{
@@ -440,6 +734,85 @@ export default {
      folder_icon:'/icons/icon15.png'
     }
 
+        {
+          id: 5,
+          floder_name: "Area 4",
+          folder_icon: "/icons/icon15.png",
+          status: "Pwede na",
+          owner: "Juan Tamad",
+          modified: "July 12,2021",
+          location: "/Information/Level",
+          accessed: "Pedro Penduko",
+          created: "Admin",
+        },
+
+        {
+          id: 6,
+          floder_name: "Area 5",
+          folder_icon: "/icons/icon15.png",
+          status: "Pwede na",
+          owner: "Juan Tamad",
+          modified: "July 12,2021",
+          location: "/Information/Level",
+          accessed: "Pedro Penduko",
+          created: "Admin",
+        },
+        {
+          id: 7,
+          floder_name: "Area 6",
+          folder_icon: "/icons/icon15.png",
+          status: "Pwede na",
+          owner: "Juan Tamad",
+          modified: "July 12,2021",
+          location: "/Information/Level",
+          accessed: "Pedro Penduko",
+          created: "Admin",
+        },
+        {
+          id: 8,
+          floder_name: "Area 7",
+          folder_icon: "/icons/icon15.png",
+          status: "Pwede na",
+          owner: "Juan Tamad",
+          modified: "July 12,2021",
+          location: "/Information/Level",
+          accessed: "Pedro Penduko",
+          created: "Admin",
+        },
+        {
+          id: 9,
+          floder_name: "Area 8",
+          folder_icon: "/icons/icon15.png",
+          status: "Pwede na",
+          owner: "Juan Tamad",
+          modified: "July 12,2021",
+          location: "/Information/Level",
+          accessed: "Pedro Penduko",
+          created: "Admin",
+        },
+        {
+          id: 10,
+          floder_name: "Area 9",
+          folder_icon: "/icons/icon15.png",
+          status: "Pwede na",
+          owner: "Juan Tamad",
+          modified: "July 12,2021",
+          location: "/Information/Level",
+          accessed: "Pedro Penduko",
+          created: "Admin",
+        },
+        {
+          id: 11,
+          floder_name: "Area 10",
+          folder_icon: "/icons/icon15.png",
+          status: "Pwede na",
+          owner: "Juan Tamad",
+          location: "/Information/Level",
+          accessed: "Pedro Penduko",
+          created: "Admin",
+        },
+      ],
+    };
   },
   methods:{
     fetchareas(){
@@ -466,10 +839,17 @@ export default {
           // prev_f.style.display='block'
           // prev_n.style.display='none'
     },
-    rename_folder(e){
-        let x=document.getElementById(this.folder_id)
-        let y=document.getElementById(this.folder_id+'x')
-        if(this.prev_folder_id==''){
+    rename_folder(e) {
+      let x = document.getElementById(this.folder_id);
+      let y = document.getElementById(this.folder_id + "x");
+      if (this.prev_folder_id == "") {
+        x.style.display = "none";
+        y.style.display = "block";
+        this.prev_folder_id = this.folder_id;
+        this.prev_name_id = this.folder_id + "x";
+      } else {
+        let prev_f = document.getElementById(this.prev_folder_id);
+        let prev_n = document.getElementById(this.prev_name_id);
         x.style.display = "none";
         y.style.display='block'
         this.prev_folder_id=this.folder_id;
@@ -507,17 +887,14 @@ export default {
     display_details(e){
     const index=this.folderArea.findIndex(x => x.id===e)
     },
-      change_component(e){
-          if(e=='details'){
-            this.component='Details'
-          }
-          else{
-            this.component='Comments'
-          }
-      },
-       isActive_function(el){
-       if(el=='btn1'){
-      this.activeBtn= 0;
+    display_details(e) {
+      const index = this.folderArea.findIndex((x) => x.id === e);
+    },
+    change_component(e) {
+      if (e == "details") {
+        this.component = "Details";
+      } else {
+        this.component = "Comments";
       }
       else {
         this.activeBtn= el;

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000/',
+    baseURL: `http://localhost:8000/`,
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -11,12 +11,12 @@ const api = axios.create({
     withCredentials: false
 });
 
-api.interceptors.request.use(function (config) {
-    const token = sessionStorage.getItem("Authorization")
-    config.headers.Authorization = `Bearer ` + token;
-    console.log('apiiiiiiiii token', token)
-    return config;
-});
+// api.interceptors.request.use(function (config) {
+//     const token = sessionStorage.getItem("Authorization")
+//     config.headers.Authorization = `Bearer ` + token;
+//     console.log('apiiiiiiiii token', token)
+//     return config;
+// });
 
 
 export default api 

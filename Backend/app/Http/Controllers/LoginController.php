@@ -17,7 +17,7 @@ class LoginController extends Controller
             'email'=>['required','email'],
             'password' => ['required']
         ]);
-
+        
         Auth::attempt($request->only('email','password'));
         $user = User::where('email',$request['email'])->first();
 
@@ -25,6 +25,8 @@ class LoginController extends Controller
             return response()->json(['invalid' => 'The provided credentials are incorrect.'],422);
         }
         else{
+
+           
             $token = $user->createToken('myapptoken')->plainTextToken;
 
             $response = ["user"=>$user, "token"=>$token];

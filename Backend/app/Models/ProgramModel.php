@@ -24,10 +24,11 @@ class ProgramModel extends Authenticatable
         'campusName',
         'collegeName',
         'programName',
-        'chairmanEmail',
-        'taskForceMemberEmail',
+        'coverImage',
         'createdDate'
 
     ];
+
+    public $timestamps = false;
 
 }

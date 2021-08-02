@@ -244,7 +244,7 @@
                   <div class="flex self-right items-center  gap-x-2">
                     <div class="flex overflow-hidden w-32   items-end  h-8 border-b-2 border-blue-250">
                       <h1 class="text-yellow-150">File: </h1>
-                       <h1 class="text-blue-150">{{image_name}}</h1>
+                       <h1 class="text-blue-150">{{imageName}}</h1>
                     </div>
                    <label for="program_image"><span  class="flex items-center select-none cursor-pointer  justify-center  gap-2 border-2 border-blue-150  w-32 h-8 text-blue-250  "> 
                     <img src="icons/icon_change_cover.svg"/>

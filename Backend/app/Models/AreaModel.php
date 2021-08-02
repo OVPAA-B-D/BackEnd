@@ -23,5 +23,4 @@ class AreaModel extends Authenticatable
         'areaID',
         'areaLabel',
     ];
-
 }

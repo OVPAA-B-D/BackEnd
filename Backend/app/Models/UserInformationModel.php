@@ -26,10 +26,11 @@ class UserInformationModel extends Authenticatable
         'contactNumber',
         'profilePicture',
         'roleType',
-        'roleDescription',
         'createdDate'
 
     ];
+    public $timestamps = false;
+
     public $timestamps = false;
 
 }

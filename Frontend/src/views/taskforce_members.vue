@@ -107,7 +107,28 @@
                   </tr>
                 </thead>
                 <tbody class="text-blue-150 font-normal text-xl">
-                  <tr class="row">
+                  <tr
+                    v-for="member in members"
+                    :key="member.id"
+                    class="text-center justify-center items-center"
+                  >
+                    <td>
+                      <input type="checkbox" id="" name="taskforce1" value="">
+                      <label for="taskforce1">&ensp;{{ member.firstName}} {{member.lastName}}</label>
+                    </td>
+                    <td>{{member.taskforceEmail}}</td>
+                    <td>{{member.contactNumber}}</td>
+                    <td>{{member.roleDescription}}</td>
+                    <td>
+                        <button class="bg-green-150 space-x-2 flex items-center text-white px-3 text-center">
+                          <p class="material-icons text-sm ">edit</p> <p  class="text-sm">Edit</p>
+                        </button>
+                        <button class="bg-red-150 space-x-2 flex items-center text-white px-3 text-center">
+                          <p class="material-icons text-sm ">delete</p> <p class="text-sm">Delete</p>
+                        </button>
+                    </td>
+                  </tr>
+                  <!-- <tr class="row">
                     <td>
                       <input type="checkbox" id="" name="taskforce1" value="">
                       <label for="taskforce1">&ensp;Jill Smith</label>
@@ -149,7 +170,7 @@
                         </div>
                       <!-- End of Action Buttons -->
                     </td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
 
@@ -245,19 +266,35 @@
 </style>
 <script>
 // @ is an alias to /src
+import api from "../api";
 export default {
   data(){
     return{
       bg_image:'img/bg_plain.svg',
       show_add_accre:false,
       confirm_accre:false,
+      members: []
     }
   },
   methods:{
-      change_bgImage(e){
-       const file=e.target.files[0];
-        this.bg_image=URL.createObjectURL(file);
-    }
+    change_bgImage(e){
+      const file=e.target.files[0];
+      this.bg_image=URL.createObjectURL(file);
+    },
+    fetchMembers(){
+      api
+        .get("api/getTaskForce")
+        .then(response => {
+          this.members = response.data;
+          console.log(response.data);
+        })
+        .catch(errors => {
+          console.log(errors.response);
+        });
+    },
+  },
+  mounted(){
+    this.fetchMembers();
   }
 }
 </script>

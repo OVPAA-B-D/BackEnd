@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-   
+
 
     Route::post("/updateArea", [updateController::class, 'updateArea']);
     Route::post("/updateBenchmark", [updateController::class, 'updateBenchmark']);
@@ -30,9 +30,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post("/updateProgramLevelBenchmark", [updateController::class, 'updateProgramLevelBenchmark']);
     Route::post("/userAuthentication", [updateController::class, 'userAuthentication']);
     Route::post("/userInformation", [updateController::class, 'userInformation']);
-
-
-   
 
 });
 
@@ -65,3 +62,4 @@ Route::get('getProgramLevelBenchmark', [FetchController::class, 'getProgramLevel
 Route::get('getUserAuthentication', [FetchController::class, 'getUserAuthentication']);
 Route::get('getTaskForceChairman',[FetchController::class, 'getTaskForceChairman']);
 Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);
+Route::get('getTaskForce', [FetchController::class, 'getTaskForce']);

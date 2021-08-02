@@ -13,6 +13,7 @@ import Public_folder_admin from '../views/public_folder_admin.vue'
 import Public_folder_taskforce from '../views/public_folder_taskforce.vue'
 import Taskforce_members from '../views/taskforce_members.vue'
 import Office_admin from '../views/office_admin.vue'
+import View_files_taskforce from '../views/view_files_taskforce.vue'
 import Viewparameter_accreditor from '../views/viewparameter_accreditor.vue'
 import Viewfiles_accreditor from '../views/viewfiles_accreditor.vue'
 import Admin_ppp from '../views/admin_ppp.vue'
@@ -33,6 +34,11 @@ const routes = [
     path: '/program_area_taskforce',
     name: 'Program Area Taskforce',
     component: Program_area_taskforce
+  },
+  {
+    path: '/view_files_taskforce',
+    name: 'View Files Taskforce',
+    component: View_files_taskforce
   },
   {
     path: '/program_area',
@@ -112,6 +118,18 @@ const routes = [
   },
 
 
+  
+  {
+    path: '/viewparameter_accreditor',
+    name: 'Viewparameter accreditor',
+    component: Viewparameter_accreditor
+  },
+  
+   {
+    path: '/viewfiles_accreditor',
+    name: 'Viewfiles accreditor',
+    component: Viewfiles_accreditor
+  },
   {
     path: '/about',
     name: 'About',
