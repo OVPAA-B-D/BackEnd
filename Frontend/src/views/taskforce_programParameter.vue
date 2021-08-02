@@ -383,6 +383,7 @@
                                   @click="
                                     show_add_edit_row = !show_add_edit_row
                                   "
+                                  @change="submit"
                                   class="
                                     text-white
                                     flex
@@ -869,6 +870,7 @@ export default {
         .post("api/ProgramLevelBenchmark",this.tempUpload)
         .then(function(){
           console.log("Success");
+          this.fetchFiles();
         })
         .catch(function(){
           console.log("Fail");
@@ -882,16 +884,16 @@ export default {
       // this.files=URL.createObjectURL(files);
     },
     
-    uploadFile() {
-      console.log("Uploaded2");
-      // api.post("api/ProgramLevelBenchmark", this.tempUpload)
-      //.then((response)=>{
-      //this.pdfArray=response.data;
-      //console.log(response.data);
-      // }).catch(errors => {
-      // console.log(errors.response);
-      //});
+    submitFIle(){
+      console.log("Submit");
+      // api
+      //   .post("api/ProgramLevelBenchmark", this.)
     },
+
+    unsubmitFIle(){
+      // api
+      //   .post("api/ProgramLevelBenchmark", this.)
+    }
   },
   mounted() {
     this.fetchParameters();
