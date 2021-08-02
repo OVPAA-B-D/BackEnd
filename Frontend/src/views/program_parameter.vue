@@ -121,7 +121,7 @@
                         <img @click="confirmation_deletion=!confirmation_deletion" src="/icons/icon11_delete_red.svg" class="cursor-pointer" />
                         <h1  class="text-green-150">Completed</h1>
                       </span>
-                      <button @click="show_add_benchmark=!show_add_benchmark" class="border-2 flex  px-2   items-center mr-4 border-blue-150 "> 
+                      <button @click="show_add_benchmark=!show_add_benchmark,addBenchmark(parameter.parameterID)" v-bind:key="parameter.parameterID" class="border-2 flex  px-2   items-center mr-4 border-blue-150 "> 
                         <img src="icons/icon12_add_blue.svg" class="w-4 "/>
                         <h1 class="text-blue-150">Add Bechmark</h1></button>
                     </div>
@@ -146,190 +146,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="mr-4">
-                        <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
-                          <span class="flex items-baseline">
-                            <h1 class="text-xl text-yellow-150">Benchmark A2</h1>
-                            <img src="/icons/icon19yellow.svg"/>
-                          </span>
-                            <div class="  flex space-x-3 mb-0.5">
-                              <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
-                              <img src="/icons/icon10_open_file.svg" class="w-5 h-5"/>
-                                open file</button>
-                             <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
-                              <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
-                                move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
-                              <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
-                                delete file</button>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- <div class="mr-4">
-                        <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
-                          <span class="flex items-baseline">
-                            <h1 class="text-xl text-yellow-150">Benchmark A3</h1>
-                            <img src="/icons/icon19yellow.svg"/>
-                          </span>
-                            <div class="  flex space-x-3 mb-0.5">
-                              <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
-                              <img src="/icons/icon10_open_file.svg" class="w-5 h-5"/>
-                                open file</button>
-                             <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
-                              <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
-                                move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
-                              <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
-                                delete file</button>
-                            </div>
-                        </div>
-                    </div> -->
                    </div>
                 </div>
-                 <!-- <div class=" items-start w-full flex-col flex flex-wrap pl-7">
-                   <div  class="w-full ">
-                     <div class="flex items-center p-2 justify-between">
-                       <span class="flex items-baseline gap-x-3">
-                        <h1 class=" text-2xl text-blue-150 font-bold">Parameter B</h1>
-                        <img src="/icons/icon19_rename_orange.svg"/>
-                        <img src="/icons/icon11_delete_red.svg" />
-                        <h1  class="text-green-250">Incomplete</h1>
-                      </span>
-                     <button @click="show_add_benchmark=!show_add_benchmark" class="border-2 flex  px-2   items-center mr-4 border-blue-150 "> 
-                        <img src="icons/icon12_add_blue.svg" class="w-4"/>
-                        <h1 class="text-blue-150">Add Bechmark</h1></button>
-                    </div>
-                    <div class="mr-4">
-                        <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
-                          <span class="flex items-baseline">
-                            <h1 class="text-xl text-yellow-150">Benchmark B1</h1>
-                            <img src="/icons/icon19yellow.svg"/>
-                          </span>
-                            <div class="  flex space-x-3 mb-0.5">
-                              <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-blue-150 ">
-                              <img src="/icons/icon10_open_file.svg" class="w-5 h-5"/>
-                                open file</button>
-                             <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
-                              <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
-                                move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
-                              <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
-                                delete file</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mr-4">
-                        <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
-                          <span class="flex items-baseline">
-                            <h1 class="text-xl text-yellow-150">Benchmark B2</h1>
-                            <img src="/icons/icon19yellow.svg"/>
-                          </span>
-                            <div class="  flex space-x-3 mb-0.5">
-                              <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-gray-150 ">
-                              <img src="/icons/icon_empty_folder.svg" class="w-5 h-5"/>
-                                open file</button>
-                             <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
-                              <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
-                                move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
-                              <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
-                                delete file</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mr-4">
-                        <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
-                          <span class="flex items-baseline">
-                            <h1 class="text-xl text-yellow-150">Benchmark B3</h1>
-                            <img src="/icons/icon19yellow.svg"/>
-                          </span>
-                            <div class="  flex space-x-3 mb-0.5">
-                              <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-gray-150 ">
-                              <img src="/icons/icon_empty_folder.svg" class="w-5 h-5"/>
-                                open file</button>
-                             <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
-                              <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
-                                move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
-                              <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
-                                delete file</button>
-                            </div>
-                        </div>
-                    </div>
-                   </div>
-                </div> -->
-                 <!-- <div class=" items-start w-full flex-col flex flex-wrap pl-7">
-                   <div  class="w-full">
-                   <div class="flex items-center p-2 justify-between">
-                       <span class="flex items-baseline gap-x-3">
-                        <h1 class=" text-2xl text-blue-150 font-bold">Parameter C</h1>
-                        <img src="/icons/icon19_rename_orange.svg"/>
-                         <img src="/icons/icon11_delete_red.svg" />
-                        <h1  class="text-red-150">No File Found</h1>
-                      </span>
-                      <button @click="show_add_benchmark=!show_add_benchmark" class="border-2 flex  px-2   items-center mr-4 border-blue-150 "> 
-                        <img src="icons/icon12_add_blue.svg" class="w-4"/>
-                        <h1 class="text-blue-150">Add Bechmark</h1></button>
-                    </div>
-                    <div class="mr-4">
-                        <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
-                          <span class="flex items-baseline">
-                            <h1 class="text-xl text-yellow-150">Benchmark C1</h1>
-                            <img src="/icons/icon19yellow.svg"/>
-                          </span>
-                            <div class="  flex space-x-3 mb-0.5">
-                              <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-gray-150 ">
-                              <img src="/icons/icon_empty_folder.svg" class="w-5 h-5"/>
-                                open file</button>
-                             <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
-                              <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
-                                move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
-                              <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
-                                delete file</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mr-4">
-                        <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
-                          <span class="flex items-baseline">
-                            <h1 class="text-xl text-yellow-150">Benchmark C2</h1>
-                            <img src="/icons/icon19yellow.svg"/>
-                          </span>
-                            <div class="  flex space-x-3 mb-0.5">
-                              <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-gray-150 ">
-                              <img src="/icons/icon_empty_folder.svg" class="w-5 h-5"/>
-                                open file</button>
-                             <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
-                              <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
-                                move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
-                              <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
-                                delete file</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mr-4">
-                        <div class=" pl-4 w-full flex gap-2 flex-row justify-between items-center ">
-                          <span class="flex items-baseline">
-                            <h1 class="text-xl text-yellow-150">Benchmark C3</h1>
-                            <img src="/icons/icon19yellow.svg"/>
-                          </span>
-                            <div class="  flex space-x-3 mb-0.5">
-                              <button class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-gray-150 ">
-                              <img src="/icons/icon_empty_folder.svg" class="w-5 h-5"/>
-                                open file</button>
-                             <button @click="show_add_edit_row=!show_add_edit_row" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-green-150 ">
-                              <img src="/icons/icon9_move_row.svg" class="w-5 h-5"/>
-                                move row</button>
-                              <button @click="confirmation_deletion=!confirmation_deletion" class="text-white flex items-center gap-x-2 rounded-sm py-1 px-2 bg-red-150 ">
-                              <img src="/icons/icon11_delete.svg" class="w-5 h-5"/>
-                                delete file</button>
-                            </div>
-                        </div>
-                    </div>
-                   </div>
-                </div> -->
               </div>
         
                </div>
@@ -379,17 +197,19 @@
                     <div class="flex space-x-7 justify-start items-center">
                       <div>
                         <h1 class="text-blue-150">Parameter</h1>
-                        <div class="w-full h-12 flex rounded-lg justify-center items-center border-blue-150 border-2">
-                          <h1 class="text-2xl text-blue-150">E</h1>
-                        </div>
+                        <!-- <div class="w-full h-12 flex rounded-lg justify-center items-center border-blue-150 border-2"> -->
+                          <!-- <h1 class="text-2xl text-blue-150">E</h1> -->
+                     <input v-model="storeParameter.parameterID" placeholder="E" type="text" class="text-2xl placeholder-blue-100 text-blue-150 w-16 h-12 flex rounded-lg text-center items-center border-blue-150 border-2 focus:outline-none"/>
+
+                        <!-- </div> -->
                       </div>
                       <div class="w-full">
                       <h1 class="text-blue-150">Label</h1>
-                     <input placeholder="Parameter Description" type="text" class=" pl-3 placeholder-blue-150 rounded-lg w-full text-blue-150 h-12 focus:outline-none border-2 border-blue-150"/>
+                     <input v-model="storeParameter.parameterLabel" placeholder="Parameter Description" type="text" class=" pl-3 placeholder-blue-100 rounded-lg w-full text-blue-150 h-12 focus:outline-none border-2 border-blue-150"/>
                       </div>
                     </div>
                     <div class="w-full flex justify-end">
-                    <button class="text-white w-20 py-2 flex space-x-1 rounded-lg  justify-center items-center  bg-blue-150 px-4 text-sm">
+                    <button @click="addParameter" class="text-white w-20 py-2 flex space-x-1 rounded-lg  justify-center items-center  bg-blue-150 px-4 text-sm">
                       <img src="/icons/icon12_add.svg" class="w-4 h-4"/>
                       <h1>Add</h1>
                       </button>
@@ -403,7 +223,7 @@
             <div v-if=" show_add_benchmark" class="fixed z-10  flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
              <div class="w-97 flex flex-col bg-white p-5 gap-y-3 shadow-3xl rounded-3xl">
                     <div class=" flex justify-between items-center">
-                          <h1 class="font-bold text-lg text-yellow-150">Add Benchmark</h1>
+                          <h1 class="font-bold text-lg text-yellow-150">Add Benchmark{{ parameter.parameterID}}"</h1>
                             <button @click="show_add_benchmark=!show_add_benchmark" class="text-red-150 text-lg">
                                 CLOSE 
                             </button>
@@ -504,6 +324,8 @@ export default {
   data(){
     return{
       drag:false,
+      storeParameter:{parameterID:'',parameterLabel: '',areaID: ''},
+      storeBenchmark:{parameterID:'',parameterLabel: '',areaID: ''},
       parameters: [],
       benchmarks: [],
         component:"Details",
@@ -641,18 +463,16 @@ export default {
         // return this.parameters;
     });
     },
-    // fetchareas(){
-    // let temp = [];
-    //   api.get('api/getProgramLevelArea').then(response => {
-    //     // get body data
-    //     temp= response.data;
-    //     temp.forEach((value, index) => {
-    //     if(value.programLevelID === JSON.parse(localStorage.getItem('levelID'))){
-    //       return this.folderArea.push(value)
-    //     }
-    //     });
-    // })
-    // },
+    addParameter(){
+      this.storeParameter.areaID = JSON.parse(localStorage.getItem('areaID'));
+      api.post('/api/Parameter', this.storeParameter);
+      this.show_add_parameter = false;
+    },
+    addBenchmark(parameterID){
+      this.storeParameter.areaID = JSON.parse(localStorage.getItem('areaID'));
+      api.post('/api/Parameter', this.storeParameter);
+      this.show_add_parameter = false;
+    },
 
     fetchbenchmarks(){
         console.log("benchmarks");
