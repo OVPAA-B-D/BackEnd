@@ -63,3 +63,5 @@ Route::get('getProgramLevel', [FetchController::class, 'getProgramLevel']);
 Route::get('getProgramLevelArea', [FetchController::class, 'getProgramLevelArea']);
 Route::get('getProgramLevelBenchmark', [FetchController::class, 'getProgramLevelBenchmark']);
 Route::get('getUserAuthentication', [FetchController::class, 'getUserAuthentication']);
+Route::get('getTaskForceChairman',[FetchController::class, 'getTaskForceChairman']);
+Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);

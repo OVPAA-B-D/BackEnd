@@ -17,6 +17,7 @@ class AreaModel extends Authenticatable
      * @var array
      */
     protected $table = 'tbl_area';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'areaID',

@@ -17,6 +17,7 @@ class ProgramLevelModel extends Authenticatable
      * @var array
      */
     protected $table = 'tbl_programlevel';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'programLevelID',

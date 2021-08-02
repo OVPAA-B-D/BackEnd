@@ -17,6 +17,7 @@ class AccreditorModel extends Authenticatable
      * @var array
      */
     protected $table = 'tbl_accreditor';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'programLevelAreaID',

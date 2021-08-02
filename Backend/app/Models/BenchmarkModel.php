@@ -17,6 +17,7 @@ class BenchmarkModel extends Authenticatable
      * @var array
      */
     protected $table = 'tbl_benchmark';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'benchmarkID',

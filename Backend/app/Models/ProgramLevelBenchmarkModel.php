@@ -17,6 +17,7 @@ class ProgramLevelBenchmarkModel extends Authenticatable
      * @var array
      */
     protected $table = 'tbl_programlevelbenchmark';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'programLevelBenchmarkID',

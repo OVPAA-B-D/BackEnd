@@ -17,6 +17,7 @@ class ParameterModel extends Authenticatable
      * @var array
      */
     protected $table = 'tbl_parameter';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'parameterID',
