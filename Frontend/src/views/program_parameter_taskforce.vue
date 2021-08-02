@@ -377,6 +377,7 @@
                                   type="file"
                                   id="add_file"
                                   class="hidden"
+                                  ref="file_in"
                                 />
                                 <button
                                   @click="
@@ -691,7 +692,12 @@
 import Details from "./details.vue";
 import Comments from "./comments.vue";
 import draggable from "vuedraggable";
+
 import api from "../api";
+
+// window.axios = require('axios');
+// const app = Vue.createApp();
+// app.use(VueAxios, axios)
 export default {
   components: {
     Details,
@@ -771,6 +777,20 @@ export default {
       ],
       Parameter: [],
       Files: [],
+      tempUpload: "",
+
+      // tempUpload: [
+      //   {
+      //     id: "",
+      //     programLevelBenchmarkID: "",
+      //     benchmarkID: "",
+      //     programLevelID: "",
+      //     file: "",
+      //     uploadedBy: "",
+      //     uploadedDate: "",
+      //     modifiedBy: "",
+      //     modifiedDate: ""
+      // }],
     };
   },
   methods: {
@@ -795,12 +815,7 @@ export default {
         this.component = "Comments";
       }
     },
-    add_files(e) {
-      console.log("Uploaded");
-      api.post("api/ProgramLevelBenchmark", this.files);
-      // this.files=e.target.files;
-      // this.files=URL.createObjectURL(files);
-    },
+    
     isActive_function(el) {
       if (el == "btn1") {
         this.activeBtn = 0;
@@ -841,11 +856,35 @@ export default {
           console.log(errors.response);
         });
     },
-    
 
+    add_files(e) {
+      // console.log("Uploaded1");
+      this.tempUpload = this.$refs.file_in.files;
+      // let formData = new FormData();
+      // formData.append('file', this.tempUpload);
+      // console.log(formData);
+      // axios
+        // .post("/single-file",formData,{headers:{'Content-Type': 'multipart/form-data'}})
+      api
+        .post("api/ProgramLevelBenchmark",this.tempUpload)
+        .then(function(){
+          console.log("Success");
+        })
+        .catch(function(){
+          console.log("Fail");
+        });
+      this.fetchFiles();
+      
+
+      // console.log(e.data);
+      // api.post("api/ProgramLevelBenchmark", this.tempUpload);
+      // this.files=e.target.files;
+      // this.files=URL.createObjectURL(files);
+    },
+    
     uploadFile() {
-      console.log("Uploaded");
-      //api.post("api/ProgramLevelBenchmark", this.pdfArray)
+      console.log("Uploaded2");
+      // api.post("api/ProgramLevelBenchmark", this.tempUpload)
       //.then((response)=>{
       //this.pdfArray=response.data;
       //console.log(response.data);
