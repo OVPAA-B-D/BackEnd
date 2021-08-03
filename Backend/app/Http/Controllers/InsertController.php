@@ -65,6 +65,8 @@ class InsertController extends Controller
         $benchmark = new BenchmarkModel();
         $benchmark->benchmarkID = $request->benchmarkID;
         $benchmark->benchmarkLabel = $request->benchmarkLabel;
+        $benchmark->parameterID = $request->parameterID;
+
 
         $benchmark->save();
     }
