@@ -131,9 +131,9 @@
                         <h1 class="text-blue-150">Add Bechmark</h1></button>
                     </div>
                     <div >
-                        <div v-for="benchmark in benchmarks" v-bind:key="benchmark.benchmarkID" class=" pl-4 w-full flex gap-x-1 flex-row justify-between items-center ">
-                          <span class="flex items-baseline"  v-if="benchmark.parameterID===parameter.parameterID">
-                            <h1 id="bench1" class="text-xl text-yellow-150">{{benchmark.benchmarkID}}: {{benchmark.benchmarkLabel}}</h1>
+                        <div v-for="(benchmark, bindex) in benchmarks" v-bind:key="benchmark.benchmarkID" class=" pl-4 w-full flex gap-x-1 flex-row justify-between items-center ">
+                          <span class="flex items-baseline"  v-if="benchmark.parameterID===parameter.parameterID" >
+                            <h1 id="bench1" class="text-xl text-yellow-150">{{letters[index]}}{{bindex+1}}: {{benchmark.benchmarkLabel}}</h1>
                             <input type="text" class="focus:outline-none border-2 border-yellow-150 text-yellow-150 pl-3 hidden"
                              id="bench1_input" value="Benchmark A1"/>
                             <img v-if="bench_edit" src="/icons/icon19yellow.svg" class="cursor-pointer" @click="bench_edit=!bench_edit,show_input('bench1','bench1_input')"/>
