@@ -13,10 +13,12 @@ use App\Models\ProgramModel;
 use App\Models\TaskForceModel;
 use App\Models\User;
 use App\Models\UserInformationModel;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InsertController extends Controller
 {
@@ -115,15 +117,16 @@ class InsertController extends Controller
         $programLevelBenchmark->programLevelBenchmarkID = $request->programLevelBenchmarkID;
         $programLevelBenchmark->benchmarkID = $request->benchmarkID;
         $programLevelBenchmark->programLevelID = $request->programLevelID;
-        $programLevelBenchmark->file = $request->file;
+        $path = $request->file('')->store('');
+        $programLevelBenchmark->file = Storage::url('/files/'.$request->programID.'/'.$request->programLevelID.'/'.$request->file);
+        // $programLevelBenchmark->file = $request->file;
         $programLevelBenchmark->uploadedBy = $request->uploadedBy;
         $programLevelBenchmark->uploadedDate = $request->uploadedDate;
         $programLevelBenchmark->modifiedBy = $request->modifiedBy;
 
-
+        Storage::disk('local')->put('/files/'.$request->programID.'/'.$request->programLevelID.'/'.$request->file, $path);
         $programLevelBenchmark->save();
     }
-
 
     function Accreditor(Request $request){
         $accreditor = new AccreditorModel();
@@ -142,5 +145,4 @@ class InsertController extends Controller
         $taskforce->activeStatus = $request->activeStatus;
         $taskforce->createdDate = $request->createdDate;
     }
-
 }
