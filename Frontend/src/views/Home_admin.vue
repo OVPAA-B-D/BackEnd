@@ -10,11 +10,11 @@
      
      <div class="w-22 static   flex  flex-col items-center py-5  space-y-2  bg-blue-150  ">
       <div class="w-24 flex items-center border-4 border-white justify-center  bg-yellow-150 cursor-pointer mt-10 h-24 rounded-full">
-            <span class="material-icons cursor-pointer text-white text-4xl">
+            <span class="material-icons cursor-poi text-white text-4xl">
                 add_photo_alternate
             </span>
       </div>
-      <div class="flex flex-col items-center" v-for="personal in personalInfo">
+     <div class="flex flex-col items-center" v-for="personal in personalInfo">
       <h1  class="uppercase text-white text-lg font-bold"> {{ personal.firstName }} {{ personal.lastName }}</h1>
       <h1 class="text-sm text-white">({{ personal.roleType }})</h1>
       </div>
@@ -93,21 +93,21 @@
           </div>
           </div>
         </div>
-          <div class=" flex  flex-wrap mb-10 rounded-md p-0.5 bg-gradient-to-r from-blue-150 to-yellow-150  h-99">
-            <div class=" flex flex-col w-full rounded-md bg-white justify-center h-full  p-4 ">
+          <div class=" flex  flex-wrap mb-10 rounded-lg p-0.6 bg-gradient-to-r from-blue-150 to-yellow-150  h-99">
+            <div class=" flex flex-col w-full rounded-lg bg-white justify-center h-full  p-4 ">
               <div class="w-full cursor-pointer flex justify-end pb-2 pr-5">
-                  <img src="/icons/icon5_sort.svg" class="cursor-pointer"/>
-                  <h1 class="text-yellow-150 cursor-pointer" >Sort by</h1>
+                  <img src="/icons/icon5_sort.svg"/>
+                  <h1 class="text-yellow-150" >Sort by</h1>
               </div>
               <div class=" h-full flex flex-wrap justify-items-start gap-x-4  overflow-auto  ">
-               <!----->  <div v-for="programx in filtered_program" :key="programx.programID" class="flex justify-evenly " >
+                 <div v-for="programx in filtered_program" :key="programx.programID" class="flex justify-evenly " >
              <div class=" p-2 pt-2 w-min relative" style="height:340px" >
                
                <div class="flex  items-center absolute top-0 right-0 ">
                  <div @click="index_array(programx.programID),show_edit=!show_edit,image_name=''" class="flex justify-center items-center rounded-full border-4 border-white h-10 w-10 cursor-pointer bg-green-150">
                  <img src="/icons/icon14_edit_image.svg" class="w-4 h-4"/>
                </div>
-               <div @click="index_array(programx.programID),confirmation_deletion=!confirmation_deletion" class="flex  justify-center items-center  rounded-full border-4 cursor-pointer border-white h-10 w-10 bg-red-150">
+               <div @click="index_array(programx.programID),confirmation_deletion=!confirmation_deletion" class="flex justify-center items-center  rounded-full border-4 cursor-pointer border-white h-10 w-10 bg-red-150">
                   <img src="/icons/icon11_delete.svg"/>
                </div>
                </div>
@@ -119,7 +119,7 @@
                   <div class="px-2">
                   <h1 class="text-lg text-blue-150 font-bold ">{{programx.programName}}</h1>
                   <h1 class="text-sm text-blue-150">{{programx.collegeName}}</h1>
-                  <h1 class="text-xs text-yellow-150">{{programx.campusName}} Campus</h1>
+                  <h1 class="text-xs text-yellow-150">{{programx.campusName}} </h1>
                   <h1 class="text-sm text-blue-150">Chairman in Charge</h1>
                   <h1 class="-z-1 absolute bottom-3 text-tiny text-blue-150">{{programx.level}} Accreditation</h1>
                   <div>
@@ -147,18 +147,16 @@
           </div>
           </div>
       </div>
-    </div>   
+    </div>
           <div v-if="show_add" class="fixed  flex justify-center bg-gray-200 z-10 h-max w-screen   bg-opacity-50 overflow-y-auto items-center  inset-0">
               <div class="relative rounded-2xl  flex flex-col shadow-2xl bg-white w-82 pb-8 h-min">
-               <form @submit.prevent="confirmation=!confirmation">
                  <div class="flex justify-between rounded-t-2xl px-4 shadow-3xl items-center h-12  bg-gradient-to-r from-blue-150 via-gray-300  to-yellow-150">
                   <h1 class="text-xl text-white">Add Program</h1>
                   <button @click="show_add=!show_add" class=" text-white text-lg ">
                     Close
                   </button>
                  </div>
-                
-                  <div class="flex gap-5 mt-5 justify-center flex-wrap">
+                  <div class="flex gap-5 mt-5 pl-3 flex-wrap">
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Campus</h1>
                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
@@ -181,7 +179,7 @@
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Program</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select  id="selected_program" required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                    <select  id="selected_program" required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
                       <option selected disabled value="" > Choose a Program</option>
                       <option v-for="program in programs" v-bind:key="program.id" v-bind:value="program.programCode"> {{ program.programName }}</option>
                       </select>
@@ -190,28 +188,28 @@
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Chairman's firstname</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input v-model="addProgram.firstName" required id="chairmans_name" placeholder="Enter the chairman’s firstname" type="text"
+                        <input v-model="addProgram.firstName" placeholder="Enter the chairman’s firstname" type="text"
                           class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Chairman's lastname</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input v-model="addProgram.lastName" id="chairmans_name" placeholder="Enter the chairman’s lastname" type="text"
+                        <input v-model="addProgram.lastName" placeholder="Enter the chairman’s lastname" type="text"
                           class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Chairman's middlename</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input v-model="addProgram.middleName" required id="chairmans_name" placeholder="Enter the chairman’s middlename" type="text"
+                        <input v-model="addProgram.middleName" placeholder="Enter the chairman’s middlename" type="text"
                           class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Contact number</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input v-model="addProgram.contactNumber" required id="chairmans_number" placeholder="Chairman’s contact number" type="number"
+                        <input     id="chairmans_number" v-model="addProgram.contactNumber" placeholder="Chairman’s contact number" type="text"
                           class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                         </div>
                         </div>
@@ -219,7 +217,7 @@
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Email</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <input v-model="addProgram.email" id="chairmans_email" placeholder="Chairman’s E-mail Address" type="text" 
+                      <input id="chairmans_email" v-model="addProgram.email" placeholder="Chairman’s E-mail Address" type="email" 
                        class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>
@@ -237,7 +235,6 @@
                       </div>
                       </div>
                   </div>
-                 
                   <div class="flex justify-end pt-5  pr-5">
                   <div class="flex self-right items-center  gap-x-2">
                     <div class="flex overflow-hidden w-32   items-end  h-8 border-b-2 border-blue-250">
@@ -249,35 +246,29 @@
                     Add Cover
                   </span>
                    </label>
-                  <button type="submit" value="Submit"  @click=" confirmation=!confirmation,text_modal='add a new Program'" class="flex items-center justify-center px-5 gap-2 w-32 h-8 text-white bg-blue-250"> 
+                  <button @click=" confirmation=!confirmation,text_modal='add a new Program'" class="flex items-center justify-center px-5 gap-2 w-32 h-8 text-white bg-blue-250"> 
                     <img src="icons/icon12_add.svg"/>
                     Add
                   </button>
                   <input type="file" class="hidden" id="program_image" @change="add_image"/>
                   </div>
                   </div>
-                  </form>
               </div>
               
-          </div>
-          <!--Edit Folder-->
-                
-          <div v-if="show_edit" class="fixed  flex justify-center bg-gray-200 z-10 h-max w-screen   bg-opacity-50 overflow-y-auto items-center  inset-0">
-              <div class="relative rounded-2xl  flex flex-col shadow-2xl bg-white w-82 pb-8 h-min">
-                 <form @submit.prevent="confirmation=!confirmation">
-                 <div class="flex justify-between rounded-t-2xl px-4 shadow-3xl items-center h-12  bg-gradient-to-r from-blue-150 via-gray-300  to-yellow-150">
-                  <h1 class="text-xl text-white">Add Program</h1>
-                  <button @click="show_edit=!show_edit" class=" text-white text-lg ">
+          </div>    
+          <!-- <div v-if="show_add" class="fixed  flex justify-center bg-gray-200 z-10 h-max w-screen   bg-opacity-50 overflow-y-auto items-center  inset-0">
+              <div class="relative rounded-lg flex flex-col shadow-2xl px-3 pb-8 pt-3 bg-white w-82 h-min">
+                 <div class="flex justify-between pr-8">
+                  <h1 class="text-xl text-yellow-150">Add Program</h1>
+                  <button @click="show_add=!show_add" class=" text-red-500 text-lg ">
                     Close
                   </button>
                  </div>
-                
-                  <div class="flex gap-5 mt-5 justify-center flex-wrap">
+                  <div class="flex gap-5 mt-5 pl-3 flex-wrap">
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Campus</h1>
-                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select  id="selected_campus" required class="fill-current   italic text-blue-150 w-74 px-4 rounded-md  h-12 focus:outline-none cursor-pointer ">
-                      <option selected disabled value=""> Select a Campus</option>
+                      <select id="selected_campus" class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
+                      <option selected disabled > Select a Campus</option>
                       <option value="Main">Main Campus</option>
                       <option value="East">East Campus</option>
                       <option value="Daraga">Daraga Campus</option>
@@ -286,170 +277,105 @@
                       <option value="Polangui">Polangui Campus</option>
                       <option value="Gubat">Gubat Campus</option>
                       </select>
-                       </div>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">College</h1>
-                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select  id="selected_college" required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
-                      <option selected disabled value="" >Choose a College</option>
+                      <select id="selected_college" class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
+                      <option selected disabled >Choose a College</option>
                       <option  >College of Science</option>
                       </select>
                       </div>
-                      </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Program</h1>
-                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select  id="selected_program" required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
-                      <option selected disabled value="" > Choose a Program</option>
+                      <select id="selected_program"  class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
+                      <option selected disabled > Choose a Program</option>
                       <option>Computer Science</option>
                       </select>
                       </div>
-                      </div>
                       <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">Chairman's firstname</h1>
-                      <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  required id="chairmans_name" placeholder="Enter the chairman’s firstname" type="text"
-                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
-                      </div>
-                      </div>
-                      <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">Chairman's lastname</h1>
-                      <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input id="chairmans_name" placeholder="Enter the chairman’s lastname" type="text"
-                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
-                      </div>
-                      </div>
-                      <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">Chairman's middlename</h1>
-                      <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input required id="chairmans_name" placeholder="Enter the chairman’s middlename" type="text"
-                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
-                      </div>
+                       <h1 class="text-blue-150 text-sm italic">Chairmain</h1>
+                      <input v-model="addProgram.chairmanName" placeholder="Enter the chairman’s name" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Contact number</h1>
-                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  required id="chairmans_number" placeholder="Chairman’s contact number" type="number"
-                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
-                        </div>
-                        </div>
+                      <input v-model="addProgram.contactNumber" placeholder="Chairman’s contact number" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                      </div>
                       
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Email</h1>
-                      <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <input id="chairmans_email" placeholder="Chairman’s E-mail Address" type="text" 
-                       class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
-                      </div>
+                      <input v-model="addProgram.email" placeholder="Chairman’s E-mail Address" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Level</h1>
-                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select id="level" required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
-                      <option selected disabled value="" >Level of accreditation</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
+                      <select id="level" class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
+                      <option selected disabled value="" >Level of Accreditation</option>
+                      <option value="0">Preliminary Survey Visit</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
                       </select>
                       </div>
-                      </div>
                   </div>
-                 
-                  <div class="flex justify-end pt-5  pr-5">
-                  <div class="flex self-right items-center  gap-x-2">
+                  <div class="flex absolute items-center bottom-8 right-8 gap-x-2">
                     <div class="flex overflow-hidden w-32   items-end  h-8 border-b-2 border-blue-250">
                       <h1 class="text-yellow-150">File: </h1>
-                       <h1 class="text-blue-150">{{image_name}}</h1>
+                       <h1 class="text-blue-150">{{imageName}}</h1>
                     </div>
                    <label for="program_image"><span  class="flex items-center select-none cursor-pointer  justify-center  gap-2 border-2 border-blue-150  w-32 h-8 text-blue-250  "> 
                     <img src="icons/icon_change_cover.svg"/>
                     Add Cover
                   </span>
                    </label>
-                  <button type="submit" value="Submit"  @click=" text_modal='update this Program'" class="flex items-center justify-center px-5 gap-2 w-32 h-8 text-white bg-blue-250"> 
-                   <span class="material-icons">
-                    autorenew
-                    </span>
-                    Update
+                  <button @click=" confirmation=!confirmation" class="flex items-center justify-center px-5 gap-2 w-32 h-8 text-white bg-blue-250"> 
+                    <img src="icons/icon12_add.svg"/>
+                    Add
                   </button>
                   <input type="file" class="hidden" id="program_image" @change="add_image"/>
                   </div>
-                  </div>
-                  </form>
-              </div>  
-          </div>
-          <!----->
+              </div>
+              
+          </div> -->
+         
           <!---Confirmation-->
             <div v-if="confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-                 <div class=" flex flex-col justify-start relative
-                  gap-y-3  w-23 h-60 bg-white  shadow-3xl rounded-xl">
-                  <div class="bg-blue-150 rounded-t-xl h-10 w-full"></div>
-                  <div class="flex w-full  gap-x-3 pl-10  mt-3 items-center">
-                      <img class="w-16" src="icons/icon_confirmation_blue.svg"/>
-                    <div class="flex flex-col">
-                      <h1 class="text-xl font-bold text-blue-150">You are about to {{text_modal}}</h1>
-                      <h1 class="text-blue-150 ">After your confirmation, you can still make changes to the information.</h1>
-                    </div>
-                  </div>
-                  <div class="flex justify-end absolute right-10 bottom-10">
-                    <div class="flex gap-x-1">
-                      <button @click="confirmation=!confirmation,show_success=!show_success,add_program()" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
-                      <button @click="confirmation=!confirmation" class="px-1 rounded-md text-blue-150 bg-white border-2 border-blue-150">Cancel</button>
-                    </div>
-                  </div>
+                 <div class="flex flex-col items-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
+                 <h1 class="text-blue-150 text-xl">Are you sure to perform this action?</h1>
+                  <span class="flex items-center gap-x-3">
+                    <button @click="confirmation=!confirmation,show_success=!show_success,add_program()" class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
+                    <button @click="confirmation=!confirmation" class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
+                  </span>
                  </div>
            </div>
             <div v-if="update_confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
                  <div class="flex flex-col items-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
                  <h1 class="text-blue-150 text-xl">Are you sure to perform this action?</h1>
                   <span class="flex items-center gap-x-3">
-                    <button @click="update_confirmation=!update_confirmation,show_success=!show_success,update()"
-                     class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
-                     <button @click="update_confirmation=!update_confirmation"
-                      class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
+                    <button @click="update_confirmation=!update_confirmation,show_success=!show_success,update()" class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
+                     <button @click="update_confirmation=!update_confirmation" class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
                   </span>
                  </div>
            </div>
           <!---->
            <div v-if="show_success" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-                 <div class=" flex flex-col justify-start relative
-                  gap-y-3  w-23 h-60 bg-white  shadow-3xl rounded-xl">
-                  <div class="bg-green-150 rounded-t-xl h-10 w-full"></div>
-                  <div class="flex w-full  gap-x-3 pl-10  mt-3 items-center">
-                      <img class="w-16" src="icons/icon_success.svg"/>
-                    <div class="flex flex-col">
-                      <h1 class="text-xl font-bold text-green-150">Succesful!</h1>
-                      <h1 class="text-green-150 ">You have successfully added a program. </h1>
-                    </div>
-                  </div>
-                  <div class="flex justify-end absolute right-10 bottom-10">
-                    <div class="flex gap-x-1">
-                      <button @click="show_success=!show_success" 
-                      class="px-1 rounded-md text-green-150 bg-white border-2 border-green-150">Cancel</button>
-                    </div>
-                  </div>
+                 <div class="flex flex-col text-center items-center justify-center gap-y-3 p-3 pb-10  w-60  bg-white  shadow-3xl rounded-xl">
+                    <img src="icons/icon_success.svg" class="w-12"/>
+                    <h1 class="text-2xl font-bold text-green-150">Success</h1>
+                  <span class="w-40"> <h1 class="text-green-150">You have Successfuly added a Program</h1></span>
+                  <span class="flex items-center gap-x-3">
+                    <button @click="show_success=!show_success" class=" border-2 border-green-150 select-none  rounded-lg text-green-150 w-28 h-10">Close</button>
+                   </span>
                  </div>
            </div>
               <!--Delete--->
            <div v-if="confirmation_deletion" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-                <div class=" flex flex-col justify-start relative
-                  gap-y-3  w-23 h-60 bg-white  shadow-3xl rounded-xl">
-                  <div class="bg-red-150 rounded-t-xl h-10 w-full"></div>
-                  <div class="flex w-full  gap-x-3 pl-10  mt-3 items-center">
-                      <img class="w-16" src="icons/icon_warning_red.svg"/>
-                    <div class="flex flex-col">
-                      <h1 class="text-xl font-bold text-red-150">Delete Warning</h1>
-                      <h1 class="text-red-150 text-lg">You are about to delete this Program.</h1>
-                      <h1 class="text-red-150 text-lg">This process cannot be undone.</h1>
-                    </div>
-                  </div>
-                  <div class="flex justify-end absolute right-10 bottom-10">
-                    <div class="flex gap-x-1">
-                      <button @click="confirmation_deletion=!confirmation_deletion" class="px-1 rounded-md w-16 border-2 border-red-150  text-white bg-red-150">Confirm</button>
-                      <button @click="confirmation_deletion=!confirmation_deletion" class="px-1 rounded-md w-16 text-red-150 bg-white border-2 border-red-150">Cancel</button>
-                    </div>
-                  </div>
+                 <div class="flex flex-col items-center text-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
+                 <h1 class="text-red-150 text-xl">Are you sure you want to perform this action?</h1>
+                  <h1 class="text-red-150">This action cannot be undone.</h1>
+                  <span class="flex items-center gap-x-3">
+                    <button @click="confirmation_deletion=!confirmation_deletion" class=" select-none bg-red-150 rounded-lg text-white w-28 h-10">Confirm</button>
+                    <button @click="confirmation_deletion=!confirmation_deletion" class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
+                  </span>
                  </div>
            </div>
           <!----->
@@ -480,9 +406,7 @@
 <script>
 import api from '../api';
 import axios from 'axios';
-
 // @ is an alias to /src
-
 export default {
   created:function(){
     this.filtered_program=this.program
@@ -520,13 +444,7 @@ export default {
         contactNumber:"",
         email:"",
         coverImage:"",
-
        }],
-       personalInfo: {
-        firstName: "",
-        lastName: "",
-        roleType: "",
-      },
       getLevel:[{
           programLevelID:"",
           programID:"",
@@ -568,15 +486,13 @@ export default {
           createFolderStatus:"",
           programID:"",
       }
-
     }
   },
   
    
   
-
    methods:{
-
+   
      getCampus(){
         api.get("/api/getCampuses").then((res)=>{
           this.campuses = res.data; 
@@ -605,10 +521,7 @@ export default {
         });
      },
 
-
-
-
-     getPersonal(){
+      getPersonal(){
         var personal = JSON.parse(localStorage.getItem("Personal"));
                  console.log(personal);
            api.get("/api/getUser", {params:{email:personal.email}}).then((res)=>{
@@ -618,19 +531,16 @@ export default {
                console.log(this.personalInfo);
            });
        },
-
      add_program(){
-          this.genProgramID();
        
-            this.addProgram.programName = document.getElementById("selected_program").value;
-            this.addProgram.collegeName=document.getElementById("selected_college").value;
-            this.addProgram.campusName=document.getElementById("selected_campus").value;
+            this.genProgramID();
+            this.addProgram.programName = document.getElementById("selected_program").options[document.getElementById("selected_program").selectedIndex].text;
+            this.addProgram.collegeName=document.getElementById("selected_college").options[document.getElementById("selected_college").selectedIndex].text;
+            this.addProgram.campusName=document.getElementById("selected_campus").options[document.getElementById("selected_campus").selectedIndex].text;
             this.Level= document.getElementById("level").value;
             //this.addProgram.imageFile= this.imageName;
             this.addTaskforce.programID = this.addProgram.programID;
             this.addTaskforce.taskforceEmail = this.addProgram.email;
-
-
             
             // var arrFiltered_program1 = [this.addProgram.programID,this.addProgram.programName,this.addProgram.collegeName,this.addProgram.campusName,
             // this.addProgram.contactNumber, this.addProgram.lastName, this.addProgram.firstName, this.addProgram.middleName, 
@@ -638,7 +548,6 @@ export default {
             // this.filtered_program.push(arrFiltered_program1);  
             // console.log("hays",this.filtered_program);
             // console.log("popo",arrFiltered_program1);
-
         //this.program.push(new_program)
         //this.program_image='img/default_cover_image.jpg'
           api
@@ -671,16 +580,7 @@ export default {
               .catch((errors) => {
           this.errors = errors.response;
              });
-
-             api.post("api/UserAuthentication", this.addProgram)
-             .then((response)=>{
-
-             })
-             .catch((errors) => {
-               this.erros = errors.response;
-             });
-
-
+          
             const Levels =["Preliminary Survey Visit", "Level 1", "Level 2", "Level 3", "Level 4"];
             var i= 0;
             for(var i= 0; i<=4;i++){
@@ -712,7 +612,6 @@ export default {
                 
                
                   
-
               api
                 .post("api/ProgramLevel",this.addLevel)
                 .then((response) => {
@@ -723,11 +622,6 @@ export default {
                 .catch((errors) => {
                 this.errors = errors.response;
                   });
-
-
-
-
-
             }
             this.makeFolder.programID = this.addProgram.programID;
             this.makeFolder.createFolderStatus = 1;
@@ -741,11 +635,8 @@ export default {
             this.errors = errors.response;
               });
           
-
       },
-
        retrieve(){
-
           const getProgram = api.get('api/getProgram');
           const getTaskForceChairman = api.get('api/getTaskForceChairman');
           const getLevelUnlocked = api.get('api/getLevelUnlocked');
@@ -759,7 +650,6 @@ export default {
                     this.filtered_program = responses[0].data;
                     this.getLevel = responses[2].data;
                     this.getLevelAll = responses[3].data;
-
                     
                     
                     console.log("Program",this.filtered_program);
@@ -767,16 +657,12 @@ export default {
                      console.log("Level All",this.getLevelAll);
                     this.level();
                     
-
           })).catch(errors=>{
               this.errors = errors.response;
           });
-
-
           // api
           //     .get("api/getProgram")
           //     .then (response => {
-
           //       this.filtered_program = response.data;
              
           //       console.log("Program",this.filtered_program );
@@ -784,25 +670,19 @@ export default {
           // api
           //     .get("api/getTaskForceChairman")
           //     .then (response => {
-
           //       console.log("Taskforce",response.data);
           //     });
           // api
           //     .get("api/getLevelUnlocked")
           //     .then(response=>{
-
           //       this.getLevel= response.data;
-
           //       console.log("Level",this.getLevel);
                 
           //     });
-
           
-
               
       },
     
-
       level(){
         let arrFiltered_program=[];
         let arrGetLevel=[];
@@ -824,18 +704,14 @@ export default {
             if (arrFiltered_program[i].programID == arrGetLevel[j].programID){
                   
                   arrFiltered_program[i].level = arrGetLevel[j].level.toUpperCase();
-
                 
               }
           }
         }
       },
-
-
       genProgramID(){
         
         var arrFiltered_program=[];
-
         console.log("boom",this.filtered_program);
         if(this.filtered_program !=""){
           
@@ -851,14 +727,12 @@ export default {
             
             while (programNumberString.length < arrProgramID[1].length) programNumberString = "0" + programNumberString;
             
-
             this.addProgram.programID = "PRO-" +programNumberString;
      
          }
           else{
               this.addProgram.programID = "PRO-00001";
           }
-
         // var arrFiltered_program=[];
         // console.log("boom",this.filtered_program);
         // if( this.filtered_program == "" ){
@@ -879,7 +753,6 @@ export default {
             
         //     while (programNumberString.length < arrProgramID[1].length) programNumberString = "0" + programNumberString;
             
-
         //     this.addProgram.programID = "PRO-" +programNumberString;
         //   }
         //   else if(this.StatusProgram == "0") {
@@ -895,14 +768,9 @@ export default {
             
         //     while (programNumberString.length < arrProgramID[1].length) programNumberString = "0" + programNumberString;
             
-
         //     this.addProgram.programID = "PRO-" +programNumberString;
         //   } 
-
-
         // }
-
-
       },
       genProgramIDLevel(){
         
@@ -913,21 +781,18 @@ export default {
           this.Status="1";
         }
         else{
-
           if (this.Status == "1"){
           
           this.getLevelAll.forEach((value,index) => {
           arrGetLevelAll.push(value);
           
           });
-
           
           const arrProgramLevelID = arrGetLevelAll[arrGetLevelAll.length-1][0].split("-");
           var programLevelNumber = parseInt(arrProgramLevelID[1]);          
           programLevelNumber++;
           var programLevelNumberString = programLevelNumber.toString();
           while (programLevelNumberString.length < arrProgramLevelID[1].length) programLevelNumberString = "0" + programLevelNumberString;
-
           this.addLevel.programLevelID = "PLL-" + programLevelNumberString;
           }
           else if (this.Status == "0"){
@@ -944,16 +809,12 @@ export default {
           programLevelNumber++;
           var programLevelNumberString = programLevelNumber.toString();
           while (programLevelNumberString.length < arrProgramLevelID[1].length) programLevelNumberString = "0" + programLevelNumberString;
-
           this.addLevel.programLevelID = "PLL-" + programLevelNumberString;
           console.log("update",this.addLevel.programLevelID);
           }
-
         }
         
-
       },
-
     // function pad(num, size) {
     // num = num.toString();
     // while (num.length < size) num = "0" + num;
@@ -968,7 +829,6 @@ export default {
       //     return 
       // },
       
-
       index_array(e){
           this.index=this.program.findIndex(x => x.id===e)
       },
@@ -1000,9 +860,10 @@ export default {
         this.retrieve();
         this.getPersonal();
         this.getCampus();
-      }
+      },
+    //  mounted(){
+      
+    //  }
+    
 }
-
-
-
 </script>

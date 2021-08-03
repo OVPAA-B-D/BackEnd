@@ -549,6 +549,7 @@ export default {
         .post("/api/UserAuthentication", this.accreditorMember)
         .then((res) => {
           console.log(res);
+          location.reload();
         })
         .catch((errors) => {
           this.errors = errors.res;
