@@ -76,3 +76,7 @@ Route::post("/updateArea", [updateController::class, 'updateArea']);
     Route::post("/userAuthentication", [updateController::class, 'userAuthentication']);
     Route::post("/userInformation", [updateController::class, 'userInformation']);
 
+    Route::post('MakeFolder',[InsertController::class,'makeFolder']);
+
+    Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);
+    

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InsertController extends Controller
 {
@@ -160,21 +161,42 @@ class InsertController extends Controller
         $taskforce->save();
     }
 
-    function Area(Request $request){
-
-        $validator=Validator::make($request->all(),[
+    function Area(Request $request)
+    {
+        $validator=Validator::make($request->all(), [
             'areaID' => ['required'],
             'areaLabel' => ['required']
        ]);
-       if($validator->fails()) {
-        return response()->json($validator->errors(),422);
-    }
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
 
         $area = new AreaModel();
         $area->areaID = $request->areaID;
         $area->areaLabel = $request->areaLabel;
 
         $area->save();
+    }
+    function MakeFolder(Request $request){
+
+        $createFolderStatus = $request->createFolderStatus;
+        $programID=$request->programID;
+        
+        if($createFolderStatus == 1){
+            $files = "/files/".$programID;
+            Storage::makeDirectory($files);
+            $pre= "/$files/"."PreliminarySurveyVisit";
+            Storage::makeDirectory($pre);
+            $level1= "/$files/"."Level1";
+            Storage::makeDirectory($level1);
+            $level2= "/$files/"."Level2";
+            Storage::makeDirectory($level2);
+            $level3= "/$files/"."Level3";
+            Storage::makeDirectory($level3);
+            $level4= "/$files/"."Level4";
+            Storage::makeDirectory($level4);
+
+        }
 
     }
 

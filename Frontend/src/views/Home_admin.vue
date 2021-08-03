@@ -113,7 +113,7 @@
                </div>
                 <div class=" text-indigo-800 w-19   border-yellow-150 border-4 font-semibold rounded-lg shadow-xl  h-full bg-white bg-opacity-75">          
                   <div class="h-32  border-b-4 border-yellow-150">
-                    <!-- <img :src="program[0].imagefolder" class="object-fill w-full h-full"> -->
+                    <img :src="programx.imagefolder" class="object-fill w-full h-full">
                   </div>
                  
                   <div class="px-2">
@@ -121,7 +121,7 @@
                   <h1 class="text-sm text-blue-150">{{programx.collegeName}}</h1>
                   <h1 class="text-xs text-yellow-150">{{programx.campusName}} Campus</h1>
                   <h1 class="text-sm text-blue-150">Chairman in Charge</h1>
-                  <h1 class="-z-1 absolute bottom-3 text-tiny text-blue-150">LEVEL {{programx.level}} Accreditation</h1>
+                  <h1 class="-z-1 absolute bottom-3 text-tiny text-blue-150">{{programx.level}} Accreditation</h1>
                   <div>
                     <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
                       <img src="/icons/icon16_man.svg"><h1>{{programx.chairmanName}}</h1></span>
@@ -129,8 +129,10 @@
                       <img src="/icons/icon17_contact.svg"><h1>{{programx.contactNumber}}</h1></span>
                      <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
                       <img src="/icons/icon18_inbox.svg"><h1>{{programx.email}}</h1></span>
+                      <br>
                   </div>
-                   <h1 class="flex-wrap text-blue-150  text-lg "> Level {{programx.level}}<br> Accreditation</h1>
+                   <h1 class="flex-wrap text-blue-150  text-sm "> {{programx.level}}<br></h1>
+                   <h1 class="flex-wrap text-blue-150  text-lg ">Accreditation</h1>
                   </div>
                  <router-link to="/program_level">
                   <div class="absolute w-17 justify-evenly border-4 border-white  text-sm rounded-br-xl rounded-tl-xl bg-yellow-150 text-white pb-2 cursor-pointer flex items-center  bottom-0 right-0">
@@ -224,12 +226,13 @@
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Level</h1>
                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select id="level" required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                      <select id="level" class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
                       <option selected disabled value="" >Level of accreditation</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
+                      <option value="0">Preliminary Survey Visit</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
                       </select>
                       </div>
                       </div>
@@ -246,7 +249,7 @@
                     Add Cover
                   </span>
                    </label>
-                  <button type="submit" value="Submit"  @click=" text_modal='add a new Program'" class="flex items-center justify-center px-5 gap-2 w-32 h-8 text-white bg-blue-250"> 
+                  <button type="submit" value="Submit"  @click=" confirmation=!confirmation,text_modal='add a new Program'" class="flex items-center justify-center px-5 gap-2 w-32 h-8 text-white bg-blue-250"> 
                     <img src="icons/icon12_add.svg"/>
                     Add
                   </button>
@@ -391,7 +394,7 @@
                   </div>
                   <div class="flex justify-end absolute right-10 bottom-10">
                     <div class="flex gap-x-1">
-                      <button @click="confirmation=!confirmation,add_program()" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
+                      <button @click="confirmation=!confirmation,show_success=!show_success,add_program()" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
                       <button @click="confirmation=!confirmation" class="px-1 rounded-md text-blue-150 bg-white border-2 border-blue-150">Cancel</button>
                     </div>
                   </div>
@@ -401,7 +404,7 @@
                  <div class="flex flex-col items-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
                  <h1 class="text-blue-150 text-xl">Are you sure to perform this action?</h1>
                   <span class="flex items-center gap-x-3">
-                    <button @click="update_confirmation=!update_confirmation,update()"
+                    <button @click="update_confirmation=!update_confirmation,show_success=!show_success,update()"
                      class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
                      <button @click="update_confirmation=!update_confirmation"
                       class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
@@ -476,6 +479,8 @@
 </style>
 <script>
 import api from '../api';
+import axios from 'axios';
+
 // @ is an alias to /src
 
 export default {
@@ -485,6 +490,8 @@ export default {
   data(){
     return{
       Level:"",
+      Status:"0",
+      StatusProgram:"",
       show_add:false,
       show_edit:false,
       show_success:false,
@@ -506,8 +513,10 @@ export default {
         programName: "",
         collegeName: "",
         campusName: "",
+        lastName:"",
+        firstName:"",
+        middleName:"",
         level:"",
-        chairmanName:"",
         contactNumber:"",
         email:"",
         coverImage:"",
@@ -524,6 +533,12 @@ export default {
           level:"",
           levelStatus:"",
       }],
+      getLevelAll:[{
+          programLevelID:"",
+          programID:"",
+          level:"",
+          levelStatus:"",
+      }],
       
       addLevel:{
           programLevelID:"",
@@ -532,7 +547,7 @@ export default {
           levelStatus:"",
       },
       addProgram:{
-          programID:"4",
+          programID:"",
           programName:"",
           collegeName:"",
           campusName:"",
@@ -548,6 +563,10 @@ export default {
           programID:"",
           taskforceEmail:"",
           roleDescription:"Chairman",
+      },
+      makeFolder:{
+          createFolderStatus:"",
+          programID:"",
       }
 
     }
@@ -601,14 +620,25 @@ export default {
        },
 
      add_program(){
-          
+          this.genProgramID();
        
             this.addProgram.programName = document.getElementById("selected_program").value;
             this.addProgram.collegeName=document.getElementById("selected_college").value;
             this.addProgram.campusName=document.getElementById("selected_campus").value;
             this.Level= document.getElementById("level").value;
             //this.addProgram.imageFile= this.imageName;
-        
+            this.addTaskforce.programID = this.addProgram.programID;
+            this.addTaskforce.taskforceEmail = this.addProgram.email;
+
+
+            
+            // var arrFiltered_program1 = [this.addProgram.programID,this.addProgram.programName,this.addProgram.collegeName,this.addProgram.campusName,
+            // this.addProgram.contactNumber, this.addProgram.lastName, this.addProgram.firstName, this.addProgram.middleName, 
+            // this.addProgram.email, this.addProgram.roleType, this.addProgram.coverImage,];
+            // this.filtered_program.push(arrFiltered_program1);  
+            // console.log("hays",this.filtered_program);
+            // console.log("popo",arrFiltered_program1);
+
         //this.program.push(new_program)
         //this.program_image='img/default_cover_image.jpg'
           api
@@ -628,8 +658,11 @@ export default {
           this.errors = errors.response;
              });
           
-          this.addTaskforce.programID = this.addProgram.programID;
-          this.addTaskforce.taskforceEmail = this.addProgram.email;
+          console.log("haya",this.addProgram);
+          
+          
+          
+          
           api
               .post("api/TaskForce",this.addTaskforce)
               .then((response) => {
@@ -651,84 +684,118 @@ export default {
             const Levels =["Preliminary Survey Visit", "Level 1", "Level 2", "Level 3", "Level 4"];
             var i= 0;
             for(var i= 0; i<=4;i++){
+              
               if( i < parseInt(this.Level)){
-                this.addLevel.programLevelID= i;
+                
+                this.genProgramIDLevel();
                 this.addLevel.programID = this.addProgram.programID;
                 this.addLevel.level = Levels[i];
                 this.addLevel.levelStatus = "passed";
               }
               else if(i == parseInt(this.Level)){
-                this.addLevel.programLevelID= i;
+                
+                this.genProgramIDLevel();
                 this.addLevel.programID = this.addProgram.programID;
                 this.addLevel.level = Levels[i];
                 this.addLevel.levelStatus = "unlocked";
               }
               else if(i > parseInt(this.Level)){
-                this.addLevel.programLevelID= i;
+                
+                this.genProgramIDLevel();
                 this.addLevel.programID = this.addProgram.programID;
                 this.addLevel.level = Levels[i];
                 this.addLevel.levelStatus = "locked";
               }
+                
+                var arrGetLevelAll1=[this.addLevel.programLevelID, this.addLevel.programID, this.addLevel.level, this.addLevel.levelStatus];                
+                this.getLevelAll.push(arrGetLevelAll1);
+                
+               
+                  
+
               api
                 .post("api/ProgramLevel",this.addLevel)
                 .then((response) => {
-            
+                  // console.log("papa", response);
+                  // this.getLevelAll = reponse.data;
+                  // console.log("pape", this.getLevelAll);
+                })
+                .catch((errors) => {
+                this.errors = errors.response;
+                  });
+
+
+
+
+
+            }
+            this.makeFolder.programID = this.addProgram.programID;
+            this.makeFolder.createFolderStatus = 1;
+            console.log("makeFolder",this.makeFolder);
+            api
+                .post("api/MakeFolder", this.makeFolder)
+                .then((response) => {
+                    location.reload()
                 })
                 .catch((errors) => {
             this.errors = errors.response;
               });
-
-            }
           
 
       },
 
        retrieve(){
 
-          // const getProgram = api.get('api/getProgram');
-          // const getTaskForceChairman = api.get('api/getTaskForceChairman');
-          // const getLevelUnlocked = api.get('api/getLevelUnlocked');
+          const getProgram = api.get('api/getProgram');
+          const getTaskForceChairman = api.get('api/getTaskForceChairman');
+          const getLevelUnlocked = api.get('api/getLevelUnlocked');
+          const getProgramLevel = api.get('api/getProgramLevel');
           
-          // api.all([getProgram, getTaskForceChairman, getLevelUnlocked])
-          //     .then(
-          // api 
-          //     .spread((...responses) => {
-          //           this.filtered_program = responses[0];
-          //           this.getLevel = responses[2];
-
-          //           console.log(this.filtered_program);
-          //           consile.log(this .getLevel);
-
-          // })).catch(errors=>{
-          //     this.errors = errors.response;
-          // });
-
-
-          api
-              .get("api/getProgram")
-              .then (response => {
-
-                this.filtered_program = response.data;
-             
-                console.log("Program",this.filtered_program );
-              });
-          api
-              .get("api/getTaskForceChairman")
-              .then (response => {
-
-              
-             
-                console.log("Taskforce",response.data);
-              });
-          api
-              .get("api/getLevelUnlocked")
-              .then(response=>{
-
-                this.getLevel= response.data;
-
-                console.log("Level",this.getLevel);
+          axios.all([getProgram, getTaskForceChairman, getLevelUnlocked,getProgramLevel])
+              .then(
+          axios 
+              .spread((...responses) => {
                 
-              });
+                    this.filtered_program = responses[0].data;
+                    this.getLevel = responses[2].data;
+                    this.getLevelAll = responses[3].data;
+
+                    
+                    
+                    console.log("Program",this.filtered_program);
+                    console.log("Level",this.getLevel);
+                     console.log("Level All",this.getLevelAll);
+                    this.level();
+                    
+
+          })).catch(errors=>{
+              this.errors = errors.response;
+          });
+
+
+          // api
+          //     .get("api/getProgram")
+          //     .then (response => {
+
+          //       this.filtered_program = response.data;
+             
+          //       console.log("Program",this.filtered_program );
+          //     });
+          // api
+          //     .get("api/getTaskForceChairman")
+          //     .then (response => {
+
+          //       console.log("Taskforce",response.data);
+          //     });
+          // api
+          //     .get("api/getLevelUnlocked")
+          //     .then(response=>{
+
+          //       this.getLevel= response.data;
+
+          //       console.log("Level",this.getLevel);
+                
+          //     });
 
           
 
@@ -747,11 +814,159 @@ export default {
           
           arrGetLevel.push(value);
         });
-        console.log("lvl",arrFiltered_program);
-        if (arrFiltered_program.programID == arrGetLevel.programID){
+      
+        var i = 0;
+        var j = 0;
+        for(var i = 0; i < arrFiltered_program.length; i=i+1){
+           
+          for(var j=0; j<arrGetLevel.length; j=j+1){
+             
+            if (arrFiltered_program[i].programID == arrGetLevel[j].programID){
+                  
+                  arrFiltered_program[i].level = arrGetLevel[j].level.toUpperCase();
 
+                
+              }
+          }
         }
       },
+
+
+      genProgramID(){
+        
+        var arrFiltered_program=[];
+
+        console.log("boom",this.filtered_program);
+        if(this.filtered_program !=""){
+          
+            console.log("asdasdas");
+            this.filtered_program.forEach((value,index) => {
+            arrFiltered_program.push(value);
+            });
+            console.log("asd",arrFiltered_program[0].programID);
+            const arrProgramID = arrFiltered_program[arrFiltered_program.length-1].programID.split("-");
+            var programNumber = parseInt(arrProgramID[1]);          
+            programNumber++;
+            var programNumberString = programNumber.toString();
+            
+            while (programNumberString.length < arrProgramID[1].length) programNumberString = "0" + programNumberString;
+            
+
+            this.addProgram.programID = "PRO-" +programNumberString;
+     
+         }
+          else{
+              this.addProgram.programID = "PRO-00001";
+          }
+
+        // var arrFiltered_program=[];
+        // console.log("boom",this.filtered_program);
+        // if( this.filtered_program == "" ){
+        //   this.addProgram.programID = "PRO-00001";
+        // }
+        // else{
+        //   console.log("asdasdas");
+        //   if(this.StatusProgram == "1") {
+        //     this.filtered_program.forEach((value,index) => {
+        //     arrFiltered_program.push(value);
+        //     console.log(arrFiltered_program);
+        //     });
+          
+        //     const arrProgramID = arrFiltered_program[arrFiltered_program.length-1][0].split("-");
+        //     var programNumber = parseInt(arrProgramID[1]);          
+        //     programNumber++;
+        //     var programNumberString = programNumber.toString();
+            
+        //     while (programNumberString.length < arrProgramID[1].length) programNumberString = "0" + programNumberString;
+            
+
+        //     this.addProgram.programID = "PRO-" +programNumberString;
+        //   }
+        //   else if(this.StatusProgram == "0") {
+        //     this.StatusProgram= "1";
+        //     this.filtered_program.forEach((value,index) => {
+        //     arrFiltered_program.push(value);
+        //     });
+          
+        //     const arrProgramID = arrFiltered_program[arrFiltered_program.length-1][1].split("-");
+        //     var programNumber = parseInt(arrProgramID[1]);          
+        //     programNumber++;
+        //     var programNumberString = programNumber.toString();
+            
+        //     while (programNumberString.length < arrProgramID[1].length) programNumberString = "0" + programNumberString;
+            
+
+        //     this.addProgram.programID = "PRO-" +programNumberString;
+        //   } 
+
+
+        // }
+
+
+      },
+      genProgramIDLevel(){
+        
+        var arrGetLevelAll=[];
+        
+        if(this.getLevelAll == ""){
+          this.addLevel.programLevelID = "PLL-00001";
+          this.Status="1";
+        }
+        else{
+
+          if (this.Status == "1"){
+          
+          this.getLevelAll.forEach((value,index) => {
+          arrGetLevelAll.push(value);
+          
+          });
+
+          
+          const arrProgramLevelID = arrGetLevelAll[arrGetLevelAll.length-1][0].split("-");
+          var programLevelNumber = parseInt(arrProgramLevelID[1]);          
+          programLevelNumber++;
+          var programLevelNumberString = programLevelNumber.toString();
+          while (programLevelNumberString.length < arrProgramLevelID[1].length) programLevelNumberString = "0" + programLevelNumberString;
+
+          this.addLevel.programLevelID = "PLL-" + programLevelNumberString;
+          }
+          else if (this.Status == "0"){
+          this.Status="1";
+         
+          this.getLevelAll.forEach((value,index) => {
+          arrGetLevelAll.push(value);
+ 
+          });
+          console.log("mmmmm",arrGetLevelAll);
+          console.log("mmmmm", arrGetLevelAll[arrGetLevelAll.length-1]);
+          const arrProgramLevelID = arrGetLevelAll[arrGetLevelAll.length-1].programLevelID.split("-");
+          var programLevelNumber = parseInt(arrProgramLevelID[1]);          
+          programLevelNumber++;
+          var programLevelNumberString = programLevelNumber.toString();
+          while (programLevelNumberString.length < arrProgramLevelID[1].length) programLevelNumberString = "0" + programLevelNumberString;
+
+          this.addLevel.programLevelID = "PLL-" + programLevelNumberString;
+          console.log("update",this.addLevel.programLevelID);
+          }
+
+        }
+        
+
+      },
+
+    // function pad(num, size) {
+    // num = num.toString();
+    // while (num.length < size) num = "0" + num;
+    // return num;
+    // },
+      // generatingProgramID(num){
+      //     size = 5;
+      //     num = num.toString();
+      //     while (num.length < size) 
+      //     num = "0" + num;
+      //     var ID =  
+      //     return 
+      // },
       
 
       index_array(e){

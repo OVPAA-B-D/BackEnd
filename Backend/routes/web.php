@@ -77,3 +77,4 @@ Route::post("/updateProgramLevelBenchmark", [updateController::class, 'updatePro
 Route::post("/userAuthentication", [updateController::class, 'userAuthentication']);
 Route::post("/userInformation", [updateController::class, 'userInformation']);
 
+Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);
