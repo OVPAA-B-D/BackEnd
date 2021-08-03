@@ -609,7 +609,7 @@ export default {
             api
                 .post("api/MakeFolder", this.makeFolder)
                 .then((response) => {
-                    location.reload()
+                    // location.reload()
                 })
                 .catch((errors) => {
             this.errors = errors.response;
@@ -811,14 +811,16 @@ export default {
           arrGetLevelAll.push(value);
  
           });
-          console.log("mmmmm",arrGetLevelAll[4]);
-          const arrProgramLevelID = arrGetLevelAll[arrGetLevelAll.length-1].programID.split("-");
+          console.log("mmmmm",arrGetLevelAll);
+          console.log("mmmmm", arrGetLevelAll[arrGetLevelAll.length-1]);
+          const arrProgramLevelID = arrGetLevelAll[arrGetLevelAll.length-1].programLevelID.split("-");
           var programLevelNumber = parseInt(arrProgramLevelID[1]);          
           programLevelNumber++;
           var programLevelNumberString = programLevelNumber.toString();
           while (programLevelNumberString.length < arrProgramLevelID[1].length) programLevelNumberString = "0" + programLevelNumberString;
 
           this.addLevel.programLevelID = "PLL-" + programLevelNumberString;
+          console.log("update",this.addLevel.programLevelID);
           }
 
         }
