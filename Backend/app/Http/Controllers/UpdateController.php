@@ -180,4 +180,28 @@ class UpdateController extends Controller
         $record->save();
     }
 
+    public function submitProgramLevelBenchmark(Request $request)
+    {
+        
+        $request->validate([
+            ':id' => [],
+            ':programLevelBenchmarkID' => [],
+            ':benchmarkID' => [],
+            ':programLevelID' => [],
+            ':file' => [],
+            ':uploadedBy' => [],
+            ':uploadedDate' => [],
+            ':modifiedBy' => [],
+            ':modifiedDate' => [],
+            ':submitStatus' => []
+        ]);
+
+        $record = new ProgramLevelBenchmarkModel;
+        // entities possibly to be change or update
+
+        $record = ProgramLevelBenchmarkModel::where('id',$request->id)->first();
+        $record->submitStatus = "Submitted";
+
+        $record->save();
+    }
 }

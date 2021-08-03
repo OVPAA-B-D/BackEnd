@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post("/updateProgramLevelBenchmark", [updateController::class, 'updateProgramLevelBenchmark']);
     Route::post("/userAuthentication", [updateController::class, 'userAuthentication']);
     Route::post("/userInformation", [updateController::class, 'userInformation']);
+    Route::post("/submitProgramLevelBenchmark", [updateController::class, 'submitProgramLevelBenchmark']);
+
 
 });
 
@@ -51,6 +53,7 @@ Route::post('Login', [LoginController::class, 'Login'])->name('Login');
     Route::post('ProgramLevelArea', [InsertController::class, 'ProgramLevelArea']);
     Route::post('ProgramLevelBenchmark', [InsertController::class, 'ProgramLevelBenchmark']);
     Route::post('UserAuthentication', [InsertController::class, 'UserAuthentication']);
+    Route::post("submitProgramLevelBenchmark", [updateController::class, 'submitProgramLevelBenchmark']);
 
     Route::get('getPersonal', [FetchController::class, 'getMember']);
     Route::get('getProgram', [FetchController::class, 'getProgram']);
