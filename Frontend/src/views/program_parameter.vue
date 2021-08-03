@@ -110,11 +110,11 @@
                     <a class="font-bold cursor-default">Area 1</a>
                     </div>
                  </div>
-                <div class=" items-start w-full flex-col flex flex-wrap pl-7" v-for="parameter in parameters" v-bind:key="parameter.parameterID">
+                <div class=" items-start w-full flex-col flex flex-wrap pl-7" v-for="(parameter, index) in parameters" v-bind:key="parameter.parameterID">
                    <div  class="w-full flex flex-col gap-y-3 pr-4">
                      <div class="flex flex-shrink items-center py-2 justify-between">
                        <span class="flex items-baseline gap-x-3">
-                        <h1 id="parameterLabel" class=" text-2xl text-blue-150 font-bold">{{parameter.parameterID}}: {{parameter.parameterLabel}}</h1>
+                        <h1 id="parameterLabel" class=" text-2xl text-blue-150 font-bold">{{letters[index]}}: {{parameter.parameterLabel}}</h1>
                         <input type="text" class="focus:outline-none border-2 border-blue-150 text-blue-150 pl-3 hidden" id="parameterName" value="Parameter name"/>
                         <img v-if="param_edit" @click="param_edit=!param_edit,show_input('parameterLabel','parameterName')" src="/icons/icon19_rename_orange.svg" class="cursor-pointer"/>
                         <button v-else @click="param_edit=!param_edit,show_input('parameterLabel','parameterName')"
@@ -209,7 +209,7 @@
                         <h1 class="text-blue-150">Parameter</h1>
                         <!-- <div class="w-full h-12 flex rounded-lg justify-center items-center border-blue-150 border-2"> -->
                           <!-- <h1 class="text-2xl text-blue-150">E</h1> -->
-                     <input v-model="storeParameter.parameterID" placeholder="E" type="text" class="text-2xl placeholder-blue-100 text-blue-150 w-16 h-12 flex rounded-lg text-center items-center border-blue-150 border-2 focus:outline-none"/>
+                        <input :value="letters[parameters.length]"  placeholder="E" type="text" class="text-2xl placeholder-blue-150 text-blue-150 w-16 h-12 flex rounded-lg text-center items-center focus:outline-none" disabled/>
 
                         <!-- </div> -->
                       </div>
@@ -355,6 +355,7 @@ export default {
   data(){
     return{
       drag:false,
+      letters:['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
       storeParameter:{parameterID:'',parameterLabel: '',areaID: ''},
       storeBenchmark:{benchmarkID:'',benchmarkLabel: '',parameterID: ''},
       parameters: [],
@@ -460,7 +461,6 @@ export default {
       api.post('/api/Benchmark', this.storeBenchmark).then(()=>{
       this.show_add_benchmark = false;
           location.reload();
-
         });
     }
   },
