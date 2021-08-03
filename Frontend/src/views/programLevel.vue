@@ -12,9 +12,9 @@
                 add_photo_alternate
             </span>
       </div>
-      <div class="flex flex-col items-center">
-      <h1  class="uppercase text-white text-lg font-bold">Michael Cinco</h1>
-      <h1 class="text-sm text-white">(Admin)</h1>
+      <div class="flex flex-col items-center" v-for="personal in personalInfo">
+      <h1  class="uppercase text-white text-lg font-bold">{{personal.firstName}} {{personal.lastName}}</h1>
+      <h1 class="text-sm text-white">({{personal.roleType}})</h1>
       </div>
      <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
           
@@ -40,7 +40,7 @@
         
       <div class="relative w-full flex-grow">
       <router-link to="/">
-      <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
+      <div @click="logout" class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
         <span class="material-icons transform rotate-180 ">
         logout
       </span>
@@ -208,7 +208,7 @@
                        <div>
                         <h1 class="text-blue-150 text-sm">Contact Number</h1>
                           <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input required  type="number"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
+                        <input v-model="taskForceMember.contactNumber" required  type="number"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
                         focus:outline-none cursor-text "/>
                        </div>
                        </div>
@@ -240,11 +240,11 @@
                   <h1 class="text-lg text-blue-150 font-bold">Task Force</h1>
                   <div class="overflow-y-auto h-28 gap-y-4 flex flex-col ">
                        <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-start gap-x-4 w-3  /4 pr-10">
-                            <h1 class="text-sm text-blue-150">Aldrin Lobis</h1>
-                            <h1 class="text-sm text-yellow-150">aldrinlobis@gmail.com</h1>
-                            <h1 class="text-sm text-yellow-150">Member</h1>
-                            <h1 class="text-sm text-yellow-150">09021050501</h1>
+                        <div class="flex justify-start gap-x-4 w-3  /4 pr-10" v-for="taskforce in taskForceMember">
+                            <h1 class="text-sm text-blue-150">{{taskforce.firstName}} {{taskforce.lastName}}</h1>
+                            <h1 class="text-sm text-yellow-150">{{taskforce.email}}</h1>
+                            <h1 class="text-sm text-yellow-150">{{taskforce.roleType}}</h1>
+                            <h1 class="text-sm text-yellow-150">{{taskforce.contactNumber}}</h1>
                         </div>   
                         <div >                     
                             <button @click="update_button=!update_button" class=" w-20  text-white border-2 bg-blue-150">Edit</button>
@@ -379,10 +379,17 @@ Details,
             created:'',
           }
         ],
+        personalInfo: {
+            firstName: "",
+            lastName: "",
+            roleType: "",
+        },
+   
         taskForceMember: {
         firstName: "",
         middleName: "",
         lastName: "",
+        contactNumber: "",
         email: "",
         roleType: "",
       },
@@ -392,6 +399,23 @@ Details,
     }
   },
   methods:{
+
+     getPersonal(){
+
+          
+              var personal = JSON.parse(localStorage.getItem("Personal"));
+                 console.log(personal);
+           api.get("/api/getUser", {params:{email:personal.email}}).then((res)=>{
+               this.personalInfo = res.data;
+         
+
+               console.log(this.personalInfo);
+           });
+
+           api.get("/api/getTaskForceMembers").then((res) =>{
+             this.taskForceMember = res.data;
+           });
+       },
      addTaskForceMember() {
      // this.taskForceMember.roleType = this.selectedroleType;
       console.log(this.taskForceMember);
@@ -414,7 +438,10 @@ Details,
      
          
     },
-    
+    logout(){
+      localStorage.removeItem("Personal");
+       this.$router.push({ path: "login" });
+   },
     fetchlevels(){
         console.log("levels");
       api.get('api/getProgramLevel').then(response => {
@@ -449,6 +476,7 @@ Details,
   },
   created(){
     this.fetchlevels();
+    this.getPersonal();
     // this.fetchbenchmarks();
   }
 }

@@ -14,9 +14,9 @@
                 add_photo_alternate
             </span>
       </div>
-      <div class="flex flex-col items-center">
-      <h1  class="uppercase text-white text-lg font-bold">Do Thirdy</h1>
-      <h1 class="text-sm text-white">(Taskforce)</h1>
+      <div class="flex flex-col items-center" v-for="personal in personalInfo">
+      <h1  class="uppercase text-white text-lg font-bold">{{ personal.firstName }} {{ personal.lastName }}</h1>
+      <h1 class="text-sm text-white">({{ personal.roleType }})</h1>
       </div>
       <div class=" text-white space-y-2 pt-24 flex-grow ">
           <div class=" cursor-pointer flex items-center gap-4 pl-4">
@@ -34,7 +34,7 @@
         
       <div class="relative w-full flex-grow">
       <router-link to="/">
-      <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
+      <div @click="logout" class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
         <span class="material-icons transform rotate-180 ">
         logout
       </span>
@@ -137,12 +137,40 @@
 </style>
 <script>
 // @ is an alias to /src
+import api from "../api";
 export default {
   data(){
     return{
         show_add_accre:false,
         confirm_accre:false,
+         personalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
+      },
     }
   },
-}
+ methods: {
+    getPersonal() {
+      var personal = JSON.parse(localStorage.getItem("Personal"));
+      console.log(personal);
+      api
+        .get("/api/getUser", { params: { email: personal.email } })
+        .then((res) => {
+          this.personalInfo = res.data;
+
+          console.log(this.personalInfo);
+        });
+    },
+     logout(){
+      localStorage.removeItem("Personal");
+       this.$router.push({ path: "login" });
+
+
+    },
+  },
+  mounted() {
+    this.getPersonal();
+  },
+};
 </script>

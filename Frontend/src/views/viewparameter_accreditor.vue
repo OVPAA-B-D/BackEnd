@@ -27,9 +27,9 @@
           add_photo_alternate
         </span>
       </div>
-      <div class="flex flex-col items-center">
-        <h1 class="uppercase text-white text-lg font-bold">Brody Corpuz</h1>
-        <h1 class="text-sm text-white">(External Accreditor)</h1>
+      <div class="flex flex-col items-center" v-for="personal in personalInfo">
+        <h1 class="uppercase text-white text-lg font-bold"> {{ personal.firstName }} {{ personal.lastName }}</h1>
+        <h1 class="text-sm text-white">({{ personal.roleType }})</h1>
       </div>
       <div class="text-white gap-y-3 pt-24 flex flex-col flex-grow">
         <div
@@ -53,7 +53,7 @@
 
       <div class="relative w-full flex-grow">
         <router-link to="/">
-          <div
+          <div @click="logout"
             class="
               w-2/3
               absolute
@@ -379,6 +379,7 @@
 // @ is an alias to /src
 import Details from "./details.vue";
 import Comments from "./comments.vue";
+import api from "../api";
 export default {
   components: {
     Details,
@@ -387,7 +388,11 @@ export default {
   data() {
     return {
       component: "Details",
-
+      personalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
+      },
       activeBtn: 0,
       Accreditor: [
         {
@@ -476,6 +481,21 @@ export default {
     };
   },
   methods: {
+    getPersonal() {
+      var personal = JSON.parse(localStorage.getItem("Personal"));
+      console.log(personal);
+      api
+        .get("/api/getUser", { params: { email: personal.email } })
+        .then((res) => {
+          this.personalInfo = res.data;
+
+          console.log(this.personalInfo);
+        });
+    },
+    logout(){
+      localStorage.removeItem("Personal");
+       this.$router.push({ path: "login" });
+   },
     change_component(e) {
       if (e == "details") {
         this.component = "Details";
@@ -490,6 +510,9 @@ export default {
         this.activeBtn = el;
       }
     },
+  },
+   mounted() {
+    this.getPersonal();
   },
 };
 </script>

@@ -13,10 +13,10 @@
                   add_photo_alternate
               </span>
         </div>
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center" v-for="personal in personalInfo">
         <!-- USER DETAILS -->
-          <h1  class="uppercase text-white text-lg font-bold">Do Thirdy</h1>
-          <h1 class="text-sm text-white">(Taskforce)</h1>
+          <h1  class="uppercase text-white text-lg font-bold">{{ personal.firstName }} {{ personal.lastName }}</h1>
+          <h1 class="text-sm text-white">({{ personal.roleType }})</h1>
         <!-- END OF USER DETAILS -->
         </div>
         <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
@@ -45,7 +45,7 @@
       
         <div class="relative w-full flex-grow">
         <router-link to="/">
-        <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
+        <div @click="logout" class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
           <span class="material-icons transform rotate-180 ">
           logout
         </span>
@@ -246,6 +246,12 @@ import api from "../api";
 export default {
   data(){
     return{
+
+      personalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
+      },
       bg_image:'img/bg_plain.svg',
       show_add_accre:false,
       confirm_accre:false,
@@ -253,6 +259,21 @@ export default {
     }
   },
   methods:{
+     getPersonal() {
+      var personal = JSON.parse(localStorage.getItem("Personal"));
+      console.log(personal);
+      api
+        .get("/api/getUser", { params: { email: personal.email } })
+        .then((res) => {
+          this.personalInfo = res.data;
+
+          console.log(this.personalInfo);
+        });
+    },
+    logout(){
+      localStorage.removeItem("Personal");
+       this.$router.push({ path: "login" });
+   },
     change_bgImage(e){
       const file=e.target.files[0];
       this.bg_image=URL.createObjectURL(file);
@@ -271,6 +292,7 @@ export default {
   },
   mounted(){
     this.fetchMembers();
+    this.getPersonal();
   }
 }
 </script>

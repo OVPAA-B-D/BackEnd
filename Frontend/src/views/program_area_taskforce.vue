@@ -27,10 +27,10 @@
           add_photo_alternate
         </span>
       </div>
-      <div class="flex flex-col items-center">
+      <div class="flex flex-col items-center" v-for="personal in personalInfo">
         <!-- USER DETAILS -->
-        <h1 class="uppercase text-white text-lg font-bold">Do Thirdy</h1>
-        <h1 class="text-sm text-white">(Taskforce)</h1>
+        <h1 class="uppercase text-white text-lg font-bold"> {{ personal.firstName }} {{ personal.lastName }}</h1>
+        <h1 class="text-sm text-white">({{ personal.roleType }})</h1>
         <!-- END OF USER DETAILS -->
       </div>
       <div class="text-white gap-y-3 pt-24 flex flex-col flex-grow">
@@ -93,7 +93,7 @@
 
       <div class="relative w-full flex-grow">
         <router-link to="/">
-          <div
+          <div @click="logout"
             class="
               w-2/3
               absolute
@@ -969,6 +969,11 @@ export default {
       location: "",
       accessed: "",
       created: "",
+        personalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
+      },
       folder_details: [
         {
           status: "To be Graded",
@@ -1051,6 +1056,21 @@ export default {
         this.activeBtn = el;
       }
     },
+    logout(){
+      localStorage.removeItem("Personal");
+       this.$router.push({ path: "login" });
+    },
+     getPersonal() {
+      var personal = JSON.parse(localStorage.getItem("Personal"));
+      console.log(personal);
+      api
+        .get("/api/getUser", { params: { email: personal.email } })
+        .then((res) => {
+          this.personalInfo = res.data;
+
+          console.log(this.personalInfo);
+        });
+    },
     fetchAreas() {
       api
         .get("api/getArea")
@@ -1065,6 +1085,7 @@ export default {
   },
   mounted() {
     this.fetchAreas();
+    this.getPersonal();
   },
 };
 </script>

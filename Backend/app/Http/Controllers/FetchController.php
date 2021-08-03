@@ -41,6 +41,15 @@ class FetchController extends Controller
     return response()->json($data);
    }
 
+   function getUser(Request $request){
+
+    $data = DB::select('SELECT * FROM tbl_userinformation WHERE  email = \''.$request->email.'\'');
+
+    if($data == null)
+    return response()->json([]);
+    return response()->json($data);
+   }
+
    function getParameter(){
 
     $parameter = Auth::user();

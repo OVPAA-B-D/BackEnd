@@ -166,9 +166,13 @@ export default {
   data() {
     return {
       dataForm: {
-        request: 1,
         email: "",
         password: "",
+      },
+      PersonalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
       },
       n: 0,
       type_pass: "password",
@@ -196,12 +200,18 @@ export default {
             sessionStorage.setItem("sessionCookieNotify", true)
             sessionStorage.setItem("Authorization", res.data.token)
             console.log('api token in login',sessionStorage.getItem("Authorization"))
+
+          console.log("Hello",res);
+          
+        
+            localStorage.setItem("Personal",JSON.stringify(res.data.user));
+
           this.$router.push({ path: "dashboard" });
-           console.log(res);
+           
          
         })
         .catch((errors) => {
-          this.errors = errors.response.data.invalid;
+          this.errors = errors.response;
         });
     },
   },

@@ -11,9 +11,9 @@
                 add_photo_alternate
             </span>
       </div>
-      <div class="flex flex-col items-center">
-      <h1  class="uppercase text-white text-lg font-bold">Michael Cinco</h1>
-      <h1 class="text-sm text-white">(Admin)</h1>
+      <div class="flex flex-col items-center" v-for="personal in personalInfo">
+      <h1  class="uppercase text-white text-lg font-bold"> {{ personal.firstName }} {{ personal.lastName }}</h1>
+      <h1 class="text-sm text-white">({{ personal.roleType }})</h1>
       </div>
      <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
           <router-link to="/dashboard">
@@ -38,7 +38,7 @@
         
       <div class="relative w-full flex-grow">
       <router-link to="/">
-      <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
+      <div @click="logout" class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
         <span class="material-icons transform rotate-180 ">
         logout
       </span>
@@ -208,28 +208,28 @@
                       <div>
                         <h1 class="text-blue-150 text-sm">Firstname</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input required  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
+                        <input v-model="accreditorMember.firstName" required  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
                         focus:outline-none cursor-text "/>
                        </div>
                        </div>
                         <div>
                         <h1 class="text-blue-150 text-sm">Email</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input required  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
+                        <input v-model="accreditorMember.email" required  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
                         focus:outline-none cursor-text "/>
                        </div>
                        </div>
                       <div>
                         <h1 class="text-blue-150 text-sm">Middle name</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input required  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
+                        <input v-model="accreditorMember.middleName" required  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
                         focus:outline-none cursor-text "/>
                        </div>
                       </div>
                       <div>
                         <h1 class="text-blue-150 text-sm">Role</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <select required class="fill-current italic text-blue-150 w-75 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                        <select v-model="accreditorMember.roleType" required class="fill-current italic text-blue-150 w-75 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
                           <option selected disabled value="">Select accreditor's role</option>
                           <option>Internal accreditor</option>
                           <option>External accreditor</option>
@@ -239,14 +239,14 @@
                        <div>
                         <h1 class="text-blue-150 text-sm">Last name</h1>
                           <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input required  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
+                        <input v-model="accreditorMember.lastName" required  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
                         focus:outline-none cursor-text "/>
                        </div>
                        </div>
                        <div>
                         <h1 class="text-blue-150 text-sm">Contact Number</h1>
                           <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input required type="number"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
+                        <input v-model="accreditorMember.contactNumber" required type="number"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
                         focus:outline-none cursor-text "/>
                        </div>
                        </div>
@@ -345,7 +345,7 @@
                   </div>
                   <div class="flex justify-end absolute right-10 bottom-10">
                     <div class="flex gap-x-1">
-                      <button @click="confirmation=!confirmation,update_button=true" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
+                      <button @click="confirmation=!confirmation,update_button=true,addAccreditorMember()" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
                       <button @click="confirmation=!confirmation" class="px-1 rounded-md text-blue-150 bg-white border-2 border-blue-150">Cancel</button>
                     </div>
                   </div>
@@ -403,24 +403,42 @@ export default {
   data(){
     return{
       levels: [],
-        confirmation_deletion:false,
+         confirmation_deletion:false,
+        confirmation:false,
         show_details:false,
         btn_enable:'off',
+        text_modal:'',
+        update_button:true,
         component:"Details",
         linkto:'',
         index:'',
         folder_id:'',
+        folder_name:'',
         prev_folder_id:'',
         prev_name_id:'',
         show_add_accre:false,
         confirm_accre:false,
         activeBtn:0,
+        
         bg_btn:0,
         status:'',
         owner:'',
         location:'',
         accessed:'',
         created:'',
+         personalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
+      },
+      accreditorMember: {
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        contactNumber: "",
+        email: "",
+        roleType: "",
+      },
         folder_details:[
           {
             id: 'ID',
@@ -437,6 +455,43 @@ export default {
     }
   },
   methods:{
+     getPersonal() {
+      var personal = JSON.parse(localStorage.getItem("Personal"));
+      console.log(personal);
+      api
+        .get("/api/getUser", { params: { email: personal.email } })
+        .then((res) => {
+          this.personalInfo = res.data;
+
+          console.log(this.personalInfo);
+        });
+    },
+    logout(){
+      localStorage.removeItem("Personal");
+       this.$router.push({ path: "login" });
+   },
+    addAccreditorMember() {
+     // this.taskForceMember.roleType = this.selectedroleType;
+      console.log(this.accreditorMember);
+      api
+        .post("/api/Member", this.accreditorMember)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((errors) => {
+          this.errors = errors.res;
+        });
+        api
+        .post("/api/UserAuthentication", this.accreditorMember)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((errors) => {
+          this.errors = errors.res;
+        });
+     
+         
+    },
     fetchareas(){
     let temp = [];
       api.get('api/getProgramLevelArea').then(response => {
@@ -455,20 +510,22 @@ export default {
               // localStorage.setItem("code", res.data.code);
               // this.$router.push({ name: "verifyemail" });
     },
-    show_default(){
+   show_default(){
          let prev_f=document.getElementById(this.prev_folder_id)
           let prev_n=document.getElementById(this.prev_name_id)
-          // prev_f.style.display='block'
-          // prev_n.style.display='none'
+          prev_f.style.display='block'
+          prev_n.style.display='none'
+          this.prev_folder_id='',
+          this.prev_name_id=''
     },
-    rename_folder(e){
-        let x=document.getElementById(this.folder_id)
-        let y=document.getElementById(this.folder_id+'x')
+   rename_folder(e,n){
+        let x=document.getElementById(e)
+        let y=document.getElementById(n)
         if(this.prev_folder_id==''){
         x.style.display = "none";
         y.style.display='block'
-        this.prev_folder_id=this.folder_id;
-        this.prev_name_id=this.folder_id+'x';
+        this.prev_folder_id=e;
+        this.prev_name_id=n;
         }
         else{
           let prev_f=document.getElementById(this.prev_folder_id)
@@ -477,16 +534,14 @@ export default {
             y.style.display='block';
             prev_f.style.display='block';
             prev_n.style.display='none';
-            this.prev_folder_id=this.folder_id;
-            this.prev_name_id=this.folder_id+'x';
-            api.post('/api/getProgramLevelArea', prev_n).then(()=>{
-                console.log("Success")
-            })
+            this.prev_folder_id=e;
+            this.prev_name_id=n;
         }
       
     },
     index_array(e){
          this.index=this.folderArea.findIndex(x => x.id===e)
+        
      },
      detailing(){ 
        this.folder_details[0].folder_name=this.folderArea[this.index].level
@@ -498,7 +553,7 @@ export default {
        this.folder_details[0].accessed=this.folderArea[this.index].accessed
        this.folder_details[0].created=this.folderArea[this.index].created
      },
-    display_details(e){
+     display_details(e){
     const index=this.folderArea.findIndex(x => x.id===e)
     },
       change_component(e){
@@ -517,9 +572,18 @@ export default {
         this.activeBtn= el;
         }
       },
+       isActive1_function(el){
+       if(el=='btn1'){
+      this.bg_btn= 0;
+      }
+      else {
+        this.bg_btn= el;
+        }
+      },
   },
   created(){
     this.fetchareas();
+    this.getPersonal();
     // console.log("sana magana", this.sendID);
     // this.fetchbenchmarks();
   }

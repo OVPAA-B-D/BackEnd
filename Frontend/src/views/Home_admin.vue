@@ -14,9 +14,9 @@
                 add_photo_alternate
             </span>
       </div>
-      <div class="flex flex-col items-center">
-      <h1  class="uppercase text-white text-lg font-bold">Michael Cinco</h1>
-      <h1 class="text-sm text-white">(Admin)</h1>
+      <div class="flex flex-col items-center" v-for="personal in personalInfo">
+      <h1  class="uppercase text-white text-lg font-bold"> {{ personal.firstName }} {{ personal.lastName }}</h1>
+      <h1 class="text-sm text-white">({{ personal.roleType }})</h1>
       </div>
       <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
         <router-link to="/dashboard">
@@ -41,7 +41,7 @@
     
       <div class="relative w-full flex-grow">
       <router-link to="/">
-      <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
+      <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   " @click="logout">
         <span class="material-icons transform rotate-180 ">
         logout
       </span>
@@ -113,7 +113,7 @@
                </div>
                 <div class=" text-indigo-800 w-19   border-yellow-150 border-4 font-semibold rounded-lg shadow-xl  h-full bg-white bg-opacity-75">          
                   <div class="h-32  border-b-4 border-yellow-150">
-                    <img :src="program[0].imagefolder" class="object-fill w-full h-full">
+                    <!-- <img :src="program[0].imagefolder" class="object-fill w-full h-full"> -->
                   </div>
                  
                   <div class="px-2">
@@ -515,6 +515,11 @@ export default {
         coverImage:"",
 
        }],
+       personalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
+      },
       getLevel:[{
           programLevelID:"",
           programID:"",
@@ -554,8 +559,20 @@ export default {
   
 
    methods:{
+
+     getPersonal(){
+        var personal = JSON.parse(localStorage.getItem("Personal"));
+                 console.log(personal);
+           api.get("/api/getUser", {params:{email:personal.email}}).then((res)=>{
+               this.personalInfo = res.data;
+         
+
+               console.log(this.personalInfo);
+           });
+       },
+
      add_program(){
-       
+          
        
             this.addProgram.programName = document.getElementById("selected_program").value;
             this.addProgram.collegeName=document.getElementById("selected_college").value;
@@ -737,7 +754,7 @@ export default {
     },
      created(){
         this.retrieve();
-        
+        this.getPersonal();
       }
 }
 

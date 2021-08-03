@@ -27,12 +27,12 @@
           add_photo_alternate
         </span>
       </div>
-      <div class="flex flex-col items-center">
-        <h1 class="uppercase text-white text-lg font-bold">Brody Corpuz</h1>
-        <h1 class="text-sm text-white">(External Accreditor)</h1>
+      <div class="flex flex-col items-center" v-for="personal in personalInfo">
+        <h1 class="uppercase text-white text-lg font-bold">{{ personal.firstName }} {{ personal.lastName }}</h1>
+        <h1 class="text-sm text-white">({{ personal.roleType }})</h1>
       </div>
       <div class="text-white gap-y-3 pt-24 flex flex-col flex-grow">
-        <div
+        <div @click="logout"
           class="
             flex
             cursor-pointer
@@ -191,5 +191,41 @@
   padding-bottom: 3px;
 }
 </style>
+<script>
+// @ is an alias to /src
+import axios from "axios";
+import api from "../api";
+export default {
+  data() {
+    return {
+      personalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
+      },
+    };
+  },
+  methods: {
+    getPersonal() {
+      var personal = JSON.parse(localStorage.getItem("Personal"));
+      console.log(personal);
+      api
+        .get("/api/getUser", { params: { email: personal.email } })
+        .then((res) => {
+          this.personalInfo = res.data;
+
+          console.log(this.personalInfo);
+        });
+    },
+    logout(){
+      localStorage.removeItem("Personal");
+       this.$router.push({ path: "login" });
+   },
+  },
+  mounted() {
+    this.getPersonal();
+  },
+};
+</script>
 
 

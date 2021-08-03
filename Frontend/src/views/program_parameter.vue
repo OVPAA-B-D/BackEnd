@@ -14,9 +14,9 @@
                 add_photo_alternate
             </span>
       </div>
-      <div class="flex flex-col items-center">
-      <h1  class="uppercase text-white text-lg font-bold">Michael Cinco</h1>
-      <h1 class="text-sm text-white">(Admin)</h1>
+      <div class="flex flex-col items-center" v-for="personal in personalInfo">
+      <h1  class="uppercase text-white text-lg font-bold">{{ personal.firstName }} {{ personal.lastName }}</h1>
+      <h1 class="text-sm text-white">({{ personal.roleType }})</h1>
       </div>
         <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
           <router-link to="/dashboard">
@@ -41,7 +41,7 @@
         
       <div class="relative w-full flex-grow">
       <router-link to="/">
-      <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
+      <div @click="logout" class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
         <span class="material-icons transform rotate-180 ">
         logout
       </span>
@@ -560,6 +560,12 @@ export default {
           {name:'Benchmark 3',id:2},
           
         ],
+
+         personalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
+      },
         activeBtn:0,
         bg_button:0,
           folder_details:[
@@ -664,6 +670,23 @@ export default {
     }
   },
   methods:{
+
+    getPersonal() {
+      var personal = JSON.parse(localStorage.getItem("Personal"));
+      console.log(personal);
+      api
+        .get("/api/getUser", { params: { email: personal.email } })
+        .then((res) => {
+          this.personalInfo = res.data;
+
+          console.log(this.personalInfo);
+        });
+    },
+    
+  logout(){
+      localStorage.removeItem("Personal");
+       this.$router.push({ path: "login" });
+   },
     fetchparameters(){
     let temp = [];
         console.log("parameters");
@@ -735,6 +758,7 @@ export default {
   created(){
     this.fetchparameters();
     this.fetchbenchmarks();
+     this.getPersonal();
   }
 }
 </script>

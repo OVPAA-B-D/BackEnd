@@ -56,6 +56,7 @@ Route::post('UserAuthentication', [InsertController::class, 'UserAuthentication'
 Route::post('TaskForce', [InsertController::class, 'TaskForce']);
 
 Route::get('getPersonal', [FetchController::class, 'getMember']);
+Route::post('TaskForce', [InsertController::class, 'TaskForce']);
 Route::get('getProgram', [FetchController::class, 'getProgram']);
 Route::get('getParameter', [FetchController::class, 'getParameter']);
 Route::get('getBenchmark', [FetchController::class, 'getBenchmark']);
@@ -67,3 +68,4 @@ Route::get('getUserAuthentication', [FetchController::class, 'getUserAuthenticat
 Route::get('getTaskForceChairman',[FetchController::class, 'getTaskForceChairman']);
 Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);
 Route::get('getTaskForce', [FetchController::class, 'getTaskForce']);
+Route::get('getTaskForceMembers', [FetchController::class, 'getTaskForceMembers']);
