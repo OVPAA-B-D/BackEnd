@@ -113,7 +113,7 @@
                </div>
                 <div class=" text-indigo-800 w-19   border-yellow-150 border-4 font-semibold rounded-lg shadow-xl  h-full bg-white bg-opacity-75">          
                   <div class="h-32  border-b-4 border-yellow-150">
-                    <img :src="program[0].imagefolder" class="object-fill w-full h-full">
+                    <!-- <img :src="program[0].imagefolder" class="object-fill w-full h-full"> -->
                   </div>
                  
                   <div class="px-2">

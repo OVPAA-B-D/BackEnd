@@ -128,10 +128,10 @@
                     <a class="font-bold ">Level 1</a></h1>
                </div>
                 <div class=" items-start flex-row  flex flex-wrap relative pl-7 " >
-                 <button  @click="btn_enable='off',isActive1_function('btn1'),show_default()" 
+                 <button  @click="btn_enable='off',isActive_function('btn1'),show_default()" 
                       :class="{outline: bg_btn===0 }" class="absolute w-full h-full   inset-0 "></button>
 
-                 <div @click="isActive1_function('btn2'),btn_enable='on',folder_id='pname',folder_name='newpname'" :class="{outline: bg_btn === 'btn2' }" class=" flex flex-col  
+                 <div @click="isActive_function('btn2'),btn_enable='on',folder_id='pname',folder_name='newpname'" :class="{outline: bg_btn === 'btn2' }" class=" flex flex-col  
                     justify-center w-28  mt-10 hover:bg-gray-200 mr-2 relative  border-yellow-150 cursor-pointer">                
                  
                  <div @dblclick="routing('/admin_program_performance_profile')"
@@ -144,10 +144,10 @@
                   </span>
                   </div>
                      <div v-for="folderx in folderArea" :key="folderx.id" class="  relative  text-sm text-blue-250 z-10   w-28 h-auto  text-center justify-center items-center">
-                      <button  @click="btn_enable='off',isActive1_function('btn1'),show_default()" 
+                      <button  @click="btn_enable='off',isActive_function('btn1'),show_default()" 
                       :class="{outline: bg_btn===0 }" class="absolute w-full h-full  inset-0 -z-1"></button>
 
-                  <div @click="isActive1_function(folderx.id),btn_enable='on',index_array(folderx.id),folder_id=folderx.id,folder_name=folderx.id+'x',rename_folder,detailing()" :class="{outline: bg_btn === folderx.id }" class=" flex flex-col  justify-center w-28  mt-10 hover:bg-gray-200 mr-2 border-yellow-150 cursor-pointer">
+                  <div @click="isActive_function(folderx.id),btn_enable='on',index_array(folderx.id),folder_id=folderx.id,folder_name=folderx.id+'x',rename_folder,detailing()" :class="{outline: bg_btn === folderx.id }" class=" flex flex-col  justify-center w-28  mt-10 hover:bg-gray-200 mr-2 border-yellow-150 cursor-pointer">
                 <div @dblclick="routing('/program_parameter'),perform()"  class="w-full p-2 flex justify-center">
                   <img   class="w-16" src="icons/icon15.png">
                   </div>
@@ -517,6 +517,9 @@ export default {
         this.activeBtn= el;
         }
       },
+      routing(e){
+      this.$router.push(e)
+    },
   },
   created(){
     this.fetchareas();

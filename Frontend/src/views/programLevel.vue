@@ -108,16 +108,15 @@
                 <div class=" flex-row flex flex-wrap pl-7">
                   
                      <div v-for="folderx in folderArea" :key="folderx.id" class="text-center justify-center items-center">
-                  <div @click="isActive_function(folderx.id)" :class="{active: activeBtn === folderx.id }" 
-                  class=" flex flex-col cursor-pointer items-center hover:bg-gray-200 justify-start w-32 h-auto  mt-10  mr-2cursor-pointer">
+                  <div class=" flex flex-col items-center justify-start w-32 h-auto  mt-10  mr-2cursor-pointer">
                       
-                  <div>
-                    <div  @dblclick="routing()"  @click="index_array(folderx.id),detailing()"  class="p-2 w-full" >
-                       <img  
-                         :src="folderx.folder_image" class="w-16"/>
+                  <router-link :to="link_to">
+                    <div @click="isActive_function(folderx.id)" :class="{active: activeBtn === folderx.id }" class="p-2 w-full" >
+                       <img @dblclick="link_to='/program_area',perform()" @click="index_array(folderx.id),detailing()"
+                         :src="folder_icon" class="w-16"/>
                     </div>
-                    </div>
-                   <h1 class="text-blue-150">{{folderx.folder_name}}</h1>
+                    </router-link>
+                   <h1 class="text-blue-150">{{folderx.level}}</h1>
                   </div>
                     
                     </div>
