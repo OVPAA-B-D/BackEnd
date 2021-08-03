@@ -151,6 +151,22 @@ function getTaskForce(){
         return response()->json($data);
 
     }
+    function getTaskForceMembers(){
+        $taskforce = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_userinformation WHERE (roleType = "Chairman") OR (roleType = "Member") ');
+        
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+    }
+    function getAccreditorMembers(){
+        $accreditor = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_userinformation WHERE (roleType = "External accreditor") OR (roleType = "Internal accreditor") ');
+        
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+    }
 
 
 }

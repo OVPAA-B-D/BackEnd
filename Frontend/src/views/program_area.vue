@@ -277,56 +277,18 @@
                   <div class="flex flex-col px-10">
                   <h1 class="text-lg text-blue-150 font-bold">Accreditors</h1>
                   <div class="overflow-y-auto h-28 gap-y-4 flex flex-col ">
-                       <div class=" border-b-2 border-yellow-150 flex justify-between">
+                       <div class=" border-b-2 border-yellow-150 flex justify-between" v-for="accreditor in accreditorMembers" :key="accreditor.id">
                         <div class="flex justify-start gap-x-4 w-3/4 pr-10">
-                            <h1 class="text-sm text-blue-150">Aldrin Lobis</h1>
-                            <h1 class="text-sm text-yellow-150">aldrinlobis@gmail.com</h1>
-                            <h1 class="text-sm text-yellow-150">Internal Accreditor</h1>
-                            <h1 class="text-sm text-yellow-150">09021050501</h1>
+                            <h1 class="text-sm text-blue-150">{{accreditor.firstName}} {{accreditor.lastName}}</h1>
+                            <h1 class="text-sm text-yellow-150">{{accreditor.email}}</h1>
+                            <h1 class="text-sm text-yellow-150">{{accreditor.roleType}}</h1>
+                            <h1 class="text-sm text-yellow-150">{{accreditor.contactNumber}}</h1>
                         </div>   
                         <div >                     
-                            <button @click="update_button=!update_button" class=" w-20  text-white border-2 bg-blue-150">Edit</button>
+                            <button @click="edit_update(accreditor.id),update_button=!update_button" class=" w-20  text-white border-2 bg-blue-150">Edit</button>
                             <button @click="confirmation_deletion=!confirmation_deletion,text_modal='to delete this member'" class=" w-20  text-white border-2 bg-red-150">Delete</button>
                         </div>
-                        </div>
-                          
-                        
-                         <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
-                            <h1 class="text-lg text-blue-150">Name</h1>
-                            <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150">Role</h1>
-                            
                         </div>   
-                        <div >                     
-                            <button class=" w-20  text-white border-2 bg-blue-150">Edit</button>
-                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
-                        </div>
-                        </div>
-                        <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
-                            <h1 class="text-lg text-blue-150">Name</h1>
-                            <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150">Role</h1>
-                            
-                        </div>   
-                        <div >                     
-                            <button class=" w-20  text-white border-2 bg-blue-150">Edit</button>
-                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
-                        </div>
-                        </div>
-                           <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
-                            <h1 class="text-lg text-blue-150">Name</h1>
-                            <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150">Role</h1>
-                            
-                        </div>   
-                        <div >                     
-                            <button class=" w-20  text-white border-2 bg-blue-150">Edit</button>
-                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
-                        </div>
-                        </div>
                   </div>
                   </div>
              </div>
@@ -345,7 +307,7 @@
                   </div>
                   <div class="flex justify-end absolute right-10 bottom-10">
                     <div class="flex gap-x-1">
-                      <button @click="confirmation=!confirmation,update_button=true,addAccreditorMember()" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
+                      <button @click="confirmation=!confirmation,update_button=true,addAccreditorMember(),updateAccreditorMember(),disabling_btn=true" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
                       <button @click="confirmation=!confirmation" class="px-1 rounded-md text-blue-150 bg-white border-2 border-blue-150">Cancel</button>
                     </div>
                   </div>
@@ -439,6 +401,15 @@ export default {
         email: "",
         roleType: "",
       },
+
+      accreditorMembers: {
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        contactNumber: "",
+        email: "",
+        roleType: "",
+      },
         folder_details:[
           {
             id: 'ID',
@@ -465,6 +436,11 @@ export default {
 
           console.log(this.personalInfo);
         });
+
+         api.get("/api/getAccreditorMembers").then((res) =>{
+             this.accreditorMembers = res.data;
+              console.log(this.accreditorMembers);
+           });
     },
     logout(){
       localStorage.removeItem("Personal");
@@ -491,6 +467,28 @@ export default {
         });
      
          
+    },
+    edit_update(e){
+      let index=this.accreditorMembers.findIndex(x => x.id===e)
+      this.accreditorMember.firstName=this.accreditorMembers[index].firstName;
+      this.accreditorMember.lastName=this.accreditorMembers[index].lastName;
+      this.accreditorMember.middleName=this.accreditorMembers[index].middleName;
+      this.accreditorMember.email=this.accreditorMembers[index].email;
+      this.accreditorMember.contactNumber=this.accreditorMembers[index].contactNumber;
+    },
+
+    updateAccreditorMember() {
+     // this.taskForceMember.roleType = this.selectedroleType;
+      console.log(this.accreditorMember);
+      api
+        .post("/api/userInformation", this.accreditorMember)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((errors) => {
+          this.errors = errors.res;
+        });
+  
     },
     fetchareas(){
     let temp = [];

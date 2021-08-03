@@ -14,6 +14,7 @@ use App\Models\ProgramModel;
 use App\Models\UserAuthenticationModel;
 use App\Models\UserInformationModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 class UpdateController extends Controller
 {
     public function updateArea(Request $request)
@@ -160,24 +161,34 @@ class UpdateController extends Controller
 
     public function userInformation(Request $request)
     {
-        $request->validate([
-            ':id' => [],
-            ':email' => [],
-            ':lastName' => [],
-            ':firstName' => [],
-            ':middleName' => [],
-            ':contactNumber' => [],
-            ':profilePicture' => [],
-            ':roleType' => [],
-            ':roleDescription' => [],
-            ':createdDate' => []
-        ]);
+        // $request->validate([
+        //     ':id' => [],
+        //     ':email' => [],
+        //     ':lastName' => [],
+        //     ':firstName' => [],
+        //     ':middleName' => [],
+        //     ':contactNumber' => [],
+        //     ':profilePicture' => [],
+        //     ':roleType' => [],
+        //     ':roleDescription' => [],
+        //     ':createdDate' => []
+        // ]);
 
-        $record = new UserInformationModel;
+       // $record = new UserInformationModel;
+
+       // $userEmail = Auth::user()->email;
+        $user = UserInformationModel::where('email',$request->email)->first();
+        $user->firstName = $request->firstname;
+        $user->lastName = $request->lastName;
+        $user->middleName = $request->middleName;
+        $user->contactNumber = $request->contactNumber;
+        $user->roleType = $request->roleType;
+        
+
         // entities possibly to be change or update
         // $record->email = $request->email;
 
-        $record->save();
+        $user->save();
     }
 
 }

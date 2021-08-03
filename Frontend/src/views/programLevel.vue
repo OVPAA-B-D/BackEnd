@@ -108,16 +108,15 @@
                 <div class=" flex-row flex flex-wrap pl-7">
                   
                      <div v-for="folderx in folderArea" :key="folderx.id" class="text-center justify-center items-center">
-                  <div @click="isActive_function(folderx.id)" :class="{active: activeBtn === folderx.id }" 
-                  class=" flex flex-col cursor-pointer items-center hover:bg-gray-200 justify-start w-32 h-auto  mt-10  mr-2cursor-pointer">
+                  <div class=" flex flex-col items-center justify-start w-32 h-auto  mt-10  mr-2cursor-pointer">
                       
-                  <div>
-                    <div  @dblclick="routing()"  @click="index_array(folderx.id),detailing()"  class="p-2 w-full" >
-                       <img  
-                         :src="folderx.folder_image" class="w-16"/>
+                  <router-link :to="link_to">
+                    <div @click="isActive_function(folderx.id)" :class="{active: activeBtn === folderx.id }" class="p-2 w-full" >
+                       <img @dblclick="link_to='/program_area',perform()" @click="index_array(folderx.id),detailing()"
+                         :src="folder_icon" class="w-16"/>
                     </div>
-                    </div>
-                   <h1 class="text-blue-150">{{folderx.folder_name}}</h1>
+                    </router-link>
+                   <h1 class="text-blue-150">{{folderx.level}}</h1>
                   </div>
                     
                     </div>
@@ -227,7 +226,7 @@
                       </span>
                        Update
                     </button>
-                    <button type="submit" value="Submit" @click="text_modal='update this field'" v-else class="flex items-center justify-center px-5 gap-2 text-white  w-24 h-8  bg-blue-150"> 
+                    <button type="submit" value="Submit" @click="text_modal='update this field' ,updateTaskForceMember()" v-else class="flex items-center justify-center px-5 gap-2 text-white  w-24 h-8  bg-blue-150"> 
                     <span class="material-icons">
                       refresh 
                       </span>
@@ -236,59 +235,22 @@
                        </div>
                   </div>
                   </form>
-                  <div class="flex flex-col px-10">
+                  <div class="flex flex-col px-10" >
                   <h1 class="text-lg text-blue-150 font-bold">Task Force</h1>
-                  <div class="overflow-y-auto h-28 gap-y-4 flex flex-col ">
-                       <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-start gap-x-4 w-3  /4 pr-10" v-for="taskforce in taskForceMember">
+                  <div class="overflow-y-auto h-28 gap-y-4 flex flex-col " >
+                       <div class=" border-b-2 border-yellow-150 flex justify-between" v-for="taskforce in taskForceMembers" :key="taskforce.id">
+                        <div class="flex justify-start gap-x-4 w-3  /4 pr-10" >
                             <h1 class="text-sm text-blue-150">{{taskforce.firstName}} {{taskforce.lastName}}</h1>
                             <h1 class="text-sm text-yellow-150">{{taskforce.email}}</h1>
                             <h1 class="text-sm text-yellow-150">{{taskforce.roleType}}</h1>
                             <h1 class="text-sm text-yellow-150">{{taskforce.contactNumber}}</h1>
                         </div>   
                         <div >                     
-                            <button @click="update_button=!update_button" class=" w-20  text-white border-2 bg-blue-150">Edit</button>
+                            <button @click="update_button=!update_button,editTaskForce(taskforce.id)" class=" w-20  text-white border-2 bg-blue-150" >Edit</button>
                             <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
                         </div>
                         </div>
-                          
-                        
-                         <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
-                            <h1 class="text-lg text-blue-150">Name</h1>
-                            <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150">Role</h1>
-                            
-                        </div>   
-                        <div >                     
-                            <button class=" w-20  text-white border-2 bg-blue-150">Edit</button>
-                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
-                        </div>
-                        </div>
-                        <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
-                            <h1 class="text-lg text-blue-150">Name</h1>
-                            <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150">Role</h1>
-                            
-                        </div>   
-                        <div >                     
-                            <button class=" w-20  text-white border-2 bg-blue-150">Edit</button>
-                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
-                        </div>
-                        </div>
-                           <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
-                            <h1 class="text-lg text-blue-150">Name</h1>
-                            <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150">Role</h1>
-                            
-                        </div>   
-                        <div >                     
-                            <button class=" w-20  text-white border-2 bg-blue-150">Edit</button>
-                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
-                        </div>
-                        </div>
+          
                   </div>
                   </div>
                   
@@ -308,7 +270,7 @@
                   </div>
                   <div class="flex justify-end absolute right-10 bottom-10">
                     <div class="flex gap-x-1">
-                      <button @click="confirmation=!confirmation,update_button=true,addTaskForceMember()" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
+                      <button @click="confirmation=!confirmation,update_button=true,addTaskForceMember(),updateTaskForceMember()" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
                       <button @click="confirmation=!confirmation" class="px-1 rounded-md text-blue-150 bg-white border-2 border-blue-150">Cancel</button>
                     </div>
                   </div>
@@ -358,12 +320,14 @@ Details,
   data(){
     return{
       levels: [],
-        show_details:false,
+    show_details:false,
         show_add_Taskforce:false,
         confirmation:false,  
         confirmation_deletion:false,
+        update_button:true,
         link_to:'',
         activeBtn:0,
+        text_modal:'',
         index:'',
         items:['first'],
         folder_details:[
@@ -393,6 +357,14 @@ Details,
         email: "",
         roleType: "",
       },
+        taskForceMembers: {
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        contactNumber: "",
+        email: "",
+        roleType: "",
+      },
      folderArea:[],
      sendID: '',
      folder_icon:'/icons/icon15.png'
@@ -413,8 +385,10 @@ Details,
            });
 
            api.get("/api/getTaskForceMembers").then((res) =>{
-             this.taskForceMember = res.data;
+             this.taskForceMembers = res.data;
+              console.log(this.taskForceMembers);
            });
+           
        },
      addTaskForceMember() {
      // this.taskForceMember.roleType = this.selectedroleType;
@@ -438,9 +412,35 @@ Details,
      
          
     },
+    updateTaskForceMember() {
+     // this.taskForceMember.roleType = this.selectedroleType;
+      console.log(this.taskForceMember);
+      api
+        .post("/api/userInformation", this.taskForceMember)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((errors) => {
+          this.errors = errors.res;
+        });
+        
+     
+         
+    },
+
     logout(){
       localStorage.removeItem("Personal");
        this.$router.push({ path: "login" });
+   },
+   editTaskForce(e){
+     let index=this.taskForceMembers.findIndex(x => x.id===e)
+      this.taskForceMember.firstName=this.taskForceMembers[index].firstName;
+      this.taskForceMember.lastName=this.taskForceMembers[index].lastName;
+      this.taskForceMember.middleName=this.taskForceMembers[index].middleName;
+      this.taskForceMember.email=this.taskForceMembers[index].email;
+      this.taskForceMember.contactNumber=this.taskForceMembers[index].contactNumber;
+
+     
    },
     fetchlevels(){
         console.log("levels");
@@ -477,6 +477,7 @@ Details,
   created(){
     this.fetchlevels();
     this.getPersonal();
+    
     // this.fetchbenchmarks();
   }
 }

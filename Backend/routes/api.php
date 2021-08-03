@@ -21,16 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
-    Route::post("/updateArea", [updateController::class, 'updateArea']);
-    Route::post("/updateBenchmark", [updateController::class, 'updateBenchmark']);
-    Route::post("/updateParameter", [updateController::class, 'updateParameter']);
-    Route::post("/updateProgram", [updateController::class, 'updateProgram']);
-    Route::post("/updateProgramLevel", [updateController::class, 'updateProgramLevel']);
-    Route::post("/updateProgramLevelArea", [updateController::class, 'updateProgramLevelArea']);
-    Route::post("/updateProgramLevelBenchmark", [updateController::class, 'updateProgramLevelBenchmark']);
-    Route::post("/userAuthentication", [updateController::class, 'userAuthentication']);
-    Route::post("/userInformation", [updateController::class, 'userInformation']);
-
+    
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -66,3 +57,16 @@ Route::get('getTaskForceChairman',[FetchController::class, 'getTaskForceChairman
 Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);
 Route::get('getTaskForce', [FetchController::class, 'getTaskForce']);
 Route::get('getTaskForceMembers', [FetchController::class, 'getTaskForceMembers']);
+Route::get('getAccreditorMembers', [FetchController::class, 'getAccreditorMembers']);
+
+
+Route::post("/updateArea", [updateController::class, 'updateArea']);
+    Route::post("/updateBenchmark", [updateController::class, 'updateBenchmark']);
+    Route::post("/updateParameter", [updateController::class, 'updateParameter']);
+    Route::post("/updateProgram", [updateController::class, 'updateProgram']);
+    Route::post("/updateProgramLevel", [updateController::class, 'updateProgramLevel']);
+    Route::post("/updateProgramLevelArea", [updateController::class, 'updateProgramLevelArea']);
+    Route::post("/updateProgramLevelBenchmark", [updateController::class, 'updateProgramLevelBenchmark']);
+    Route::post("/userAuthentication", [updateController::class, 'userAuthentication']);
+    Route::post("/userInformation", [updateController::class, 'userInformation']);
+
