@@ -178,7 +178,7 @@ class UpdateController extends Controller
 
        // $userEmail = Auth::user()->email;
         $user = UserInformationModel::where('email',$request->email)->first();
-        $user->firstName = $request->firstname;
+        $user->firstName = $request->firstName;
         $user->lastName = $request->lastName;
         $user->middleName = $request->middleName;
         $user->contactNumber = $request->contactNumber;

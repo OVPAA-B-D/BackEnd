@@ -203,7 +203,7 @@
                     Close
                   </button>
                  </div>
-                 <form @submit.prevent="confirmation=!confirmation">
+                 <form @submit.prevent="confirmation=!confirmation" id="task_force_form">
                   <div class="flex items-center pt-3 px-10 gap-4 justify-between flex-wrap">
                       <div>
                         <h1 class="text-blue-150 text-sm">Firstname</h1>
@@ -508,6 +508,9 @@ export default {
               // localStorage.setItem("code", res.data.code);
               // this.$router.push({ name: "verifyemail" });
     },
+     routing(e){
+      this.$router.push(e)
+    },
    show_default(){
          let prev_f=document.getElementById(this.prev_folder_id)
           let prev_n=document.getElementById(this.prev_name_id)
@@ -537,6 +540,14 @@ export default {
         }
       
     },
+    function_reset(){
+       document.getElementById('task_force_form').reset();
+       this.accreditorMember.firstName='';
+      this.accreditorMember.lastName='';
+      this.accreditorMember.middleName='';
+      this.accreditorMember.email='';
+      this.accreditorMember.contactNumber='';
+     },
     index_array(e){
          this.index=this.folderArea.findIndex(x => x.id===e)
         

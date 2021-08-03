@@ -107,15 +107,19 @@
                </div>
                 <div class=" flex-row flex flex-wrap pl-7">
                   
-                     <div v-for="folderx in folderArea" :key="folderx.id" class="text-center justify-center items-center">
-                  <div class=" flex flex-col items-center justify-start w-32 h-auto  mt-10  mr-2cursor-pointer">
+                  
+
+
+                 <div v-for="folderx in folderArea" :key="folderx.id" class="text-center justify-center items-center">
+                  <div @click="isActive_function(folderx.id)" :class="{active: activeBtn === folderx.id }" 
+                  class=" flex flex-col cursor-pointer items-center hover:bg-gray-200 justify-start w-32 h-auto  mt-10  mr-2cursor-pointer">
                       
-                  <router-link :to="link_to">
-                    <div @click="isActive_function(folderx.id)" :class="{active: activeBtn === folderx.id }" class="p-2 w-full" >
-                       <img @dblclick="link_to='/program_area',perform()" @click="index_array(folderx.id),detailing()"
+                  <div>
+                    <div  @dblclick="routing()"  @click="index_array(folderx.id),detailing()"  class="p-2 w-full" >
+                       <img  
                          :src="folder_icon" class="w-16"/>
                     </div>
-                    </router-link>
+                    </div>
                    <h1 class="text-blue-150">{{folderx.level}}</h1>
                   </div>
                     
@@ -164,7 +168,7 @@
                     Close
                   </button>
                  </div>
-                 <form @submit.prevent="confirmation=!confirmation">
+                 <form @submit.prevent="confirmation=!confirmation" id="task_force_form">
                   <div class="flex items-center pt-3 px-10 gap-4 justify-between flex-wrap">
                       <div>
                         <h1 class="text-blue-150 text-sm">Firstname</h1>
@@ -320,14 +324,22 @@ Details,
   data(){
     return{
       levels: [],
-    show_details:false,
+    profile_pic:'',
+        show_details:false,
         show_add_Taskforce:false,
         confirmation:false,  
         confirmation_deletion:false,
         update_button:true,
         link_to:'',
         activeBtn:0,
+        welcome:'',
+        disabling_btn:true,
         text_modal:'',
+        fname:'',
+        lname:'',
+        mname:'',
+        email:'',
+        cnumber:'',
         index:'',
         items:['first'],
         folder_details:[
@@ -451,6 +463,14 @@ Details,
         return this.folderArea;
     })
     },
+    function_reset(){
+      document.getElementById('task_force_form').reset();
+      this.taskForceMember.firstName='';
+      this.taskForceMember.lastName='';
+      this.taskForceMember.middleName='';
+      this.taskForceMember.email='';
+      this.taskForceMember.contactNumber='';
+     },
     perform(){
               localStorage.setItem("levelID", JSON.stringify(this.folderArea[this.index].programLevelID));
               console.log(this.folderArea[this.index].programLevelID);
