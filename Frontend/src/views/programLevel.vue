@@ -463,6 +463,9 @@ Details,
         return this.folderArea;
     })
     },
+    routing(){
+        this.$router.push('/program_area')
+    },
     function_reset(){
       document.getElementById('task_force_form').reset();
       this.taskForceMember.firstName='';
