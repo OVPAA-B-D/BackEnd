@@ -609,7 +609,7 @@ export default {
             api
                 .post("api/MakeFolder", this.makeFolder)
                 .then((response) => {
-                    // location.reload()
+                    location.reload()
                 })
                 .catch((errors) => {
             this.errors = errors.response;
