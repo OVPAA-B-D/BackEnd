@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class InsertController extends Controller
 {
@@ -141,6 +142,29 @@ class InsertController extends Controller
         $taskforce->taskforceEmail = $request->taskforceEmail;
         $taskforce->roleDescription = $request->roleDescription;
         $taskforce->save();
+    }
+
+    function MakeFolder(Request $request){
+
+        $createFolderStatus = $request->createFolderStatus;
+        $programID=$request->programID;
+        
+        if($createFolderStatus == 1){
+            $files = "/files/".$programID;
+            Storage::makeDirectory($files);
+            $pre= "/$files/"."PreliminarySurveyVisit";
+            Storage::makeDirectory($pre);
+            $level1= "/$files/"."Level1";
+            Storage::makeDirectory($level1);
+            $level2= "/$files/"."Level2";
+            Storage::makeDirectory($level2);
+            $level3= "/$files/"."Level3";
+            Storage::makeDirectory($level3);
+            $level4= "/$files/"."Level4";
+            Storage::makeDirectory($level4);
+
+        }
+
     }
 
 }
