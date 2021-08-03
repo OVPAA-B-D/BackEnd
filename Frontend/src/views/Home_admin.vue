@@ -160,24 +160,19 @@
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Campus</h1>
                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select  id="selected_campus" required class="fill-current   italic text-blue-150 w-74 px-4 rounded-md  h-12 focus:outline-none cursor-pointer ">
+                      <select  id="selected_campus" required class="fill-current   italic text-blue-150 w-74 px-4 rounded-md  h-12 focus:outline-none cursor-pointer " @change="getCampusCode()">
                       <option selected disabled value=""> Select a Campus</option>
-                      <option value="Main">Main Campus</option>
-                      <option value="East">East Campus</option>
-                      <option value="Daraga">Daraga Campus</option>
-                      <option value="Tabaco">Tabaco Campus</option>
-                      <option value="Guinobatan">Guinobatan Campus</option>
-                      <option value="Polangui">Polangui Campus</option>
-                      <option value="Gubat">Gubat Campus</option>
+                      <option v-for="campus in campuses" v-bind:key="campus.id" v-bind:value="campus.campusCode"> {{ campus.campusName }}</option>
+                      
                       </select>
                        </div>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">College</h1>
                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select  id="selected_college" required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                      <select  id="selected_college" required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer" @change="getProgramCode()">
                       <option selected disabled value="" >Choose a College</option>
-                      <option  >College of Science</option>
+                      <option  v-for="college in colleges" v-bind:key="college.id" v-bind:value="college.collegeCode"> {{ college.collegeName }}</option>
                       </select>
                       </div>
                       </div>
@@ -186,7 +181,7 @@
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
                       <select  id="selected_program" required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
                       <option selected disabled value="" > Choose a Program</option>
-                      <option>Computer Science</option>
+                      <option v-for="program in programs" v-bind:key="program.id" v-bind:value="program.programCode"> {{ program.programName }}</option>
                       </select>
                       </div>
                       </div>
@@ -502,6 +497,9 @@ export default {
       id_array:'0',
       index:0,
       imageName:"",
+      campuses:[],
+      colleges:[],
+      programs:[],
       tblprogramDatabase:[],
       filtered_program:[{
         programID: "",
@@ -559,6 +557,37 @@ export default {
   
 
    methods:{
+
+     getCampus(){
+        api.get("/api/getCampuses").then((res)=>{
+          this.campuses = res.data; 
+
+          console.log("Campuses:", this.campuses);
+        });
+     },
+
+     getCampusCode(){
+       var getCampusCode = document.getElementById("selected_campus").value;
+        api.get("/api/getColleges", {params:{campusCode: getCampusCode}}).then((res)=>{
+          this.colleges = res.data; 
+
+          console.log("Colleges:", this.colleges);
+        });
+
+     },
+
+     getProgramCode(){
+       var getCollegeCode = document.getElementById("selected_college").value;
+       console.log("CollegeCode:", getCollegeCode);
+        api.get("/api/getPrograms", {params:{collegeCode: getCollegeCode}}).then((res)=>{
+          this.programs = res.data; 
+
+          console.log("Programs:", this.programs);
+        });
+     },
+
+
+
 
      getPersonal(){
         var personal = JSON.parse(localStorage.getItem("Personal"));
@@ -755,6 +784,7 @@ export default {
      created(){
         this.retrieve();
         this.getPersonal();
+        this.getCampus();
       }
 }
 

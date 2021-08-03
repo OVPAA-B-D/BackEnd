@@ -274,7 +274,7 @@
                   </div>
                   <div class="flex justify-end absolute right-10 bottom-10">
                     <div class="flex gap-x-1">
-                      <button @click="confirmation=!confirmation,update_button=true,addTaskForceMember(),updateTaskForceMember()" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
+                      <button @click="confirmation=!confirmation,update_button=true,addTaskForceMember(),updateTaskForceMember(),function_reset()" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
                       <button @click="confirmation=!confirmation" class="px-1 rounded-md text-blue-150 bg-white border-2 border-blue-150">Cancel</button>
                     </div>
                   </div>
@@ -417,6 +417,7 @@ Details,
         .post("/api/UserAuthentication", this.taskForceMember)
         .then((res) => {
           console.log(res);
+          location.reload();
         })
         .catch((errors) => {
           this.errors = errors.res;
@@ -431,6 +432,7 @@ Details,
         .post("/api/userInformation", this.taskForceMember)
         .then((res) => {
           console.log(res);
+          location.reload();
         })
         .catch((errors) => {
           this.errors = errors.res;

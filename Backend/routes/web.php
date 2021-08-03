@@ -61,6 +61,9 @@ Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);
 Route::get('getTaskForce', [FetchController::class, 'getTaskForce']);
 Route::get('getTaskForceMembers', [FetchController::class, 'getTaskForceMembers']);
 Route::get('getAccreditorMembers', [FetchController::class, 'getAccreditorMembers']);
+Route::get('getCampuses', [FetchController::class, 'refCampus']);
+Route::get('getColleges', [FetchController::class, 'refColleges']);
+Route::get('getPrograms', [FetchController::class, 'refPrograms']);
 
 Route::post("/updateArea", [updateController::class, 'updateArea']);
 Route::post("/updateBenchmark", [updateController::class, 'updateBenchmark']);

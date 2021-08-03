@@ -168,5 +168,21 @@ function getTaskForce(){
         return response()->json($data);
     }
 
+    function refCampus(){
+        $campus = DB::select('SELECT * FROM refcampus ORDER BY campusName');
+        return $campus;
+    }
+
+    function refColleges(Request $request){
+        $colleges = DB::select('SELECT * FROM refcollege WHERE campusCode = \''.$request->campusCode.'\' ORDER BY  collegeName');
+        return $colleges;
+
+    }
+
+    function refPrograms(Request $request){
+        $program = DB::select('SELECT * FROM refprogam WHERE collegeCode = \''.$request->collegeCode.'\' ORDER BY programName');
+        return $program;
+    }
+
 
 }
