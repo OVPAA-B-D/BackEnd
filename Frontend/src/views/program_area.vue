@@ -77,7 +77,7 @@
         <div class=" flex justify-between  items-center">
             <div class="flex space-x-2 ">
                 
-          <button class=" bg-blue-500  space-x-2
+          <button @click=" show_add_area=!show_add_area" class=" bg-blue-500  space-x-2
           flex justify-evenly items-center text-white px-3 text-center">
             <p class="material-icons  text-lg ">add_circle_outline</p> <p>Add</p>
           </button>
@@ -293,6 +293,35 @@
                   </div>
              </div>
              </div>
+
+<!--Add Area-->
+           <div v-if=" show_add_area" class="fixed z-10  flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
+             <div class="w-97 flex flex-col bg-white pb-3 gap-y-3 shadow-3xl rounded-3xl">
+                    <div class="flex justify-between rounded-t-2xl px-4 shadow-3xl items-center h-12  bg-gradient-to-r from-blue-150 via-gray-300  to-yellow-150">
+                          <h1 class="text-lg text-white">Add Area</h1>
+                            <button @click="show_add_area=!show_add_area" class="text-white text-lg">
+                                CLOSE 
+                            </button>
+                    </div>
+                    <div class="flex px-4 space-x-7 justify-start items-center">
+                      <div class="w-full">
+                      <h1 class="text-blue-150">Area</h1>
+                      <div class="p-0.5 bg-gradient-to-b from-blue-150 to-yellow-150 rounded-md">
+                     <input placeholder="Area Name" type="text" class=" pl-3 placeholder-blue-150 rounded-md w-full text-blue-150 h-12 focus:outline-none " v-model="area.areaLabel"/>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="w-full px-4 flex justify-end">
+                    <button @click="addArea(),show_add_area=!show_add_area"  class="text-white w-20 py-2 flex space-x-1 rounded-lg  justify-center items-center  bg-blue-150 px-4 text-sm">
+                      <img src="/icons/icon12_add.svg" class="w-4 h-4"/>
+                      <h1>Add</h1>
+                      </button>
+                    </div>
+             </div>
+          
+            
+          </div>
+             
              <!--Confimation-->
             <div v-if="confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
                  <div class=" flex flex-col justify-start relative
@@ -371,6 +400,7 @@ export default {
         btn_enable:'off',
         text_modal:'',
         update_button:true,
+        show_add_area:false,
         component:"Details",
         linkto:'',
         index:'',
@@ -388,6 +418,18 @@ export default {
         location:'',
         accessed:'',
         created:'',
+
+        area: {
+          areaID: '',
+          areaLabel: '',
+        },
+
+        filterredarea: [{
+          areaID: '',
+          areaLabel: '',
+        }],
+
+
          personalInfo: {
         firstName: "",
         lastName: "",
@@ -441,11 +483,57 @@ export default {
              this.accreditorMembers = res.data;
               console.log(this.accreditorMembers);
            });
+
+           api.get("/api/getAreas").then((res)=>{
+             this.area = res.data;
+             this.filterredarea = res.data;
+            
+             console.log(this.area);
+           })
+
+
     },
     logout(){
       localStorage.removeItem("Personal");
        this.$router.push({ path: "login" });
    },
+   addArea(){
+      this.genAreaID();
+      console.log("Area: Not Save", this.area);
+      api.post("/api/Area", this.area).then((res)=>{
+        console.log("Area: ",res);
+      }).catch((res)=>{
+        this.errors=error.res;
+      });
+   },
+    genAreaID(){
+      
+       var arrFiltered_area=[];
+        console.log("boom",this.filterredarea);
+        if(this.filterredarea !=""){
+          
+            console.log("asdasdas");
+            this.filterredarea.forEach((value,index) => {
+            arrFiltered_area.push(value);
+            });
+            console.log("asd",arrFiltered_area[0].areaID);
+            const arrAreaID = arrFiltered_area[arrFiltered_area.length-1].areaID.split("-");
+            var areaNumber = parseInt(arrFiltered_area[1]);          
+            areaNumber++;
+            var areaNumberString = areaNumber.toString();
+            
+            while (areaNumberString.length < arrAreaID[1].length) areaNumberString = "0" + areaNumberString;
+            
+            this.area.areaID = "ARE-" +areaNumberString;
+     
+         }
+          else{
+              this.area.areaID = "ARE-00001";
+              
+          }
+
+    },
+
     addAccreditorMember() {
      // this.taskForceMember.roleType = this.selectedroleType;
       console.log(this.accreditorMember);

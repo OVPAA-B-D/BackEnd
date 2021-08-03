@@ -184,5 +184,13 @@ function getTaskForce(){
         return $program;
     }
 
+    function getAreas(){
+        $data = DB::select('SELECT * FROM tbl_area');
+
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+    }
+
 
 }

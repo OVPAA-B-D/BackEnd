@@ -39,12 +39,13 @@ Route::post('Login', [LoginController::class, 'Login'])->name('Login');
 Route::post('Program', [InsertController::class, 'Program']);
 Route::post('Member', [InsertController::class, 'Member']);
 Route::post('Parameter', [InsertController::class, 'Parameter']);
-Route::post('Area', [InsertController::class, 'Area']);
+
 Route::post('ProgramLevel', [InsertController::class, 'ProgramLevel']);
 Route::post('ProgramLevelArea', [InsertController::class, 'ProgramLevelArea']);
 Route::post('ProgramLevelBenchmark', [InsertController::class, 'ProgramLevelBenchmark']);
 Route::post('UserAuthentication', [InsertController::class, 'UserAuthentication']);
 Route::post('TaskForce', [InsertController::class, 'TaskForce']);
+Route::post('Area', [InsertController::class, 'Area']);
 
 Route::get('getPersonal', [FetchController::class, 'getMember']);
 Route::post('TaskForce', [InsertController::class, 'TaskForce']);
@@ -64,6 +65,7 @@ Route::get('getAccreditorMembers', [FetchController::class, 'getAccreditorMember
 Route::get('getCampuses', [FetchController::class, 'refCampus']);
 Route::get('getColleges', [FetchController::class, 'refColleges']);
 Route::get('getPrograms', [FetchController::class, 'refPrograms']);
+Route::get('getAreas', [FetchController::class, 'getAreas']);
 
 Route::post("/updateArea", [updateController::class, 'updateArea']);
 Route::post("/updateBenchmark", [updateController::class, 'updateBenchmark']);

@@ -16,7 +16,7 @@ use App\Models\TaskForceModel;
 use App\Models\User;
 use App\Models\UserInformationModel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -67,14 +67,6 @@ class InsertController extends Controller
         $benchmark->benchmarkLabel = $request->benchmarkLabel;
 
         $benchmark->save();
-    }
-
-    function Area(Request $request){
-        $area = new AreaModel();
-        $area->areaID = $request->areaID;
-        $area->areaLabel = $request->areaLabel;
-
-        $area->save();
     }
 
     function ProgramLevel(Request $request){
@@ -164,6 +156,24 @@ class InsertController extends Controller
         $taskforce->taskforceEmail = $request->taskforceEmail;
         $taskforce->roleDescription = $request->roleDescription;
         $taskforce->save();
+    }
+
+    function Area(Request $request){
+
+        $validator=Validator::make($request->all(),[
+            'areaID' => ['required'],
+            'areaLabel' => ['required']
+       ]);
+       if($validator->fails()) {
+        return response()->json($validator->errors(),422);
+    }
+
+        $area = new AreaModel();
+        $area->areaID = $request->areaID;
+        $area->areaLabel = $request->areaLabel;
+
+        $area->save();
+
     }
 
 }
