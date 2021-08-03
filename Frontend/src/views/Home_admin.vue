@@ -609,7 +609,7 @@ export default {
             api
                 .post("api/MakeFolder", this.makeFolder)
                 .then((response) => {
-            
+                    location.reload()
                 })
                 .catch((errors) => {
             this.errors = errors.response;
@@ -710,19 +710,15 @@ export default {
         
         var arrFiltered_program=[];
 
-      
-
         console.log("boom",this.filtered_program);
         if(this.filtered_program !=""){
           
-          console.log("asdasdas");
-          if(this.StatusProgram == "1") {
+            console.log("asdasdas");
             this.filtered_program.forEach((value,index) => {
             arrFiltered_program.push(value);
-            console.log(arrFiltered_program);
             });
-          
-            const arrProgramID = arrFiltered_program[arrFiltered_program.length-1][0].split("-");
+            console.log("asd",arrFiltered_program[0].programID);
+            const arrProgramID = arrFiltered_program[arrFiltered_program.length-1].programID.split("-");
             var programNumber = parseInt(arrProgramID[1]);          
             programNumber++;
             var programNumberString = programNumber.toString();
@@ -731,23 +727,7 @@ export default {
             
 
             this.addProgram.programID = "PRO-" +programNumberString;
-          }
-          else if(this.StatusProgram == "0") {
-            this.StatusProgram= "1";
-            this.filtered_program.forEach((value,index) => {
-            arrFiltered_program.push(value);
-            });
-          
-            const arrProgramID = arrFiltered_program[arrFiltered_program.length-1][1].split("-");
-            var programNumber = parseInt(arrProgramID[1]);          
-            programNumber++;
-            var programNumberString = programNumber.toString();
-            
-            while (programNumberString.length < arrProgramID[1].length) programNumberString = "0" + programNumberString;
-            
-
-            this.addProgram.programID = "PRO-" +programNumberString;
-          } 
+     
          }
           else{
               this.addProgram.programID = "PRO-00001";
@@ -804,6 +784,7 @@ export default {
         
         if(this.getLevelAll == ""){
           this.addLevel.programLevelID = "PLL-00001";
+          this.Status="1";
         }
         else{
 
@@ -813,6 +794,8 @@ export default {
           arrGetLevelAll.push(value);
           
           });
+
+          
           const arrProgramLevelID = arrGetLevelAll[arrGetLevelAll.length-1][0].split("-");
           var programLevelNumber = parseInt(arrProgramLevelID[1]);          
           programLevelNumber++;
@@ -828,8 +811,8 @@ export default {
           arrGetLevelAll.push(value);
  
           });
-
-          const arrProgramLevelID = arrGetLevelAll[arrGetLevelAll.length-1][1].split("-");
+          console.log("mmmmm",arrGetLevelAll[4]);
+          const arrProgramLevelID = arrGetLevelAll[arrGetLevelAll.length-1].programID.split("-");
           var programLevelNumber = parseInt(arrProgramLevelID[1]);          
           programLevelNumber++;
           var programLevelNumberString = programLevelNumber.toString();
