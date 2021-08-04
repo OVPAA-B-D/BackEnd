@@ -28,8 +28,8 @@ class ProgramLevelBenchmarkModel extends Authenticatable
         'uploadedBy',
         'uploadedDate',
         'modifiedBy',
-        'modifiedDate'
-
+        'modifiedDate',
+        'submitStatus'
     ];
 
 }

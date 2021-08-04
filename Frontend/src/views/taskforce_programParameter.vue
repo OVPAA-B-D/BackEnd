@@ -381,7 +381,8 @@
                                 />
                                 <button
                                   @click="
-                                    show_add_edit_row = !show_add_edit_row
+                                    show_add_edit_row = !show_add_edit_row;
+                                    submitFile(benchmark_row);
                                   "
                                   class="
                                     text-white
@@ -492,7 +493,7 @@
                                       <img
                                         src="icons/icon13.svg"
                                         class="w-4 inline"
-                                      />{{ file_row.file }}
+                                      />{{ file_row.filename }}
                                     </div>
                                   </div>
                                 </div>
@@ -781,20 +782,22 @@ export default {
       ],
       Parameter: [],
       Files: [],
-      tempUpload: "",
 
-      // tempUpload: [
-      //   {
-      //     id: "",
-      //     programLevelBenchmarkID: "",
-      //     benchmarkID: "",
-      //     programLevelID: "",
-      //     file: "",
-      //     uploadedBy: "",
-      //     uploadedDate: "",
-      //     modifiedBy: "",
-      //     modifiedDate: ""
-      // }],
+      tempUpload: 
+      {
+        programID: "",
+        programLevelBenchmarkID: "",
+        benchmarkID: "",
+        programLevelID: "",
+        file: "",
+        uploadedBy: "",
+        uploadedDate: "",
+        modifiedBy: "",
+        modifiedDate: "",
+        submitStatus: ""
+      },
+
+      selectedFile: ""
     };
   },
   methods: {
@@ -877,40 +880,54 @@ export default {
     },
 
     add_files(e) {
+      const tempFile=e.target.files[0];
+      this.tempUpload.file=URL.createObjectURL(tempFile);
+      this.tempUpload.programLevelBenchmarkID = "3";
+      this.tempUpload.programID = "1";
+      this.tempUpload.benchmarkID = "B5";
+      this.tempUpload.programLevelID = "12";
       // console.log("Uploaded1");
-      this.tempUpload = this.$refs.file_in.files;
-      // let formData = new FormData();
-      // formData.append('file', this.tempUpload);
+      // this.tempUpload.file = this.$refs.file_in.files;
+      
+      // this.tempUpload=e.target.files;
+      let formData = new FormData();
+      formData.append('file', this.selectedFile);
       // console.log(formData);
-      // axios
-        // .post("/single-file",formData,{headers:{'Content-Type': 'multipart/form-data'}})
       api
         .post("api/ProgramLevelBenchmark",this.tempUpload)
         .then(function(){
           console.log("Success");
+          this.fetchFiles();
+          axios
+            .post("/single-file",formData,{headers:{'Content-Type': 'multipart/form-data'}})
         })
         .catch(function(){
           console.log("Fail");
         });
-      this.fetchFiles();
+      // this.fetchFiles();
       
 
       // console.log(e.data);
       // api.post("api/ProgramLevelBenchmark", this.tempUpload);
-      // this.files=e.target.files;
-      // this.files=URL.createObjectURL(files);
+      
     },
     
-    uploadFile() {
-      console.log("Uploaded2");
-      // api.post("api/ProgramLevelBenchmark", this.tempUpload)
-      //.then((response)=>{
-      //this.pdfArray=response.data;
-      //console.log(response.data);
-      // }).catch(errors => {
-      // console.log(errors.response);
-      //});
+    submitFile(e){
+      // console.log(e);
+      api
+        .post("api/submitProgramLevelBenchmark", e)
+        .then(function(){
+          console.log(e);
+        })
+        .catch(function(){
+          console.log("Submission failed");
+        })
     },
+
+    unsubmitFIle(){
+      // api
+      //   .post("api/ProgramLevelBenchmark", this.)
+    }
   },
   mounted() {
     this.fetchParameters();

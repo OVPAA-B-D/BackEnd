@@ -46,6 +46,8 @@ Route::post('ProgramLevelBenchmark', [InsertController::class, 'ProgramLevelBenc
 Route::post('UserAuthentication', [InsertController::class, 'UserAuthentication']);
 Route::post('TaskForce', [InsertController::class, 'TaskForce']);
 Route::post('Area', [InsertController::class, 'Area']);
+Route::post("submitProgramLevelBenchmark", [updateController::class, 'submitProgramLevelBenchmark']);
+
 
 Route::get('getPersonal', [FetchController::class, 'getMember']);
 Route::post('TaskForce', [InsertController::class, 'TaskForce']);
