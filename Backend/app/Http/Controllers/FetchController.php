@@ -192,5 +192,7 @@ function getTaskForce(){
         return response()->json($data);
     }
 
+   
+
 
 }

@@ -152,7 +152,7 @@
                   <img   class="w-16" src="icons/icon15.png">
                   </div>
                     <span class="flex flex-col   justify-center w-full">
-                    <label :for="folderx.id"><h1 :id="folderx.id">{{folderx.programLevelAreaID}}</h1></label>
+                    <label :for="folderx.id"><h1 :id="folderx.id">{{folderx.areaLabel}}</h1></label>
                     <input  v-model="folderx.programLevelAreaID" :id="folderx.id+'x'"  type="text" class="hidden text-center focus:outline-none border-2 border-black h-5"/>
                   </span>
                   </div>
@@ -394,6 +394,7 @@ export default {
   data(){
     return{
       levels: [],
+      
          confirmation_deletion:false,
         confirmation:false,
         show_details:false,
@@ -412,6 +413,9 @@ export default {
         confirm_accre:false,
         activeBtn:0,
         
+       
+        
+
         bg_btn:0,
         status:'',
         owner:'',
@@ -423,7 +427,7 @@ export default {
           areaID: '',
           areaLabel: '',
         },
-
+        formArea: new FormData(),
         filterredarea: [{
           areaID: '',
           areaLabel: '',
@@ -463,7 +467,9 @@ export default {
             created:'Admin',
           }
         ],
-     folderArea:[],
+     folderArea:[{
+       
+     }],
      folder_icon:'/icons/icon15.png'
     }
   },
@@ -487,8 +493,8 @@ export default {
            api.get("/api/getAreas").then((res)=>{
              this.area = res.data;
              this.filterredarea = res.data;
-            
-             console.log(this.area);
+              this.folderArea=res.data;
+             console.log("Area Saved: ",this.area);
            })
 
 
@@ -496,15 +502,6 @@ export default {
     logout(){
       localStorage.removeItem("Personal");
        this.$router.push({ path: "login" });
-   },
-   addArea(){
-      this.genAreaID();
-      console.log("Area: Not Save", this.area);
-      api.post("/api/Area", this.area).then((res)=>{
-        console.log("Area: ",res);
-      }).catch((res)=>{
-        this.errors=error.res;
-      });
    },
     genAreaID(){
       
@@ -518,7 +515,7 @@ export default {
             });
             console.log("asd",arrFiltered_area[0].areaID);
             const arrAreaID = arrFiltered_area[arrFiltered_area.length-1].areaID.split("-");
-            var areaNumber = parseInt(arrFiltered_area[1]);          
+            var areaNumber = parseInt(arrAreaID[1]);          
             areaNumber++;
             var areaNumberString = areaNumber.toString();
             
@@ -534,6 +531,20 @@ export default {
 
     },
 
+   addArea(){
+      this.genAreaID();
+      console.log("Area: Not Save", this.area);
+      this.formArea.append("areaID", this.area.areaID);
+      this.formArea.append("areaLabel", this.area.areaLabel);
+
+      console.log("Area: Not Save", this.formArea);
+      api.post("/api/Area", this.formArea).then((res)=>{
+        console.log("Area: ",res);
+      }).catch((res)=>{
+        this.errors=error.res;
+      });
+   },
+   
     addAccreditorMember() {
      // this.taskForceMember.roleType = this.selectedroleType;
       console.log(this.accreditorMember);

@@ -115,9 +115,9 @@
                   class=" flex flex-col cursor-pointer items-center hover:bg-gray-200 justify-start w-32 h-auto  mt-10  mr-2cursor-pointer">
                       
                   <div>
-                    <div  @dblclick="routing()"  @click="index_array(folderx.id),detailing()"  class="p-2 w-full" >
-                       <img  
-                         :src="folder_icon" class="w-16"/>
+                    <div  @dblclick="routing()"  @click="index_array(folderx.id),detailing()"  class="p-2 w-16" >
+                      <img v-if="folderx.level!='Preliminary Survey Visit'" src="icons/icon15.png">
+                      <img v-else:  src="icons/icon21.png">
                     </div>
                     </div>
                    <h1 class="text-blue-150">{{folderx.level}}</h1>
@@ -457,12 +457,20 @@ Details,
      
    },
     fetchlevels(){
+
+      let temp = [];
         console.log("levels");
       api.get('api/getProgramLevel').then(response => {
         // get body data
-        this.folderArea= response.data;
+
+       temp= response.data;
+        temp.forEach((value, index) => {
+        if(value.programID === JSON.parse(localStorage.getItem('programID'))){
+          return this.folderArea.push(value)
+        }
+        });  
         console.log('levels' ,this.folderArea);
-        return this.folderArea;
+
     })
     },
     routing(){

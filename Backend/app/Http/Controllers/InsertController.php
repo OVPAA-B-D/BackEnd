@@ -133,7 +133,7 @@ class InsertController extends Controller
                 $returnValue = ['code' => $code, 'email'=>'email'];
         
     
-        return json_encode($returnValue);
+                return response()->json($returnValue);
     
         
     

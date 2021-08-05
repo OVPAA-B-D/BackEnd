@@ -373,7 +373,16 @@ export default {
         //   {name:'Benchmark 3',id:2},
           
         // ],
-
+      filteredParameter:{
+        parameterID: '',
+        parameterLabel: '',
+        areaID: '',
+      },
+      filteredBenchmark:{
+        benchmarkID: '',
+        benchmarkLabel: '',
+        parameterID: '',
+      },
          personalInfo: {
         firstName: "",
         lastName: "",
@@ -419,6 +428,7 @@ export default {
         console.log("parameters");
       api.get('api/getParameter').then(response => {
         temp= response.data;
+        this.filteredParameter=response.data;
         temp.forEach((value, index) => {
         if(value.areaID === JSON.parse(localStorage.getItem('areaID'))){
           return this.parameters.push(value)
@@ -430,10 +440,68 @@ export default {
         console.log("benchmarks");
       api.get('api/getBenchmark').then(response => {
         this.benchmarks= response.data;
+        this.filteredBenchmark=response.data;
         console.log('benchmarks' ,this.benchmarks);
         return this.benchmarks;
     });
     },
+
+     genParameterID(){
+      
+       var arrFiltered_parameter=[];
+        console.log("boom",this.filteredParameter);
+        if(this.filteredParameter !=""){
+          
+            console.log("asdasdas");
+            this.filteredParameter.forEach((value,index) => {
+            arrFiltered_parameter.push(value);
+            });
+            console.log("asd",arrFiltered_parameter[0].parameterID);
+            const arrParameterID = arrFiltered_parameter[arrFiltered_parameter.length-1].parameterID.split("-");
+            var parameterNumber = parseInt(arrParameterID[1]);          
+            parameterNumber++;
+            var parameterNumberString = parameterNumber.toString();
+            
+            while (parameterNumberString.length < arrParameterID[1].length) parameterNumberString = "0" + parameterNumberString;
+            
+            this.storeParameter.parameterID = "PAR-" +parameterNumberString;
+     
+         }
+          else{
+              this.storeParameter.parameterID = "PAR-00001";
+              
+          }
+
+    },
+
+     genBenchmarkID(){
+      
+       var arrFiltered_benchmark=[];
+        console.log("boom",this.filteredBenchmark);
+        if(this.filteredBenchmark !=""){
+          
+            console.log("asdasdas");
+            this.filteredBenchmark.forEach((value,index) => {
+            arrFiltered_benchmark.push(value);
+            });
+            console.log("asd",arrFiltered_benchmark[0].benchmarkID);
+            const arrBenchmarkID = arrFiltered_benchmark[arrFiltered_benchmark.length-1].benchmarkID.split("-");
+            var benchmarkNumber = parseInt(arrBenchmarkID[1]);          
+            benchmarkNumber++;
+            var benchmarkNumberString = benchmarkNumber.toString();
+            console.log("benchmark:",benchmarkNumber);
+            while (benchmarkNumberString.length < arrBenchmarkID[1].length) benchmarkNumberString = "0" + benchmarkNumberString;
+            
+            this.storeBenchmark.benchmarkID = "BMK-" +benchmarkNumberString;
+     
+         }
+          else{
+              this.storeBenchmark.benchmarkID = "BMK-00001";
+              
+          }
+
+    },
+
       show_input(id1,id2){
         let x=document.getElementById(id1)
         let y=document.getElementById(id2)
@@ -466,6 +534,7 @@ export default {
       },
       addParameter(){
       this.storeParameter.areaID = JSON.parse(localStorage.getItem('areaID'));
+      this.genParameterID();
       api.post('/api/Parameter', this.storeParameter).then(()=>{
           this.show_add_parameter = false;
           location.reload();
@@ -477,13 +546,13 @@ export default {
       // console.log("Add Benchmark Function" , this.storeBenchmark.parameterID);
     },
     saveBenchmark(){
-      this.storeBenchmark.benchmarkID = this.parameterID + 1;
+     // this.storeBenchmark.benchmarkID = this.parameterID + 1;
 
       // console.log("SaveFunction" , this.storeBenchmark);
-
+      this.genBenchmarkID();
       api.post('/api/Benchmark', this.storeBenchmark).then(()=>{
       this.show_add_benchmark = false;
-          location.reload();
+         // location.reload();
         });
     }
   },

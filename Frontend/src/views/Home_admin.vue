@@ -134,7 +134,7 @@
                    <h1 class="flex-wrap text-blue-150  text-sm "> {{programx.level}}<br></h1>
                    <h1 class="flex-wrap text-blue-150  text-lg ">Accreditation</h1>
                   </div>
-                 <router-link to="/program_level">
+                 <router-link to="/program_level" @click="perform()">
                   <div class="absolute w-17 justify-evenly border-4 border-white  text-sm rounded-br-xl rounded-tl-xl bg-yellow-150 text-white pb-2 cursor-pointer flex items-center  bottom-0 right-0">
                      <h1 class="font-normal">Open File</h1>
                   <i class=" far fa-folder-open"></i>
@@ -485,6 +485,11 @@ export default {
       makeFolder:{
           createFolderStatus:"",
           programID:"",
+      },
+      getTaskForceChairman:{
+          programID:"",
+          taskforceEmail: "",
+          roleDescription:"",
       }
     }
   },
@@ -569,7 +574,9 @@ export default {
           
           console.log("haya",this.addProgram);
           
-          
+          api.post("api/UserAuthentication", this.addProgram).then((res)=>{
+                console.log(res);
+              });    
           
           
           api
@@ -612,6 +619,9 @@ export default {
                 
                
                   
+
+              
+
               api
                 .post("api/ProgramLevel",this.addLevel)
                 .then((response) => {
@@ -629,7 +639,7 @@ export default {
             api
                 .post("api/MakeFolder", this.makeFolder)
                 .then((response) => {
-                    location.reload()
+                 //   location.reload()
                 })
                 .catch((errors) => {
             this.errors = errors.response;
@@ -648,11 +658,13 @@ export default {
               .spread((...responses) => {
                 
                     this.filtered_program = responses[0].data;
+                    this.getTaskForceChairman = responses[1].data;
                     this.getLevel = responses[2].data;
                     this.getLevelAll = responses[3].data;
                     
                     
                     console.log("Program",this.filtered_program);
+                    console.log("TaskForceChairman",this.getTaskForceChairman);
                     console.log("Level",this.getLevel);
                      console.log("Level All",this.getLevelAll);
                     this.level();
@@ -660,6 +672,8 @@ export default {
           })).catch(errors=>{
               this.errors = errors.response;
           });
+
+       
           // api
           //     .get("api/getProgram")
           //     .then (response => {
@@ -815,6 +829,13 @@ export default {
         }
         
       },
+
+       perform(){
+              localStorage.setItem("programID", JSON.stringify(this.filtered_program[this.index].programID));
+              console.log(this.filtered_program[this.index].programID);
+              // localStorage.setItem("code", res.data.code);
+              // this.$router.push({ name: "verifyemail" });
+    },
     // function pad(num, size) {
     // num = num.toString();
     // while (num.length < size) num = "0" + num;
