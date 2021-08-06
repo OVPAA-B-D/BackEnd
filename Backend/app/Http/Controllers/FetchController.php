@@ -35,7 +35,7 @@ class FetchController extends Controller
    function getMember(){
 
 
-    $member = Auth::authorize('show');
+   
 
     $member = Auth::user();
 
@@ -155,6 +155,11 @@ class FetchController extends Controller
         if($data == null)
             return response()->json([]);
         return response()->json($data);
+
+    }
+    function getTaskForceInfo(Request $request){
+        $taskforceInfo = DB::select('SELECT * FROM tbl_userinformation WHERE email = \''.$request->taskforceEmail.'\' ORDER BY  id');
+        return $taskforceInfo;
 
     }
 
