@@ -100,7 +100,7 @@
                   <h1 class="text-yellow-150" >Sort by</h1>
               </div>
               <div class=" h-full flex flex-wrap justify-items-start gap-x-4  overflow-auto  ">
-                 <div v-for="programx in filtered_program" :key="programx.programID" class="flex justify-evenly " >
+                 <div v-for="programx in filtered_program2" :key="programx.programID" class="flex justify-evenly " >
              <div class=" p-2 pt-2 w-min relative" style="height:340px" >
                
                <div class="flex  items-center absolute top-0 right-0 ">
@@ -497,6 +497,22 @@ export default {
       index:0,
       imageName:"",
       tblprogramDatabase:[],
+
+      filtered_program2:[{
+        programID: "",
+        programName: "",
+        collegeName: "",
+        campusName: "",
+        lastName:"",
+        firstName:"",
+        middleName:"",
+        level:"",
+        contactNumber:"",
+        email:"",
+        coverImage:"",
+
+       }],
+
       filtered_program:[{
         programID: "",
         programName: "",
@@ -726,7 +742,7 @@ export default {
                     console.log("User Information",this.getUserInformation);
                     this.level();
                     this.chairmanInfo();
-                    
+                    this.filtered_program2= this.filtered_program;
 
           })).catch(errors=>{
               this.errors = errors.response;
@@ -1017,10 +1033,29 @@ export default {
       filterObj(){
         let x=document.getElementById('filtering').value
         if(x=='all'){
-          this.filtered_program=[];
-          return this.filtered_program=this.program
+          this.filtered_program2 = this.filtered_program;
           }
-          this.filtered_program= this.program.filter(trans=>trans.Campus==x)
+        else if(x == "Main"){
+          this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
+        }
+        else if(x == "East"){
+          this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
+        }
+        else if(x == "Daraga"){
+          this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
+        }
+        else if(x == "Tabaco"){
+          this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
+        }
+        else if(x == "Guinobatan"){
+          this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
+        }
+        else if(x == "Polangui"){
+          this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
+        }
+        else if(x == "Gubat"){
+          this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
+        }
       },
       add_image(e){
           const file=e.target.files[0]
