@@ -80,3 +80,4 @@ Route::post("/userAuthentication", [updateController::class, 'userAuthentication
 Route::post("/userInformation", [updateController::class, 'userInformation']);
 
 Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);
+Route::get('getTaskForceInfo',[FetchController::class, 'getTaskForceInfo']);

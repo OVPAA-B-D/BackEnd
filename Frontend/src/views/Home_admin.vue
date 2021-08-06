@@ -55,7 +55,7 @@
           <img :src="bg_image" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
          
         <div class="flex items-center justify-between pr-5">
-        <h1 class="text-2xl text-blue-150 font-normal ">Accreditation Management</h1>
+        <h1 class="text-2xl text-blue-150 font-normal "></h1>
         <label for="bg_images" class="cursor-pointer">
         <span type="button" class="flex space-x-2 z-0  drop-shadow-2xl items-center rounded-lg py-2 px-4 text-gray-150 bg-white">
           Change cover
@@ -124,12 +124,12 @@
                   <h1 class="-z-1 absolute bottom-3 text-tiny text-blue-150">{{programx.level}} Accreditation</h1>
                   <div>
                     <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-                      <img src="/icons/icon16_man.svg"><h1>{{programx.chairmanName}}</h1></span>
+                      <img src="/icons/icon16_man.svg"><h1>{{programx.firstName}} {{programx.middleName}}. {{programx.lastName}}</h1></span>
                     <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
                       <img src="/icons/icon17_contact.svg"><h1>{{programx.contactNumber}}</h1></span>
                      <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
                       <img src="/icons/icon18_inbox.svg"><h1>{{programx.email}}</h1></span>
-                      <br>
+                      
                   </div>
                    <h1 class="flex-wrap text-blue-150  text-sm "> {{programx.level}}<br></h1>
                    <h1 class="flex-wrap text-blue-150  text-lg ">Accreditation</h1>
@@ -148,6 +148,8 @@
           </div>
       </div>
     </div>
+    
+        <!-- add modal -->
           <div v-if="show_add" class="fixed  flex justify-center bg-gray-200 z-10 h-max w-screen   bg-opacity-50 overflow-y-auto items-center  inset-0">
               <div class="relative rounded-2xl  flex flex-col shadow-2xl bg-white w-82 pb-8 h-min">
                  <div class="flex justify-between rounded-t-2xl px-4 shadow-3xl items-center h-12  bg-gradient-to-r from-blue-150 via-gray-300  to-yellow-150">
@@ -256,19 +258,23 @@
               </div>
               
           </div>    
-          <!-- <div v-if="show_add" class="fixed  flex justify-center bg-gray-200 z-10 h-max w-screen   bg-opacity-50 overflow-y-auto items-center  inset-0">
-              <div class="relative rounded-lg flex flex-col shadow-2xl px-3 pb-8 pt-3 bg-white w-82 h-min">
-                 <div class="flex justify-between pr-8">
-                  <h1 class="text-xl text-yellow-150">Add Program</h1>
-                  <button @click="show_add=!show_add" class=" text-red-500 text-lg ">
+          <!-- edit modal -->         
+          <div v-if="show_edit" class="fixed  flex justify-center bg-gray-200 z-10 h-max w-screen   bg-opacity-50 overflow-y-auto items-center  inset-0">
+              <div   class="relative rounded-2xl  flex flex-col shadow-2xl bg-white w-82 pb-8 h-min">
+                 <form @submit.prevent="confirmation=!confirmation">
+                 <div class="flex justify-between rounded-t-2xl px-4 shadow-3xl items-center h-12  bg-gradient-to-r from-blue-150 via-gray-300  to-yellow-150">
+                  <h1 class="text-xl text-white">Edit Program</h1>
+                  <button @click="show_edit=!show_edit" class=" text-white text-lg ">
                     Close
                   </button>
                  </div>
-                  <div class="flex gap-5 mt-5 pl-3 flex-wrap">
+                
+                  <div class="flex gap-5 mt-5 justify-center flex-wrap">
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Campus</h1>
-                      <select id="selected_campus" class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled > Select a Campus</option>
+                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
+                      <select  id="selected_campus" required class="fill-current   italic text-blue-150 w-74 px-4 rounded-md  h-12 focus:outline-none cursor-pointer ">
+                      <option selected disabled value="">Choose a Campus</option>
                       <option value="Main">Main Campus</option>
                       <option value="East">East Campus</option>
                       <option value="Daraga">Daraga Campus</option>
@@ -277,94 +283,149 @@
                       <option value="Polangui">Polangui Campus</option>
                       <option value="Gubat">Gubat Campus</option>
                       </select>
+                       </div>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">College</h1>
-                      <select id="selected_college" class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled >Choose a College</option>
+                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
+                      <select  id="selected_college" required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                      <option selected disabled value="" >Choose a College</option>
                       <option  >College of Science</option>
                       </select>
                       </div>
+                      </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Program</h1>
-                      <select id="selected_program"  class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled > Choose a Program</option>
+                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
+                      <select   required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                      <option selected disabled value="" >Choose a College</option>
                       <option>Computer Science</option>
                       </select>
                       </div>
+                      </div>
                       <div class="flex flex-col">
-                       <h1 class="text-blue-150 text-sm italic">Chairmain</h1>
-                      <input v-model="addProgram.chairmanName" placeholder="Enter the chairman’s name" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                       <h1 class="text-blue-150 text-sm italic">Chairman's firstname</h1>
+                      <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
+                        <input  placeholder="Enter the chairman’s firstname" type="text"
+                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
+                      </div>
+                      </div>
+                      <div class="flex flex-col">
+                       <h1 class="text-blue-150 text-sm italic">Chairman's lastname</h1>
+                      <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
+                        <input  placeholder="Enter the chairman’s lastname" type="text"
+                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
+                      </div>
+                      </div>
+                      <div class="flex flex-col">
+                       <h1 class="text-blue-150 text-sm italic">Chairman's middlename</h1>
+                      <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
+                        <input required placeholder="Enter the chairman’s middlename" type="text"
+                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
+                      </div>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Contact number</h1>
-                      <input v-model="addProgram.contactNumber" placeholder="Chairman’s contact number" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
-                      </div>
+                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
+                        <input  required  placeholder="Chairman’s contact number" type="number"
+                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
+                        </div>
+                        </div>
                       
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Email</h1>
-                      <input v-model="addProgram.email" placeholder="Chairman’s E-mail Address" type="text"  class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-text border-2 border-blue-150"/>
+                      <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
+                      <input  placeholder="Chairman’s E-mail Address" type="text" 
+                       class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
+                      </div>
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Level</h1>
-                      <select id="level" class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-11 focus:outline-none cursor-pointer border-2 border-blue-150">
-                      <option selected disabled value="" >Level of Accreditation</option>
-                      <option value="0">Preliminary Survey Visit</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
+                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
+                      <select  required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                      <option selected disabled value="" >Level of accreditation</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
                       </select>
                       </div>
+                      </div>
                   </div>
-                  <div class="flex absolute items-center bottom-8 right-8 gap-x-2">
+                 
+                  <div class="flex justify-end pt-5  pr-5">
+                  <div class="flex self-right items-center  gap-x-2">
                     <div class="flex overflow-hidden w-32   items-end  h-8 border-b-2 border-blue-250">
                       <h1 class="text-yellow-150">File: </h1>
-                       <h1 class="text-blue-150">{{imageName}}</h1>
+                       <h1 class="text-blue-150">{{image_name}}</h1>
                     </div>
                    <label for="program_image"><span  class="flex items-center select-none cursor-pointer  justify-center  gap-2 border-2 border-blue-150  w-32 h-8 text-blue-250  "> 
                     <img src="icons/icon_change_cover.svg"/>
                     Add Cover
                   </span>
                    </label>
-                  <button @click=" confirmation=!confirmation" class="flex items-center justify-center px-5 gap-2 w-32 h-8 text-white bg-blue-250"> 
-                    <img src="icons/icon12_add.svg"/>
-                    Add
+                  <button type="submit" value="Submit"  @click=" text_modal='update this Program'" class="flex items-center justify-center px-5 gap-2 w-32 h-8 text-white bg-blue-250"> 
+                   <span class="material-icons">
+                    autorenew
+                    </span>
+                    Update
                   </button>
                   <input type="file" class="hidden" id="program_image" @change="add_image"/>
                   </div>
-              </div>
-              
-          </div> -->
-         
+                  </div>
+                  </form>
+              </div>  
+          </div>
+
           <!---Confirmation-->
-            <div v-if="confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-                 <div class="flex flex-col items-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
-                 <h1 class="text-blue-150 text-xl">Are you sure to perform this action?</h1>
-                  <span class="flex items-center gap-x-3">
-                    <button @click="confirmation=!confirmation,show_success=!show_success,add_program()" class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
-                    <button @click="confirmation=!confirmation" class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
-                  </span>
+             <div v-if="confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
+                 <div class=" flex flex-col justify-start relative
+                  gap-y-3  w-23 h-60 bg-white  shadow-3xl rounded-xl">
+                  <div class="bg-blue-150 rounded-t-xl h-10 w-full"></div>
+                  <div class="flex w-full  gap-x-3 pl-10  mt-3 items-center">
+                      <img class="w-16" src="icons/icon_confirmation_blue.svg"/>
+                    <div class="flex flex-col">
+                      <h1 class="text-xl font-bold text-blue-150">You are about to {{text_modal}}</h1>
+                      <h1 class="text-blue-150 ">After your confirmation, you can still make changes to the information.</h1>
+                    </div>
+                  </div>
+                  <div class="flex justify-end absolute right-10 bottom-10">
+                    <div class="flex gap-x-1">
+                      <button @click="confirmation=!confirmation" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
+                      <button @click="confirmation=!confirmation" class="px-1 rounded-md text-blue-150 bg-white border-2 border-blue-150">Cancel</button>
+                    </div>
+                  </div>
                  </div>
            </div>
             <div v-if="update_confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
                  <div class="flex flex-col items-center justify-center gap-y-3 w-96 h-52 bg-white  shadow-3xl rounded-xl">
                  <h1 class="text-blue-150 text-xl">Are you sure to perform this action?</h1>
                   <span class="flex items-center gap-x-3">
-                    <button @click="update_confirmation=!update_confirmation,show_success=!show_success,update()" class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
-                     <button @click="update_confirmation=!update_confirmation" class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
+                    <button @click="update_confirmation=!update_confirmation,update()"
+                     class=" select-none bg-blue-250 rounded-lg text-white w-28 h-10">Confirm</button>
+                     <button @click="update_confirmation=!update_confirmation"
+                      class="select-none border-2 rounded-lg border-blue-150 text-blue-250  w-28 h-10">Cancel</button>
                   </span>
                  </div>
            </div>
           <!---->
            <div v-if="show_success" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
-                 <div class="flex flex-col text-center items-center justify-center gap-y-3 p-3 pb-10  w-60  bg-white  shadow-3xl rounded-xl">
-                    <img src="icons/icon_success.svg" class="w-12"/>
-                    <h1 class="text-2xl font-bold text-green-150">Success</h1>
-                  <span class="w-40"> <h1 class="text-green-150">You have Successfuly added a Program</h1></span>
-                  <span class="flex items-center gap-x-3">
-                    <button @click="show_success=!show_success" class=" border-2 border-green-150 select-none  rounded-lg text-green-150 w-28 h-10">Close</button>
-                   </span>
+                 <div class=" flex flex-col justify-start relative
+                  gap-y-3  w-23 h-60 bg-white  shadow-3xl rounded-xl">
+                  <div class="bg-green-150 rounded-t-xl h-10 w-full"></div>
+                  <div class="flex w-full  gap-x-3 pl-10  mt-3 items-center">
+                      <img class="w-16" src="icons/icon_success.svg"/>
+                    <div class="flex flex-col">
+                      <h1 class="text-xl font-bold text-green-150">Succesful!</h1>
+                      <h1 class="text-green-150 ">You have successfully added a program. </h1>
+                    </div>
+                  </div>
+                  <div class="flex justify-end absolute right-10 bottom-10">
+                    <div class="flex gap-x-1">
+                      <button @click="show_success=!show_success" 
+                      class="px-1 rounded-md text-green-150 bg-white border-2 border-green-150">Cancel</button>
+                    </div>
+                  </div>
                  </div>
            </div>
               <!--Delete--->
@@ -409,7 +470,7 @@ import axios from 'axios';
 // @ is an alias to /src
 export default {
   created:function(){
-    this.filtered_program=this.program
+    
   },
   data(){
     return{
@@ -456,6 +517,26 @@ export default {
           programID:"",
           level:"",
           levelStatus:"",
+         
+      }],
+
+      getTaskForceChairman:[{
+          programID:"",
+          taskforceEmail:"",
+          roleDescription:"",
+          lastName:"",
+          firstName:"",
+          middleName:"",
+          contactNumber:"",
+      }],
+
+      getUserInformation:[{
+        email:"",
+        lastName:"",
+        firstName:"",
+        middleName:"",
+        contactNumber:"",
+
       }],
       
       addLevel:{
@@ -495,6 +576,7 @@ export default {
   },
   
    
+  
   
    methods:{
    
@@ -651,8 +733,8 @@ export default {
           const getTaskForceChairman = api.get('api/getTaskForceChairman');
           const getLevelUnlocked = api.get('api/getLevelUnlocked');
           const getProgramLevel = api.get('api/getProgramLevel');
-          
-          axios.all([getProgram, getTaskForceChairman, getLevelUnlocked,getProgramLevel])
+          const getUserInformation = api.get('api/getPersonal');
+          axios.all([getProgram, getTaskForceChairman, getLevelUnlocked,getProgramLevel,getUserInformation])
               .then(
           axios 
               .spread((...responses) => {
@@ -661,19 +743,25 @@ export default {
                     this.getTaskForceChairman = responses[1].data;
                     this.getLevel = responses[2].data;
                     this.getLevelAll = responses[3].data;
+                    this.getUserInformation = responses[4].data;
+
                     
                     
                     console.log("Program",this.filtered_program);
-                    console.log("TaskForceChairman",this.getTaskForceChairman);
+                    console.log("Taskforce Chairman",this.getTaskForceChairman);
                     console.log("Level",this.getLevel);
-                     console.log("Level All",this.getLevelAll);
+                    console.log("Level All",this.getLevelAll);
+                    console.log("User Information",this.getUserInformation);
                     this.level();
+                    this.chairmanInfo();
                     
           })).catch(errors=>{
               this.errors = errors.response;
           });
 
-       
+          
+
+
           // api
           //     .get("api/getProgram")
           //     .then (response => {
@@ -696,7 +784,78 @@ export default {
           
               
       },
-    
+
+
+      chairmanInfo(){
+        let arrGetTaskForceChairman=[];
+        let arrGetUserInformation=[];
+        
+        this.getTaskForceChairman.forEach((value,index) => {
+          arrGetTaskForceChairman.push(value);
+        });
+        this.getUserInformation.forEach((value,index)=>{
+          
+          arrGetUserInformation.push(value);
+        });
+       console.log("eyy1",arrGetTaskForceChairman);
+        console.log("oyy1",this.getTaskForceChairman);
+        var i = 0;
+        var j = 0;
+        for(var i = 0; i <arrGetTaskForceChairman.length; i=i+1){
+          //  console.log("1",arrGetTaskForceChairman[i].taskforceEmail);
+          //    console.log("2",arrGetUserInformation[j].email);
+          for(var j=0; j<arrGetUserInformation.length; j=j+1){
+             
+            if (arrGetTaskForceChairman[i].taskforceEmail == arrGetUserInformation[j].email){
+                  
+                  arrGetTaskForceChairman[i].firstName = arrGetUserInformation[j].firstName;
+                  arrGetTaskForceChairman[i].lastName = arrGetUserInformation[j].lastName;
+                  arrGetTaskForceChairman[i].middleName = arrGetUserInformation[j].middleName;
+                  arrGetTaskForceChairman[i].contactNumber = arrGetUserInformation[j].contactNumber;
+                 
+              }
+          }
+        }
+        console.log("eyy",arrGetTaskForceChairman);
+        console.log("oyy",this.getTaskForceChairman);
+        this.chairmanShow();
+      },
+      chairmanShow(){
+        let arrFiltered_program=[];
+        let arrGetTaskForceChairman=[];
+        
+        this.filtered_program.forEach((value,index)=>{
+          
+          arrFiltered_program.push(value);
+        });
+        this.getTaskForceChairman.forEach((value,index) => {
+          arrGetTaskForceChairman.push(value);
+        });
+        
+      
+        var i = 0;
+        var j = 0;
+        for(var i = 0; i < arrFiltered_program.length; i=i+1){
+           
+          for(var j=0; j<arrGetTaskForceChairman.length; j=j+1){
+             
+            if (arrFiltered_program[i].programID == arrGetTaskForceChairman[j].programID){
+                  arrFiltered_program[i].email = arrGetTaskForceChairman[j].taskforceEmail;
+                  arrFiltered_program[i].firstName = arrGetTaskForceChairman[j].firstName.toLowerCase().replace(/\b(\w)/g, s => s.toUpperCase());
+                  arrFiltered_program[i].lastName = arrGetTaskForceChairman[j].lastName.toLowerCase().replace(/\b(\w)/g, s => s.toUpperCase());
+                  arrFiltered_program[i].middleName = arrGetTaskForceChairman[j].middleName.charAt(0).toUpperCase();
+                  arrFiltered_program[i].contactNumber = arrGetTaskForceChairman[j].contactNumber;
+                
+              }
+          }
+        }
+
+        console.log("1yy",arrFiltered_program);
+        console.log("2yy",this.filtered_program);
+
+      },
+
+
       level(){
         let arrFiltered_program=[];
         let arrGetLevel=[];
@@ -708,7 +867,8 @@ export default {
           
           arrGetLevel.push(value);
         });
-      
+        console.log("2yy",this.filtered_program);
+        
         var i = 0;
         var j = 0;
         for(var i = 0; i < arrFiltered_program.length; i=i+1){
@@ -723,6 +883,9 @@ export default {
           }
         }
       },
+
+      
+
       genProgramID(){
         
         var arrFiltered_program=[];

@@ -194,5 +194,10 @@ function getTaskForce(){
 
    
 
+    function getTaskForceInfo(Request $request){
+        $taskforceInfo = DB::select('SELECT * FROM tbl_userinformation WHERE email = \''.$request->taskforceEmail.'\' ORDER BY  id');
+        return $taskforceInfo;
+
+    }
 
 }

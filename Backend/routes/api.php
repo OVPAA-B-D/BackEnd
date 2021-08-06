@@ -82,4 +82,4 @@ Route::post("/updateArea", [updateController::class, 'updateArea']);
     Route::post("submitProgramLevelBenchmark", [updateController::class, 'submitProgramLevelBenchmark']);
 
     Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);
-    
+    Route::get('getTaskForceInfo',[FetchController::class, 'getTaskForceInfo']);
