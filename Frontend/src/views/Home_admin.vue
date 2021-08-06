@@ -134,9 +134,9 @@
                    <h1 class="flex-wrap text-blue-150  text-sm "> {{programx.level}}<br></h1>
                    <h1 class="flex-wrap text-blue-150  text-lg ">Accreditation</h1>
                   </div>
-                 <router-link to="/program_level" @click="perform()">
-                  <div class="absolute w-17 justify-evenly border-4 border-white  text-sm rounded-br-xl rounded-tl-xl bg-yellow-150 text-white pb-2 cursor-pointer flex items-center  bottom-0 right-0">
-                     <h1 class="font-normal">Open File</h1>
+                 <router-link  to="/program_level" >
+                  <div @click="perform()" class="absolute w-17 justify-evenly border-4 border-white  text-sm rounded-br-xl rounded-tl-xl bg-yellow-150 text-white pb-2 cursor-pointer flex items-center  bottom-0 right-0">
+                     <h1 class="font-normal" >Open File</h1>
                   <i class=" far fa-folder-open"></i>
                   </div>
                  </router-link>

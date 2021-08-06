@@ -83,7 +83,7 @@ class FetchController extends Controller
 
     function getProgramLevel(){
         $programLevel = Auth::user();
-        $data = DB::select('SELECT * FROM tbl_programlevel');
+        $data = DB::select('SELECT * FROM tbl_programlevel ORDER BY programLevelID');
     
         if($data == null)
             return response()->json([]);

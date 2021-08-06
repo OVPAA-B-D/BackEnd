@@ -39,7 +39,7 @@ Route::post('Login', [LoginController::class, 'Login'])->name('Login');
 Route::post('Program', [InsertController::class, 'Program']);
 Route::post('Member', [InsertController::class, 'Member']);
 Route::post('Parameter', [InsertController::class, 'Parameter']);
-
+Route::post('Accreditor', [InsertController::class, 'Accreditor']);
 Route::post('ProgramLevel', [InsertController::class, 'ProgramLevel']);
 Route::post('ProgramLevelArea', [InsertController::class, 'ProgramLevelArea']);
 Route::post('ProgramLevelBenchmark', [InsertController::class, 'ProgramLevelBenchmark']);

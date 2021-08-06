@@ -250,6 +250,15 @@
                         focus:outline-none cursor-text "/>
                        </div>
                        </div>
+                        <div>
+                        <h1 class="text-blue-150 text-sm">Folder Area</h1>
+                          <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
+                        <select  required id="selected_folder" class="fill-current italic text-blue-150 w-75 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                          <option selected disabled value="">Select Folder Area</option>
+                          <option v-for="folderx in folderArea" :key="folderx.id" v-bind:value="folderx.areaID">{{folderx.areaLabel}}</option>
+                      </select>
+                       </div>
+                       </div>
                       <div class="w-full flex gap-x-2 justify-end">
                         <button v-if="update_button" @click="text_modal='add a new Accreditor'" class="flex items-center justify-center px-5 gap-2  w-24 h-8 text-white bg-blue-250"> 
                        <img src="icons/icon12_add.svg"/>
@@ -317,8 +326,10 @@
                       <h1>Add</h1>
                       </button>
                     </div>
+
+
              </div>
-          
+            
             
           </div>
              
@@ -414,7 +425,27 @@ export default {
         activeBtn:0,
         
        
-        
+        addProgramLevelArea:{
+          programLevelID: '',
+          programLevelAreaID: '',
+          accreditorEmail: '',
+          roleDescription: '',
+          areaID: '',
+          modifiedBy: '',
+        //  activeStatus: '',
+
+        },
+
+        filteredAddAccreditorMember:{
+          programLevelID: '',
+          programLevelAreaID: '',
+          accreditorEmail: '',
+          roleDescription: '',
+          areaID: '',
+          modifiedBy: '',
+        //  activeStatus: '',
+
+        },
 
         bg_btn:0,
         status:'',
@@ -437,6 +468,7 @@ export default {
          personalInfo: {
         firstName: "",
         lastName: "",
+        email: "",
         roleType: "",
       },
       accreditorMember: {
@@ -470,6 +502,9 @@ export default {
      folderArea:[{
        
      }],
+     folderLevelArea:{
+
+     },
      folder_icon:'/icons/icon15.png'
     }
   },
@@ -494,6 +529,12 @@ export default {
              this.area = res.data;
              this.filterredarea = res.data;
               this.folderArea=res.data;
+        //     let temp=[];
+        //        temp.forEach((value, index) => {
+        // if(value.programLevelID === JSON.parse(localStorage.getItem('levelID'))){
+        //   return this.folderArea.push(value)
+        // }
+        // });
              console.log("Area Saved: ",this.area);
            })
 
@@ -560,13 +601,60 @@ export default {
         .post("/api/UserAuthentication", this.accreditorMember)
         .then((res) => {
           console.log(res);
-          location.reload();
+         // location.reload();
         })
         .catch((errors) => {
           this.errors = errors.res;
         });
-     
+
+        this.addProgramLevelArea.accreditorEmail = this.accreditorMember.email;
+        this.addProgramLevelArea.roleDescription = this.accreditorMember.roleType;
+        this.addProgramLevelArea.areaID = document.getElementById("selected_folder").value;
+        this.addProgramLevelArea.programLevelID = JSON.parse(localStorage.getItem('levelID'));
+      
+        this.genProgramLevelID();
+
+       var personal = JSON.parse(localStorage.getItem('Personal'));
+        this.addProgramLevelArea.modifiedBy = personal.email;
+        console.log("AreaID: ", this.addProgramLevelArea.areaID);
+        api.post("/api/ProgramLevelArea", this.addProgramLevelArea).then((res)=>{
+          console.log("Program Level Area", res);
+        });
+
+        api.post("/api/Accreditor",this.addProgramLevelArea).then((res)=>{
+          console.log("Accreditor",res);
+        });
+
          
+    },
+
+    genProgramLevelID(){
+
+      this.filteredAddAccreditorMember = this.folderLevelArea;
+          var arrFiltered_LevelArea=[];
+        console.log("boom",this.filteredAddAccreditorMember);
+        if(this.filteredAddAccreditorMember !=""){
+          
+            console.log("asdasdas");
+            this.filteredAddAccreditorMember.forEach((value,index) => {
+            arrFiltered_LevelArea.push(value);
+            });
+            console.log("asd",arrFiltered_LevelArea[0].programLevelAreaID);
+            const arrProgramLevelAreaID = arrFiltered_LevelArea[arrFiltered_LevelArea.length-1].programLevelAreaID.split("-");
+            var programLevelAreaNumber = parseInt(arrProgramLevelAreaID[1]);          
+            programLevelAreaNumber++;
+            var programLevelAreaNumberString = programLevelAreaNumber.toString();
+            
+            while (programLevelAreaNumberString.length < arrProgramLevelAreaID[1].length) programLevelAreaNumberString = "0" + programLevelAreaNumberString;
+            
+            this.addProgramLevelArea.programLevelAreaID = "PLA-" +programLevelAreaNumberString;
+     
+         }
+          else{
+              this.addProgramLevelArea.programLevelAreaID = "PLA-00001";
+              
+          }
+
     },
     edit_update(e){
       let index=this.accreditorMembers.findIndex(x => x.id===e)
@@ -594,13 +682,17 @@ export default {
     let temp = [];
       api.get('api/getProgramLevelArea').then(response => {
         // get body data
+
         temp= response.data;
+        this.folderLevelArea = temp;
         temp.forEach((value, index) => {
         if(value.programLevelID === JSON.parse(localStorage.getItem('levelID'))){
-          return this.folderArea.push(value)
+          return this.folderLevelArea.push(value)
         }
         });
     })
+   
+
     },
     perform(){
               localStorage.setItem("areaID", JSON.stringify(this.folderArea[this.index].areaID));

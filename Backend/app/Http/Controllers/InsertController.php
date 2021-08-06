@@ -151,8 +151,6 @@ class InsertController extends Controller
         $accreditor->programLevelAreaID = $request->programLevelAreaID;
         $accreditor->accreditorEmail = $request->accreditorEmail;
         $accreditor->roleDescription = $request->roleDescription;
-        $accreditor->activeStatus = $request->activeStatus;
-        $accreditor->createdDate = $request->createdDate;
         $accreditor->save();
     }
 

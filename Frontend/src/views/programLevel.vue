@@ -115,7 +115,7 @@
                   class=" flex flex-col cursor-pointer items-center hover:bg-gray-200 justify-start w-32 h-auto  mt-10  mr-2cursor-pointer">
                       
                   <div>
-                    <div  @dblclick="routing()"  @click="index_array(folderx.id),detailing()"  class="p-2 w-16" >
+                    <div  @dblclick="routing()"  @click="index_array(folderx.id),detailing(),perform()"  class="p-2 w-16" >
                       <img v-if="folderx.level!='Preliminary Survey Visit'" src="icons/icon15.png">
                       <img v-else:  src="icons/icon21.png">
                     </div>
