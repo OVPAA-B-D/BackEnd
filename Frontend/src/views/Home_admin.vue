@@ -135,7 +135,7 @@
                    <h1 class="flex-wrap text-blue-150  text-lg ">Accreditation</h1>
                   </div>
                  <router-link  to="/program_level" >
-                  <div @click="perform()" class="absolute w-17 justify-evenly border-4 border-white  text-sm rounded-br-xl rounded-tl-xl bg-yellow-150 text-white pb-2 cursor-pointer flex items-center  bottom-0 right-0">
+                  <div @click="index_array(programx.programID),perform()" class="absolute w-17 justify-evenly border-4 border-white  text-sm rounded-br-xl rounded-tl-xl bg-yellow-150 text-white pb-2 cursor-pointer flex items-center  bottom-0 right-0">
                      <h1 class="font-normal" >Open File</h1>
                   <i class=" far fa-folder-open"></i>
                   </div>
@@ -831,8 +831,9 @@ export default {
       },
 
        perform(){
-              localStorage.setItem("programID", JSON.stringify(this.filtered_program[this.index].programID));
               console.log(this.filtered_program[this.index].programID);
+              localStorage.setItem("programID", JSON.stringify(this.filtered_program[this.index].programID));
+              
               // localStorage.setItem("code", res.data.code);
               // this.$router.push({ name: "verifyemail" });
     },
@@ -851,7 +852,8 @@ export default {
       // },
       
       index_array(e){
-          this.index=this.program.findIndex(x => x.id===e)
+          this.index=this.filtered_program.findIndex(x => x.programID===e)
+          console.log("Index: ", e);
       },
       change_image(e){
           this.image_name=''

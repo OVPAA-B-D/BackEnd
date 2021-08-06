@@ -400,6 +400,8 @@ Details,
              this.taskForceMembers = res.data;
               console.log(this.taskForceMembers);
            });
+
+           
            
        },
      addTaskForceMember() {
