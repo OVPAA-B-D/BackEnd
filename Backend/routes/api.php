@@ -49,6 +49,7 @@ Route::post('Accreditor', [InsertController::class, 'Accreditor']);
 Route::get('getPersonal', [FetchController::class, 'getMember']);
 Route::get('getUser', [FetchController::class, 'getUser']);
 Route::get('getProgram', [FetchController::class, 'getProgram']);
+Route::get('getProgramName', [FetchController::class, 'getProgramName']);
 Route::get('getParameter', [FetchController::class, 'getParameter']);
 Route::get('getBenchmark', [FetchController::class, 'getBenchmark']);
 Route::get('getArea', [FetchController::class, 'getArea']);

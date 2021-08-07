@@ -52,6 +52,7 @@ Route::post("submitProgramLevelBenchmark", [updateController::class, 'submitProg
 Route::get('getPersonal', [FetchController::class, 'getMember']);
 Route::post('TaskForce', [InsertController::class, 'TaskForce']);
 Route::get('getProgram', [FetchController::class, 'getProgram']);
+Route::get('getProgramName', [FetchController::class, 'getProgramName']);
 Route::get('getParameter', [FetchController::class, 'getParameter']);
 Route::get('getBenchmark', [FetchController::class, 'getBenchmark']);
 Route::get('getArea', [FetchController::class, 'getArea']);

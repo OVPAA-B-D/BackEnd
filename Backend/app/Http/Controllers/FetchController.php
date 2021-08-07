@@ -50,6 +50,15 @@ class FetchController extends Controller
     return response()->json($data);
    }
 
+   function getProgramName(Request $request){
+
+    $data = DB::select('SELECT * FROM tbl_program WHERE  programName = \''.$request->programName.'\'');
+
+    if($data == null)
+    return response()->json([]);
+    return response()->json($data);
+   }
+
    function getParameter(){
 
     $parameter = Auth::user();

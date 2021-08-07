@@ -49,29 +49,32 @@
       </router-link>
       </div>
     </div>
-    <div class="flex flex-col flex-nowrap   w-full">
+    <div class="flex flex-col flex-nowrap w-full"  >
       <div class="w-full cursor-default h-72 relative shadow-lg pl-4 pt-7">
         <img src="img/img3.jpg" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
-        <div class="flex items-center justify-between pr-5">
-        <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">Information Technology</a></h1>
+       
+        <div class="flex items-center justify-between pr-5" v-for="programData in programArea" v-bind:key="programData.programID" >
+        
+        <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold" > {{programData.programName}} </a></h1>
         </div>
       <div class="pb-3">
         <h1 class="text-yellow-150 text-xl">Level 1 Accreditation</h1>
-        <h3 class="text-blue-150 text-4xl">Information Technology</h3>
+        <h3 class="text-blue-150 text-4xl">{{programData.programName}}</h3>
         <h1 class="text-lg text-blue-150">Chairman in charge</h1>
        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon16_man.svg"><h1>Johann Abad</h1>
+            <img src="/icons/icon16_man.svg"><h1>{{programData.firstName}} {{programData.lastName}}</h1>
         </span>
         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
+            <img src="/icons/icon17_contact.svg"><h1>{{programData.contactNumber}}</h1>
         </span>
          <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon18_inbox.svg"><h1>johann@gmail.com</h1>
+            <img src="/icons/icon18_inbox.svg"><h1>{{programData.email}}</h1>
         </span>
         <h1></h1>
       </div>
         <div @click="show_details=!show_details" class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly  rounded-tl-2xl rounded-tr-2xl  right-10 bg-white w-37 ">
            <img class="w-8 h-8" src="/icons/icon_info.svg">
+       
         </div>
       </div>
       <div class="  flex-col h-full pt-10 px-4  space-y-3">
@@ -94,13 +97,13 @@
           <div class="flex flex-row h-99  bg-gradient-to-b from-blue-150 to-yellow-150 rounded-md  p-0.5 ">
             <div class=" bg-white  rounded-md overflow-auto  
              gap-y-2 flex flex-col justify-items-start w-2/3  flex-grow  h-full  p-4 ">
-               <div class=" flex sticky top-0 space-x-2 items-center">
+               <div class=" flex sticky top-0 space-x-2 items-center" >
                    <div class=" cursor-pointer w-4 h-4">
                    <router-link to="/home_admin"> <img src="/icons/icon1_arrow_back.svg"></router-link>
                    </div>
                    
-                    <h1 class="sticky top-0 font-bold text-blue-150 text-lg ">
-                       Infomation Technology
+                    <h1 class="sticky top-0 font-bold text-blue-150 text-lg " v-for="programData in programArea" >
+                      {{programData.programName}}
                    </h1>
                 
                   
@@ -377,6 +380,13 @@ Details,
         email: "",
         roleType: "",
       },
+      programArea:{
+        programName: '',
+        firstName: '',
+        lastName: '',
+        contactNumber: '',
+        email: '',
+      },
      folderArea:[],
      sendID: '',
      folder_icon:'/icons/icon15.png'
@@ -396,12 +406,33 @@ Details,
                console.log(this.personalInfo);
            });
 
+            var programdata = JSON.parse(localStorage.getItem("ProgramData"));
+
+            // api.get("/api/getProgramName", {params:{programName: programdata.programName}}).then((res)=>{
+            //   this.programArea.programName = res.data;
+            //    console.log(this.programArea.programName);
+            // });
+
+            this.programArea.programName = programdata.programName;
+            this.programArea.email = programdata.email;
+            this.programArea.firstName = programdata.firstName;
+            this.programArea.lastName = programdata.lastName;
+            this.programArea.contactNumber = programdata.contactNumber;
+            
+            console.log("ProgramData: ", this.programArea);
+          //  this.programArea.firstName = JSON.parse(localStorage.getItem("FName"));
+          //  this.programArea.lastName = JSON.parse(localStorage.getItem("LName"));
+          //  this.programArea.contactNumber = JSON.parse(localStorage.getItem("contactNumber"));
+          //  this.programArea.email = JSON.parse(localStorage.getItem("ChairmanEmail"));
+         
+
+
            api.get("/api/getTaskForceMembers").then((res) =>{
              this.taskForceMembers = res.data;
               console.log(this.taskForceMembers);
            });
 
-           
+
            
        },
      addTaskForceMember() {
