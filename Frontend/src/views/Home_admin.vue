@@ -995,6 +995,7 @@ export default {
        perform(){
               console.log(this.filtered_program[this.index].programID);
               localStorage.setItem("ProgramData", JSON.stringify(this.filtered_program[this.index]));
+              localStorage.setItem("programID", JSON.stringify(this.filtered_program[this.index].programID));
               // localStorage.setItem("programName", JSON.stringify(this.filtered_program[this.index].programName));
               // localStorage.setItem("ChairmanEmail", JSON.stringify(this.filtered_program[this.index].email));
               // localStorage.setItem("contactNumber", JSON.stringify(this.filtered_program[this.index].contactNumber));

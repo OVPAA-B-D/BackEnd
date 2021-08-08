@@ -90,9 +90,29 @@ class FetchController extends Controller
       
     }
 
+    function getAreaID(Request $request){
+        $area = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_area WHERE areaID = \''.$request->areaID.'\' ');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+      
+    }
+
     function getProgramLevel(){
         $programLevel = Auth::user();
         $data = DB::select('SELECT * FROM tbl_programlevel ORDER BY programLevelID');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+     
+    }
+
+    function getProgramLevelID(Request $request){
+        $programLevel = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_programlevel WHERE programLevelID = \''.$request->programLevelID.'\'');
     
         if($data == null)
             return response()->json([]);

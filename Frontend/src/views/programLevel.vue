@@ -53,22 +53,22 @@
       <div class="w-full cursor-default h-72 relative shadow-lg pl-4 pt-7">
         <img src="img/img3.jpg" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
        
-        <div class="flex items-center justify-between pr-5" v-for="programData in programArea" v-bind:key="programData.programID" >
+        <div class="flex items-center justify-between pr-5" >
         
-        <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold" > {{programData.programName}} </a></h1>
+        <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold" > {{programName}} </a></h1>
         </div>
       <div class="pb-3">
         <h1 class="text-yellow-150 text-xl">Level 1 Accreditation</h1>
-        <h3 class="text-blue-150 text-4xl">{{programData.programName}}</h3>
+        <h3 class="text-blue-150 text-4xl"> {{programName}} </h3>
         <h1 class="text-lg text-blue-150">Chairman in charge</h1>
        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon16_man.svg"><h1>{{programData.firstName}} {{programData.lastName}}</h1>
+            <img src="/icons/icon16_man.svg"><h1>  {{firstName}}  {{lastName}}</h1>
         </span>
         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon17_contact.svg"><h1>{{programData.contactNumber}}</h1>
+            <img src="/icons/icon17_contact.svg"> <h1>  {{contactNumber}} </h1>
         </span>
          <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon18_inbox.svg"><h1>{{programData.email}}</h1>
+            <img src="/icons/icon18_inbox.svg"><h1>  {{email}}</h1>
         </span>
         <h1></h1>
       </div>
@@ -102,8 +102,8 @@
                    <router-link to="/home_admin"> <img src="/icons/icon1_arrow_back.svg"></router-link>
                    </div>
                    
-                    <h1 class="sticky top-0 font-bold text-blue-150 text-lg " v-for="programData in programArea" >
-                      {{programData.programName}}
+                    <h1 class="sticky top-0 font-bold text-blue-150 text-lg " >
+                     {{programName}}
                    </h1>
                 
                   
@@ -380,13 +380,13 @@ Details,
         email: "",
         roleType: "",
       },
-      programArea:{
+    
         programName: '',
         firstName: '',
         lastName: '',
         contactNumber: '',
         email: '',
-      },
+
      folderArea:[],
      sendID: '',
      folder_icon:'/icons/icon15.png'
@@ -407,26 +407,12 @@ Details,
            });
 
             var programdata = JSON.parse(localStorage.getItem("ProgramData"));
-
-            // api.get("/api/getProgramName", {params:{programName: programdata.programName}}).then((res)=>{
-            //   this.programArea.programName = res.data;
-            //    console.log(this.programArea.programName);
-            // });
-
-            this.programArea.programName = programdata.programName;
-            this.programArea.email = programdata.email;
-            this.programArea.firstName = programdata.firstName;
-            this.programArea.lastName = programdata.lastName;
-            this.programArea.contactNumber = programdata.contactNumber;
+            this.programName = programdata.programName;
+            this.email = programdata.email;
+            this.firstName = programdata.firstName;
+            this.lastName = programdata.lastName;
+            this.contactNumber = programdata.contactNumber;
             
-            console.log("ProgramData: ", this.programArea);
-          //  this.programArea.firstName = JSON.parse(localStorage.getItem("FName"));
-          //  this.programArea.lastName = JSON.parse(localStorage.getItem("LName"));
-          //  this.programArea.contactNumber = JSON.parse(localStorage.getItem("contactNumber"));
-          //  this.programArea.email = JSON.parse(localStorage.getItem("ChairmanEmail"));
-         
-
-
            api.get("/api/getTaskForceMembers").then((res) =>{
              this.taskForceMembers = res.data;
               console.log(this.taskForceMembers);

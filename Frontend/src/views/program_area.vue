@@ -51,20 +51,20 @@
       <div class="w-full cursor-default h-72 relative shadow-lg pl-4 pt-7">
         <img src="img/img3.jpg" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
         <div class="flex items-center justify-between pr-5">
-        <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">Information Technology</a></h1>
+        <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">{{programName}}</a></h1>
         </div>
       <div class="pb-3">
-        <h1 class="text-yellow-150 text-xl">Level 1 Accreditation</h1>
-        <h3 class="text-blue-150 text-4xl">Information Technology</h3>
+        <h1 class="text-yellow-150 text-xl" v-for=" levelName in levels ">{{levelName.level}} Accreditation</h1>
+        <h3 class="text-blue-150 text-4xl">{{programName}}</h3>
         <h1 class="text-lg text-blue-150">Chairman in charge</h1>
        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon16_man.svg"><h1>Johann Abad</h1>
+            <img src="/icons/icon16_man.svg"><h1>{{firstName}} {{lastName}}</h1>
         </span>
         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
+            <img src="/icons/icon17_contact.svg"><h1>{{contactNumber}}</h1>
         </span>
          <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon18_inbox.svg"><h1>johann@gmail.com</h1>
+            <img src="/icons/icon18_inbox.svg"><h1>{{email}}</h1>
         </span>
         <h1></h1>
       </div>
@@ -123,9 +123,9 @@
                    <img src="/icons/icon1_arrow_back.svg">
                    </div></router-link>
                    <h1 class="text-blue-150 text-lg cursor-pointer">
-                       <router-link to="/home_admin"> <a class="hover:underline">Infomation Technology</a></router-link > >
+                       <router-link to="/home_admin"> <a class="hover:underline">{{programName}}</a></router-link > >
                    
-                    <a class="font-bold ">Level 1</a></h1>
+                    <a class="font-bold " v-for=" levelName in levels ">{{levelName.level}}</a></h1>
                </div>
                 <div class=" items-start flex-row  flex flex-wrap relative pl-7 " >
                  <button  @click="btn_enable='off',isActive_function('btn1'),show_default()" 
@@ -143,7 +143,7 @@
                     <input id="newpname" value="PPP" type="text" class="hidden text-center focus:outline-none border-2 border-black h-5"/>
                   </span>
                   </div>
-                     <div v-for="folderx in folderArea" :key="folderx.id" class="  relative  text-sm text-blue-250 z-10   w-28 h-auto  text-center justify-center items-center">
+                     <div v-for="folderx in folderLevelArea" :key="folderx.id" class="  relative  text-sm text-blue-250 z-10   w-28 h-auto  text-center justify-center items-center">
                       <button  @click="btn_enable='off',isActive_function('btn1'),show_default()" 
                       :class="{outline: bg_btn===0 }" class="absolute w-full h-full  inset-0 -z-1"></button>
 
@@ -424,6 +424,13 @@ export default {
         confirm_accre:false,
         activeBtn:0,
         
+        programName: '',
+        firstName: '',
+        lastName: '',
+        contactNumber: '',
+        email: '',
+        levels: [],
+
        
         addProgramLevelArea:{
           programLevelID: '',
@@ -529,14 +536,33 @@ export default {
              this.area = res.data;
              this.filterredarea = res.data;
               this.folderArea=res.data;
-        //     let temp=[];
-        //        temp.forEach((value, index) => {
-        // if(value.programLevelID === JSON.parse(localStorage.getItem('levelID'))){
-        //   return this.folderArea.push(value)
-        // }
-        // });
+     
+     
              console.log("Area Saved: ",this.area);
-           })
+           });
+
+             var programdata = JSON.parse(localStorage.getItem("ProgramData"));
+             this.programName = programdata.programName;
+             this.email = programdata.email;
+             this.firstName = programdata.firstName;
+             this.lastName = programdata.lastName;
+             this.contactNumber = programdata.contactNumber;
+
+             var programLevelID = JSON.parse(localStorage.getItem('levelID'));
+              console.log("programLevelID", programLevelID);
+               api
+               .get("/api/getProgramLevelID", {params:{programLevelID}})
+               .then((res) => {
+                  this.levels = res.data;
+
+                  console.log("Level", this.levels);
+        });
+
+             
+            
+            
+            
+
 
 
     },

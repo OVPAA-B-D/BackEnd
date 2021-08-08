@@ -22,7 +22,7 @@ class ProgramLevelModel extends Authenticatable
         'id',
         'programLevelID',
         'programID',
-        'level',
+        'levelName',
         'levelStatus',
 
     ];
