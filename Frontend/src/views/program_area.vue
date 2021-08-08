@@ -535,7 +535,7 @@ export default {
            api.get("/api/getAreas").then((res)=>{
              this.area = res.data;
              this.filterredarea = res.data;
-              this.folderArea=res.data;
+              this.folderLevelArea=res.data;
      
      
              console.log("Area Saved: ",this.area);

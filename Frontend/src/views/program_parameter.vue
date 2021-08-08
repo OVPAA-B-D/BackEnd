@@ -107,7 +107,7 @@
                    <div class="flex sticky top-0 bg-white justify-start gap-x-2 text-blue-150 text-lg">
                     <router-link to="/home_admin"> <a class="hover:underline cursor-pointer">{{programName}}</a></router-link>>
                     <router-link to="/program_area"><a class=" hover:underline" v-for=" levelName in levels ">{{levelName.level}}</a></router-link>>
-                    <a class="font-bold cursor-default">Area 1</a>
+                    <a class="font-bold cursor-default" v-for="area in areas">{{area.areaLabel}}</a>
                     </div>
                  </div>
                 <div class=" items-start w-full flex-col flex flex-wrap pl-7" v-for="(parameter, index) in parameters" v-bind:key="parameter.parameterID">
