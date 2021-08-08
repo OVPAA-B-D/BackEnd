@@ -152,7 +152,7 @@
                   <img   class="w-16" src="icons/icon15.png">
                   </div>
                     <span class="flex flex-col   justify-center w-full">
-                    <label :for="folderx.id"><h1 :id="folderx.id">{{folderx.areaLabel}}</h1></label>
+                    <label :for="folderx.id"><h1 :id="folderx.id">{{folderx.areaID}}</h1></label>
                     <input  v-model="folderx.programLevelAreaID" :id="folderx.id+'x'"  type="text" class="hidden text-center focus:outline-none border-2 border-black h-5"/>
                   </span>
                   </div>
@@ -250,15 +250,6 @@
                         focus:outline-none cursor-text "/>
                        </div>
                        </div>
-                        <div>
-                        <h1 class="text-blue-150 text-sm">Folder Area</h1>
-                          <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <select  required id="selected_folder" class="fill-current italic text-blue-150 w-75 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
-                          <option selected disabled value="">Select Folder Area</option>
-                          <option v-for="folderx in folderArea" :key="folderx.id" v-bind:value="folderx.areaID">{{folderx.areaLabel}}</option>
-                      </select>
-                       </div>
-                       </div>
                       <div class="w-full flex gap-x-2 justify-end">
                         <button v-if="update_button" @click="text_modal='add a new Accreditor'" class="flex items-center justify-center px-5 gap-2  w-24 h-8 text-white bg-blue-250"> 
                        <img src="icons/icon12_add.svg"/>
@@ -326,10 +317,8 @@
                       <h1>Add</h1>
                       </button>
                     </div>
-
-
              </div>
-            
+          
             
           </div>
              
@@ -424,15 +413,16 @@ export default {
         confirm_accre:false,
         activeBtn:0,
         
-        programName: '',
+       
+         programName: '',
         firstName: '',
         lastName: '',
         contactNumber: '',
         email: '',
         levels: [],
+        tempLevel: [],
 
-       
-        addProgramLevelArea:{
+	addProgramLevelArea:{
           programLevelID: '',
           programLevelAreaID: '',
           accreditorEmail: '',
@@ -475,7 +465,6 @@ export default {
          personalInfo: {
         firstName: "",
         lastName: "",
-        email: "",
         roleType: "",
       },
       accreditorMember: {
@@ -506,12 +495,8 @@ export default {
             created:'Admin',
           }
         ],
-     folderArea:[{
-       
-     }],
-     folderLevelArea:{
-
-     },
+     folderArea:[{}],
+     folderLevelArea:[],
      folder_icon:'/icons/icon15.png'
     }
   },
@@ -535,13 +520,10 @@ export default {
            api.get("/api/getAreas").then((res)=>{
              this.area = res.data;
              this.filterredarea = res.data;
-              this.folderLevelArea=res.data;
-     
-     
+              this.folderArea=res.data;
              console.log("Area Saved: ",this.area);
            });
-
-             var programdata = JSON.parse(localStorage.getItem("ProgramData"));
+	 var programdata = JSON.parse(localStorage.getItem("ProgramData"));
              this.programName = programdata.programName;
              this.email = programdata.email;
              this.firstName = programdata.firstName;
@@ -557,12 +539,6 @@ export default {
 
                   console.log("Level", this.levels);
         });
-
-             
-            
-            
-            
-
 
 
     },
@@ -627,13 +603,13 @@ export default {
         .post("/api/UserAuthentication", this.accreditorMember)
         .then((res) => {
           console.log(res);
-         // location.reload();
+          location.reload();
         })
         .catch((errors) => {
           this.errors = errors.res;
         });
-
-        this.addProgramLevelArea.accreditorEmail = this.accreditorMember.email;
+	
+	this.addProgramLevelArea.accreditorEmail = this.accreditorMember.email;
         this.addProgramLevelArea.roleDescription = this.accreditorMember.roleType;
         this.addProgramLevelArea.areaID = document.getElementById("selected_folder").value;
         this.addProgramLevelArea.programLevelID = JSON.parse(localStorage.getItem('levelID'));
@@ -650,13 +626,13 @@ export default {
         api.post("/api/Accreditor",this.addProgramLevelArea).then((res)=>{
           console.log("Accreditor",res);
         });
-
+     
          
     },
 
-    genProgramLevelID(){
+	genProgramLevelID(){
 
-      this.filteredAddAccreditorMember = this.folderLevelArea;
+      this.filteredAddAccreditorMember = this.tempLevel;
           var arrFiltered_LevelArea=[];
         console.log("boom",this.filteredAddAccreditorMember);
         if(this.filteredAddAccreditorMember !=""){
@@ -708,17 +684,15 @@ export default {
     let temp = [];
       api.get('api/getProgramLevelArea').then(response => {
         // get body data
-
         temp= response.data;
-        this.folderLevelArea = temp;
         temp.forEach((value, index) => {
         if(value.programLevelID === JSON.parse(localStorage.getItem('levelID'))){
-          return this.folderLevelArea.push(value)
+          console.log("values", value);
+          this.folderLevelArea.push(value)
         }
         });
+        console.log("Areas", this.folderLevelArea);
     })
-   
-
     },
     perform(){
               localStorage.setItem("areaID", JSON.stringify(this.folderArea[this.index].areaID));

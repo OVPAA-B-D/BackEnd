@@ -306,28 +306,28 @@
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Chairman's firstname</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  placeholder="Enter the chairman’s firstname" type="text"
+                        <input disabled placeholder="Enter the chairman’s firstname" type="text"
                           class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Chairman's lastname</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  placeholder="Enter the chairman’s lastname" type="text"
+                        <input disabled placeholder="Enter the chairman’s lastname" type="text"
                           class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Chairman's middlename</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input required placeholder="Enter the chairman’s middlename" type="text"
+                        <input disabled required placeholder="Enter the chairman’s middlename" type="text"
                           class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Contact number</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  required  placeholder="Chairman’s contact number" type="number"
+                        <input disabled required  placeholder="Chairman’s contact number" type="number"
                           class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                         </div>
                         </div>
@@ -335,7 +335,7 @@
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Email</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <input  placeholder="Chairman’s E-mail Address" type="text" 
+                      <input disabled placeholder="Chairman’s E-mail Address" type="text" 
                        class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>

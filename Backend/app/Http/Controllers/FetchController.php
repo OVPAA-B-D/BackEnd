@@ -213,8 +213,8 @@ function getTaskForce(){
         return $program;
     }
 
-    function getAreas(){
-        $data = DB::select('SELECT * FROM tbl_area');
+    function getAreas(Request $request){
+        $data = DB::select('SELECT * FROM tbl_area WHERE areaID = \''.$request->areaID.'\'');
 
         if($data == null)
             return response()->json([]);

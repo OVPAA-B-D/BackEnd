@@ -358,8 +358,20 @@ export default {
       letters:['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
       storeParameter:{parameterID:'',parameterLabel: '',areaID: ''},
       storeBenchmark:{benchmarkID:'',benchmarkLabel: '',parameterID: ''},
+      storeProgramLevelBenchmark: {
+        programLevelBenchmarkID :'',
+        benchmarkID: '',
+        programLevelID: '',
+        file: '',
+        submitStatus: '',
+        uploadedBy: '',
+        uploadedDate: '',
+        modifiedBy: '',
+        modifiedDate: ''
+        },
       parameters: [],
       benchmarks: [],
+      programLevelBenchmark: [],
         component:"Details",
         show_add_parameter:false,
         show_add_benchmark:false,
@@ -388,6 +400,12 @@ export default {
         areaID: '',
       },
       filteredBenchmark:{
+        benchmarkID: '',
+        benchmarkLabel: '',
+        parameterID: '',
+      },
+      filteredProgramLevelBenchmark:{
+        programLevelBenchmarkID: '',
         benchmarkID: '',
         benchmarkLabel: '',
         parameterID: '',
@@ -538,6 +556,42 @@ export default {
           }
 
     },
+     fetchProgramLevelBenchmarks(){
+        console.log("ProgramLevelBenchmarks");
+      api.get('api/getProgramLevelBenchmark').then(response => {
+        this.programLevelBenchmark= response.data;
+        this.filteredProgramLevelBenchmark=response.data;
+        console.log('benchmarks' ,this.programLevelBenchmark);
+        return this.programLevelBenchmark;
+    });
+    },
+    genProgramLevelBenchmarkID(){
+      
+       var arrFiltered_programLevelBenchmark=[];
+        console.log("boom",this.filteredProgramLevelBenchmark);
+        if(this.filteredProgramLevelBenchmark !=""){
+          
+            console.log("asdasdas");
+            this.filteredProgramLevelBenchmark.forEach((value,index) => {
+            arrFiltered_programLevelBenchmark.push(value);
+            });
+            console.log("asd",arrFiltered_programLevelBenchmark[0].programLevelBenchmarkID);
+            const arrProgramLevelBenchmarkID = arrFiltered_programLevelBenchmark[arrFiltered_programLevelBenchmark.length-1].programLevelBenchmarkID.split("-");
+            var programLevelBenchmarkNumber = parseInt(arrProgramLevelBenchmarkID[1]);          
+            programLevelBenchmarkNumber++;
+            var programLevelBenchmarkNumberString = programLevelBenchmarkNumber.toString();
+            console.log("program level benchmark:",programLevelBenchmarkNumber);
+            while (programLevelBenchmarkNumberString.length < arrProgramLevelBenchmarkID[1].length) programLevelBenchmarkNumberString = "0" + programLevelBenchmarkNumberString;
+            
+            this.storeProgramLevelBenchmark.programLevelBenchmarkID = "PLB-" +programLevelBenchmarkNumberString;
+     
+         }
+          else{
+              this.storeProgramLevelBenchmark.programLevelBenchmarkID = "PLB-00001";
+              
+          }
+
+    },
 
       show_input(id1,id2){
         let x=document.getElementById(id1)
@@ -596,6 +650,7 @@ export default {
   created(){
     this.fetchparameters();
     this.fetchbenchmarks();
+    this.fetchProgramLevelBenchmarks();
      this.getPersonal();
   }
 }

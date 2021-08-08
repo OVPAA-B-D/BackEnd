@@ -176,7 +176,7 @@
                       <div>
                         <h1 class="text-blue-150 text-sm">Firstname</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input required  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
+                        <input required  type="text"  class="italic  text-black-150 w-75 px-4 rounded-sm  h-12 
                         focus:outline-none cursor-text " v-model="taskForceMember.firstName"/>
                        </div>
                        </div>

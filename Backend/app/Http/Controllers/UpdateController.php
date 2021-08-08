@@ -79,6 +79,7 @@ class UpdateController extends Controller
         ]);
 
         $record = new ProgramModel;
+        
         // entities possibly to be change or update
         // $record->email = $request->email;
 
