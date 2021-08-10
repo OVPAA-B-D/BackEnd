@@ -75,13 +75,13 @@
           <div class="flex gap-x-4  items-center">
             <select @click="filterObj()" id="filtering"  class=" text-blue-150 w-60 rounded-sm h-9 focus:outline-none cursor-pointer border-2 border-blue-150">
                       <option selected  value="all">All Campus</option>
-                      <option value="Main">Main Campus</option>
-                      <option value="East">East Campus</option>
-                      <option value="Daraga">Daraga Campus</option>
-                      <option value="Tabaco">Tabaco Campus</option>
-                      <option value="Guinobatan">Guinobatan Campus</option>
-                      <option value="Polangui">Polangui Campus</option>
-                      <option value="Gubat">Gubat Campus</option>
+                      <option value="Main campus">Main Campus</option>
+                      <option value="East campus">East Campus</option>
+                      <option value="Daraga campus">Daraga Campus</option>
+                      <option value="Tabaco campus">Tabaco Campus</option>
+                      <option value="Guinobatan campus">Guinobatan Campus</option>
+                      <option value="Polangui campus">Polangui Campus</option>
+                      <option value="Gubat campus">Gubat Campus</option>
             </select>
           <div class="space-x-2 cursor-pointer  font-normal text-xl flex justify-between items-center h-9 pl-0.5 pr-2 text-white bg-blue-150 ">
             <input type="text" placeholder="Search" class="
@@ -101,7 +101,7 @@
               </div>
               <div class=" h-full flex flex-wrap justify-items-start gap-x-4  overflow-auto  ">
                  <div v-for="programx in filtered_program2" :key="programx.programID" class="flex justify-evenly " >
-             <div class=" p-2 pt-2 w-min relative" style="height:340px" >
+             <div class=" p-2 pt-2 w-min relative" style="height:400px" >
                
                <div class="flex  items-center absolute top-0 right-0 ">
                  <div @click="index_array(programx.programID),edit_program(),show_edit=!show_edit,image_name=''" class="flex justify-center items-center rounded-full border-4 border-white h-10 w-10 cursor-pointer bg-green-150">
@@ -897,12 +897,12 @@ export default {
             }
 
             api
-                .post("api/ProgramLevel",this.asd)
+                .post("api/refCampus",this.asd)
                 .then((response) => {
-                  location.reload()
+                  
                 })
                 .catch((errors) => {
-                this.errors = errors.response;
+                location.reload()
                   });
 
           
@@ -1174,28 +1174,29 @@ export default {
       },
       filterObj(){
         let x=document.getElementById('filtering').value
+        console.log("finding x:", x);
         if(x=='all'){
           this.filtered_program2 = this.filtered_program;
           }
-        else if(x == "Main"){
+        else if(x == "Main campus"){
           this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
         }
-        else if(x == "East"){
+        else if(x == "East campus"){
           this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
         }
-        else if(x == "Daraga"){
+        else if(x == "Daraga campus"){
           this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
         }
-        else if(x == "Tabaco"){
+        else if(x == "Tabaco campus"){
           this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
         }
-        else if(x == "Guinobatan"){
+        else if(x == "Guinobatan campus"){
           this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
         }
-        else if(x == "Polangui"){
+        else if(x == "Polangui campus"){
           this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
         }
-        else if(x == "Gubat"){
+        else if(x == "Gubat campus"){
           this.filtered_program2= this.filtered_program.filter(trans=>trans.campusName==x)
         }
       },
