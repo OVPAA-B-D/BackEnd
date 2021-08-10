@@ -152,7 +152,7 @@
                   <img   class="w-16" src="icons/icon15.png">
                   </div>
                     <span class="flex flex-col   justify-center w-full">
-                    <label :for="folderx.id"><h1 :id="folderx.id">{{folderx.areaID}}</h1></label>
+                    <label :for="folderx.id"><h1 :id="folderx.id">{{folderx.areaLabel}}</h1></label>
                     <input  v-model="folderx.programLevelAreaID" :id="folderx.id+'x'"  type="text" class="hidden text-center focus:outline-none border-2 border-black h-5"/>
                   </span>
                   </div>
@@ -520,10 +520,11 @@ export default {
            api.get("/api/getAreas").then((res)=>{
              this.area = res.data;
              this.filterredarea = res.data;
-              this.folderArea=res.data;
+             // this.folderLevelArea=res.data;
              console.log("Area Saved: ",this.area);
            });
-	 var programdata = JSON.parse(localStorage.getItem("ProgramData"));
+
+	     var programdata = JSON.parse(localStorage.getItem("ProgramData"));
              this.programName = programdata.programName;
              this.email = programdata.email;
              this.firstName = programdata.firstName;
@@ -691,12 +692,13 @@ export default {
           this.folderLevelArea.push(value)
         }
         });
+
         console.log("Areas", this.folderLevelArea);
     })
     },
     perform(){
-              localStorage.setItem("areaID", JSON.stringify(this.folderArea[this.index].areaID));
-              console.log(this.folderArea[this.index].programLevelID);
+              localStorage.setItem("areaID", JSON.stringify(this.folderLeverArea[this.index].areaID));
+              console.log(this.folderLevelArea[this.index].programLevelID);
               // localStorage.setItem("code", res.data.code);
               // this.$router.push({ name: "verifyemail" });
     },

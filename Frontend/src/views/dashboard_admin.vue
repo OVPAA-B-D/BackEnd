@@ -368,9 +368,6 @@ export default {
 
         });
          
-       
-
-
           this.$router.push({ path: "dashboard" });
        
 
@@ -381,7 +378,7 @@ export default {
 
     },
     logout(){
-      localStorage.removeItem("Personal");
+      window.localStorage.clear();
        this.$router.push({ path: "login" });
    },
   },

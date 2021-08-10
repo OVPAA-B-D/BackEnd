@@ -14,7 +14,7 @@
       </div>
       <div class="flex flex-col items-center" v-for="personal in personalInfo">
       <h1  class="uppercase text-white text-lg font-bold">{{personal.firstName}} {{personal.lastName}}</h1>
-      <h1 class="text-sm text-white">({{personal.roleType}})</h1>
+      <h1 class="text-sm text-white">asdasdas({{personal.roleType}})</h1>
       </div>
      <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
           

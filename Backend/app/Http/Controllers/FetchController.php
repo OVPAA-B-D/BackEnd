@@ -132,7 +132,7 @@ class FetchController extends Controller
 
     function getProgramLevelArea(){
         $programLevelArea = Auth::user();
-        $data = DB::select('SELECT * FROM tbl_programlevelarea ');
+        $data = DB::select('SELECT * FROM tbl_area INNER JOIN tbl_programlevelarea ON tbl_area.areaID = tbl_programlevelarea.areaID');
     
         if($data == null)
             return response()->json([]);

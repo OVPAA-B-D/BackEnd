@@ -101,7 +101,7 @@
               </div>
               <div class=" h-full flex flex-wrap justify-items-start gap-x-4  overflow-auto  ">
                  <div v-for="programx in filtered_program" :key="programx.programID" class="flex justify-evenly " >
-             <div class=" p-2 pt-2 w-min relative" style="height:340px" >
+             <div class=" p-2 pt-2 w-min relative" style="height:400px" >
                
                <div class="flex  items-center absolute top-0 right-0 ">
                  <div @click="index_array(programx.programID),show_edit=!show_edit,image_name=''" class="flex justify-center items-center rounded-full border-4 border-white h-10 w-10 cursor-pointer bg-green-150">
@@ -1023,7 +1023,10 @@ export default {
       //     var ID =  
       //     return 
       // },
-      
+      logout(){
+      window.localStorage.clear();
+       this.$router.push({ path: "login" });
+   },
       index_array(e){
           this.index=this.filtered_program.findIndex(x => x.programID===e)
           console.log("Index: ", e);
