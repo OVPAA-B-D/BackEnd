@@ -321,19 +321,64 @@ export default {
         lastName: "",
         roleType: "",
       },
+   // programData: new FormData(),
+      programData: [],
     };
   },
   methods: {
     getPersonal() {
+      let temp = [];
+
       var personal = JSON.parse(localStorage.getItem("Personal"));
       console.log(personal);
-      api
-        .get("/api/getUser", { params: { email: personal.email } })
-        .then((res) => {
-          this.personalInfo = res.data;
+      // api
+      //   .get("/api/getUser", { params: { email: personal.email } })
+      //   .then((res) => {
+      //     this.personalInfo = res.data;
+
+      //     console.log(this.personalInfo);
+      //   });
+
+
+      api.get("api/getUser", { params: { email: personal.email } }).then((res)=>{
+            this.personalInfo = res.data;
 
           console.log(this.personalInfo);
+            temp= res.data;
+        temp.forEach((value, index) => {
+        if(value.roleType === "task force"){
+          api.get("api/setTaskForce", {params: {email: personal.email}}).then((res)=>{
+              this.programData = res.data;
+              console.log("Program Data:", res.data);
+              localStorage.setItem("ProgramData", JSON.stringify(this.programData));
+               this.$router.push({ path: "taskforce_home" });
+          });
+          console.log("values", value);  
+        }
+        else if (value.roleType == "Internal accreditor" || value.roleType == "External accreditor" ){
+          api.get("api/setAccreditor", { params: { email: personal.email } }).then((res)=>{
+            this.programData = res.data;
+           console.log("Program Data:", res.data);
+           localStorage.setItem("ProgramData",JSON.stringify(this.programData));
+           this.$router.push({ path: "accreditor_home" });
+          });
+          console.log("values", value);
+      
+        }
+
         });
+         
+       
+
+
+          this.$router.push({ path: "dashboard" });
+       
+
+          });
+
+
+
+
     },
     logout(){
       localStorage.removeItem("Personal");

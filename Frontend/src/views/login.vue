@@ -173,6 +173,7 @@ export default {
         firstName: "",
         lastName: "",
         roleType: "",
+        email: "",
       },
       n: 0,
       type_pass: "password",
@@ -193,6 +194,8 @@ export default {
       }
     },
     loginUser: function () {
+    // let temp = [];
+
       api
         .post("api/Login", this.dataForm)
         .then((res) => {
@@ -205,6 +208,11 @@ export default {
           
         
             localStorage.setItem("Personal",JSON.stringify(res.data.user));
+          
+         // this.PersonalInfo.email = this.dataForm.email;
+           
+
+          
 
           this.$router.push({ path: "dashboard" });
            

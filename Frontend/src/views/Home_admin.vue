@@ -571,7 +571,12 @@ export default {
           programID:"",
           taskforceEmail: "",
           roleDescription:"",
-      }
+      },
+       personalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
+      },
     }
   },
   
