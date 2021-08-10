@@ -14,7 +14,9 @@ use App\Models\ProgramModel;
 use App\Models\UserAuthenticationModel;
 use App\Models\UserInformationModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 class UpdateController extends Controller
+
 {
     public function updateArea(Request $request)
     {
@@ -66,39 +68,35 @@ class UpdateController extends Controller
     
     public function updateProgram(Request $request)
     {
-        $request->validate([
-            ':id' => [],
-            ':programID' => [],
-            ':campusName' => [],
-            ':collegeName' => [],
-            ':programName' => [],
-            ':chairmanEmail' => [],
-            ':taskForceMemberEmail' => [],
-            ':createdDate'   => []
-        ]);
+        
+        $validator=Validator::make($request->all(), [
+            'programID' => ['required'],
+            'campusName' => ['required'],
+            'collegeName' => ['required'],
+            'programName' => ['required'],
+            
 
-        $record = new ProgramModel;
+       ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        $program = ProgramModel::where('programID',$request->programID)->first();
         // entities possibly to be change or update
         // $record->email = $request->email;
 
-        $record->save();
+        $program->programName= $request->programName; 
+        $program->campusName = $request->campusName;
+        $program->collegeName = $request->collegeName;
+        $program->programName = $request->programName;
+        $program->save();
     }
     
     public function updateProgramLevel(Request $request)
     {
-        $request->validate([
-            ':id' => [],
-            ':programLevelID' => [],
-            ':programID' => [],
-            ':level' => [],
-            ':levelStatus' => []
-        ]);
+        $programLevel = ProgramLevelModel::where('programLevelID',$request->programLevelID)->first();
+        $programLevel->levelStatus = $request->levelStatus;
 
-        $record = new ProgramLevelModel;
-        // entities possibly to be change or update
-        // $record->email = $request->email;
-
-        $record->save();
+        $programLevel->save();
 
     }
 

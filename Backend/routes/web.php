@@ -21,15 +21,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:sanctum']], function () {
    
 
-    Route::post("/updateArea", [updateController::class, 'updateArea']);
-    Route::post("/updateBenchmark", [updateController::class, 'updateBenchmark']);
-    Route::post("/updateParameter", [updateController::class, 'updateParameter']);
-    Route::post("/updateProgram", [updateController::class, 'updateProgram']);
-    Route::post("/updateProgramLevel", [updateController::class, 'updateProgramLevel']);
-    Route::post("/updateProgramLevelArea", [updateController::class, 'updateProgramLevelArea']);
-    Route::post("/updateProgramLevelBenchmark", [updateController::class, 'updateProgramLevelBenchmark']);
-    Route::post("/userAuthentication", [updateController::class, 'userAuthentication']);
-    Route::post("/userInformation", [updateController::class, 'userInformation']);
 
 
    
@@ -68,3 +59,14 @@ Route::get('getUserAuthentication', [FetchController::class, 'getUserAuthenticat
 Route::get('getTaskForceChairman',[FetchController::class, 'getTaskForceChairman']);
 Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);
 Route::get('getTaskForceInfo',[FetchController::class, 'getTaskForceInfo']);
+Route::get('getProgramLevelProgramID',[FetchController::class, 'getProgramLevelProgramID']);
+
+Route::post("/updateArea", [updateController::class, 'updateArea']);
+Route::post("/updateBenchmark", [updateController::class, 'updateBenchmark']);
+Route::post("/updateParameter", [updateController::class, 'updateParameter']);
+Route::post("/updateProgram", [updateController::class, 'updateProgram']);
+Route::post("/updateProgramLevel", [updateController::class, 'updateProgramLevel']);
+Route::post("/updateProgramLevelArea", [updateController::class, 'updateProgramLevelArea']);
+Route::post("/updateProgramLevelBenchmark", [updateController::class, 'updateProgramLevelBenchmark']);
+Route::post("/userAuthentication", [updateController::class, 'userAuthentication']);
+Route::post("/userInformation", [updateController::class, 'userInformation']);

@@ -104,7 +104,7 @@
              <div class=" p-2 pt-2 w-min relative" style="height:340px" >
                
                <div class="flex  items-center absolute top-0 right-0 ">
-                 <div @click="index_array(programx.programID),show_edit=!show_edit,image_name=''" class="flex justify-center items-center rounded-full border-4 border-white h-10 w-10 cursor-pointer bg-green-150">
+                 <div @click="index_array(programx.programID),edit_program(),show_edit=!show_edit,image_name=''" class="flex justify-center items-center rounded-full border-4 border-white h-10 w-10 cursor-pointer bg-green-150">
                  <img src="/icons/icon14_edit_image.svg" class="w-4 h-4"/>
                </div>
                <div @click="index_array(programx.programID),confirmation_deletion=!confirmation_deletion" class="flex justify-center items-center  rounded-full border-4 cursor-pointer border-white h-10 w-10 bg-red-150">
@@ -278,7 +278,7 @@
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Campus</h1>
                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select  id="selected_campus" required class="fill-current   italic text-blue-150 w-74 px-4 rounded-md  h-12 focus:outline-none cursor-pointer ">
+                      <select v-model="addProgram.campusName"  id="selected_campus" required class="bg-white fill-current   italic text-150 w-74 px-4 rounded-md  h-12 focus:outline-none cursor-pointer ">
                       <option selected disabled value="">Choose a Campus</option>
                       <option value="Main">Main Campus</option>
                       <option value="East">East Campus</option>
@@ -293,7 +293,7 @@
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">College</h1>
                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select  id="selected_college" required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                      <select v-model="addProgram.collegeName"  id="selected_college" required class="bg-white fill-current italic text-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
                       <option selected disabled value="" >Choose a College</option>
                       <option  >College of Science</option>
                       </select>
@@ -302,7 +302,7 @@
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Program</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select   required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                      <select v-model="addProgram.programName"  required class=" bg-white fill-current italic text-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
                       <option selected disabled value="" >Choose a College</option>
                       <option>Computer Science</option>
                       </select>
@@ -311,48 +311,49 @@
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Chairman's firstname</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  placeholder="Enter the chairman’s firstname" type="text"
-                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
+                        <input v-model="addProgram.firstName" disabled placeholder="Enter the chairman’s firstname" type="text"
+                          class="bg-white italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Chairman's lastname</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  placeholder="Enter the chairman’s lastname" type="text"
-                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
+                        <input v-model="addProgram.lastName" disabled placeholder="Enter the chairman’s lastname" type="text"
+                          class="bg-white italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Chairman's middlename</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input required placeholder="Enter the chairman’s middlename" type="text"
-                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
+                        <input v-model="addProgram.middleName" disabled required placeholder="Enter the chairman’s middlename" type="text"
+                          class="bg-white italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Contact number</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  required  placeholder="Chairman’s contact number" type="number"
-                          class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
+                        <input disabled v-model="addProgram.contactNumber"  required  placeholder="Chairman’s contact number" type="text"
+                          class="bg-white italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                         </div>
                         </div>
                       
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Email</h1>
                       <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <input  placeholder="Chairman’s E-mail Address" type="text" 
-                       class="italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
+                      <input disabled v-model="addProgram.email" placeholder="Chairman’s E-mail Address" type="text" 
+                       class="bg-white italic placeholder-blue-150 text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-text "/>
                       </div>
                       </div>
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Level</h1>
                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select  required class="fill-current italic text-blue-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                      <select v-model="Level" required class="fill-current italic text-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
                       <option selected disabled value="" >Level of accreditation</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
+                      <option value="0">Preliminary Survey Visit</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
                       </select>
                       </div>
                       </div>
@@ -369,7 +370,7 @@
                     Add Cover
                   </span>
                    </label>
-                  <button type="submit" value="Submit"  @click=" text_modal='update this Program'" class="flex items-center justify-center px-5 gap-2 w-32 h-8 text-white bg-blue-250"> 
+                  <button type="submit" value="Submit"  @click=" update_confirmation=!update_confirmation, text_modal='update this Program'" class="flex items-center justify-center px-5 gap-2 w-32 h-8 text-white bg-blue-250"> 
                    <span class="material-icons">
                     autorenew
                     </span>
@@ -587,7 +588,15 @@ export default {
       makeFolder:{
           createFolderStatus:"",
           programID:"",
-      }
+      },
+      getProgramLevelProgramID:[{
+          programLevelID:"",
+          programID:"",
+          level:"",
+          levelStatus:"",
+      }],
+      formProgram: new FormData(),
+      
 
     }
   },
@@ -694,11 +703,6 @@ export default {
                 .catch((errors) => {
                 this.errors = errors.response;
                   });
-
-
-
-
-
             }
             this.makeFolder.programID = this.addProgram.programID;
             this.makeFolder.createFolderStatus = 1;
@@ -779,8 +783,81 @@ export default {
 
               
       },
+      update(){
+
+          this.formProgram.append("programID",this.addProgram.programID);
+          this.formProgram.append("programName",this.addProgram.programName);
+          this.formProgram.append("campusName",this.addProgram.campusName);
+          this.formProgram.append("collegeName",this.addProgram.collegeName);
+
+          console.log("b",this.formProgram);
+          // console.log("a",this.addProgram.programName);
+          console.log("aaa",this.addProgram.programID);
+          console.log("aaa",this.addProgram.programName);
+          console.log("wag",this.addProgram.campusName);
+          console.log("gaw",this.addProgram.collegeName);
+          
+          api
+              .post("api/updateProgram",this.formProgram)
+              .then((response) => {
+                    
+              })
+              .catch((errors) => {
+              this.errors = errors.response;
+              });
+          api
+              .get("api/getProgramLevelProgramID",{params:{programID: this.addLevel.programID}})
+              .then((response) => {
+                    this.getProgramLevelProgramID = response.data;
+                    console.log("asdasd",this.getProgramLevelProgramID);
+                    
+                    this.levelUpdate();
+              })
+              .catch((errors) => {
+              this.errors = errors.response;
+              });
+
+            
+           
 
 
+      },
+
+      levelUpdate(){
+        console.log(this.getProgramLevelProgramID[0]);
+         var i= 0;
+            for(var i= 0; i<=4;i++){
+              
+              if( i < parseInt(this.Level)){
+                
+                this.addLevel.programLevelID = this.getProgramLevelProgramID[i].programLevelID;
+                this.addLevel.levelStatus = "passed";
+              }
+              else if(i == parseInt(this.Level)){
+                
+                
+                this.addLevel.programLevelID = this.getProgramLevelProgramID[i].programLevelID;
+                this.addLevel.levelStatus = "unlocked";
+              }
+              else if(i > parseInt(this.Level)){
+                
+                
+                this.addLevel.programLevelID = this.getProgramLevelProgramID[i].programLevelID;
+                this.addLevel.levelStatus = "locked";
+              }
+              api
+                .post("api/updateProgramLevel",this.addLevel)
+                .then((response) => {
+                  // console.log("papa", response);
+                  // this.getLevelAll = reponse.data;
+                  // console.log("pape", this.getLevelAll);
+                })
+                .catch((errors) => {
+                this.errors = errors.response;
+                  });
+
+            }
+      },
       chairmanInfo(){
         let arrGetTaskForceChairman=[];
         let arrGetUserInformation=[];
@@ -1023,6 +1100,24 @@ export default {
           console.log("e",e);
           this.index=this.filtered_program.findIndex(x => x.programID===e);
           console.log("index",this.index);
+      },
+      edit_program(){
+        this.addProgram.programID = this.filtered_program[this.index].programID; 
+        this.addProgram.campusName = this.filtered_program[this.index].campusName;
+        console.log("name",this.addProgram.campusName);    
+        this.addProgram.collegeName = this.filtered_program[this.index].collegeName;
+        this.addProgram.programName = this.filtered_program[this.index].programName;
+        this.addProgram.firstName = this.filtered_program[this.index].firstName;
+        this.addProgram.lastName = this.filtered_program[this.index].lastName;
+        this.addProgram.middleName = this.filtered_program[this.index].middleName;
+        this.addProgram.contactNumber = this.filtered_program[this.index].contactNumber;
+        console.log(this.addProgram.contactNumber);
+        this.addProgram.email = this.filtered_program[this.index].email;
+        this.addLevel.programID = this.filtered_program[this.index].programID;
+        this.Level = this.filtered_program[this.index].level;
+        console.log(this.Level);
+
+
       },
       change_image(e){
           this.image_name=''
