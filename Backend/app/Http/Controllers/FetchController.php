@@ -158,7 +158,7 @@ class FetchController extends Controller
 
         $data = DB::select('SELECT * FROM tbl_taskforce
                             INNER JOIN tbl_userinformation ON tbl_taskforce.taskforceEmail = tbl_userinformation.email
-                            INNER JOIN tbl_program ON tbl_taskforce.programID = tbl_program.programID
+                            INNER JOIN tbl_programlevel ON tbl_taskforce.programID = tbl_programlevel.programID
                             WHERE tbl_taskforce.taskforceEmail = \''.$request->email.'\'');
 
             if($data == null)

@@ -59,6 +59,8 @@ Route::get('getProgramLevel', [FetchController::class, 'getProgramLevel']);
 Route::get('getProgramLevelID', [FetchController::class, 'getProgramLevelID']);
 Route::get('getProgramLevelArea', [FetchController::class, 'getProgramLevelArea']);
 Route::get('setAccreditor', [FetchController::class, 'setAccreditor']);
+Route::get('setTaskForce', [FetchController::class, 'setTaskForce']);
+
 Route::get('getProgramLevelBenchmark', [FetchController::class, 'getProgramLevelBenchmark']);
 Route::get('getUserAuthentication', [FetchController::class, 'getUserAuthentication']);
 Route::get('getTaskForceChairman',[FetchController::class, 'getTaskForceChairman']);
