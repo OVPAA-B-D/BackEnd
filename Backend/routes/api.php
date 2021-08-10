@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
-    
+  
+
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -91,3 +92,7 @@ Route::post("/updateArea", [updateController::class, 'updateArea']);
 
     Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);
     Route::get('getTaskForceInfo',[FetchController::class, 'getTaskForceInfo']);
+    Route::get('getProgramLevelProgramID',[FetchController::class, 'getProgramLevelProgramID']);
+
+
+

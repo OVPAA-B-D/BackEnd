@@ -275,4 +275,11 @@ function getTaskForce(){
 
     }
 
+    function getProgramLevelProgramID(Request $request){
+        
+        $data = DB::select('SELECT * FROM tbl_programLevel WHERE programID = \''.$request->programID.'\' ORDER BY  id');
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+    }
 }
