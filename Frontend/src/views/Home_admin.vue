@@ -596,6 +596,9 @@ export default {
           levelStatus:"",
       }],
       formProgram: new FormData(),
+      asd:"",
+
+
       
 
     }
@@ -812,6 +815,8 @@ export default {
                     console.log("asdasd",this.getProgramLevelProgramID);
                     
                     this.levelUpdate();
+                    
+
               })
               .catch((errors) => {
               this.errors = errors.response;
@@ -825,6 +830,7 @@ export default {
 
       levelUpdate(){
         console.log(this.getProgramLevelProgramID[0]);
+        console.log("lvl",this.Level);
          var i= 0;
             for(var i= 0; i<=4;i++){
               
@@ -857,6 +863,17 @@ export default {
                   });
 
             }
+
+            api
+                .post("api/ProgramLevel",this.asd)
+                .then((response) => {
+                  location.reload()
+                })
+                .catch((errors) => {
+                this.errors = errors.response;
+                  });
+
+          
       },
       chairmanInfo(){
         let arrGetTaskForceChairman=[];
