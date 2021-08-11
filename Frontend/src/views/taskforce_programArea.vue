@@ -416,6 +416,7 @@
                       (btn_enable = 'off'),
                         isActive_function('btn1'),
                         show_default()
+                        
                     "
                     :class="{ outline: bg_btn === 0 }"
                     class="absolute w-full h-full inset-0 -z-1"
@@ -440,6 +441,7 @@
                           (btn_enable = 'on'),
                             index_array(folderx.id),
                             isActive_function(folderx.id),
+                            getAreaComments(folderx.areaID),
                             (folder_id = folderx.id),
                             rename_folder
                         "
@@ -574,7 +576,7 @@
                     m-5
                   "
                 >
-                  <component :is="component" :listdata="folder_details" />
+                  <component :is="component" :listdata="folder_details" :selectedAreaID="selectedAreaID" />
                 </div>
               </div>
             </div>
@@ -984,6 +986,7 @@ export default {
           created: "Admin",
         },
       ],
+      selectedAreaID: '',
       folderArea: [
         // {
         //   id: 1,
@@ -1062,13 +1065,13 @@ export default {
     },
      getPersonal() {
       var personal = JSON.parse(localStorage.getItem("Personal"));
-      console.log(personal);
+      // console.log(personal);
       api
         .get("/api/getUser", { params: { email: personal.email } })
         .then((res) => {
           this.personalInfo = res.data;
 
-          console.log(this.personalInfo);
+          // console.log(this.personalInfo);
         });
     },
     fetchAreas() {
@@ -1076,11 +1079,14 @@ export default {
         .get("api/getArea")
         .then((response) => {
           this.folderArea = response.data;
-          // console.log(response.data);
+          console.log("AREA", response.data);
         })
         .catch((errors) => {
           console.log(errors.response);
         });
+    },
+    getAreaComments(e){
+      this.selectedAreaID = e;
     },
   },
   mounted() {
