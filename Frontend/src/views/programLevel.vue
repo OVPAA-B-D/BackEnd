@@ -197,7 +197,7 @@
                       <div>
                         <h1 class="text-blue-150 text-sm">Member</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <select required class="fill-current italic text-blue-250 w-75 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer" v-model="taskForceMember.roleType">
+                        <select required class="fill-current italic text-blue-250 w-75 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer" v-model="taskForceMember.roleDescription">
                           <option selected disabled value="" >Select task force role</option>
                           <option>Chairman</option>
                           <option>Member</option>
@@ -370,7 +370,9 @@ Details,
         lastName: "",
         contactNumber: "",
         email: "",
-        roleType: "",
+        roleType: "task force",
+        roleDescription: "",
+        programID: '',
       },
         taskForceMembers: {
         firstName: "",
@@ -432,11 +434,23 @@ Details,
         .catch((errors) => {
           this.errors = errors.res;
         });
+
+      this.taskForceMember.programID = JSON.parse(localStorage.getItem("programID"));
+      console.log("Program ID: ", this.taskForceMember.programID);
+        api
+        .post("/api/TaskForce", this.taskForceMember)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((errors) => {
+          this.errors = errors.res;
+        });
+
         api
         .post("/api/UserAuthentication", this.taskForceMember)
         .then((res) => {
           console.log(res);
-          location.reload();
+         // location.reload();
         })
         .catch((errors) => {
           this.errors = errors.res;

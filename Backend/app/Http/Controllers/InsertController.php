@@ -157,7 +157,7 @@ class InsertController extends Controller
     function TaskForce(Request $request){
         $taskforce = new TaskForceModel();
         $taskforce->programID = $request->programID;
-        $taskforce->taskforceEmail = $request->taskforceEmail;
+        $taskforce->taskforceEmail = $request->email;
         $taskforce->roleDescription = $request->roleDescription;
         $taskforce->save();
     }
