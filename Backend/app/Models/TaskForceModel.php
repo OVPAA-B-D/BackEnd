@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
-class TaskForceModel extends Authenticatable
+class TaskForceModel extends Model
 {
     use HasFactory;
 
@@ -26,6 +26,7 @@ class TaskForceModel extends Authenticatable
         'activeStatus',
         'createdDate',
     ];
+    public $timestamps = false;
 
     // public function getUserInfo(){
     //     return $this->hasOne(UserInformationModel::class, 'email', 'taskforceEmail');

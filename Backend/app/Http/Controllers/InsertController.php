@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\password;
 use App\Models\AccreditorModel;
 use App\Models\AreaModel;
 use App\Models\BenchmarkModel;
@@ -15,6 +17,7 @@ use App\Models\User;
 use App\Models\UserInformationModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -36,33 +39,20 @@ class InsertController extends Controller
    }
 
    function Member(Request $request){
-       $user = new UserInformationModel();
-       $user->email = $request->email;
-       $user->lastName = $request->lastName;
-       $user->firstName = $request->firstName;
-       $user->middleName = $request->middleName;
-       $user->contactNumber = $request->contactNumber;
-       $user->profilePicture = $request->profilePicture;
-       $user->roleType = $request->roleType;
-       
+    $user = new UserInformationModel();
+    $user->email = $request->email;
+    $user->lastName = $request->lastName;
+    $user->firstName = $request->firstName;
+    $user->middleName = $request->middleName;
+    $user->contactNumber = $request->contactNumber;
+    $user->profilePicture = $request->profilePicture;
+    $user->roleType = $request->roleType;
+    
+    $user->save();
 
-       $user->save();
-
-       $userAuthentication = new User();
-       $userAuthentication->email = $request->email;
-       $userAuthentication->password = $request->password;
-
-       $userAuthentication->save();
-
-       Auth::login($userAuthentication);
-
-       $token = $userAuthentication->createToken('myapptoken')->plainTextToken;
-
-       $response = ["user"=>$userAuthentication, "token"=>$token];
-
-       return response()->json($response,201);
-   }
-
+   
+}
+   
    function Parameter(Request $request){
 
     $parameter = new ParameterModel();
@@ -77,16 +67,10 @@ class InsertController extends Controller
         $benchmark = new BenchmarkModel();
         $benchmark->benchmarkID = $request->benchmarkID;
         $benchmark->benchmarkLabel = $request->benchmarkLabel;
+        $benchmark->parameterID = $request->parameterID;
+
 
         $benchmark->save();
-    }
-
-    function Area(Request $request){
-        $area = new AreaModel();
-        $area->areaID = $request->areaID;
-        $area->areaLabel = $request->areaLabel;
-
-        $area->save();
     }
 
     function ProgramLevel(Request $request){
@@ -117,7 +101,8 @@ class InsertController extends Controller
         $programLevelBenchmark->programLevelBenchmarkID = $request->programLevelBenchmarkID;
         $programLevelBenchmark->benchmarkID = $request->benchmarkID;
         $programLevelBenchmark->programLevelID = $request->programLevelID;
-        $path = $request->file('')->store('');
+        $name=$request->file('file')->getClientOriginalName();
+        $path = $request->file('file')->store('/files/');
         $programLevelBenchmark->file = Storage::url('/files/'.$request->programID.'/'.$request->programLevelID.'/'.$request->file);
         // $programLevelBenchmark->file = $request->file;
         $programLevelBenchmark->uploadedBy = $request->uploadedBy;
@@ -128,13 +113,46 @@ class InsertController extends Controller
         $programLevelBenchmark->save();
     }
 
+    function UserAuthentication(Request $request){
+        $userAuthentication = new User();
+        $userAuthentication->email = $request->email;
+    
+        $code = mt_rand(100000, 999999);
+        $data = [
+            'name' => $request->firstName,
+            'verification_code' => $code
+        ];
+    
+        //return response()->json(trim($request->email));
+        $email = trim($request->email);
+        $password = Hash::make($code);
+        $userAuthentication->password = $password;
+        $userAuthentication->save();
+        
+        $returnValue = ['code' => $code];
+                Mail::to($email)->send(new password($data));
+                $returnValue = ['code' => $code, 'email'=>'email'];
+        
+    
+                return response()->json($returnValue);
+    
+        
+    
+        // Auth::login($userAuthentication);
+    
+        // $token = $userAuthentication->createToken('myapptoken')->plainTextToken;
+    
+        // $response = ["user"=>$userAuthentication, "token"=>$token];
+    
+        // return response()->json($response,201);
+    }
+
     function Accreditor(Request $request){
         $accreditor = new AccreditorModel();
         $accreditor->programLevelAreaID = $request->programLevelAreaID;
         $accreditor->accreditorEmail = $request->accreditorEmail;
         $accreditor->roleDescription = $request->roleDescription;
-        $accreditor->activeStatus = $request->activeStatus;
-        $accreditor->createdDate = $request->createdDate;
+        $accreditor->save();
     }
 
     function TaskForce(Request $request){
@@ -142,7 +160,60 @@ class InsertController extends Controller
         $taskforce->programID = $request->programID;
         $taskforce->taskforceEmail = $request->taskforceEmail;
         $taskforce->roleDescription = $request->roleDescription;
-        $taskforce->activeStatus = $request->activeStatus;
-        $taskforce->createdDate = $request->createdDate;
+        $taskforce->save();
+    }
+
+    function Area(Request $request)
+    {
+        $validator=Validator::make($request->all(), [
+            'areaID' => ['required'],
+            'areaLabel' => ['required']
+       ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $area = new AreaModel();
+        $area->areaID = $request->areaID;
+        $area->areaLabel = $request->areaLabel;
+
+        $area->save();
+    }
+    function MakeFolder(Request $request){
+
+        $createFolderStatus = $request->createFolderStatus;
+        $programID=$request->programID;
+        
+        if($createFolderStatus == 1){
+            $files = "/files/".$programID;
+            Storage::makeDirectory($files);
+            $pre= "/$files/"."PreliminarySurveyVisit";
+            Storage::makeDirectory($pre);
+            $level1= "/$files/"."Level1";
+            Storage::makeDirectory($level1);
+            $level2= "/$files/"."Level2";
+            Storage::makeDirectory($level2);
+            $level3= "/$files/"."Level3";
+            Storage::makeDirectory($level3);
+            $level4= "/$files/"."Level4";
+            Storage::makeDirectory($level4);
+
+        }
+
+    }
+    function makeComment(Request $request){
+        $programLevelBenchmark = new ProgramLevelBenchmarkModel();
+        $programLevelBenchmark->programLevelBenchmarkID = $request->programLevelBenchmarkID;
+        $programLevelBenchmark->benchmarkID = $request->benchmarkID;
+        $programLevelBenchmark->programLevelID = $request->programLevelID;
+        $path = $request->file('')->store('');
+        $programLevelBenchmark->file = Storage::url('/files/'.$request->programID.'/'.$request->programLevelID.'/'.$request->file);
+        // $programLevelBenchmark->file = $request->file;
+        $programLevelBenchmark->uploadedBy = $request->uploadedBy;
+        $programLevelBenchmark->uploadedDate = $request->uploadedDate;
+        $programLevelBenchmark->modifiedBy = $request->modifiedBy;
+
+        Storage::disk('local')->put('/files/'.$request->programID.'/'.$request->programLevelID.'/'.$request->file, $path);
+        $programLevelBenchmark->save();
     }
 }

@@ -14,9 +14,9 @@
                 add_photo_alternate
             </span>
       </div>
-      <div class="flex flex-col items-center">
-      <h1  class="uppercase text-white text-lg font-bold">Brody Corpuz</h1>
-      <h1 class="text-sm text-white">External Accreditor</h1>
+      <div class="flex flex-col items-center " v-for="personal in personalInfo">
+      <h1  class="uppercase text-white text-lg font-bold"> {{ personal.firstName }} {{ personal.lastName }}</h1>
+      <h1 class="text-sm text-white">({{ personal.roleType }})</h1>
       </div>
      <div class=" text-white gap-y-3 pt-24 flex flex-col flex-grow ">
          
@@ -31,7 +31,7 @@
         
       <div class="relative w-full flex-grow">
       <router-link to="/">
-      <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   ">
+      <div class="w-2/3 absolute bottom-8 drop-shadow-2xl text-white flex items-center space-x-2 pl-4 float-left bg-yellow-150 self-start rounded-r-full  py-3   text-center   " @click="logout">
         <span class="material-icons transform rotate-180 ">
         logout
       </span>
@@ -50,7 +50,8 @@
       <div class="mt-10 pb-0 cursor-wait">
         <h1 class="text-yellow-150 text-5xl">Information Technology</h1>
         <h5 class="text-blue-150 text-3xl">Chairman in charge</h5>
-         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
+         
+   <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
             <img src="/icons/icon16_man.svg"><h1>Johann Abad</h1>
         </span>
         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
@@ -80,14 +81,7 @@
          
          
             </div>
-          <div class="space-x-2  font-normal text-xl flex justify-center items-center p-0.5  pr-2 text-white bg-blue-150 ">
-            <input type="text" placeholder="Search" class="
-            placeholder-blue-150
-             pl-3 text-sm text-gray-150 h-8  focus:outline-none" />
-            <span class="material-icons cursor-pointer">
-              search
-            </span>
-          </div>
+        
         </div>
           <div class="flex flex-row h-99   rounded-xl bg-white p-1 ">
             <div class="overflow-auto bg-gradient-to-b from-blue-150 to-yellow-150 rounded-l-xl gap-y-2 flex flex-col justify-items-start  w-2/3 py-0.6 pl-0.6 h-full">
@@ -151,6 +145,7 @@
 // @ is an alias to /src
 import Details from "./details.vue"
 import Comments from "./comments.vue"
+import api from "../api";
 export default {
   components:{
     Details,
@@ -270,6 +265,21 @@ export default {
 
   },
   methods:{
+     logout(){
+      localStorage.removeItem("Personal");
+       this.$router.push({ path: "login" });
+    },
+    getPersonal() {
+      var personal = JSON.parse(localStorage.getItem("Personal"));
+      console.log(personal);
+      api
+        .get("/api/getUser", { params: { email: personal.email } })
+        .then((res) => {
+          this.personalInfo = res.data;
+
+          console.log(this.personalInfo);
+        });
+    },
       change_component(e){
           if(e=='details'){
             this.component='Details'
@@ -286,6 +296,13 @@ export default {
         this.activeBtn= el;
         }
       },
-  }
-}
+       logout(){
+      localStorage.removeItem("Personal");
+       this.$router.push({ path: "login" });
+    },
+  },
+  mounted() {
+    this.getPersonal();
+  },
+};
 </script>

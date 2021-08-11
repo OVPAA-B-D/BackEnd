@@ -6,8 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class BenchmarkModel extends Authenticatable
+class BenchmarkModel extends Model
 {
     use HasFactory;
 
@@ -17,6 +18,7 @@ class BenchmarkModel extends Authenticatable
      * @var array
      */
     protected $table = 'tbl_benchmark';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'benchmarkID',

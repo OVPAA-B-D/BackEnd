@@ -6,8 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class AccreditorModel extends Authenticatable
+class AccreditorModel extends Model
 {
     use HasFactory;
 
@@ -17,6 +18,7 @@ class AccreditorModel extends Authenticatable
      * @var array
      */
     protected $table = 'tbl_accreditor';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'programLevelAreaID',
@@ -26,4 +28,11 @@ class AccreditorModel extends Authenticatable
         'createdDate',
     ];
 
+    public function ProgramLevelAccreditorEmail(){
+        return $this->belongsTo(ProgramLevelAreaModel::class, 'programLevelAreaID', 'programLevelAreaID');
+    }
+
+    public function AccreditorEmail(){
+        return $this->belongsTo(UserInformationModel::class, 'email', 'accreditorEmail');
+    }
 }

@@ -6,8 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class ProgramLevelAreaModel extends Authenticatable
+class ProgramLevelAreaModel extends Model
 {
     use HasFactory;
 
@@ -17,6 +18,7 @@ class ProgramLevelAreaModel extends Authenticatable
      * @var array
      */
     protected $table = 'tbl_programlevelarea';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'programLevelAreaID',
@@ -28,5 +30,16 @@ class ProgramLevelAreaModel extends Authenticatable
         'modifiedDate'
 
     ];
+
+    public function ProgramLevelID(){
+        return $this->belongsTo(ProgramLevelModel::class, 'programLevelID', 'programLevelID');
+    }
+    public function ProgramLevelAreaID(){
+        return $this->belongsTo(AreaModel::class, 'areaID', 'areaID');
+    }
+    public function ProgramLevelAccreditorEmail(){
+        return $this->hasOne(AccreditorModel::class, 'programLevelAreaID', 'programLevelAreaID');
+    }
+
 
 }

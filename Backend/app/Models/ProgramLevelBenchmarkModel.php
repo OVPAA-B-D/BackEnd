@@ -6,8 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class ProgramLevelBenchmarkModel extends Authenticatable
+class ProgramLevelBenchmarkModel extends Model
 {
     use HasFactory;
 
@@ -16,8 +17,9 @@ class ProgramLevelBenchmarkModel extends Authenticatable
      *
      * @var array
      */
-    public $timestamps = false;
+    
     protected $table = 'tbl_programlevelbenchmark';
+    public $timestamps = false;
     protected $fillable = [
         'id',
         'programLevelBenchmarkID',

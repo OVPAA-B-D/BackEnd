@@ -27,9 +27,9 @@
           add_photo_alternate
         </span>
       </div>
-      <div class="flex flex-col items-center">
-        <h1 class="uppercase text-white text-lg font-bold">Brody Corpuz</h1>
-        <h1 class="text-sm text-white">(External Accreditor)</h1>
+      <div class="flex flex-col items-center" v-for="personal in personalInfo">
+        <h1 class="uppercase text-white text-lg font-bold"> {{ personal.firstName }} {{ personal.lastName }}</h1>
+        <h1 class="text-sm text-white">({{ personal.roleType }})</h1>
       </div>
       <div class="text-white gap-y-3 pt-24 flex flex-col flex-grow">
         <div
@@ -53,7 +53,7 @@
 
       <div class="relative w-full flex-grow">
         <router-link to="/">
-          <div
+          <div @click="logout"
             class="
               w-2/3
               absolute
@@ -99,36 +99,25 @@
             >
           </h1>
         </div>
-        <div class="mt-10 pb-4 cursor-wait">
-          <h1 class="text-yellow-150 text-4xl">Information Technology</h1>
-          <h3 class="text-blue-150 text-2xl">Chairman In Charge</h3>
+      <div class="mt-10 pb-4 cursor-wait">
+        <h1 class="text-yellow-150 text-4xl">Information Technology </h1>
+        <h3 class="text-blue-150 text-2xl">Chairman In Charge</h3>
           <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
             <img src="/icons/icon16_man.svg"><h1>Johann Abad</h1>
-           </span>
+        </span>
         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
             <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
         </span>
          <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
             <img src="/icons/icon18_inbox.svg"><h1>johannAbad@gmail.com</h1>
         </span>
-        </div>
-        <div
-          class="
-            items-center
-            cursor-pointer
-            absolute
-            bottom-0
-            h-17
-            flex
-            justify-evenly
-            rounded-t-full
-            right-10
-            bg-white
-            w-37
-          "
-        >
-          <img class="w-7.5 h-7.5" src="/icons/icon2.svg" />
-          <img class="w-7.5 h-7.5" src="/icons/icon3.svg" />
+       
+
+
+      </div>
+        <div class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly rounded-t-full right-10 bg-white w-37 ">
+          <img class="w-7.5 h-7.5" src="/icons/icon2.svg">
+           <img class="w-7.5 h-7.5" src="/icons/icon3.svg">
         </div>
       </div>
       <div class="flex-col h-full pt-10 px-4 space-y-3">
@@ -373,6 +362,10 @@
         </div>
       </div>
     </div>
+    
+         
+          <!---->
+          
 
     <!---->
   </div>
@@ -386,15 +379,20 @@
 // @ is an alias to /src
 import Details from "./details.vue";
 import Comments from "./comments.vue";
+import api from "../api";
 export default {
   components: {
     Details,
-    Comments,
+    //Comments
   },
   data() {
     return {
       component: "Details",
-
+      personalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
+      },
       activeBtn: 0,
       Accreditor: [
         {
@@ -483,6 +481,21 @@ export default {
     };
   },
   methods: {
+    getPersonal() {
+      var personal = JSON.parse(localStorage.getItem("Personal"));
+      console.log(personal);
+      api
+        .get("/api/getUser", { params: { email: personal.email } })
+        .then((res) => {
+          this.personalInfo = res.data;
+
+          console.log(this.personalInfo);
+        });
+    },
+    logout(){
+      localStorage.removeItem("Personal");
+       this.$router.push({ path: "login" });
+   },
     change_component(e) {
       if (e == "details") {
         this.component = "Details";
@@ -497,6 +510,9 @@ export default {
         this.activeBtn = el;
       }
     },
+  },
+   mounted() {
+    this.getPersonal();
   },
 };
 </script>

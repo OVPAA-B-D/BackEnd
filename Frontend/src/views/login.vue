@@ -166,9 +166,14 @@ export default {
   data() {
     return {
       dataForm: {
-        request: 1,
         email: "",
         password: "",
+      },
+      PersonalInfo: {
+        firstName: "",
+        lastName: "",
+        roleType: "",
+        email: "",
       },
       n: 0,
       type_pass: "password",
@@ -189,6 +194,8 @@ export default {
       }
     },
     loginUser: function () {
+    // let temp = [];
+
       api
         .post("api/Login", this.dataForm)
         .then((res) => {
@@ -196,8 +203,19 @@ export default {
             sessionStorage.setItem("sessionCookieNotify", true)
             sessionStorage.setItem("Authorization", res.data.token)
             console.log('api token in login',sessionStorage.getItem("Authorization"))
+
+          console.log("Hello",res);
+          
+        
+            localStorage.setItem("Personal",JSON.stringify(res.data.user));
+          
+         // this.PersonalInfo.email = this.dataForm.email;
+           
+
+          
+
           this.$router.push({ path: "dashboard" });
-           console.log(res);
+           
          
         })
         .catch((errors) => {
