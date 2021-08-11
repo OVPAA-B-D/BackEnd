@@ -12,7 +12,6 @@ use App\Models\ProgramModel;
 use App\Models\UserAuthenticationModel;
 use App\Models\UserInformationModel;
 use App\Models\TaskForceModel;
-use App\Models\CommentModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Query\Builder;
@@ -160,6 +159,7 @@ class FetchController extends Controller
         $data = DB::select('SELECT * FROM tbl_taskforce
                             INNER JOIN tbl_userinformation ON tbl_taskforce.taskforceEmail = tbl_userinformation.email
                             INNER JOIN tbl_programlevel ON tbl_taskforce.programID = tbl_programlevel.programID
+                            INNER JOIN tbl_program ON tbl_taskforce.programID = tbl_program.programID
                             WHERE tbl_taskforce.taskforceEmail = \''.$request->email.'\'');
 
             if($data == null)
@@ -276,13 +276,4 @@ function getTaskForce(){
 
     }
 
-    function getComments(Request $request){
-
-        $program = Auth::user();
-        $data = DB::select('SELECT * FROM tbl_comment INNER JOIN tbl_userinformation ON tbl_comment.accreditorEmail = tbl_userinformation.email INNER JOIN tbl_programlevelarea ON tbl_comment.programLevelAreaID = tbl_programlevelarea.programLevelAreaID WHERE tbl_programlevelarea.areaID = \''.$request.'\'');
-
-        if($data == null)
-            return response()->json([]);
-        return response()->json($data);
-       }
 }

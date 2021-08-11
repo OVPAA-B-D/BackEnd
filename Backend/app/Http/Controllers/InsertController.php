@@ -101,8 +101,7 @@ class InsertController extends Controller
         $programLevelBenchmark->programLevelBenchmarkID = $request->programLevelBenchmarkID;
         $programLevelBenchmark->benchmarkID = $request->benchmarkID;
         $programLevelBenchmark->programLevelID = $request->programLevelID;
-        $name=$request->file('file')->getClientOriginalName();
-        $path = $request->file('file')->store('/files/');
+        $path = Storage::url('/files/'.$request->programID.'/'.$request->programLevelID);
         $programLevelBenchmark->file = Storage::url('/files/'.$request->programID.'/'.$request->programLevelID.'/'.$request->file);
         // $programLevelBenchmark->file = $request->file;
         $programLevelBenchmark->uploadedBy = $request->uploadedBy;
@@ -158,7 +157,7 @@ class InsertController extends Controller
     function TaskForce(Request $request){
         $taskforce = new TaskForceModel();
         $taskforce->programID = $request->programID;
-        $taskforce->taskforceEmail = $request->taskforceEmail;
+        $taskforce->taskforceEmail = $request->email;
         $taskforce->roleDescription = $request->roleDescription;
         $taskforce->save();
     }
@@ -199,6 +198,12 @@ class InsertController extends Controller
             Storage::makeDirectory($level4);
 
         }
+
+    function refCampus(Request $request){
+
+        
+
+    }
 
     }
 }
