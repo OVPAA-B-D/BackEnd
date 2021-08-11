@@ -15,7 +15,7 @@ import Taskforce_members from '../views/taskforce_members.vue'
 import Office_admin from '../views/office_admin.vue'
 
 import Admin_ppp from '../views/admin_ppp.vue'
-
+import Taskforce_ppp from '../views/taskforce_ppp.vue'
 
 const routes = [
   {
@@ -92,6 +92,12 @@ const routes = [
     name: 'Survey List',
     component: Admin_ppp
   },
+  {
+    path: '/taskforce_program_performance_profile',
+    name: 'Survey List',
+    component: Taskforce_ppp
+  },
+
 
   {
     path: '/taskforce_members',
