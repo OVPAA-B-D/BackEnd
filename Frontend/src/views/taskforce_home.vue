@@ -65,7 +65,6 @@
         <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold" > {{programName}} </a></h1>
         </div>
       <div class="pb-3">
-        <h1 class="text-yellow-150 text-xl">Level 1 Accreditation</h1>
         <h3 class="text-blue-150 text-4xl"> {{programName}} </h3>
         <h1 class="text-lg text-blue-150">Chairman in charge</h1>
        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
@@ -164,6 +163,7 @@
           </div> 
       </div>
     </div>
+
              <!--Confimation-->
             <div v-if="confirmation" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
                  <div class=" flex flex-col justify-start relative
@@ -227,10 +227,10 @@ Details,
   },
   data(){
     return{
+     program_Info: [],
       levels: [],
     profile_pic:'',
         show_details:false,
-        show_add_Taskforce:false,
         confirmation:false,  
         confirmation_deletion:false,
         update_button:true,
@@ -287,6 +287,7 @@ Details,
         lastName: '',
         contactNumber: '',
         email: '',
+        programID: '',
 
      folderArea:[],
      sendID: '',
@@ -307,12 +308,18 @@ Details,
                console.log(this.personalInfo);
            });
 
-            var programdata = JSON.parse(localStorage.getItem("ProgramData"));
-            this.programName = programdata.programName;
-            this.email = programdata.email;
-            this.firstName = programdata.firstName;
-            this.lastName = programdata.lastName;
-            this.contactNumber = programdata.contactNumber;
+            var programdata  = [];
+            var programinfo = JSON.parse(localStorage.getItem("ProgramData"));
+           
+
+            programdata.push(programinfo);
+             console.log(programdata);
+            this.programName = programdata[0][0].programName;
+            this.email = programdata[0][0].email;
+            this.firstName = programdata[0][0].firstName;
+            this.lastName = programdata[0][0].lastName;
+            this.contactNumber = programdata[0][0].contactNumber;
+            this.programID = programdata[0][0].programID;
             
            api.get("/api/getTaskForceMembers").then((res) =>{
              this.taskForceMembers = res.data;
@@ -322,60 +329,13 @@ Details,
 
            
        },
-     addTaskForceMember() {
-     // this.taskForceMember.roleType = this.selectedroleType;
-      console.log(this.taskForceMember);
-      api
-        .post("/api/Member", this.taskForceMember)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((errors) => {
-          this.errors = errors.res;
-        });
-        api
-        .post("/api/UserAuthentication", this.taskForceMember)
-        .then((res) => {
-          console.log(res);
-          location.reload();
-        })
-        .catch((errors) => {
-          this.errors = errors.res;
-        });
-     
-         
-    },
-    updateTaskForceMember() {
-     // this.taskForceMember.roleType = this.selectedroleType;
-      console.log(this.taskForceMember);
-      api
-        .post("/api/userInformation", this.taskForceMember)
-        .then((res) => {
-          console.log(res);
-          location.reload();
-        })
-        .catch((errors) => {
-          this.errors = errors.res;
-        });
-        
-     
-         
-    },
 
     logout(){
       localStorage.removeItem("Personal");
        this.$router.push({ path: "login" });
    },
-   editTaskForce(e){
-     let index=this.taskForceMembers.findIndex(x => x.id===e)
-      this.taskForceMember.firstName=this.taskForceMembers[index].firstName;
-      this.taskForceMember.lastName=this.taskForceMembers[index].lastName;
-      this.taskForceMember.middleName=this.taskForceMembers[index].middleName;
-      this.taskForceMember.email=this.taskForceMembers[index].email;
-      this.taskForceMember.contactNumber=this.taskForceMembers[index].contactNumber;
 
-     
-   },
+
     fetchlevels(){
 
       let temp = [];
@@ -385,7 +345,7 @@ Details,
 
        temp= response.data;
         temp.forEach((value, index) => {
-        if(value.programID === JSON.parse(localStorage.getItem('programID'))){
+        if(value.programID === this.programID){
           return this.folderArea.push(value)
         }
         });  
@@ -393,6 +353,8 @@ Details,
 
     })
     },
+
+
     routing(){
         this.$router.push('/program_area_taskforce')
     },
