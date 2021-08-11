@@ -69,6 +69,8 @@ Route::get('getAllProgramLevelBenchmark', [FetchController::class, 'getAllProgra
 Route::get('getUserAuthentication', [FetchController::class, 'getUserAuthentication']);
 Route::get('getTaskForceChairman',[FetchController::class, 'getTaskForceChairman']);
 Route::get('getTaskForceEmail',[FetchController::class, 'getTaskForceEmail']);
+Route::get('getAllTaskForce', [FetchController::class, 'getAllTaskForce']);
+Route::get('getAllAccreditor', [FetchController::class, 'getAllAccreditor']);
 Route::get('getLevelUnlocked',[FetchController::class, 'getLevelUnlocked']);
 Route::get('getTaskForce', [FetchController::class, 'getTaskForce']);
 Route::get('getTaskForceMembers', [FetchController::class, 'getTaskForceMembers']);
@@ -77,6 +79,7 @@ Route::get('getCampuses', [FetchController::class, 'refCampus']);
 Route::get('getColleges', [FetchController::class, 'refColleges']);
 Route::get('getPrograms', [FetchController::class, 'refPrograms']);
 Route::get('getAreas', [FetchController::class, 'getAreas']);
+Route::get('getAllProgramDetails', [FetchController::class, 'getAllProgramDetails']);
 
 Route::post("/updateArea", [updateController::class, 'updateArea']);
 Route::post("/updateBenchmark", [updateController::class, 'updateBenchmark']);

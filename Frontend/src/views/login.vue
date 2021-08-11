@@ -219,7 +219,7 @@ export default {
          
         })
         .catch((errors) => {
-          this.errors = errors.response;
+          this.errors = errors.response.data.invalid;
         });
     },
   },

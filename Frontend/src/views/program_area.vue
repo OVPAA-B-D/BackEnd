@@ -544,7 +544,7 @@ export default {
 
     },
     logout(){
-      localStorage.removeItem("Personal");
+      window.localStorage.clear();
        this.$router.push({ path: "login" });
    },
     genAreaID(){

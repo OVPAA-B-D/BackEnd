@@ -257,13 +257,39 @@
             <h1 class="text-blue-150 text-xl">List of all Accreditors</h1>
             <img src="/icons/icon5_sort_blue.svg" />
           </span>
-          <span class="flex justify-start gap-x-5">
-            <h1 class="text-sm text-yellow-150">Name</h1>
-            <h1 class="text-sm text-yellow-150">Email</h1>
-            <h1 class="text-sm text-yellow-150">College Assign</h1>
-            <h1 class="text-sm text-yellow-150">Course Program</h1>
-            <h1 class="text-sm text-yellow-150">Date</h1>
+          <!-- <span class="flex justify-start gap-x-5">
+            <h1 class="mr-10  text-lg text-yellow-150">Name</h1>
+            <h1 class="mr-10 mr-5 text-lg text-yellow-150">Email</h1>
+            <h1 class="mr-10 pl-10 text-lg text-yellow-150">College Assign</h1>
+            <h1 class="ml-5  text-lg text-yellow-150">Course Program</h1>
+            <h1 class="mr-5  text-lg text-yellow-150">Date</h1>
           </span>
+
+          <span class="flex justify-start gap-x-5" v-for="accreditor in accreditorInfo">
+            <h1 class="mr-15 text-sm text-yellow-150">{{accreditor.firstName}} {{accreditor.lastName}}</h1>
+            <h1 class="mr-15 mr-5 text-sm text-yellow-150">{{accreditor.email}}</h1>
+            <h1 class="mr-15 text-sm text-yellow-150">{{accreditor.campusName}}</h1>
+            <h1 class="mr-15 text-sm text-yellow-150">{{accreditor.programName}}</h1>
+            <h1 class="mr-15 text-sm text-yellow-150">{{accreditor.createdDate}}</h1>
+          </span> -->
+
+          <table>
+            <tr>
+              <th class="text-xl text-yellow-150">Name</th>
+              <th class="text-xl text-yellow-150">Email</th>
+              <th class="text-xl text-yellow-150">College Assign</th>
+              <th class="text-xl text-yellow-150">Course Program</th>
+              <th class="text-xl text-yellow-150"> Date</th>
+            </tr>
+              <tr v-for="accreditor in accreditorInfo">
+              <th class="text-md text-yellow-150">{{accreditor.firstName}} {{accreditor.lastName}}</th>
+              <th class="text-md text-yellow-150">{{accreditor.email}}</th>
+              <th class="text-md text-yellow-150">{{accreditor.campusName}}</th>
+              <th class="text-md text-yellow-150">{{accreditor.programName}}</th>
+              <th class="text-md text-yellow-150">{{accreditor.createdDate}}</th>
+            </tr>
+
+          </table>
         </div>
       </div>
       <div
@@ -295,14 +321,37 @@
             <h1 class="text-blue-150 text-xl">List of all Task Force</h1>
             <img src="/icons/icon5_sort_blue.svg" />
           </span>
-          <span class="flex justify-start gap-x-5">
-            <h1 class="text-sm text-yellow-150">Name</h1>
-            <h1 class="text-sm text-yellow-150">Email</h1>
-            <h1 class="text-sm text-yellow-150">College Assign</h1>
-            <h1 class="text-sm text-yellow-150">Course Program</h1>
-            <h1 class="text-sm text-yellow-150">Date</h1>
+          <!-- <span class="flex justify-start gap-x-5 ">
+            <h1 class="mr-5 text-lg text-yellow-150 pr-10 ">Name</h1>
+            <h1 class="mr-5 text-lg text-yellow-150 pr-10">Email</h1>
+            <h1 class="mr-5 text-lg text-yellow-150 pr-10" >College Assign</h1>
+          
+            <h1 class="mr-5 text-lg text-yellow-150 pr-5">Date</h1>
           </span>
-        </div>
+          <span class="flex justify-start gap-x-5" v-for="taskforce in taskforceInfo">
+            <h1 class="text-sm text-yellow-150">{{taskforce.firstName}} {{taskforce.lastName}}</h1>
+            <h1 class="text-sm text-yellow-150">{{taskforce.email}}</h1>
+            <h1 class="text-sm text-yellow-150">{{taskforce.campusName}}</h1>
+         
+            <h1 class="text-sm text-yellow-150">{{taskforce.createdDate}}</h1>
+          </span> -->
+
+           <table>
+            <tr >
+              <th class="text-xl text-yellow-150">Name</th>
+              <th class="text-xl text-yellow-150">Email</th>
+              <th class="text-xl text-yellow-150">College Assign</th>
+              <th class="text-xl text-yellow-150"> Date</th>
+            </tr>
+              <tr   v-for="taskforce in taskforceInfo">
+              <th class="text-md text-yellow-150">{{taskforce.firstName}} {{taskforce.lastName}}</th>
+              <th class="text-md text-yellow-150">{{taskforce.email}}</th>
+              <th class="text-md text-yellow-150">{{taskforce.campusName}}</th>
+              <th class="text-md text-yellow-150">{{taskforce.createdDate}}</th>
+            </tr>
+
+          </table>
+       </div>
       </div>
     </div>
   </div>
@@ -321,6 +370,21 @@ export default {
         lastName: "",
         roleType: "",
       },
+      taskforceInfo:{
+        firstName: '',
+        lastName: '',
+        email: '',
+        campusName: '',
+        createdDate: '',
+      },
+      accreditorInfo:{
+        firstName: '',
+        lastName: '',
+        email: '',
+        campusName: '',
+        programName: '',
+        createdDate: '',
+      },
    // programData: new FormData(),
       programData: [],
     };
@@ -338,6 +402,16 @@ export default {
 
       //     console.log(this.personalInfo);
       //   });
+
+      api.get("api/getAllTaskForce").then((res)=>{
+        this.taskforceInfo = res.data;
+        console.log("TaskForceMembers: ", this.taskforceInfo);
+      })
+
+      api.get("api/getAllAccreditor").then((res)=>{
+        this.accreditorInfo = res.data;
+        console.log("TaskForceMembers: ", this.accreditorInfo);
+      })
 
 
       api.get("api/getUser", { params: { email: personal.email } }).then((res)=>{

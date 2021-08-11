@@ -478,8 +478,8 @@ export default {
         return this.Programs;
     });
     },
-  logout(){
-      localStorage.removeItem("Personal");
+   logout(){
+      window.localStorage.clear();
        this.$router.push({ path: "login" });
    },
     fetchparameters(){

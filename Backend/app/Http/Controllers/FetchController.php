@@ -166,6 +166,29 @@ class FetchController extends Controller
             return response()->json($data);         
 
     }
+    function getAllTaskForce(Request $request){
+
+        $data = DB::select('SELECT * FROM tbl_taskforce
+                            INNER JOIN tbl_userinformation ON tbl_taskforce.taskforceEmail = tbl_userinformation.email
+                            INNER JOIN tbl_program ON tbl_taskforce.programID = tbl_program.programID');
+
+            if($data == null)
+            return response()->json([]);
+            return response()->json($data);         
+
+    }
+    function getAllAccreditor(Request $request){
+
+        $data = DB::select('SELECT * FROM tbl_programlevelarea
+                            INNER JOIN tbl_userinformation ON tbl_programlevelarea.accreditorEmail = tbl_userinformation.email
+                            INNER JOIN tbl_programlevel ON tbl_programlevelarea.programLevelID = tbl_programlevel.programLevelID
+                            INNER JOIN tbl_program ON tbl_programlevel.programID = tbl_program.programID');
+
+            if($data == null)
+            return response()->json([]);
+            return response()->json($data);         
+
+    }
 
     function getProgramLevelBenchmark(){
         $programLevelBenchmark = Auth::user();
@@ -301,6 +324,15 @@ function getTaskForce(){
         return response()->json($data);
       
         
+    }
+    function getAllProgramDetails(Request $request){
+        $data = DB::select('SELECT * FROM tbl_programlevel
+                            INNER JOIN tbl_programlevelbenchmark ON tbl_programlevel.programLevelID = tbl_programlevelbenchmark.programLevelID 
+                            INNER JOIN tbl_program ON tbl_programlevelarea.programID = tbl_program.programID
+                            WHERE tbl_program.programID = \''.$request->programID.'\'');
+          if($data == null)
+          return response()->json([]);
+      return response()->json($data);
     }
 
 }
