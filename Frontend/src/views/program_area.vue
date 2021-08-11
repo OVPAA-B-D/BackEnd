@@ -143,17 +143,17 @@
                     <input id="newpname" value="PPP" type="text" class="hidden text-center focus:outline-none border-2 border-black h-5"/>
                   </span>
                   </div>
-                     <div v-for="folderx in folderLevelArea" :key="folderx.id" class="  relative  text-sm text-blue-250 z-10   w-28 h-auto  text-center justify-center items-center">
+                     <div v-for="folderx in folderLevelArea" :key="folderx.areaID" class="  relative  text-sm text-blue-250 z-10   w-28 h-auto  text-center justify-center items-center">
                       <button  @click="btn_enable='off',isActive_function('btn1'),show_default()" 
                       :class="{outline: bg_btn===0 }" class="absolute w-full h-full  inset-0 -z-1"></button>
 
-                  <div @click="isActive_function(folderx.id),btn_enable='on',index_array(folderx.id),folder_id=folderx.id,folder_name=folderx.id+'x',rename_folder,detailing()" :class="{outline: bg_btn === folderx.id }" class=" flex flex-col  justify-center w-28  mt-10 hover:bg-gray-200 mr-2 border-yellow-150 cursor-pointer">
+                  <div @click="isActive_function(folderx.areaID),btn_enable='on',index_array(folderx.areaID),folder_id=folderx.areaID,folder_name=folderx.areaID+'x',rename_folder,detailing()" :class="{outline: bg_btn === folderx.areaID }" class=" flex flex-col  justify-center w-28  mt-10 hover:bg-gray-200 mr-2 border-yellow-150 cursor-pointer">
                 <div @dblclick="routing('/program_parameter'),perform()"  class="w-full p-2 flex justify-center">
                   <img   class="w-16" src="icons/icon15.png">
                   </div>
                     <span class="flex flex-col   justify-center w-full">
-                    <label :for="folderx.id"><h1 :id="folderx.id">{{folderx.areaLabel}}</h1></label>
-                    <input  v-model="folderx.programLevelAreaID" :id="folderx.id+'x'"  type="text" class="hidden text-center focus:outline-none border-2 border-black h-5"/>
+                    <label :for="folderx.areaID"><h1 :id="folderx.areaID">{{folderx.areaLabel}}</h1></label>
+                    <input  v-model="folderx.programLevelAreaID" :id="folderx.areaID+'x'"  type="text" class="hidden text-center focus:outline-none border-2 border-black h-5"/>
                   </span>
                   </div>
                   
@@ -697,7 +697,7 @@ export default {
     })
     },
     perform(){
-              localStorage.setItem("areaID", JSON.stringify(this.folderLeverArea[this.index].areaID));
+              localStorage.setItem("areaID", JSON.stringify(this.folderLevelArea[this.index].areaID));
               console.log(this.folderLevelArea[this.index].programLevelID);
               // localStorage.setItem("code", res.data.code);
               // this.$router.push({ name: "verifyemail" });
@@ -743,21 +743,21 @@ export default {
       this.accreditorMember.contactNumber='';
      },
     index_array(e){
-         this.index=this.folderArea.findIndex(x => x.id===e)
+         this.index=this.folderLevelArea.findIndex(x => x.areaID===e)
         
      },
      detailing(){ 
-       this.folder_details[0].folder_name=this.folderArea[this.index].level
-       this.folder_details[0].folder_image=this.folderArea[this.index].programLevelAreaID 
-       this.folder_details[0].status=this.folderArea[this.index].programLevelAreaID
-       this.folder_details[0].owner=this.folderArea[this.index].owner
-       this.folder_details[0].modified=this.folderArea[this.index].modified
-       this.folder_details[0].location=this.folderArea[this.index].location
-       this.folder_details[0].accessed=this.folderArea[this.index].accessed
-       this.folder_details[0].created=this.folderArea[this.index].created
+       this.folder_details[0].folder_name=this.folderLevelArea[this.index].level
+       this.folder_details[0].folder_image=this.folderLevelArea[this.index].programLevelAreaID 
+       this.folder_details[0].status=this.folderLevelArea[this.index].programLevelAreaID
+       this.folder_details[0].owner=this.folderLevelArea[this.index].owner
+       this.folder_details[0].modified=this.folderLevelArea[this.index].modified
+       this.folder_details[0].location=this.folderLevelArea[this.index].location
+       this.folder_details[0].accessed=this.folderLevelArea[this.index].accessed
+       this.folder_details[0].created=this.folderLevelArea[this.index].created
      },
      display_details(e){
-    const index=this.folderArea.findIndex(x => x.id===e)
+    const index=this.folderLevelArea.findIndex(x => x.id===e)
     },
       change_component(e){
           if(e=='details'){

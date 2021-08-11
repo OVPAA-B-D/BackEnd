@@ -282,4 +282,25 @@ function getTaskForce(){
             return response()->json([]);
         return response()->json($data);
     }
+    function getParameterBenchmark(Request $request){
+        $programLevelArea = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_programlevelbenchmark 
+                            INNER JOIN tbl_benchmark ON tbl_programlevelbenchmark.benchmarkID = tbl_benchmark.benchmarkID
+                            WHERE tbl_programlevelbenchmark.programLevelID = \''.$request->programLevelID.'\'');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+    }
+    function getAllProgramLevelBenchmark(){
+        $programLevelBenchmark = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_programlevelbenchmark');
+    
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+      
+        
+    }
+
 }

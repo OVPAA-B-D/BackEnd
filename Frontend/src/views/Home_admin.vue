@@ -273,33 +273,27 @@
                       <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Campus</h1>
                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select v-model="addProgram.campusName"  id="selected_campus" required class="bg-white fill-current   italic text-150 w-74 px-4 rounded-md  h-12 focus:outline-none cursor-pointer ">
+                      <select  @change="getCampusCode()" id="selected_campus" required class="bg-white fill-current   italic text-150 w-74 px-4 rounded-md  h-12 focus:outline-none cursor-pointer ">
                       <option selected disabled value="">Choose a Campus</option>
-                      <option value="Main">Main Campus</option>
-                      <option value="East">East Campus</option>
-                      <option value="Daraga">Daraga Campus</option>
-                      <option value="Tabaco">Tabaco Campus</option>
-                      <option value="Guinobatan">Guinobatan Campus</option>
-                      <option value="Polangui">Polangui Campus</option>
-                      <option value="Gubat">Gubat Campus</option>
+                      <option v-for="campus in campuses" v-bind:key="campus.id" v-bind:value="campus.campusCode"> {{ campus.campusName }}</option>
                       </select>
                        </div>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">College</h1>
                        <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select v-model="addProgram.collegeName"  id="selected_college" required class="bg-white fill-current italic text-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                      <select  @change="getProgramCode()" id="selected_college" required class="bg-white fill-current italic text-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
                       <option selected disabled value="" >Choose a College</option>
-                      <option  >College of Science</option>
+                      <option v-for="college in colleges" v-bind:key="college.id" v-bind:value="college.collegeCode"> {{ college.collegeName }}</option>
                       </select>
                       </div>
                       </div>
                      <div class="flex flex-col">
                        <h1 class="text-blue-150 text-sm italic">Program</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                      <select v-model="addProgram.programName"  required class=" bg-white fill-current italic text-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
+                      <select id="selected_program" required class=" bg-white fill-current italic text-150 w-74 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
                       <option selected disabled value="" >Choose a College</option>
-                      <option>Computer Science</option>
+                      <option v-for="program in programs" v-bind:key="program.id" v-bind:value="program.programCode"> {{ program.programName }}</option>
                       </select>
                       </div>
                       </div>
@@ -820,6 +814,10 @@ export default {
       },
       update(){
 
+
+            this.addProgram.programName = document.getElementById("selected_program").options[document.getElementById("selected_program").selectedIndex].text;
+            this.addProgram.collegeName=document.getElementById("selected_college").options[document.getElementById("selected_college").selectedIndex].text;
+            this.addProgram.campusName=document.getElementById("selected_campus").options[document.getElementById("selected_campus").selectedIndex].text;
           this.formProgram.append("programID",this.addProgram.programID);
           this.formProgram.append("programName",this.addProgram.programName);
           this.formProgram.append("campusName",this.addProgram.campusName);

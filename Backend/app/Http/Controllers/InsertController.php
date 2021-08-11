@@ -101,7 +101,7 @@ class InsertController extends Controller
         $programLevelBenchmark->programLevelBenchmarkID = $request->programLevelBenchmarkID;
         $programLevelBenchmark->benchmarkID = $request->benchmarkID;
         $programLevelBenchmark->programLevelID = $request->programLevelID;
-        $path = $request->file('')->store('');
+        $path = Storage::url('/files/'.$request->programID.'/'.$request->programLevelID);
         $programLevelBenchmark->file = Storage::url('/files/'.$request->programID.'/'.$request->programLevelID.'/'.$request->file);
         // $programLevelBenchmark->file = $request->file;
         $programLevelBenchmark->uploadedBy = $request->uploadedBy;
