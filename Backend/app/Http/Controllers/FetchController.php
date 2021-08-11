@@ -275,5 +275,16 @@ function getTaskForce(){
         return $taskforceInfo;
 
     }
+    function getComments(Request $request){
+
+        $program = Auth::user();
+        $data = DB::select('SELECT * FROM tbl_comment 
+        INNER JOIN tbl_userinformation ON tbl_comment.accreditorEmail = tbl_userinformation.email 
+        INNER JOIN tbl_programlevelarea ON tbl_comment.programLevelAreaID = tbl_programlevelarea.programLevelAreaID WHERE tbl_programlevelarea.areaID = \''.$request.'\'');
+
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
+       }
 
 }

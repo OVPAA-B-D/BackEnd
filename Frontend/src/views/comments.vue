@@ -53,8 +53,9 @@ export default {
     },
     methods:{
         getComments(e){
+            console.log(e);
             api
-                .get("api/getComments", e.programLevelAreaID)
+                .get("api/getComments", e)
                 .then(response => {
                     this.Comments = response.data;
                     console.log("Fetched");
