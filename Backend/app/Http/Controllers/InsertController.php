@@ -200,4 +200,19 @@ class InsertController extends Controller
         }
 
     }
+    function makeComment(Request $request){
+        $programLevelBenchmark = new ProgramLevelBenchmarkModel();
+        $programLevelBenchmark->programLevelBenchmarkID = $request->programLevelBenchmarkID;
+        $programLevelBenchmark->benchmarkID = $request->benchmarkID;
+        $programLevelBenchmark->programLevelID = $request->programLevelID;
+        $path = $request->file('')->store('');
+        $programLevelBenchmark->file = Storage::url('/files/'.$request->programID.'/'.$request->programLevelID.'/'.$request->file);
+        // $programLevelBenchmark->file = $request->file;
+        $programLevelBenchmark->uploadedBy = $request->uploadedBy;
+        $programLevelBenchmark->uploadedDate = $request->uploadedDate;
+        $programLevelBenchmark->modifiedBy = $request->modifiedBy;
+
+        Storage::disk('local')->put('/files/'.$request->programID.'/'.$request->programLevelID.'/'.$request->file, $path);
+        $programLevelBenchmark->save();
+    }
 }

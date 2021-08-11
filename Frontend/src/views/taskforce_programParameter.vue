@@ -493,7 +493,7 @@
                                       <img
                                         src="icons/icon13.svg"
                                         class="w-4 inline"
-                                      />{{ file_row.filename }}
+                                      />{{ file_row.fileName }}
                                     </div>
                                   </div>
                                 </div>
@@ -719,7 +719,16 @@ export default {
       activeBtn: 0,
       bg_button: 0,
       
-      Benchmark: [],
+      Benchmark: [
+        {
+          benchmarkID: "",
+          benchmarkLabel: "",
+          benchmarkPosition: "",
+          id: "",
+          parameterID: "",
+          submitStatus: "",
+        }
+      ],
       personalInfo: {
         firstName: "",
         lastName: "",
@@ -913,7 +922,8 @@ export default {
     },
     
     submitFile(e){
-      // console.log(e);
+      e.submitStatus = "Submitted";
+      console.log(e);
       api
         .post("api/submitProgramLevelBenchmark", e)
         .then(function(){

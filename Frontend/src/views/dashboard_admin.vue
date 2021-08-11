@@ -351,7 +351,7 @@ export default {
               this.programData = res.data;
               console.log("Program Data:", res.data);
               localStorage.setItem("ProgramData", JSON.stringify(this.programData));
-               this.$router.push({ path: "taskforce_home" });
+               this.$router.push({ path: "program_area_taskforce" });
           });
           console.log("values", value);  
         }
