@@ -119,7 +119,7 @@
                     :key="member.id"
                     class="text-center justify-center items-center"
                   >
-                    <td>
+                    <td class="float-left">
                       <input type="checkbox" id="" name="taskforce1" value="">
                       <label for="taskforce1">&ensp;{{ member.firstName}} {{member.lastName}}</label>
                     </td>
