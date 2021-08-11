@@ -56,29 +56,32 @@
       </div>
     <!-- END OF MENU -->
 
-    <div class="flex flex-col flex-nowrap   w-full">
+<div class="flex flex-col flex-nowrap w-full"  >
       <div class="w-full cursor-default h-72 relative shadow-lg pl-4 pt-7">
         <img src="img/img3.jpg" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
-        <div class="flex items-center justify-between pr-5">
-        <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold">Information Technology</a></h1>
+       
+        <div class="flex items-center justify-between pr-5" >
+        
+        <h1 class="text-2xl text-blue-150 font-normal">Accreditation Management/<a class="font-bold" > {{programName}} </a></h1>
         </div>
       <div class="pb-3">
         <h1 class="text-yellow-150 text-xl">Level 1 Accreditation</h1>
-        <h3 class="text-blue-150 text-4xl">Information Technology</h3>
+        <h3 class="text-blue-150 text-4xl"> {{programName}} </h3>
         <h1 class="text-lg text-blue-150">Chairman in charge</h1>
        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon16_man.svg"><h1>Johann Abad</h1>
+            <img src="/icons/icon16_man.svg"><h1>  {{firstName}}  {{lastName}}</h1>
         </span>
         <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon17_contact.svg"><h1>0902105050</h1>
+            <img src="/icons/icon17_contact.svg"> <h1>  {{contactNumber}} </h1>
         </span>
          <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
-            <img src="/icons/icon18_inbox.svg"><h1>johann@gmail.com</h1>
+            <img src="/icons/icon18_inbox.svg"><h1>  {{email}}</h1>
         </span>
         <h1></h1>
       </div>
         <div @click="show_details=!show_details" class=" items-center cursor-pointer absolute bottom-0 h-17 flex justify-evenly  rounded-tl-2xl rounded-tr-2xl  right-10 bg-white w-37 ">
            <img class="w-8 h-8" src="/icons/icon_info.svg">
+       
         </div>
       </div>
       <div class="  flex-col h-full pt-10 px-4  space-y-3">
@@ -101,30 +104,33 @@
           <div class="flex flex-row h-99  bg-gradient-to-b from-blue-150 to-yellow-150 rounded-md  p-0.5 ">
             <div class=" bg-white  rounded-md overflow-auto  
              gap-y-2 flex flex-col justify-items-start w-2/3  flex-grow  h-full  p-4 ">
-               <div class=" flex sticky top-0 space-x-2 items-center">
+               <div class=" flex sticky top-0 space-x-2 items-center" >
                    <div class=" cursor-pointer w-4 h-4">
                    <router-link to="/home_admin"> <img src="/icons/icon1_arrow_back.svg"></router-link>
                    </div>
                    
-                    <h1 class="sticky top-0 font-bold text-blue-150 text-lg ">
-                       Infomation Technology
+                    <h1 class="sticky top-0 font-bold text-blue-150 text-lg " >
+                     {{programName}}
                    </h1>
                 
                   
                </div>
                 <div class=" flex-row flex flex-wrap pl-7">
                   
-                     <div v-for="folderx in folderArea" :key="folderx.id" class="text-center justify-center items-center">
+                  
+
+
+                 <div v-for="folderx in folderArea" :key="folderx.id" class="text-center justify-center items-center">
                   <div @click="isActive_function(folderx.id)" :class="{active: activeBtn === folderx.id }" 
                   class=" flex flex-col cursor-pointer items-center hover:bg-gray-200 justify-start w-32 h-auto  mt-10  mr-2cursor-pointer">
                       
                   <div>
-                    <div  @dblclick="routing()"  @click="index_array(folderx.id),detailing()"  class="p-2 w-full" >
-                       <img  
-                         :src="folderx.folder_image" class="w-16"/>
+                    <div  @dblclick="routing()"  @click="index_array(folderx.id),detailing(),perform()"  class="p-2 w-16" >
+                      <img v-if="folderx.level!='Preliminary Survey Visit'" src="icons/icon15.png">
+                      <img v-else:  src="icons/icon21.png">
                     </div>
                     </div>
-                   <h1 class="text-blue-150">{{folderx.folder_name}}</h1>
+                   <h1 class="text-blue-150">{{folderx.level}}</h1>
                   </div>
                     
                     </div>
@@ -164,61 +170,63 @@
         <!--Add task force-->
            <div v-if=" show_add_Taskforce" class="fixed z-30 flex justify-center bg-gray-200  w-screen   bg-opacity-50  items-center  inset-0">
              <div class="flex flex-col gap-y-3 w-83 pb-8 bg-white shadow-3xl rounded-2xl">
+              
                    <div class="flex justify-between rounded-t-2xl px-10 shadow-3xl items-center h-12  bg-gradient-to-r from-blue-150 via-gray-300  to-yellow-150">
-                  <h1 class="text-xl text-white">Add Taskforce</h1>
+                  <h1 v-if="update_button" class="text-xl text-white">Add Taskforce</h1>
+                  <h1 v-else class="text-xl text-white">Editting Information</h1>
                   <button @click="show_add_Taskforce=!show_add_Taskforce" class=" text-white text-lg ">
                     Close
                   </button>
                  </div>
+                 <form @submit.prevent="confirmation=!confirmation" id="task_force_form">
                   <div class="flex items-center pt-3 px-10 gap-4 justify-between flex-wrap">
                       <div>
                         <h1 class="text-blue-150 text-sm">Firstname</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
-                        focus:outline-none cursor-text "/>
+                        <input required  type="text"  class="italic  text-black-150 w-75 px-4 rounded-sm  h-12 
+                        focus:outline-none cursor-text " v-model="taskForceMember.firstName"/>
                        </div>
                        </div>
                         <div>
                         <h1 class="text-blue-150 text-sm">Email</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
-                        focus:outline-none cursor-text "/>
+                        <input required type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
+                        focus:outline-none cursor-text " v-model="taskForceMember.email"/>
                        </div>
                        </div>
                       <div>
                         <h1 class="text-blue-150 text-sm">Middle name</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
                         <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
-                        focus:outline-none cursor-text "/>
+                        focus:outline-none cursor-text " v-model="taskForceMember.middleName"/>
                        </div>
                       </div>
                       <div>
                         <h1 class="text-blue-150 text-sm">Member</h1>
                         <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <select  class="fill-current italic text-blue-150 w-75 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer">
-                          <option selected disabled >Task Force member</option>
-                          <option>Member 1</option>
-                          <option>Member 2</option>
-                          <option>Member 3</option>
+                        <select required class="fill-current italic text-blue-250 w-75 px-4 rounded-sm  h-12 focus:outline-none cursor-pointer" v-model="taskForceMember.roleType">
+                          <option selected disabled value="" >Select task force role</option>
+                          <option>Chairman</option>
+                          <option>Member</option>
                       </select>
                       </div>
                       </div>
                        <div>
                         <h1 class="text-blue-150 text-sm">Last name</h1>
                           <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
-                        focus:outline-none cursor-text "/>
+                        <input required type="text"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
+                        focus:outline-none cursor-text " v-model="taskForceMember.lastName"/>
                        </div>
                        </div>
                        <div>
                         <h1 class="text-blue-150 text-sm">Contact Number</h1>
                           <div class=" bg-gradient-to-b p-0.5 rounded-md from-blue-150 to-yellow-150">
-                        <input  type="number"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
+                        <input v-model="taskForceMember.contactNumber" required  type="number"  class="italic  text-blue-150 w-75 px-4 rounded-sm  h-12 
                         focus:outline-none cursor-text "/>
                        </div>
                        </div>
                       <div class="w-full flex gap-x-2 justify-end">
-                        <button v-if="update_button" @click="confirmation=!confirmation,text_modal='add a new Task force'" class="flex items-center justify-center px-5 gap-2  w-24 h-8 text-white bg-blue-250"> 
+                        <button type="submit" value="Submit" v-if="update_button" @click="text_modal='add a new Task force'" class="flex items-center justify-center px-5 gap-2  w-24 h-8 text-white bg-blue-250"> 
                        <img src="icons/icon12_add.svg"/>
                     Add
                     </button>
@@ -232,7 +240,7 @@
                       </span>
                        Update
                     </button>
-                    <button @click="confirmation=!confirmation,text_modal='update this field'" v-else class="flex items-center justify-center px-5 gap-2 text-white  w-24 h-8  bg-blue-150"> 
+                    <button type="submit" value="Submit" @click="text_modal='update this field' ,updateTaskForceMember()" v-else class="flex items-center justify-center px-5 gap-2 text-white  w-24 h-8  bg-blue-150"> 
                     <span class="material-icons">
                       refresh 
                       </span>
@@ -240,61 +248,26 @@
                     </button>
                        </div>
                   </div>
-                  <div class="flex flex-col px-10">
+                  </form>
+                  <div class="flex flex-col px-10" >
                   <h1 class="text-lg text-blue-150 font-bold">Task Force</h1>
-                  <div class="overflow-y-auto h-28 gap-y-4 flex flex-col ">
-                       <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-start gap-x-4 w-3/4 pr-10">
-                            <h1 class="text-sm text-blue-150">Aldrin Lobis</h1>
-                            <h1 class="text-sm text-yellow-150">aldrinlobis@gmail.com</h1>
-                            <h1 class="text-sm text-yellow-150">Internal Accreditor</h1>
-                            <h1 class="text-sm text-yellow-150">09021050501</h1>
+                  <div class="overflow-y-auto h-28 gap-y-4 flex flex-col " >
+                       <div class=" border-b-2 border-yellow-150 flex justify-between" v-for="taskforce in taskForceMembers" :key="taskforce.id">
+                        <div class="flex justify-start gap-x-4 w-3  /4 pr-10" >
+                            <h1 class="text-sm text-blue-150">{{taskforce.firstName}} {{taskforce.lastName}}</h1>
+                            <h1 class="text-sm text-yellow-150">{{taskforce.email}}</h1>
+                            <h1 class="text-sm text-yellow-150">{{taskforce.roleType}}</h1>
+                            <h1 class="text-sm text-yellow-150">{{taskforce.contactNumber}}</h1>
                         </div>   
                         <div >                     
-                            <button @click="update_button=!update_button" class=" w-20  text-white border-2 bg-blue-150">Edit</button>
+                            <button @click="update_button=!update_button,editTaskForce(taskforce.id)" class=" w-20  text-white border-2 bg-blue-150" >Edit</button>
                             <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
                         </div>
                         </div>
-                          
-                        
-                         <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
-                            <h1 class="text-lg text-blue-150">Name</h1>
-                            <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150">Role</h1>
-                            
-                        </div>   
-                        <div >                     
-                            <button class=" w-20  text-white border-2 bg-blue-150">Edit</button>
-                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
-                        </div>
-                        </div>
-                        <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
-                            <h1 class="text-lg text-blue-150">Name</h1>
-                            <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150">Role</h1>
-                            
-                        </div>   
-                        <div >                     
-                            <button class=" w-20  text-white border-2 bg-blue-150">Edit</button>
-                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
-                        </div>
-                        </div>
-                           <div class=" border-b-2 border-yellow-150 flex justify-between">
-                        <div class="flex justify-between gap-x-10 w-3/4 pr-10">
-                            <h1 class="text-lg text-blue-150">Name</h1>
-                            <h1 class="text-lg text-yellow-150">Email</h1>
-                            <h1 class="text-lg text-yellow-150">Role</h1>
-                            
-                        </div>   
-                        <div >                     
-                            <button class=" w-20  text-white border-2 bg-blue-150">Edit</button>
-                            <button @click="confirmation_deletion=!confirmation_deletion" class=" w-20  text-white border-2 bg-red-150">Delete</button>
-                        </div>
-                        </div>
+          
                   </div>
                   </div>
+                  
              </div>
              </div>
              <!--Confimation-->
@@ -311,7 +284,7 @@
                   </div>
                   <div class="flex justify-end absolute right-10 bottom-10">
                     <div class="flex gap-x-1">
-                      <button @click="confirmation=!confirmation" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
+                      <button @click="confirmation=!confirmation,update_button=true,addTaskForceMember(),updateTaskForceMember(),function_reset()" class="px-1 rounded-md border-2 border-blue-150  text-white bg-blue-150">Confirm</button>
                       <button @click="confirmation=!confirmation" class="px-1 rounded-md text-blue-150 bg-white border-2 border-blue-150">Cancel</button>
                     </div>
                   </div>
@@ -342,7 +315,6 @@
           
           <!----->
           <!----->
-
   </div>
 </template>
 <style scoped>
@@ -353,20 +325,16 @@
 </style>
 <script>
 // @ is an alias to /src
-import api from "../api";
 import Details from './details.vue'
+import api from '../api'
 export default {
   components:{
-  Details,
-    },
+Details,
+  },
   data(){
     return{
-      personalInfo: {
-        firstName: "",
-        lastName: "",
-        roleType: "",
-      },
-
+      levels: [],
+    profile_pic:'',
         show_details:false,
         show_add_Taskforce:false,
         confirmation:false,  
@@ -374,7 +342,14 @@ export default {
         update_button:true,
         link_to:'',
         activeBtn:0,
+        welcome:'',
+        disabling_btn:true,
         text_modal:'',
+        fname:'',
+        lname:'',
+        mname:'',
+        email:'',
+        cnumber:'',
         index:'',
         items:['first'],
         folder_details:[
@@ -390,98 +365,164 @@ export default {
             created:'',
           }
         ],
-     folderArea:[ 
-     {
-        id:1,
-        folder_image:'/icons/icon21.png',
-        folder_name:'Preliminary Survey Visit',
-        status:'Incomplete',
-        owner:'Lucy Heartfelia',
-        modified:'July 2, 2021',
-        location:'/Information/Level',
-        accessed:'Nutsu Dragneel',
-        created:'Admin',
-     },
-     
-     {
-       id:2,
-       folder_image:'/icons/icon15.png',
-       folder_name:'Level 1',
-        status:'Completed',
-        owner:'Monkey D. Luffy',
-        modified:'July 3,2021',
-        location:'/Information/Level',
-        accessed:'Gol D. Roger',
-        created:'Admin',
-     },
-     
-     {
-       id:3,
-       folder_image:'/icons/icon15.png',
-       folder_name:'Level 2',
-        status:'Completed',
-        owner:'Eren Yeager',
-        modified:'July 3,2021',
-        location:'/Information/Level',
-        accessed:'Founding Titan',
-        created:'Admin',
-     },
-     
-     {
-       id:4,
-       folder_image:'/icons/icon15.png',
-       folder_name:'Level 3',
-        status:'Completed',
-        owner:'Juan Tamad',
-        modified:'July 3,2021',
-        location:'/Information/Level',
-        accessed:'Pedro Penduko',
-        created:'Admin',
-     },
-      
-     {
-       id:5,
-       folder_image:'/icons/icon15.png',
-       folder_name:'Level 4',
-        status:'Incomplete',
-        owner:'Cardo Dalisay',
-        modified:'July 3,2021',
-        location:'/Information/Level',
-        accessed:'Coco A. Martin',
-        created:'Admin',
-                 
-     },
-     
-     ]
+        personalInfo: {
+            firstName: "",
+            lastName: "",
+            roleType: "",
+        },
+   
+        taskForceMember: {
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        contactNumber: "",
+        email: "",
+        roleType: "",
+      },
+        taskForceMembers: {
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        contactNumber: "",
+        email: "",
+        roleType: "",
+      },
+    
+        programName: '',
+        firstName: '',
+        lastName: '',
+        contactNumber: '',
+        email: '',
+
+     folderArea:[],
+     sendID: '',
+     folder_icon:'/icons/icon15.png'
     }
   },
   methods:{
-    getPersonal() {
-      var personal = JSON.parse(localStorage.getItem("Personal"));
-      console.log(personal);
-      api
-        .get("/api/getUser", { params: { email: personal.email } })
-        .then((res) => {
-          this.personalInfo = res.data;
 
-          console.log(this.personalInfo);
+     getPersonal(){
+
+          
+              var personal = JSON.parse(localStorage.getItem("Personal"));
+                 console.log(personal);
+           api.get("/api/getUser", {params:{email:personal.email}}).then((res)=>{
+               this.personalInfo = res.data;
+         
+
+               console.log(this.personalInfo);
+           });
+
+            var programdata = JSON.parse(localStorage.getItem("ProgramData"));
+            this.programName = programdata.programName;
+            this.email = programdata.email;
+            this.firstName = programdata.firstName;
+            this.lastName = programdata.lastName;
+            this.contactNumber = programdata.contactNumber;
+            
+           api.get("/api/getTaskForceMembers").then((res) =>{
+             this.taskForceMembers = res.data;
+              console.log(this.taskForceMembers);
+           });
+
+
+           
+       },
+     addTaskForceMember() {
+     // this.taskForceMember.roleType = this.selectedroleType;
+      console.log(this.taskForceMember);
+      api
+        .post("/api/Member", this.taskForceMember)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((errors) => {
+          this.errors = errors.res;
         });
+        api
+        .post("/api/UserAuthentication", this.taskForceMember)
+        .then((res) => {
+          console.log(res);
+          location.reload();
+        })
+        .catch((errors) => {
+          this.errors = errors.res;
+        });
+     
+         
     },
+    updateTaskForceMember() {
+     // this.taskForceMember.roleType = this.selectedroleType;
+      console.log(this.taskForceMember);
+      api
+        .post("/api/userInformation", this.taskForceMember)
+        .then((res) => {
+          console.log(res);
+          location.reload();
+        })
+        .catch((errors) => {
+          this.errors = errors.res;
+        });
+        
+     
+         
+    },
+
     logout(){
       localStorage.removeItem("Personal");
        this.$router.push({ path: "login" });
    },
+   editTaskForce(e){
+     let index=this.taskForceMembers.findIndex(x => x.id===e)
+      this.taskForceMember.firstName=this.taskForceMembers[index].firstName;
+      this.taskForceMember.lastName=this.taskForceMembers[index].lastName;
+      this.taskForceMember.middleName=this.taskForceMembers[index].middleName;
+      this.taskForceMember.email=this.taskForceMembers[index].email;
+      this.taskForceMember.contactNumber=this.taskForceMembers[index].contactNumber;
 
+     
+   },
+    fetchlevels(){
+
+      let temp = [];
+        console.log("levels");
+      api.get('api/getProgramLevel').then(response => {
+        // get body data
+
+       temp= response.data;
+        temp.forEach((value, index) => {
+        if(value.programID === JSON.parse(localStorage.getItem('programID'))){
+          return this.folderArea.push(value)
+        }
+        });  
+        console.log('levels' ,this.folderArea);
+
+    })
+    },
     routing(){
         this.$router.push('/program_area_taskforce')
+    },
+    function_reset(){
+      document.getElementById('task_force_form').reset();
+      this.taskForceMember.firstName='';
+      this.taskForceMember.lastName='';
+      this.taskForceMember.middleName='';
+      this.taskForceMember.email='';
+      this.taskForceMember.contactNumber='';
+     },
+    perform(){
+              localStorage.setItem("levelID", JSON.stringify(this.folderArea[this.index].programLevelID));
+              console.log(this.folderArea[this.index].programLevelID);
+              // localStorage.setItem("code", res.data.code);
+              // this.$router.push({ name: "verifyemail" });
     },
      index_array(e){
          this.index=this.folderArea.findIndex(x => x.id===e)
      },
      detailing(){ 
-       this.folder_details[0].folder_name=this.folderArea[this.index].folder_name
+       this.folder_details[0].folder_name=this.folderArea[this.index].level
        this.folder_details[0].folder_image=this.folderArea[this.index].folder_image
-       this.folder_details[0].status=this.folderArea[this.index].status
+       this.folder_details[0].status=this.folderArea[this.index].levelStatus
        this.folder_details[0].owner=this.folderArea[this.index].owner
        this.folder_details[0].modified=this.folderArea[this.index].modified
        this.folder_details[0].location=this.folderArea[this.index].location
@@ -492,8 +533,11 @@ export default {
         this.activeBtn= el;
     }
   },
-  mounted(){
+  created(){
+    this.fetchlevels();
     this.getPersonal();
+    
+    // this.fetchbenchmarks();
   }
 }
 </script>
