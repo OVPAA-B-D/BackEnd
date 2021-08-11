@@ -4,6 +4,7 @@ import ProgramLevel from '../views/programLevel.vue'
 import Home_admin from '../views/Home_admin.vue'
 import Home_taskforce from '../views/taskforce_home.vue'
 import Home_accreditor from '../views/accreditor_home.vue'
+import Program_parameter_accreditor from '../views/accreditor_viewParameter.vue'
 import Dashboard from '../views/dashboard_admin.vue'
 import Program_area from '../views/program_area.vue'
 import Program_area_taskforce from '../views/taskforce_programArea.vue'
@@ -80,12 +81,17 @@ const routes = [
     path: '/public_folder_taskforce',
     name: 'Public folder',
     component: Public_folder_taskforce
-  },
+  }, 
 
   {
     path: '/home_accreditor',
     name: 'Home accreditor',
     component: Home_accreditor
+  },
+  {
+    path: '/Program_parameter_accreditor',
+    name: 'Program Parameter',
+    component: Program_parameter_accreditor
   },
   {
     path: '/admin_program_performance_profile',
