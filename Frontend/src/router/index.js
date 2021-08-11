@@ -13,7 +13,6 @@ import Public_folder_admin from '../views/public_folder_admin.vue'
 import Public_folder_taskforce from '../views/taskforce_publicFolder.vue'
 import Taskforce_members from '../views/taskforce_members.vue'
 import Office_admin from '../views/office_admin.vue'
-// import Comments_Accred from '..views/office_admin.vue'
 
 import Admin_ppp from '../views/admin_ppp.vue'
 
