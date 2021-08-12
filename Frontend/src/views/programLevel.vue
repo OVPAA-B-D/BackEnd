@@ -141,7 +141,8 @@
                 </div>
                 <div class="flex justify-center h-24 items-center">
                 <div class="w-16 ">
-                  <img :src="folder_details[0].folder_image" class="w-full"/>
+                  <img v-if="folder_details[0].level!='Preliminary Survey Visit'" src="icons/icon15.png">
+                  <img v-else:  src="icons/icon21.png">
                 </div>
                 </div>
                 <div class=" flex  justify-center w-full h-10 rounded-tr-xl bg-gradient-to-r  from-blue-150 to-yellow-150">
@@ -320,6 +321,7 @@
 // @ is an alias to /src
 import Details from './details.vue'
 import api from '../api'
+import axios from 'axios'
 export default {
   components:{
 Details,
@@ -347,15 +349,14 @@ Details,
         items:['first'],
         folder_details:[
           {
-            id:'',
-            folder_image:'',
+            folder_image:'/icons/icon15.png',
             folder_name:'',
             status:'',
             owner:'',
-            modified:'',
-            location:'',
-            accessed:'',
-            created:'',
+            collegeName:'',
+            campusName:'',
+            modifiedBy:'',
+            modifiedDate:'',
           }
         ],
         personalInfo: {
@@ -365,29 +366,57 @@ Details,
         },
    
         taskForceMember: {
-        firstName: "",
-        middleName: "",
-        lastName: "",
-        contactNumber: "",
-        email: "",
-        roleType: "",
+            firstName: "",
+            middleName: "",
+            lastName: "",
+            contactNumber: "",
+            email: "",
+            roleType: "",
       },
         taskForceMembers: {
-        firstName: "",
-        middleName: "",
-        lastName: "",
-        contactNumber: "",
-        email: "",
-        roleType: "",
+            firstName: "",
+            middleName: "",
+            lastName: "",
+            contactNumber: "",
+            email: "",
+            roleType: "",
       },
     
-        programName: '',
-        firstName: '',
-        lastName: '',
-        contactNumber: '',
-        email: '',
+            programName: '',
+            firstName: '',
+            lastName: '',
+            contactNumber: '',
+            email: '',
 
-     folderArea:[],
+     folderArea:[{
+        folder_image:'/icons/icon15.png',
+        folder_name:'',
+        levelStatus:'',
+        programName:'',
+        collegeName:'',
+        campusName:'',
+        modifiedBy:'',
+        modifiedDate:'',
+        programID:'',
+        programLevelID:'',
+     }],
+     getOwner:[{
+        programName:'',
+        campusName:'',
+        collegeName:'',
+        programID:'',
+     }],
+     getStatus:[{
+        level:'',
+        levelStatus:'',
+        programName:'',
+        collegeName:'',
+        campusName:'',
+        modifiedBy:'',
+        modifiedDate:'',
+        programID:'',
+        programLevelID:''
+     }],
      sendID: '',
      folder_icon:'/icons/icon15.png'
     }
@@ -475,7 +504,109 @@ Details,
 
      
    },
-    fetchlevels(){
+
+/*   details(){
+      let temp = [];
+      console.log("details");
+      api.get('api/getAllProgramDetails').then(response => {
+        // get body data
+      temp= response.data;
+      temp.forEach((value, index) => {
+      if(value.programID === JSON.parse(localStorage.getItem('programID'))){
+        return this.folderArea.push(value)
+      }
+      });  
+        console.log('detailssss' ,this.folderArea);
+    })
+   },*/
+
+ retrieve(){
+      const getStatus = api.get('api/getProgramLevel1');
+      //const getOwner = api.get('api/getProgram');
+      //const getModified = api.get('api/getProgramLevelArea');
+
+      axios.all([getStatus])
+          .then(
+      
+      axios
+          .spread((...responses)=>{
+              
+            this.folderArea = responses[0].data;
+            //this.getOwner = responses[1].data;
+            //this.getModified = responses[1].data;
+
+            console.log("Status",this.folderArea);
+            //console.log("Owner",this.getOwner);
+            //console.log("Modified",this.getModified);
+
+            //this.owner();
+            //this.modified();
+
+          })).catch(errors=>{
+              this.errors = errors.response;
+          });
+      },
+
+/*      owner(){
+        let arrFolderArea = [];
+        let arrGetOwner = [];
+
+        this.folderArea.forEach((value,index)=>{
+          arrFolderArea.push(value);
+        });
+        this.getOwner.forEach((value,index)=>{
+          arrGetOwner.push(value);
+        });
+
+        console.log("OwnerS",this.getOwner);
+
+        var d = 0;
+        var e = 0;
+
+        for(var d = 0; d<arrFolderArea.length; d=d+1){
+          for(var e = 0; e<arrGetOwner.length; e=e+1){
+            if(arrFolderArea[d].programID == arrGetOwner[e].programID){
+              arrFolderArea[d].programName = arrGetOwner[e].programName;
+              arrFolderArea[d].collegeName = arrGetOwner[e].collegeName;
+              arrFolderArea[d].campusName = arrGetOwner[e].campusName;
+            }
+          }
+        }
+        console.log("With Program Name",arrGetOwner);
+        console.log("FolderArea with Owner",this.folderArea);
+      },*/
+
+/*      modified(){
+        let arrFolderArea = [];
+        let arrGetModified = [];
+
+        this.folderArea.forEach((value,index)=>{
+          arrFolderArea.push(value);
+        });
+        this.getModified.forEach((value,index)=>{
+          arrGetModified.push(value);
+        });
+
+        var d = 0;
+        var e = 0;
+
+        for(var d = 0; d<arrFolderArea.length; d=d+1){
+          for(var e = 0; e<arrGetModified.length; e=e+1){
+            if(arrFolderArea[d].programLevelID == arrGetModified[e].programLevelID){
+              arrFolderArea[d].programName = arrGetOwner[e].programName;
+              arrFolderArea[d].collegeName = arrGetOwner[e].collegeName;
+              arrFolderArea[d].campusName = arrGetOwner[e].campusName;
+              arrFolderArea[d].status = arrGetOwner[e].levelStatus;
+              arrFolderArea[d].modifiedBy = arrGetModified[e].modifiedBy;
+              arrFolderArea[d].modifiedDate = arrGetModified[e].modifiedDate;
+            }
+          }
+        }
+        console.log("With Modified",arrGetModified);
+        console.log("FolderArea with Modified",this.folderArea);
+      },*/
+
+/*    fetchlevels(){
 
       let temp = [];
         console.log("levels");
@@ -491,7 +622,8 @@ Details,
         console.log('levels' ,this.folderArea);
 
     })
-    },
+    },*/
+
     routing(){
         this.$router.push('/program_area')
     },
@@ -516,18 +648,21 @@ Details,
        this.folder_details[0].folder_name=this.folderArea[this.index].level
        this.folder_details[0].folder_image=this.folderArea[this.index].folder_image
        this.folder_details[0].status=this.folderArea[this.index].levelStatus
-       this.folder_details[0].owner=this.folderArea[this.index].owner
-       this.folder_details[0].modified=this.folderArea[this.index].modified
-       this.folder_details[0].location=this.folderArea[this.index].location
-       this.folder_details[0].accessed=this.folderArea[this.index].accessed
-       this.folder_details[0].created=this.folderArea[this.index].created
+       this.folder_details[0].owner=this.folderArea[this.index].programName
+       this.folder_details[0].collegeName=this.folderArea[this.index].collegeName
+       this.folder_details[0].campusName=this.folderArea[this.index].campusName
+       this.folder_details[0].modifiedBy=this.folderArea[this.index].modifiedBy
+       this.folder_details[0].modifiedDate=this.folderArea[this.index].modifiedDate
+
      },
       isActive_function(el){
         this.activeBtn= el;
     }
   },
   created(){
-    this.fetchlevels();
+    //this.fetchlevels();
+    //this.details();
+    this.retrieve();
     this.getPersonal();
     
     // this.fetchbenchmarks();

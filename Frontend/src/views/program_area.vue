@@ -381,9 +381,10 @@ button.outline{
 </style>
 <script>
 // @ is an alias to /src
-import Details from "./details.vue"
+import Details from "./areadetails.vue"
 import Comments from "./comments.vue"
 import api from "../api"
+import axios from 'axios'
 // import det from "../programLevel.vue"
 export default {
   props: ['btnText'],
@@ -484,18 +485,36 @@ export default {
         email: "",
         roleType: "",
       },
-        folder_details:[
+
+        getStatus:[
           {
-            id: 'ID',
-            status:'To be Graded',
-            owner:'Admin',
-            location:'Level 1 Folder',
-            modified:'July 12,2021',
-            accessed:'Pedro Penduko',
-            created:'Admin',
+            areaStatus:'',
+            accreditorEmail:'',
+            level:'',
+            programName:'',
+            modifiedBy:'',
+            modifiedDate:'',
           }
         ],
-     folderArea:[{}],
+
+        folder_details:[
+          {
+            areaStatus:'',
+            accreditorEmail:'',
+            level:'',
+            programName:'',
+            modifiedBy:'',
+            modifiedDate:'',
+          }
+        ],
+     folderArea:[{
+            areaStatus:'',
+            accreditorEmail:'',
+            level:'',
+            programName:'',
+            modifiedBy:'',
+            modifiedDate:'',
+     }],
      folderLevelArea:[],
      folder_icon:'/icons/icon15.png'
     }
@@ -681,7 +700,25 @@ export default {
         });
   
     },
-    fetchareas(){
+
+     retrieve(){
+      const getStatus = api.get('api/getAreaDetails');
+
+      axios.all([getStatus])
+          .then(
+      
+      axios
+          .spread((...responses)=>{
+              
+            this.folderArea = responses[0].data;
+
+            console.log("Status",this.folderArea);
+
+          })).catch(errors=>{
+              this.errors = errors.response;
+          });
+      },
+/*    fetchareas(){
     let temp = [];
       api.get('api/getProgramLevelArea').then(response => {
         // get body data
@@ -695,7 +732,7 @@ export default {
 
         console.log("Areas", this.folderLevelArea);
     })
-    },
+    },*/
     perform(){
               localStorage.setItem("areaID", JSON.stringify(this.folderLevelArea[this.index].areaID));
               console.log(this.folderLevelArea[this.index].programLevelID);
@@ -747,14 +784,12 @@ export default {
         
      },
      detailing(){ 
-       this.folder_details[0].folder_name=this.folderLevelArea[this.index].level
-       this.folder_details[0].folder_image=this.folderLevelArea[this.index].programLevelAreaID 
-       this.folder_details[0].status=this.folderLevelArea[this.index].programLevelAreaID
-       this.folder_details[0].owner=this.folderLevelArea[this.index].owner
-       this.folder_details[0].modified=this.folderLevelArea[this.index].modified
-       this.folder_details[0].location=this.folderLevelArea[this.index].location
-       this.folder_details[0].accessed=this.folderLevelArea[this.index].accessed
-       this.folder_details[0].created=this.folderLevelArea[this.index].created
+       this.folder_details[0].level=this.folderLevelArea[this.index].level
+       this.folder_details[0].areaStatus=this.folderLevelArea[this.index].areaStatus
+       this.folder_details[0].accreditorEmail=this.folderLevelArea[this.index].accreditorEmail
+       this.folder_details[0].programName=this.folderLevelArea[this.index].programName
+       this.folder_details[0].modifiedDate=this.folderLevelArea[this.index].modifiedDate
+       this.folder_details[0].modifiedBy=this.folderLevelArea[this.index].modifiedBy
      },
      display_details(e){
     const index=this.folderLevelArea.findIndex(x => x.id===e)
@@ -785,8 +820,9 @@ export default {
       },
   },
   created(){
-    this.fetchareas();
+    //this.fetchareas();
     this.getPersonal();
+    this.retrieve();
     // console.log("sana magana", this.sendID);
     // this.fetchbenchmarks();
   }
