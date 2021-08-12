@@ -505,25 +505,8 @@ Details,
      
    },
 
-/*   details(){
-      let temp = [];
-      console.log("details");
-      api.get('api/getAllProgramDetails').then(response => {
-        // get body data
-      temp= response.data;
-      temp.forEach((value, index) => {
-      if(value.programID === JSON.parse(localStorage.getItem('programID'))){
-        return this.folderArea.push(value)
-      }
-      });  
-        console.log('detailssss' ,this.folderArea);
-    })
-   },*/
-
  retrieve(){
       const getStatus = api.get('api/getProgramLevel1');
-      //const getOwner = api.get('api/getProgram');
-      //const getModified = api.get('api/getProgramLevelArea');
 
       axios.all([getStatus])
           .then(
@@ -536,93 +519,11 @@ Details,
             //this.getModified = responses[1].data;
 
             console.log("Status",this.folderArea);
-            //console.log("Owner",this.getOwner);
-            //console.log("Modified",this.getModified);
-
-            //this.owner();
-            //this.modified();
 
           })).catch(errors=>{
               this.errors = errors.response;
           });
       },
-
-/*      owner(){
-        let arrFolderArea = [];
-        let arrGetOwner = [];
-
-        this.folderArea.forEach((value,index)=>{
-          arrFolderArea.push(value);
-        });
-        this.getOwner.forEach((value,index)=>{
-          arrGetOwner.push(value);
-        });
-
-        console.log("OwnerS",this.getOwner);
-
-        var d = 0;
-        var e = 0;
-
-        for(var d = 0; d<arrFolderArea.length; d=d+1){
-          for(var e = 0; e<arrGetOwner.length; e=e+1){
-            if(arrFolderArea[d].programID == arrGetOwner[e].programID){
-              arrFolderArea[d].programName = arrGetOwner[e].programName;
-              arrFolderArea[d].collegeName = arrGetOwner[e].collegeName;
-              arrFolderArea[d].campusName = arrGetOwner[e].campusName;
-            }
-          }
-        }
-        console.log("With Program Name",arrGetOwner);
-        console.log("FolderArea with Owner",this.folderArea);
-      },*/
-
-/*      modified(){
-        let arrFolderArea = [];
-        let arrGetModified = [];
-
-        this.folderArea.forEach((value,index)=>{
-          arrFolderArea.push(value);
-        });
-        this.getModified.forEach((value,index)=>{
-          arrGetModified.push(value);
-        });
-
-        var d = 0;
-        var e = 0;
-
-        for(var d = 0; d<arrFolderArea.length; d=d+1){
-          for(var e = 0; e<arrGetModified.length; e=e+1){
-            if(arrFolderArea[d].programLevelID == arrGetModified[e].programLevelID){
-              arrFolderArea[d].programName = arrGetOwner[e].programName;
-              arrFolderArea[d].collegeName = arrGetOwner[e].collegeName;
-              arrFolderArea[d].campusName = arrGetOwner[e].campusName;
-              arrFolderArea[d].status = arrGetOwner[e].levelStatus;
-              arrFolderArea[d].modifiedBy = arrGetModified[e].modifiedBy;
-              arrFolderArea[d].modifiedDate = arrGetModified[e].modifiedDate;
-            }
-          }
-        }
-        console.log("With Modified",arrGetModified);
-        console.log("FolderArea with Modified",this.folderArea);
-      },*/
-
-/*    fetchlevels(){
-
-      let temp = [];
-        console.log("levels");
-      api.get('api/getProgramLevel').then(response => {
-        // get body data
-
-       temp= response.data;
-        temp.forEach((value, index) => {
-        if(value.programID === JSON.parse(localStorage.getItem('programID'))){
-          return this.folderArea.push(value)
-        }
-        });  
-        console.log('levels' ,this.folderArea);
-
-    })
-    },*/
 
     routing(){
         this.$router.push('/program_area')
@@ -660,8 +561,6 @@ Details,
     }
   },
   created(){
-    //this.fetchlevels();
-    //this.details();
     this.retrieve();
     this.getPersonal();
     

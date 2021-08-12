@@ -31,6 +31,18 @@ class FetchController extends Controller
     return response()->json($data);
    }
 
+   function getAllProgramDetails(Request $request){
+    $data = DB::select('SELECT *
+                        FROM tbl_program
+                        INNER JOIN tbl_programlevel ON tbl_programlevel.programID = tbl_program.programID 
+                        INNER JOIN tbl_programlevelarea ON tbl_programlevel.programLevelID = tbl_programlevelarea.programLevelID
+                        WHERE programID = \''.$request->programID.'\'');
+
+    if($data == null)
+        return response()->json([]);
+    return response()->json($data);
+    }
+
    function getMember(){
 
     $member = Auth::user();
@@ -117,6 +129,16 @@ class FetchController extends Controller
             return response()->json([]);
         return response()->json($data);
      
+    }
+
+    function getProgramLevel1(){
+        $data = DB::select('SELECT * FROM tbl_program
+                            INNER JOIN tbl_programlevel ON tbl_program.programID = tbl_programlevel.programID 
+                            INNER JOIN tbl_programlevelbenchmark ON tbl_programlevel.programLevelID = tbl_programlevelbenchmark.programLevelID');
+                            
+        if($data == null)
+            return response()->json([]);
+        return response()->json($data);
     }
 
     function getProgramLevelID(Request $request){
@@ -325,14 +347,4 @@ function getTaskForce(){
       
         
     }
-    function getAllProgramDetails(Request $request){
-        $data = DB::select('SELECT * FROM tbl_programlevel
-                            INNER JOIN tbl_programlevelbenchmark ON tbl_programlevel.programLevelID = tbl_programlevelbenchmark.programLevelID 
-                            INNER JOIN tbl_program ON tbl_programlevelarea.programID = tbl_program.programID
-                            WHERE tbl_program.programID = \''.$request->programID.'\'');
-          if($data == null)
-          return response()->json([]);
-      return response()->json($data);
-    }
-
 }
