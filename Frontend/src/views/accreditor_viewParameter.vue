@@ -208,7 +208,7 @@
                   >
                     <a class="hover:underline">Infomation Technology > </a>
                     <a class="font-bold">Level 1> </a>
-                    <router-link to="/home_accreditor"
+                    <router-link to="/accreditor_home"
                       ><a class="font-bold hover:underline"
                         >Area 1</a
                       ></router-link
@@ -247,7 +247,7 @@
                         <div class="flex space-x-3 mb-0.5">
                           <div></div>
                           
-                             <router-link to="/viewfiles_accreditor">
+                             <router-link to="/accreditor_viewFiles">
                           <button
                             class="
                               text-white
