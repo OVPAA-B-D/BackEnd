@@ -299,7 +299,7 @@
                                       <img
                                         src="icons/icon13.svg"
                                         class="w-4 inline"
-                                      />{{ file_row.filename }}
+                                      />{{ file_row.fileName }}
                                     </div>
                                   </div>
                                 </div>
@@ -719,7 +719,8 @@ add_files(e) {
     },
     
     submitFile(e){
-      // console.log(e);
+      e.submitStatus = "Submitted";
+      console.log(e);
       api
         .post("api/submitProgramLevelBenchmark", e)
         .then(function(){
