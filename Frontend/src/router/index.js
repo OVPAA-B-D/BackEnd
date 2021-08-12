@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/login.vue'
 import ProgramLevel from '../views/programLevel.vue'
 import Home_admin from '../views/Home_admin.vue'
-import Home_taskforce from '../views/Home_taskforce.vue'
+import Home_taskforce from '../views/taskforce_home.vue'
 import Accreditor_home from '../views/accreditor_home.vue'
 import Accreditor_viewParameter from '../views/accreditor_viewParameter.vue'
 import Accreditor_viewFiles from '../views/accreditor_viewFiles.vue'
@@ -87,17 +87,17 @@ const routes = [
   {
     path: '/accreditor_home',
     name: 'Accreditor home',
-    component: accreditor_home
+    component: Accreditor_home
   },
   {
     path: '/accreditor_viewParameter',
     name: 'Accreditor view Parameter',
-    component: accreditor_viewParameter
+    component: Accreditor_viewParameter
   },
   {
     path: '/accreditor_viewFiles',
     name: 'Accreditor view Files',
-    component: accreditor_viewFiles
+    component: Accreditor_viewFiles
   },
   {
     path: '/admin_program_performance_profile',
