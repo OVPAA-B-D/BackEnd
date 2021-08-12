@@ -96,7 +96,7 @@
       <div class="pb-3">
         <h1 class="text-yellow-150 text-xl" v-for=" levelName in levels ">{{levelName.level}} Accreditation</h1>
         <h3 class="text-blue-150 text-4xl">{{programName}}</h3>
-        <h1 class="text-lg text-blue-150">Chairman in charge</h1>
+        <h1 class="text-lg text-blue-150">Chairman in Charge</h1>
        <span class="flex justify-start text-xs text-yellow-150 items-center gap-x-1">
             <img src="/icons/icon16_man.svg"><h1>{{firstName}} {{lastName}}</h1>
         </span>
@@ -388,6 +388,9 @@ export default {
  
   data(){
     return{
+      program_Info: [],
+      selectedAreaID: '',
+      levels: [],
       
       letters:['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
       storeParameter:{parameterID:'',parameterLabel: '',areaID: ''},
@@ -483,45 +486,39 @@ export default {
   },
   methods:{
 
-    getPersonal() {
-      var personal = JSON.parse(localStorage.getItem("Personal"));
-      console.log(personal);
-      api
-        .get("/api/getUser", { params: { email: personal.email } })
-        .then((res) => {
-          this.personalInfo = res.data;
+    getPersonal(){
 
-          console.log(this.personalInfo);
-        });
+          
+              var personal = JSON.parse(localStorage.getItem("Personal"));
+                 console.log(personal);
+           api.get("/api/getUser", {params:{email:personal.email}}).then((res)=>{
+               this.personalInfo = res.data;
+         
 
-         var programdata = JSON.parse(localStorage.getItem("ProgramData"));
-             this.programName = programdata.programName;
-             this.email = programdata.email;
-             this.firstName = programdata.firstName;
-             this.lastName = programdata.lastName;
-             this.contactNumber = programdata.contactNumber;
+               console.log(this.personalInfo);
+           });
 
-             var programLevelID = JSON.parse(localStorage.getItem('levelID'));
-              console.log("programLevelID", programLevelID);
-               api
-               .get("/api/getProgramLevelID", {params:{programLevelID}})
-               .then((res) => {
-                  this.levels = res.data;
+            var programdata  = [];
+            var programinfo = JSON.parse(localStorage.getItem("ProgramData"));
+           
 
-                  console.log("Level", this.levels);
-        });
-           var areaID = JSON.parse(localStorage.getItem('areaID'));
-              console.log("areaID", areaID);
-               api
-               .get("/api/getAreaID", {params:{areaID}})
-               .then((res) => {
-                  this.areas = res.data;
-
-                  console.log("areas ", this.areas);
-        });
+            programdata.push(programinfo);
+             console.log(programdata);
+            this.programName = programdata[0][0].programName;
+            this.email = programdata[0][0].email;
+            this.firstName = programdata[0][0].firstName;
+            this.lastName = programdata[0][0].lastName;
+            this.contactNumber = programdata[0][0].contactNumber;
+            this.programID = programdata[0][0].programID;
+            
+           api.get("/api/getTaskForceMembers").then((res) =>{
+             this.taskForceMembers = res.data;
+              console.log(this.taskForceMembers);
+           });
 
 
-    },
+           
+       },
     
   logout(){
       localStorage.removeItem("Personal");
