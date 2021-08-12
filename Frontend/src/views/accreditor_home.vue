@@ -89,7 +89,7 @@
                <div class=" flex sticky top-0 mt-4 space-x-2 items-center">
                    
                    <h1 class="text-blue-150 text-lg cursor-pointer">
-                       <router-link to="/home_admin"> <a class="hover:underline">Infomation Technology</a></router-link > >
+                       <a class="hover:underline">Infomation Technology</a>
                    
                     <a class="font-bold hover: underline">Level 1</a></h1>
                </div>
@@ -97,7 +97,7 @@
                      <div v-for="folderx in folderArea" :key="folderx.id" class=" text-center justify-center items-center">
                   <div class=" flex justify-center w-28 mt-10 hover:border-2 mr-2 border-yellow-150 cursor-pointer">
                       
-               <router-link to="/program_parameter">  <img :src="folderx.folder_icon"></router-link>
+               <router-link to="/viewparameter_accreditor">  <img :src="folderx.folder_icon"></router-link>
                 
                   </div>
                     <h1>{{folderx.floder_name}}</h1>
