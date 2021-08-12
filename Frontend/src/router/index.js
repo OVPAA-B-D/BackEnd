@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/login.vue'
 import ProgramLevel from '../views/programLevel.vue'
 import Home_admin from '../views/Home_admin.vue'
-import Home_taskforce from '../views/home_taskforce.vue'
+import Home_taskforce from '../views/Home_taskforce.vue'
 import Accreditor_home from '../views/accreditor_home.vue'
 import Accreditor_viewParameter from '../views/accreditor_viewParameter.vue'
 import Accreditor_viewFiles from '../views/accreditor_viewFiles.vue'
@@ -82,7 +82,7 @@ const routes = [
     path: '/public_folder_taskforce',
     name: 'Public folder',
     component: Public_folder_taskforce
-  }, 
+  },
 
   {
     path: '/accreditor_home',
@@ -94,7 +94,7 @@ const routes = [
     name: 'Accreditor view Parameter',
     component: accreditor_viewParameter
   },
-  
+  {
     path: '/accreditor_viewFiles',
     name: 'Accreditor view Files',
     component: accreditor_viewFiles
@@ -116,9 +116,9 @@ const routes = [
     name: 'Taskforce Members',
     component: Taskforce_members
   },
-  
- 
-  
+
+
+
   {
     path: '/about',
     name: 'About',
