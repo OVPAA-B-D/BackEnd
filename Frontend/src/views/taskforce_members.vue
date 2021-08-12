@@ -65,7 +65,7 @@
       <div class="w-full  cursor-default h-72 relative shadow-lg px-4 pt-7">
         <img :src="bg_image" class=" object-cover absolute  top-0 left-0 w-full h-full -z-1" />
         <div class="flex items-center justify-between ">
-        <h1 class="text-2xl text-blue-150 font-normal ">Task Force Members/<a class="font-bold">Information Technology</a></h1>
+        <h1 class="text-2xl text-blue-150 font-normal ">Task Force Members/<a class="font-bold">{{programName}}</a></h1>
          <input   @change="change_bgImage"  type="file" id="bg_images" class="hidden" />
         </div>
       <h1 class="absolute bottom-4 text-yellow-150 text-5xl">Task Force Members</h1>
@@ -135,40 +135,6 @@
                         </button>
                     </td>
                   </tr>
-                  <!-- <tr class="row">
-                    <td>
-                      <input type="checkbox" id="" name="taskforce1" value="">
-                      <label for="taskforce1">&ensp;Jill Smith</label>
-                    </td>
-                    <td>jill.smith@bicol-u.edu.ph</td>
-                    <td>09123456789</td>
-                    <td>Co-Chairman</td>
-                    <td>
-                        <button class="bg-green-150 space-x-2 flex items-center text-white px-3 text-center">
-                          <p class="material-icons text-sm ">edit</p> <p  class="text-sm">Edit</p>
-                        </button>
-                        <button class="bg-red-150 space-x-2 flex items-center text-white px-3 text-center">
-                          <p class="material-icons text-sm ">delete</p> <p class="text-sm">Delete</p>
-                        </button>
-                    </td>
-                  </tr>
-                  <tr class="row">
-                    <td>
-                      <input type="checkbox" id="" name="taskforce1" value="">
-                      <label for="taskforce1">&ensp;Eve Jackson</label>
-                    </td>
-                    <td>eve.jackson@bicol-u.edu.ph</td>
-                    <td>09123456798</td>
-                    <td>Chairman</td>
-                    <td>
-                      <button class="bg-green-150 space-x-2 flex sideBside justify-evenly items-center text-white px-3 text-center">
-                          <p class="material-icons text-sm ">edit</p> <p  class="text-sm">Edit</p>
-                        </button>
-                        <button class="bg-red-150 space-x-2 flex sideBside items-center text-white px-3 text-center">
-                          <p class="material-icons text-sm ">delete</p> <p class="text-sm">Delete</p>
-                        </button>
-                    </td>
-                  </tr> -->
                 </tbody>
               </table>
 
@@ -269,7 +235,22 @@ export default {
 
           console.log(this.personalInfo);
         });
+
+        var programdata  = [];
+            var programinfo = JSON.parse(localStorage.getItem("ProgramData"));
+           
+
+            programdata.push(programinfo);
+            this.programName = programdata[0][0].programName;
+            this.programID = programdata[0][0].programID;
+
+            api.get("/api/getTaskForceMembers").then((res) =>{
+             this.taskForceMembers = res.data;
+              console.log(this.taskForceMembers);
+           });
+
     },
+
     logout(){
       localStorage.removeItem("Personal");
        this.$router.push({ path: "login" });
