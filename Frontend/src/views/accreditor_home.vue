@@ -97,7 +97,7 @@
                      <div v-for="folderx in folderArea" :key="folderx.id" class=" text-center justify-center items-center">
                   <div class=" flex justify-center w-28 mt-10 hover:border-2 mr-2 border-yellow-150 cursor-pointer">
                       
-               <router-link to="/viewparameter_accreditor">  <img :src="folderx.folder_icon"></router-link>
+               <router-link to="/accreditor_viewParameter">  <img :src="folderx.folder_icon"></router-link>
                 
                   </div>
                     <h1>{{folderx.floder_name}}</h1>
